@@ -1,0 +1,1362 @@
+// File generated from our OpenAPI spec by Stainless.
+
+package com.spotted.api.models.artists
+
+import com.fasterxml.jackson.annotation.JsonAnyGetter
+import com.fasterxml.jackson.annotation.JsonAnySetter
+import com.fasterxml.jackson.annotation.JsonCreator
+import com.fasterxml.jackson.annotation.JsonProperty
+import com.spotted.api.core.Enum
+import com.spotted.api.core.ExcludeMissing
+import com.spotted.api.core.JsonField
+import com.spotted.api.core.JsonMissing
+import com.spotted.api.core.JsonValue
+import com.spotted.api.core.checkKnown
+import com.spotted.api.core.checkRequired
+import com.spotted.api.core.toImmutable
+import com.spotted.api.errors.SpottedInvalidDataException
+import com.spotted.api.models.AlbumRestrictionObject
+import com.spotted.api.models.ExternalUrlObject
+import com.spotted.api.models.ImageObject
+import com.spotted.api.models.SimplifiedArtistObject
+import java.util.Collections
+import java.util.Objects
+
+class ArtistListAlbumsResponse
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
+private constructor(
+    private val id: JsonField<String>,
+    private val albumGroup: JsonField<AlbumGroup>,
+    private val albumType: JsonField<AlbumType>,
+    private val artists: JsonField<List<SimplifiedArtistObject>>,
+    private val availableMarkets: JsonField<List<String>>,
+    private val externalUrls: JsonField<ExternalUrlObject>,
+    private val href: JsonField<String>,
+    private val images: JsonField<List<ImageObject>>,
+    private val name: JsonField<String>,
+    private val releaseDate: JsonField<String>,
+    private val releaseDatePrecision: JsonField<ReleaseDatePrecision>,
+    private val totalTracks: JsonField<Long>,
+    private val type: JsonField<Type>,
+    private val uri: JsonField<String>,
+    private val restrictions: JsonField<AlbumRestrictionObject>,
+    private val additionalProperties: MutableMap<String, JsonValue>,
+) {
+
+    @JsonCreator
+    private constructor(
+        @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("album_group")
+        @ExcludeMissing
+        albumGroup: JsonField<AlbumGroup> = JsonMissing.of(),
+        @JsonProperty("album_type")
+        @ExcludeMissing
+        albumType: JsonField<AlbumType> = JsonMissing.of(),
+        @JsonProperty("artists")
+        @ExcludeMissing
+        artists: JsonField<List<SimplifiedArtistObject>> = JsonMissing.of(),
+        @JsonProperty("available_markets")
+        @ExcludeMissing
+        availableMarkets: JsonField<List<String>> = JsonMissing.of(),
+        @JsonProperty("external_urls")
+        @ExcludeMissing
+        externalUrls: JsonField<ExternalUrlObject> = JsonMissing.of(),
+        @JsonProperty("href") @ExcludeMissing href: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("images")
+        @ExcludeMissing
+        images: JsonField<List<ImageObject>> = JsonMissing.of(),
+        @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("release_date")
+        @ExcludeMissing
+        releaseDate: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("release_date_precision")
+        @ExcludeMissing
+        releaseDatePrecision: JsonField<ReleaseDatePrecision> = JsonMissing.of(),
+        @JsonProperty("total_tracks")
+        @ExcludeMissing
+        totalTracks: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
+        @JsonProperty("uri") @ExcludeMissing uri: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("restrictions")
+        @ExcludeMissing
+        restrictions: JsonField<AlbumRestrictionObject> = JsonMissing.of(),
+    ) : this(
+        id,
+        albumGroup,
+        albumType,
+        artists,
+        availableMarkets,
+        externalUrls,
+        href,
+        images,
+        name,
+        releaseDate,
+        releaseDatePrecision,
+        totalTracks,
+        type,
+        uri,
+        restrictions,
+        mutableMapOf(),
+    )
+
+    /**
+     * The [Spotify ID](/documentation/web-api/concepts/spotify-uris-ids) for the album.
+     *
+     * @throws SpottedInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun id(): String = id.getRequired("id")
+
+    /**
+     * This field describes the relationship between the artist and the album.
+     *
+     * @throws SpottedInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun albumGroup(): AlbumGroup = albumGroup.getRequired("album_group")
+
+    /**
+     * The type of the album.
+     *
+     * @throws SpottedInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun albumType(): AlbumType = albumType.getRequired("album_type")
+
+    /**
+     * The artists of the album. Each artist object includes a link in `href` to more detailed
+     * information about the artist.
+     *
+     * @throws SpottedInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun artists(): List<SimplifiedArtistObject> = artists.getRequired("artists")
+
+    /**
+     * The markets in which the album is available:
+     * [ISO 3166-1 alpha-2 country codes](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
+     * _**NOTE**: an album is considered available in a market when at least 1 of its tracks is
+     * available in that market._
+     *
+     * @throws SpottedInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun availableMarkets(): List<String> = availableMarkets.getRequired("available_markets")
+
+    /**
+     * Known external URLs for this album.
+     *
+     * @throws SpottedInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun externalUrls(): ExternalUrlObject = externalUrls.getRequired("external_urls")
+
+    /**
+     * A link to the Web API endpoint providing full details of the album.
+     *
+     * @throws SpottedInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun href(): String = href.getRequired("href")
+
+    /**
+     * The cover art for the album in various sizes, widest first.
+     *
+     * @throws SpottedInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun images(): List<ImageObject> = images.getRequired("images")
+
+    /**
+     * The name of the album. In case of an album takedown, the value may be an empty string.
+     *
+     * @throws SpottedInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun name(): String = name.getRequired("name")
+
+    /**
+     * The date the album was first released.
+     *
+     * @throws SpottedInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun releaseDate(): String = releaseDate.getRequired("release_date")
+
+    /**
+     * The precision with which `release_date` value is known.
+     *
+     * @throws SpottedInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun releaseDatePrecision(): ReleaseDatePrecision =
+        releaseDatePrecision.getRequired("release_date_precision")
+
+    /**
+     * The number of tracks in the album.
+     *
+     * @throws SpottedInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun totalTracks(): Long = totalTracks.getRequired("total_tracks")
+
+    /**
+     * The object type.
+     *
+     * @throws SpottedInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun type(): Type = type.getRequired("type")
+
+    /**
+     * The [Spotify URI](/documentation/web-api/concepts/spotify-uris-ids) for the album.
+     *
+     * @throws SpottedInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun uri(): String = uri.getRequired("uri")
+
+    /**
+     * Included in the response when a content restriction is applied.
+     *
+     * @throws SpottedInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun restrictions(): AlbumRestrictionObject? = restrictions.getNullable("restrictions")
+
+    /**
+     * Returns the raw JSON value of [id].
+     *
+     * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
+
+    /**
+     * Returns the raw JSON value of [albumGroup].
+     *
+     * Unlike [albumGroup], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("album_group")
+    @ExcludeMissing
+    fun _albumGroup(): JsonField<AlbumGroup> = albumGroup
+
+    /**
+     * Returns the raw JSON value of [albumType].
+     *
+     * Unlike [albumType], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("album_type") @ExcludeMissing fun _albumType(): JsonField<AlbumType> = albumType
+
+    /**
+     * Returns the raw JSON value of [artists].
+     *
+     * Unlike [artists], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("artists")
+    @ExcludeMissing
+    fun _artists(): JsonField<List<SimplifiedArtistObject>> = artists
+
+    /**
+     * Returns the raw JSON value of [availableMarkets].
+     *
+     * Unlike [availableMarkets], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    @JsonProperty("available_markets")
+    @ExcludeMissing
+    fun _availableMarkets(): JsonField<List<String>> = availableMarkets
+
+    /**
+     * Returns the raw JSON value of [externalUrls].
+     *
+     * Unlike [externalUrls], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("external_urls")
+    @ExcludeMissing
+    fun _externalUrls(): JsonField<ExternalUrlObject> = externalUrls
+
+    /**
+     * Returns the raw JSON value of [href].
+     *
+     * Unlike [href], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("href") @ExcludeMissing fun _href(): JsonField<String> = href
+
+    /**
+     * Returns the raw JSON value of [images].
+     *
+     * Unlike [images], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("images") @ExcludeMissing fun _images(): JsonField<List<ImageObject>> = images
+
+    /**
+     * Returns the raw JSON value of [name].
+     *
+     * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
+
+    /**
+     * Returns the raw JSON value of [releaseDate].
+     *
+     * Unlike [releaseDate], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("release_date")
+    @ExcludeMissing
+    fun _releaseDate(): JsonField<String> = releaseDate
+
+    /**
+     * Returns the raw JSON value of [releaseDatePrecision].
+     *
+     * Unlike [releaseDatePrecision], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    @JsonProperty("release_date_precision")
+    @ExcludeMissing
+    fun _releaseDatePrecision(): JsonField<ReleaseDatePrecision> = releaseDatePrecision
+
+    /**
+     * Returns the raw JSON value of [totalTracks].
+     *
+     * Unlike [totalTracks], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("total_tracks") @ExcludeMissing fun _totalTracks(): JsonField<Long> = totalTracks
+
+    /**
+     * Returns the raw JSON value of [type].
+     *
+     * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
+
+    /**
+     * Returns the raw JSON value of [uri].
+     *
+     * Unlike [uri], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("uri") @ExcludeMissing fun _uri(): JsonField<String> = uri
+
+    /**
+     * Returns the raw JSON value of [restrictions].
+     *
+     * Unlike [restrictions], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("restrictions")
+    @ExcludeMissing
+    fun _restrictions(): JsonField<AlbumRestrictionObject> = restrictions
+
+    @JsonAnySetter
+    private fun putAdditionalProperty(key: String, value: JsonValue) {
+        additionalProperties.put(key, value)
+    }
+
+    @JsonAnyGetter
+    @ExcludeMissing
+    fun _additionalProperties(): Map<String, JsonValue> =
+        Collections.unmodifiableMap(additionalProperties)
+
+    fun toBuilder() = Builder().from(this)
+
+    companion object {
+
+        /**
+         * Returns a mutable builder for constructing an instance of [ArtistListAlbumsResponse].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * .albumGroup()
+         * .albumType()
+         * .artists()
+         * .availableMarkets()
+         * .externalUrls()
+         * .href()
+         * .images()
+         * .name()
+         * .releaseDate()
+         * .releaseDatePrecision()
+         * .totalTracks()
+         * .type()
+         * .uri()
+         * ```
+         */
+        fun builder() = Builder()
+    }
+
+    /** A builder for [ArtistListAlbumsResponse]. */
+    class Builder internal constructor() {
+
+        private var id: JsonField<String>? = null
+        private var albumGroup: JsonField<AlbumGroup>? = null
+        private var albumType: JsonField<AlbumType>? = null
+        private var artists: JsonField<MutableList<SimplifiedArtistObject>>? = null
+        private var availableMarkets: JsonField<MutableList<String>>? = null
+        private var externalUrls: JsonField<ExternalUrlObject>? = null
+        private var href: JsonField<String>? = null
+        private var images: JsonField<MutableList<ImageObject>>? = null
+        private var name: JsonField<String>? = null
+        private var releaseDate: JsonField<String>? = null
+        private var releaseDatePrecision: JsonField<ReleaseDatePrecision>? = null
+        private var totalTracks: JsonField<Long>? = null
+        private var type: JsonField<Type>? = null
+        private var uri: JsonField<String>? = null
+        private var restrictions: JsonField<AlbumRestrictionObject> = JsonMissing.of()
+        private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+        internal fun from(artistListAlbumsResponse: ArtistListAlbumsResponse) = apply {
+            id = artistListAlbumsResponse.id
+            albumGroup = artistListAlbumsResponse.albumGroup
+            albumType = artistListAlbumsResponse.albumType
+            artists = artistListAlbumsResponse.artists.map { it.toMutableList() }
+            availableMarkets = artistListAlbumsResponse.availableMarkets.map { it.toMutableList() }
+            externalUrls = artistListAlbumsResponse.externalUrls
+            href = artistListAlbumsResponse.href
+            images = artistListAlbumsResponse.images.map { it.toMutableList() }
+            name = artistListAlbumsResponse.name
+            releaseDate = artistListAlbumsResponse.releaseDate
+            releaseDatePrecision = artistListAlbumsResponse.releaseDatePrecision
+            totalTracks = artistListAlbumsResponse.totalTracks
+            type = artistListAlbumsResponse.type
+            uri = artistListAlbumsResponse.uri
+            restrictions = artistListAlbumsResponse.restrictions
+            additionalProperties = artistListAlbumsResponse.additionalProperties.toMutableMap()
+        }
+
+        /** The [Spotify ID](/documentation/web-api/concepts/spotify-uris-ids) for the album. */
+        fun id(id: String) = id(JsonField.of(id))
+
+        /**
+         * Sets [Builder.id] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.id] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun id(id: JsonField<String>) = apply { this.id = id }
+
+        /** This field describes the relationship between the artist and the album. */
+        fun albumGroup(albumGroup: AlbumGroup) = albumGroup(JsonField.of(albumGroup))
+
+        /**
+         * Sets [Builder.albumGroup] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.albumGroup] with a well-typed [AlbumGroup] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun albumGroup(albumGroup: JsonField<AlbumGroup>) = apply { this.albumGroup = albumGroup }
+
+        /** The type of the album. */
+        fun albumType(albumType: AlbumType) = albumType(JsonField.of(albumType))
+
+        /**
+         * Sets [Builder.albumType] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.albumType] with a well-typed [AlbumType] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun albumType(albumType: JsonField<AlbumType>) = apply { this.albumType = albumType }
+
+        /**
+         * The artists of the album. Each artist object includes a link in `href` to more detailed
+         * information about the artist.
+         */
+        fun artists(artists: List<SimplifiedArtistObject>) = artists(JsonField.of(artists))
+
+        /**
+         * Sets [Builder.artists] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.artists] with a well-typed
+         * `List<SimplifiedArtistObject>` value instead. This method is primarily for setting the
+         * field to an undocumented or not yet supported value.
+         */
+        fun artists(artists: JsonField<List<SimplifiedArtistObject>>) = apply {
+            this.artists = artists.map { it.toMutableList() }
+        }
+
+        /**
+         * Adds a single [SimplifiedArtistObject] to [artists].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
+         */
+        fun addArtist(artist: SimplifiedArtistObject) = apply {
+            artists =
+                (artists ?: JsonField.of(mutableListOf())).also {
+                    checkKnown("artists", it).add(artist)
+                }
+        }
+
+        /**
+         * The markets in which the album is available:
+         * [ISO 3166-1 alpha-2 country codes](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
+         * _**NOTE**: an album is considered available in a market when at least 1 of its tracks is
+         * available in that market._
+         */
+        fun availableMarkets(availableMarkets: List<String>) =
+            availableMarkets(JsonField.of(availableMarkets))
+
+        /**
+         * Sets [Builder.availableMarkets] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.availableMarkets] with a well-typed `List<String>` value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun availableMarkets(availableMarkets: JsonField<List<String>>) = apply {
+            this.availableMarkets = availableMarkets.map { it.toMutableList() }
+        }
+
+        /**
+         * Adds a single [String] to [availableMarkets].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
+         */
+        fun addAvailableMarket(availableMarket: String) = apply {
+            availableMarkets =
+                (availableMarkets ?: JsonField.of(mutableListOf())).also {
+                    checkKnown("availableMarkets", it).add(availableMarket)
+                }
+        }
+
+        /** Known external URLs for this album. */
+        fun externalUrls(externalUrls: ExternalUrlObject) = externalUrls(JsonField.of(externalUrls))
+
+        /**
+         * Sets [Builder.externalUrls] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.externalUrls] with a well-typed [ExternalUrlObject]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        fun externalUrls(externalUrls: JsonField<ExternalUrlObject>) = apply {
+            this.externalUrls = externalUrls
+        }
+
+        /** A link to the Web API endpoint providing full details of the album. */
+        fun href(href: String) = href(JsonField.of(href))
+
+        /**
+         * Sets [Builder.href] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.href] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun href(href: JsonField<String>) = apply { this.href = href }
+
+        /** The cover art for the album in various sizes, widest first. */
+        fun images(images: List<ImageObject>) = images(JsonField.of(images))
+
+        /**
+         * Sets [Builder.images] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.images] with a well-typed `List<ImageObject>` value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun images(images: JsonField<List<ImageObject>>) = apply {
+            this.images = images.map { it.toMutableList() }
+        }
+
+        /**
+         * Adds a single [ImageObject] to [images].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
+         */
+        fun addImage(image: ImageObject) = apply {
+            images =
+                (images ?: JsonField.of(mutableListOf())).also {
+                    checkKnown("images", it).add(image)
+                }
+        }
+
+        /**
+         * The name of the album. In case of an album takedown, the value may be an empty string.
+         */
+        fun name(name: String) = name(JsonField.of(name))
+
+        /**
+         * Sets [Builder.name] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.name] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun name(name: JsonField<String>) = apply { this.name = name }
+
+        /** The date the album was first released. */
+        fun releaseDate(releaseDate: String) = releaseDate(JsonField.of(releaseDate))
+
+        /**
+         * Sets [Builder.releaseDate] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.releaseDate] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun releaseDate(releaseDate: JsonField<String>) = apply { this.releaseDate = releaseDate }
+
+        /** The precision with which `release_date` value is known. */
+        fun releaseDatePrecision(releaseDatePrecision: ReleaseDatePrecision) =
+            releaseDatePrecision(JsonField.of(releaseDatePrecision))
+
+        /**
+         * Sets [Builder.releaseDatePrecision] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.releaseDatePrecision] with a well-typed
+         * [ReleaseDatePrecision] value instead. This method is primarily for setting the field to
+         * an undocumented or not yet supported value.
+         */
+        fun releaseDatePrecision(releaseDatePrecision: JsonField<ReleaseDatePrecision>) = apply {
+            this.releaseDatePrecision = releaseDatePrecision
+        }
+
+        /** The number of tracks in the album. */
+        fun totalTracks(totalTracks: Long) = totalTracks(JsonField.of(totalTracks))
+
+        /**
+         * Sets [Builder.totalTracks] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.totalTracks] with a well-typed [Long] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun totalTracks(totalTracks: JsonField<Long>) = apply { this.totalTracks = totalTracks }
+
+        /** The object type. */
+        fun type(type: Type) = type(JsonField.of(type))
+
+        /**
+         * Sets [Builder.type] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.type] with a well-typed [Type] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun type(type: JsonField<Type>) = apply { this.type = type }
+
+        /** The [Spotify URI](/documentation/web-api/concepts/spotify-uris-ids) for the album. */
+        fun uri(uri: String) = uri(JsonField.of(uri))
+
+        /**
+         * Sets [Builder.uri] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.uri] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun uri(uri: JsonField<String>) = apply { this.uri = uri }
+
+        /** Included in the response when a content restriction is applied. */
+        fun restrictions(restrictions: AlbumRestrictionObject) =
+            restrictions(JsonField.of(restrictions))
+
+        /**
+         * Sets [Builder.restrictions] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.restrictions] with a well-typed [AlbumRestrictionObject]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        fun restrictions(restrictions: JsonField<AlbumRestrictionObject>) = apply {
+            this.restrictions = restrictions
+        }
+
+        fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+            this.additionalProperties.clear()
+            putAllAdditionalProperties(additionalProperties)
+        }
+
+        fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+            additionalProperties.put(key, value)
+        }
+
+        fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+            this.additionalProperties.putAll(additionalProperties)
+        }
+
+        fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+            keys.forEach(::removeAdditionalProperty)
+        }
+
+        /**
+         * Returns an immutable instance of [ArtistListAlbumsResponse].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * .albumGroup()
+         * .albumType()
+         * .artists()
+         * .availableMarkets()
+         * .externalUrls()
+         * .href()
+         * .images()
+         * .name()
+         * .releaseDate()
+         * .releaseDatePrecision()
+         * .totalTracks()
+         * .type()
+         * .uri()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
+        fun build(): ArtistListAlbumsResponse =
+            ArtistListAlbumsResponse(
+                checkRequired("id", id),
+                checkRequired("albumGroup", albumGroup),
+                checkRequired("albumType", albumType),
+                checkRequired("artists", artists).map { it.toImmutable() },
+                checkRequired("availableMarkets", availableMarkets).map { it.toImmutable() },
+                checkRequired("externalUrls", externalUrls),
+                checkRequired("href", href),
+                checkRequired("images", images).map { it.toImmutable() },
+                checkRequired("name", name),
+                checkRequired("releaseDate", releaseDate),
+                checkRequired("releaseDatePrecision", releaseDatePrecision),
+                checkRequired("totalTracks", totalTracks),
+                checkRequired("type", type),
+                checkRequired("uri", uri),
+                restrictions,
+                additionalProperties.toMutableMap(),
+            )
+    }
+
+    private var validated: Boolean = false
+
+    fun validate(): ArtistListAlbumsResponse = apply {
+        if (validated) {
+            return@apply
+        }
+
+        id()
+        albumGroup().validate()
+        albumType().validate()
+        artists().forEach { it.validate() }
+        availableMarkets()
+        externalUrls().validate()
+        href()
+        images().forEach { it.validate() }
+        name()
+        releaseDate()
+        releaseDatePrecision().validate()
+        totalTracks()
+        type().validate()
+        uri()
+        restrictions()?.validate()
+        validated = true
+    }
+
+    fun isValid(): Boolean =
+        try {
+            validate()
+            true
+        } catch (e: SpottedInvalidDataException) {
+            false
+        }
+
+    /**
+     * Returns a score indicating how many valid values are contained in this object recursively.
+     *
+     * Used for best match union deserialization.
+     */
+    internal fun validity(): Int =
+        (if (id.asKnown() == null) 0 else 1) +
+            (albumGroup.asKnown()?.validity() ?: 0) +
+            (albumType.asKnown()?.validity() ?: 0) +
+            (artists.asKnown()?.sumOf { it.validity().toInt() } ?: 0) +
+            (availableMarkets.asKnown()?.size ?: 0) +
+            (externalUrls.asKnown()?.validity() ?: 0) +
+            (if (href.asKnown() == null) 0 else 1) +
+            (images.asKnown()?.sumOf { it.validity().toInt() } ?: 0) +
+            (if (name.asKnown() == null) 0 else 1) +
+            (if (releaseDate.asKnown() == null) 0 else 1) +
+            (releaseDatePrecision.asKnown()?.validity() ?: 0) +
+            (if (totalTracks.asKnown() == null) 0 else 1) +
+            (type.asKnown()?.validity() ?: 0) +
+            (if (uri.asKnown() == null) 0 else 1) +
+            (restrictions.asKnown()?.validity() ?: 0)
+
+    /** This field describes the relationship between the artist and the album. */
+    class AlbumGroup @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            val ALBUM = of("album")
+
+            val SINGLE = of("single")
+
+            val COMPILATION = of("compilation")
+
+            val APPEARS_ON = of("appears_on")
+
+            fun of(value: String) = AlbumGroup(JsonField.of(value))
+        }
+
+        /** An enum containing [AlbumGroup]'s known values. */
+        enum class Known {
+            ALBUM,
+            SINGLE,
+            COMPILATION,
+            APPEARS_ON,
+        }
+
+        /**
+         * An enum containing [AlbumGroup]'s known values, as well as an [_UNKNOWN] member.
+         *
+         * An instance of [AlbumGroup] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            ALBUM,
+            SINGLE,
+            COMPILATION,
+            APPEARS_ON,
+            /**
+             * An enum member indicating that [AlbumGroup] was instantiated with an unknown value.
+             */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                ALBUM -> Value.ALBUM
+                SINGLE -> Value.SINGLE
+                COMPILATION -> Value.COMPILATION
+                APPEARS_ON -> Value.APPEARS_ON
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws SpottedInvalidDataException if this class instance's value is a not a known
+         *   member.
+         */
+        fun known(): Known =
+            when (this) {
+                ALBUM -> Known.ALBUM
+                SINGLE -> Known.SINGLE
+                COMPILATION -> Known.COMPILATION
+                APPEARS_ON -> Known.APPEARS_ON
+                else -> throw SpottedInvalidDataException("Unknown AlbumGroup: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws SpottedInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString() ?: throw SpottedInvalidDataException("Value is not a String")
+
+        private var validated: Boolean = false
+
+        fun validate(): AlbumGroup = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: SpottedInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is AlbumGroup && value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+    }
+
+    /** The type of the album. */
+    class AlbumType @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            val ALBUM = of("album")
+
+            val SINGLE = of("single")
+
+            val COMPILATION = of("compilation")
+
+            fun of(value: String) = AlbumType(JsonField.of(value))
+        }
+
+        /** An enum containing [AlbumType]'s known values. */
+        enum class Known {
+            ALBUM,
+            SINGLE,
+            COMPILATION,
+        }
+
+        /**
+         * An enum containing [AlbumType]'s known values, as well as an [_UNKNOWN] member.
+         *
+         * An instance of [AlbumType] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            ALBUM,
+            SINGLE,
+            COMPILATION,
+            /**
+             * An enum member indicating that [AlbumType] was instantiated with an unknown value.
+             */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                ALBUM -> Value.ALBUM
+                SINGLE -> Value.SINGLE
+                COMPILATION -> Value.COMPILATION
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws SpottedInvalidDataException if this class instance's value is a not a known
+         *   member.
+         */
+        fun known(): Known =
+            when (this) {
+                ALBUM -> Known.ALBUM
+                SINGLE -> Known.SINGLE
+                COMPILATION -> Known.COMPILATION
+                else -> throw SpottedInvalidDataException("Unknown AlbumType: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws SpottedInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString() ?: throw SpottedInvalidDataException("Value is not a String")
+
+        private var validated: Boolean = false
+
+        fun validate(): AlbumType = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: SpottedInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is AlbumType && value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+    }
+
+    /** The precision with which `release_date` value is known. */
+    class ReleaseDatePrecision
+    @JsonCreator
+    private constructor(private val value: JsonField<String>) : Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            val YEAR = of("year")
+
+            val MONTH = of("month")
+
+            val DAY = of("day")
+
+            fun of(value: String) = ReleaseDatePrecision(JsonField.of(value))
+        }
+
+        /** An enum containing [ReleaseDatePrecision]'s known values. */
+        enum class Known {
+            YEAR,
+            MONTH,
+            DAY,
+        }
+
+        /**
+         * An enum containing [ReleaseDatePrecision]'s known values, as well as an [_UNKNOWN]
+         * member.
+         *
+         * An instance of [ReleaseDatePrecision] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            YEAR,
+            MONTH,
+            DAY,
+            /**
+             * An enum member indicating that [ReleaseDatePrecision] was instantiated with an
+             * unknown value.
+             */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                YEAR -> Value.YEAR
+                MONTH -> Value.MONTH
+                DAY -> Value.DAY
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws SpottedInvalidDataException if this class instance's value is a not a known
+         *   member.
+         */
+        fun known(): Known =
+            when (this) {
+                YEAR -> Known.YEAR
+                MONTH -> Known.MONTH
+                DAY -> Known.DAY
+                else -> throw SpottedInvalidDataException("Unknown ReleaseDatePrecision: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws SpottedInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString() ?: throw SpottedInvalidDataException("Value is not a String")
+
+        private var validated: Boolean = false
+
+        fun validate(): ReleaseDatePrecision = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: SpottedInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is ReleaseDatePrecision && value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+    }
+
+    /** The object type. */
+    class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            val ALBUM = of("album")
+
+            fun of(value: String) = Type(JsonField.of(value))
+        }
+
+        /** An enum containing [Type]'s known values. */
+        enum class Known {
+            ALBUM
+        }
+
+        /**
+         * An enum containing [Type]'s known values, as well as an [_UNKNOWN] member.
+         *
+         * An instance of [Type] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            ALBUM,
+            /** An enum member indicating that [Type] was instantiated with an unknown value. */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                ALBUM -> Value.ALBUM
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws SpottedInvalidDataException if this class instance's value is a not a known
+         *   member.
+         */
+        fun known(): Known =
+            when (this) {
+                ALBUM -> Known.ALBUM
+                else -> throw SpottedInvalidDataException("Unknown Type: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws SpottedInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString() ?: throw SpottedInvalidDataException("Value is not a String")
+
+        private var validated: Boolean = false
+
+        fun validate(): Type = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: SpottedInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Type && value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return other is ArtistListAlbumsResponse &&
+            id == other.id &&
+            albumGroup == other.albumGroup &&
+            albumType == other.albumType &&
+            artists == other.artists &&
+            availableMarkets == other.availableMarkets &&
+            externalUrls == other.externalUrls &&
+            href == other.href &&
+            images == other.images &&
+            name == other.name &&
+            releaseDate == other.releaseDate &&
+            releaseDatePrecision == other.releaseDatePrecision &&
+            totalTracks == other.totalTracks &&
+            type == other.type &&
+            uri == other.uri &&
+            restrictions == other.restrictions &&
+            additionalProperties == other.additionalProperties
+    }
+
+    private val hashCode: Int by lazy {
+        Objects.hash(
+            id,
+            albumGroup,
+            albumType,
+            artists,
+            availableMarkets,
+            externalUrls,
+            href,
+            images,
+            name,
+            releaseDate,
+            releaseDatePrecision,
+            totalTracks,
+            type,
+            uri,
+            restrictions,
+            additionalProperties,
+        )
+    }
+
+    override fun hashCode(): Int = hashCode
+
+    override fun toString() =
+        "ArtistListAlbumsResponse{id=$id, albumGroup=$albumGroup, albumType=$albumType, artists=$artists, availableMarkets=$availableMarkets, externalUrls=$externalUrls, href=$href, images=$images, name=$name, releaseDate=$releaseDate, releaseDatePrecision=$releaseDatePrecision, totalTracks=$totalTracks, type=$type, uri=$uri, restrictions=$restrictions, additionalProperties=$additionalProperties}"
+}
