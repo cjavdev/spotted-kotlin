@@ -3,11 +3,11 @@
 [![Maven Central](https://img.shields.io/maven-central/v/com.spotted.api/spotted-kotlin)](https://central.sonatype.com/artifact/com.spotted.api/spotted-kotlin/0.0.1)
 [![javadoc](https://javadoc.io/badge2/com.spotted.api/spotted-kotlin/0.0.1/javadoc.svg)](https://javadoc.io/doc/com.spotted.api/spotted-kotlin/0.0.1)
 
-The Spotted Kotlin SDK provides convenient access to the [Spotted REST API](https://community.spotify.com/t5/Spotify-for-Developers/bd-p/Spotify_Developer) from applications written in Kotlin.
+The Spotted Kotlin SDK provides convenient access to the [Spotted REST API](https://spotted.stldocs.com) from applications written in Kotlin.
 
 It is generated with [Stainless](https://www.stainless.com/).
 
-The REST API documentation can be found on [community.spotify.com](https://community.spotify.com/t5/Spotify-for-Developers/bd-p/Spotify_Developer). KDocs are available on [javadoc.io](https://javadoc.io/doc/com.spotted.api/spotted-kotlin/0.0.1).
+The REST API documentation can be found on [spotted.stldocs.com](https://spotted.stldocs.com). KDocs are available on [javadoc.io](https://javadoc.io/doc/com.spotted.api/spotted-kotlin/0.0.1).
 
 ## Installation
 
