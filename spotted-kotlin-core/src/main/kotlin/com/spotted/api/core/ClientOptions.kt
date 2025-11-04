@@ -94,6 +94,7 @@ private constructor(
     val maxRetries: Int,
     val clientId: String,
     val clientSecret: String,
+    val webhookKey: String?,
 ) {
 
     init {
@@ -151,6 +152,7 @@ private constructor(
         private var maxRetries: Int = 2
         private var clientId: String? = null
         private var clientSecret: String? = null
+        private var webhookKey: String? = null
 
         internal fun from(clientOptions: ClientOptions) = apply {
             httpClient = clientOptions.originalHttpClient
@@ -166,6 +168,7 @@ private constructor(
             maxRetries = clientOptions.maxRetries
             clientId = clientOptions.clientId
             clientSecret = clientOptions.clientSecret
+            webhookKey = clientOptions.webhookKey
         }
 
         /**
@@ -273,6 +276,8 @@ private constructor(
 
         fun clientSecret(clientSecret: String) = apply { this.clientSecret = clientSecret }
 
+        fun webhookKey(webhookKey: String?) = apply { this.webhookKey = webhookKey }
+
         fun headers(headers: Headers) = apply {
             this.headers.clear()
             putAllHeaders(headers)
@@ -364,6 +369,7 @@ private constructor(
          * |--------------|-----------------------------|-----------------------|--------|------------------------------|
          * |`clientId`    |`spotted.spotifyClientId`    |`SPOTIFY_CLIENT_ID`    |true    |-                             |
          * |`clientSecret`|`spotted.spotifyClientSecret`|`SPOTIFY_CLIENT_SECRET`|true    |-                             |
+         * |`webhookKey`  |`spotted.orgWebhookKey`      |`ORG_WEBHOOK_KEY`      |false   |-                             |
          * |`baseUrl`     |`spotted.baseUrl`            |`SPOTTED_BASE_URL`     |true    |`"https://api.spotify.com/v1"`|
          *
          * System properties take precedence over environment variables.
@@ -377,6 +383,9 @@ private constructor(
             (System.getProperty("spotted.spotifyClientSecret")
                     ?: System.getenv("SPOTIFY_CLIENT_SECRET"))
                 ?.let { clientSecret(it) }
+            (System.getProperty("spotted.orgWebhookKey") ?: System.getenv("ORG_WEBHOOK_KEY"))?.let {
+                webhookKey(it)
+            }
         }
 
         /**
@@ -447,6 +456,7 @@ private constructor(
                 maxRetries,
                 clientId,
                 clientSecret,
+                webhookKey,
             )
         }
     }

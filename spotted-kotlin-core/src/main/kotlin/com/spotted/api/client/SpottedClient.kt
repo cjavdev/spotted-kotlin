@@ -19,6 +19,7 @@ import com.spotted.api.services.blocking.SearchService
 import com.spotted.api.services.blocking.ShowService
 import com.spotted.api.services.blocking.TrackService
 import com.spotted.api.services.blocking.UserService
+import com.spotted.api.services.blocking.WebhookService
 
 /**
  * A client for interacting with the Spotted REST API synchronously. You can also switch to
@@ -86,6 +87,8 @@ interface SpottedClient {
 
     fun recommendations(): RecommendationService
 
+    fun webhooks(): WebhookService
+
     fun markets(): MarketService
 
     /**
@@ -140,6 +143,8 @@ interface SpottedClient {
         fun audioAnalysis(): AudioAnalysisService.WithRawResponse
 
         fun recommendations(): RecommendationService.WithRawResponse
+
+        fun webhooks(): WebhookService.WithRawResponse
 
         fun markets(): MarketService.WithRawResponse
     }
