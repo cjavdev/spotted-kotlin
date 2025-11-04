@@ -36,6 +36,8 @@ import com.spotted.api.services.blocking.TrackService
 import com.spotted.api.services.blocking.TrackServiceImpl
 import com.spotted.api.services.blocking.UserService
 import com.spotted.api.services.blocking.UserServiceImpl
+import com.spotted.api.services.blocking.WebhookService
+import com.spotted.api.services.blocking.WebhookServiceImpl
 
 class SpottedClientImpl(private val clientOptions: ClientOptions) : SpottedClient {
 
@@ -94,6 +96,8 @@ class SpottedClientImpl(private val clientOptions: ClientOptions) : SpottedClien
         RecommendationServiceImpl(clientOptionsWithUserAgent)
     }
 
+    private val webhooks: WebhookService by lazy { WebhookServiceImpl(clientOptionsWithUserAgent) }
+
     private val markets: MarketService by lazy { MarketServiceImpl(clientOptionsWithUserAgent) }
 
     override fun async(): SpottedClientAsync = async
@@ -132,6 +136,8 @@ class SpottedClientImpl(private val clientOptions: ClientOptions) : SpottedClien
     override fun audioAnalysis(): AudioAnalysisService = audioAnalysis
 
     override fun recommendations(): RecommendationService = recommendations
+
+    override fun webhooks(): WebhookService = webhooks
 
     override fun markets(): MarketService = markets
 
@@ -200,6 +206,10 @@ class SpottedClientImpl(private val clientOptions: ClientOptions) : SpottedClien
             RecommendationServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val webhooks: WebhookService.WithRawResponse by lazy {
+            WebhookServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
         private val markets: MarketService.WithRawResponse by lazy {
             MarketServiceImpl.WithRawResponseImpl(clientOptions)
         }
@@ -238,6 +248,8 @@ class SpottedClientImpl(private val clientOptions: ClientOptions) : SpottedClien
         override fun audioAnalysis(): AudioAnalysisService.WithRawResponse = audioAnalysis
 
         override fun recommendations(): RecommendationService.WithRawResponse = recommendations
+
+        override fun webhooks(): WebhookService.WithRawResponse = webhooks
 
         override fun markets(): MarketService.WithRawResponse = markets
     }
