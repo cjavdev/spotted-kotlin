@@ -29,12 +29,11 @@ internal class TrackServiceAsyncTest {
             trackServiceAsync.update(
                 TrackUpdateParams.builder()
                     .playlistId("3cEYpjA9oz9GiPac4AsH4n")
-                    .queryUris("uris")
                     .insertBefore(3L)
                     .rangeLength(2L)
                     .rangeStart(1L)
                     .snapshotId("snapshot_id")
-                    .addBodyUris("string")
+                    .addUris("string")
                     .build()
             )
 
@@ -72,12 +71,8 @@ internal class TrackServiceAsyncTest {
             trackServiceAsync.add(
                 TrackAddParams.builder()
                     .playlistId("3cEYpjA9oz9GiPac4AsH4n")
-                    .queryPosition(0L)
-                    .queryUris(
-                        "spotify:track:4iV5W9uYEdYUVa79Axb7Rh,spotify:track:1301WleyT98MSxVHPZCA6M"
-                    )
-                    .bodyPosition(0L)
-                    .addBodyUris("string")
+                    .position(0L)
+                    .addUris("string")
                     .build()
             )
 

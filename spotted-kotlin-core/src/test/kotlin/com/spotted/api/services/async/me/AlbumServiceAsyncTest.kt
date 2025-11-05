@@ -59,12 +59,7 @@ internal class AlbumServiceAsyncTest {
                 .build()
         val albumServiceAsync = client.me().albums()
 
-        albumServiceAsync.remove(
-            AlbumRemoveParams.builder()
-                .queryIds("382ObEPsp2rxGrnsizN5TX,1A2GTWGtFfWp7KSQTwWOyo,2noRn2Aes5aoNVsU6iWThc")
-                .addBodyId("string")
-                .build()
-        )
+        albumServiceAsync.remove(AlbumRemoveParams.builder().addId("string").build())
     }
 
     @Disabled("Prism tests are disabled")
@@ -78,11 +73,6 @@ internal class AlbumServiceAsyncTest {
                 .build()
         val albumServiceAsync = client.me().albums()
 
-        albumServiceAsync.save(
-            AlbumSaveParams.builder()
-                .queryIds("382ObEPsp2rxGrnsizN5TX,1A2GTWGtFfWp7KSQTwWOyo,2noRn2Aes5aoNVsU6iWThc")
-                .addBodyId("string")
-                .build()
-        )
+        albumServiceAsync.save(AlbumSaveParams.builder().addId("string").build())
     }
 }

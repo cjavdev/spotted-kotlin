@@ -68,13 +68,7 @@ internal class FollowingServiceTest {
                 .build()
         val followingService = client.me().following()
 
-        followingService.follow(
-            FollowingFollowParams.builder()
-                .queryIds("2CIMQHirSU0MQqyYHq0eOx,57dN52uHvrHOxijzpIgu3E,1vCWHaC5f2uS3yhpwWbIA6")
-                .type(FollowingFollowParams.Type.ARTIST)
-                .addBodyId("string")
-                .build()
-        )
+        followingService.follow(FollowingFollowParams.builder().addId("string").build())
     }
 
     @Disabled("Prism tests are disabled")
@@ -88,12 +82,6 @@ internal class FollowingServiceTest {
                 .build()
         val followingService = client.me().following()
 
-        followingService.unfollow(
-            FollowingUnfollowParams.builder()
-                .queryIds("2CIMQHirSU0MQqyYHq0eOx,57dN52uHvrHOxijzpIgu3E,1vCWHaC5f2uS3yhpwWbIA6")
-                .type(FollowingUnfollowParams.Type.ARTIST)
-                .addBodyId("string")
-                .build()
-        )
+        followingService.unfollow(FollowingUnfollowParams.builder().addId("string").build())
     }
 }

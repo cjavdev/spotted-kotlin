@@ -75,7 +75,6 @@ internal class ProGuardCompatibilityTest {
         assertThat(client.audioFeatures()).isNotNull()
         assertThat(client.audioAnalysis()).isNotNull()
         assertThat(client.recommendations()).isNotNull()
-        assertThat(client.webhooks()).isNotNull()
         assertThat(client.markets()).isNotNull()
     }
 

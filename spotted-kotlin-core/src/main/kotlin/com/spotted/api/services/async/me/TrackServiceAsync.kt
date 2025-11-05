@@ -48,9 +48,13 @@ interface TrackServiceAsync {
 
     /** Remove one or more tracks from the current user's 'Your Music' library. */
     suspend fun remove(
-        params: TrackRemoveParams,
+        params: TrackRemoveParams = TrackRemoveParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     )
+
+    /** @see remove */
+    suspend fun remove(requestOptions: RequestOptions) =
+        remove(TrackRemoveParams.none(), requestOptions)
 
     /** Save one or more tracks to the current user's 'Your Music' library. */
     suspend fun save(
@@ -101,9 +105,14 @@ interface TrackServiceAsync {
          */
         @MustBeClosed
         suspend fun remove(
-            params: TrackRemoveParams,
+            params: TrackRemoveParams = TrackRemoveParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponse
+
+        /** @see remove */
+        @MustBeClosed
+        suspend fun remove(requestOptions: RequestOptions): HttpResponse =
+            remove(TrackRemoveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `put /me/tracks`, but is otherwise the same as

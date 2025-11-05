@@ -2,7 +2,6 @@
 
 package com.spotted.api.models.playlists.tracks
 
-import com.spotted.api.core.http.QueryParams
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -12,10 +11,8 @@ internal class TrackAddParamsTest {
     fun create() {
         TrackAddParams.builder()
             .playlistId("3cEYpjA9oz9GiPac4AsH4n")
-            .queryPosition(0L)
-            .queryUris("spotify:track:4iV5W9uYEdYUVa79Axb7Rh,spotify:track:1301WleyT98MSxVHPZCA6M")
-            .bodyPosition(0L)
-            .addBodyUris("string")
+            .position(0L)
+            .addUris("string")
             .build()
     }
 
@@ -29,58 +26,18 @@ internal class TrackAddParamsTest {
     }
 
     @Test
-    fun queryParams() {
-        val params =
-            TrackAddParams.builder()
-                .playlistId("3cEYpjA9oz9GiPac4AsH4n")
-                .queryPosition(0L)
-                .queryUris(
-                    "spotify:track:4iV5W9uYEdYUVa79Axb7Rh,spotify:track:1301WleyT98MSxVHPZCA6M"
-                )
-                .bodyPosition(0L)
-                .addBodyUris("string")
-                .build()
-
-        val queryParams = params._queryParams()
-
-        assertThat(queryParams)
-            .isEqualTo(
-                QueryParams.builder()
-                    .put("position", "0")
-                    .put(
-                        "uris",
-                        "spotify:track:4iV5W9uYEdYUVa79Axb7Rh,spotify:track:1301WleyT98MSxVHPZCA6M",
-                    )
-                    .build()
-            )
-    }
-
-    @Test
-    fun queryParamsWithoutOptionalFields() {
-        val params = TrackAddParams.builder().playlistId("3cEYpjA9oz9GiPac4AsH4n").build()
-
-        val queryParams = params._queryParams()
-
-        assertThat(queryParams).isEqualTo(QueryParams.builder().build())
-    }
-
-    @Test
     fun body() {
         val params =
             TrackAddParams.builder()
                 .playlistId("3cEYpjA9oz9GiPac4AsH4n")
-                .queryPosition(0L)
-                .queryUris(
-                    "spotify:track:4iV5W9uYEdYUVa79Axb7Rh,spotify:track:1301WleyT98MSxVHPZCA6M"
-                )
-                .bodyPosition(0L)
-                .addBodyUris("string")
+                .position(0L)
+                .addUris("string")
                 .build()
 
         val body = params._body()
 
-        assertThat(body.bodyPosition()).isEqualTo(0L)
-        assertThat(body.bodyUris()).containsExactly("string")
+        assertThat(body.position()).isEqualTo(0L)
+        assertThat(body.uris()).containsExactly("string")
     }
 
     @Test

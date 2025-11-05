@@ -47,10 +47,22 @@ interface AlbumService {
     ): List<Boolean>
 
     /** Remove one or more albums from the current user's 'Your Music' library. */
-    fun remove(params: AlbumRemoveParams, requestOptions: RequestOptions = RequestOptions.none())
+    fun remove(
+        params: AlbumRemoveParams = AlbumRemoveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    )
+
+    /** @see remove */
+    fun remove(requestOptions: RequestOptions) = remove(AlbumRemoveParams.none(), requestOptions)
 
     /** Save one or more albums to the current user's 'Your Music' library. */
-    fun save(params: AlbumSaveParams, requestOptions: RequestOptions = RequestOptions.none())
+    fun save(
+        params: AlbumSaveParams = AlbumSaveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    )
+
+    /** @see save */
+    fun save(requestOptions: RequestOptions) = save(AlbumSaveParams.none(), requestOptions)
 
     /** A view of [AlbumService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
@@ -93,9 +105,14 @@ interface AlbumService {
          */
         @MustBeClosed
         fun remove(
-            params: AlbumRemoveParams,
+            params: AlbumRemoveParams = AlbumRemoveParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponse
+
+        /** @see remove */
+        @MustBeClosed
+        fun remove(requestOptions: RequestOptions): HttpResponse =
+            remove(AlbumRemoveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `put /me/albums`, but is otherwise the same as
@@ -103,8 +120,13 @@ interface AlbumService {
          */
         @MustBeClosed
         fun save(
-            params: AlbumSaveParams,
+            params: AlbumSaveParams = AlbumSaveParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponse
+
+        /** @see save */
+        @MustBeClosed
+        fun save(requestOptions: RequestOptions): HttpResponse =
+            save(AlbumSaveParams.none(), requestOptions)
     }
 }

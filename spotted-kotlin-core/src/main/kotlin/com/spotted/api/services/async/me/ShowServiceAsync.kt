@@ -48,12 +48,22 @@ interface ShowServiceAsync {
 
     /** Delete one or more shows from current Spotify user's library. */
     suspend fun remove(
-        params: ShowRemoveParams,
+        params: ShowRemoveParams = ShowRemoveParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     )
 
+    /** @see remove */
+    suspend fun remove(requestOptions: RequestOptions) =
+        remove(ShowRemoveParams.none(), requestOptions)
+
     /** Save one or more shows to current Spotify user's library. */
-    suspend fun save(params: ShowSaveParams, requestOptions: RequestOptions = RequestOptions.none())
+    suspend fun save(
+        params: ShowSaveParams = ShowSaveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    )
+
+    /** @see save */
+    suspend fun save(requestOptions: RequestOptions) = save(ShowSaveParams.none(), requestOptions)
 
     /** A view of [ShowServiceAsync] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
@@ -96,9 +106,14 @@ interface ShowServiceAsync {
          */
         @MustBeClosed
         suspend fun remove(
-            params: ShowRemoveParams,
+            params: ShowRemoveParams = ShowRemoveParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponse
+
+        /** @see remove */
+        @MustBeClosed
+        suspend fun remove(requestOptions: RequestOptions): HttpResponse =
+            remove(ShowRemoveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `put /me/shows`, but is otherwise the same as
@@ -106,8 +121,13 @@ interface ShowServiceAsync {
          */
         @MustBeClosed
         suspend fun save(
-            params: ShowSaveParams,
+            params: ShowSaveParams = ShowSaveParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponse
+
+        /** @see save */
+        @MustBeClosed
+        suspend fun save(requestOptions: RequestOptions): HttpResponse =
+            save(ShowSaveParams.none(), requestOptions)
     }
 }
