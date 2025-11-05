@@ -25,7 +25,7 @@ import com.spotted.api.models.SimplifiedTrackObject
 import java.util.Collections
 import java.util.Objects
 
-class AlbumListResponse
+class AlbumBulkRetrieveResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val albums: JsonField<List<Album>>,
@@ -65,7 +65,7 @@ private constructor(
     companion object {
 
         /**
-         * Returns a mutable builder for constructing an instance of [AlbumListResponse].
+         * Returns a mutable builder for constructing an instance of [AlbumBulkRetrieveResponse].
          *
          * The following fields are required:
          * ```kotlin
@@ -75,15 +75,15 @@ private constructor(
         fun builder() = Builder()
     }
 
-    /** A builder for [AlbumListResponse]. */
+    /** A builder for [AlbumBulkRetrieveResponse]. */
     class Builder internal constructor() {
 
         private var albums: JsonField<MutableList<Album>>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-        internal fun from(albumListResponse: AlbumListResponse) = apply {
-            albums = albumListResponse.albums.map { it.toMutableList() }
-            additionalProperties = albumListResponse.additionalProperties.toMutableMap()
+        internal fun from(albumBulkRetrieveResponse: AlbumBulkRetrieveResponse) = apply {
+            albums = albumBulkRetrieveResponse.albums.map { it.toMutableList() }
+            additionalProperties = albumBulkRetrieveResponse.additionalProperties.toMutableMap()
         }
 
         fun albums(albums: List<Album>) = albums(JsonField.of(albums))
@@ -131,7 +131,7 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [AlbumListResponse].
+         * Returns an immutable instance of [AlbumBulkRetrieveResponse].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          *
@@ -142,8 +142,8 @@ private constructor(
          *
          * @throws IllegalStateException if any required field is unset.
          */
-        fun build(): AlbumListResponse =
-            AlbumListResponse(
+        fun build(): AlbumBulkRetrieveResponse =
+            AlbumBulkRetrieveResponse(
                 checkRequired("albums", albums).map { it.toImmutable() },
                 additionalProperties.toMutableMap(),
             )
@@ -151,7 +151,7 @@ private constructor(
 
     private var validated: Boolean = false
 
-    fun validate(): AlbumListResponse = apply {
+    fun validate(): AlbumBulkRetrieveResponse = apply {
         if (validated) {
             return@apply
         }
@@ -2052,7 +2052,7 @@ private constructor(
             return true
         }
 
-        return other is AlbumListResponse &&
+        return other is AlbumBulkRetrieveResponse &&
             albums == other.albums &&
             additionalProperties == other.additionalProperties
     }
@@ -2062,5 +2062,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "AlbumListResponse{albums=$albums, additionalProperties=$additionalProperties}"
+        "AlbumBulkRetrieveResponse{albums=$albums, additionalProperties=$additionalProperties}"
 }

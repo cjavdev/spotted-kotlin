@@ -16,16 +16,16 @@ import com.spotted.api.models.TrackRestrictionObject
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-internal class AlbumListResponseTest {
+internal class AlbumBulkRetrieveResponseTest {
 
     @Test
     fun create() {
-        val albumListResponse =
-            AlbumListResponse.builder()
+        val albumBulkRetrieveResponse =
+            AlbumBulkRetrieveResponse.builder()
                 .addAlbum(
-                    AlbumListResponse.Album.builder()
+                    AlbumBulkRetrieveResponse.Album.builder()
                         .id("2up3OPMp9Tb4dAKM2erWXQ")
-                        .albumType(AlbumListResponse.Album.AlbumType.COMPILATION)
+                        .albumType(AlbumBulkRetrieveResponse.Album.AlbumType.COMPILATION)
                         .availableMarkets(listOf("CA", "BR", "IT"))
                         .externalUrls(ExternalUrlObject.builder().spotify("spotify").build())
                         .href("href")
@@ -40,9 +40,11 @@ internal class AlbumListResponseTest {
                         )
                         .name("name")
                         .releaseDate("1981-12")
-                        .releaseDatePrecision(AlbumListResponse.Album.ReleaseDatePrecision.YEAR)
+                        .releaseDatePrecision(
+                            AlbumBulkRetrieveResponse.Album.ReleaseDatePrecision.YEAR
+                        )
                         .totalTracks(9L)
-                        .type(AlbumListResponse.Album.Type.ALBUM)
+                        .type(AlbumBulkRetrieveResponse.Album.Type.ALBUM)
                         .uri("spotify:album:2up3OPMp9Tb4dAKM2erWXQ")
                         .addArtist(
                             SimplifiedArtistObject.builder()
@@ -69,7 +71,7 @@ internal class AlbumListResponseTest {
                                 .build()
                         )
                         .tracks(
-                            AlbumListResponse.Album.Tracks.builder()
+                            AlbumBulkRetrieveResponse.Album.Tracks.builder()
                                 .href("https://api.spotify.com/v1/me/shows?offset=0&limit=20\n")
                                 .addItem(
                                     SimplifiedTrackObject.builder()
@@ -134,11 +136,11 @@ internal class AlbumListResponseTest {
                 )
                 .build()
 
-        assertThat(albumListResponse.albums())
+        assertThat(albumBulkRetrieveResponse.albums())
             .containsExactly(
-                AlbumListResponse.Album.builder()
+                AlbumBulkRetrieveResponse.Album.builder()
                     .id("2up3OPMp9Tb4dAKM2erWXQ")
-                    .albumType(AlbumListResponse.Album.AlbumType.COMPILATION)
+                    .albumType(AlbumBulkRetrieveResponse.Album.AlbumType.COMPILATION)
                     .availableMarkets(listOf("CA", "BR", "IT"))
                     .externalUrls(ExternalUrlObject.builder().spotify("spotify").build())
                     .href("href")
@@ -153,9 +155,9 @@ internal class AlbumListResponseTest {
                     )
                     .name("name")
                     .releaseDate("1981-12")
-                    .releaseDatePrecision(AlbumListResponse.Album.ReleaseDatePrecision.YEAR)
+                    .releaseDatePrecision(AlbumBulkRetrieveResponse.Album.ReleaseDatePrecision.YEAR)
                     .totalTracks(9L)
-                    .type(AlbumListResponse.Album.Type.ALBUM)
+                    .type(AlbumBulkRetrieveResponse.Album.Type.ALBUM)
                     .uri("spotify:album:2up3OPMp9Tb4dAKM2erWXQ")
                     .addArtist(
                         SimplifiedArtistObject.builder()
@@ -180,7 +182,7 @@ internal class AlbumListResponseTest {
                             .build()
                     )
                     .tracks(
-                        AlbumListResponse.Album.Tracks.builder()
+                        AlbumBulkRetrieveResponse.Album.Tracks.builder()
                             .href("https://api.spotify.com/v1/me/shows?offset=0&limit=20\n")
                             .addItem(
                                 SimplifiedTrackObject.builder()
@@ -246,12 +248,12 @@ internal class AlbumListResponseTest {
     @Test
     fun roundtrip() {
         val jsonMapper = jsonMapper()
-        val albumListResponse =
-            AlbumListResponse.builder()
+        val albumBulkRetrieveResponse =
+            AlbumBulkRetrieveResponse.builder()
                 .addAlbum(
-                    AlbumListResponse.Album.builder()
+                    AlbumBulkRetrieveResponse.Album.builder()
                         .id("2up3OPMp9Tb4dAKM2erWXQ")
-                        .albumType(AlbumListResponse.Album.AlbumType.COMPILATION)
+                        .albumType(AlbumBulkRetrieveResponse.Album.AlbumType.COMPILATION)
                         .availableMarkets(listOf("CA", "BR", "IT"))
                         .externalUrls(ExternalUrlObject.builder().spotify("spotify").build())
                         .href("href")
@@ -266,9 +268,11 @@ internal class AlbumListResponseTest {
                         )
                         .name("name")
                         .releaseDate("1981-12")
-                        .releaseDatePrecision(AlbumListResponse.Album.ReleaseDatePrecision.YEAR)
+                        .releaseDatePrecision(
+                            AlbumBulkRetrieveResponse.Album.ReleaseDatePrecision.YEAR
+                        )
                         .totalTracks(9L)
-                        .type(AlbumListResponse.Album.Type.ALBUM)
+                        .type(AlbumBulkRetrieveResponse.Album.Type.ALBUM)
                         .uri("spotify:album:2up3OPMp9Tb4dAKM2erWXQ")
                         .addArtist(
                             SimplifiedArtistObject.builder()
@@ -295,7 +299,7 @@ internal class AlbumListResponseTest {
                                 .build()
                         )
                         .tracks(
-                            AlbumListResponse.Album.Tracks.builder()
+                            AlbumBulkRetrieveResponse.Album.Tracks.builder()
                                 .href("https://api.spotify.com/v1/me/shows?offset=0&limit=20\n")
                                 .addItem(
                                     SimplifiedTrackObject.builder()
@@ -360,12 +364,12 @@ internal class AlbumListResponseTest {
                 )
                 .build()
 
-        val roundtrippedAlbumListResponse =
+        val roundtrippedAlbumBulkRetrieveResponse =
             jsonMapper.readValue(
-                jsonMapper.writeValueAsString(albumListResponse),
-                jacksonTypeRef<AlbumListResponse>(),
+                jsonMapper.writeValueAsString(albumBulkRetrieveResponse),
+                jacksonTypeRef<AlbumBulkRetrieveResponse>(),
             )
 
-        assertThat(roundtrippedAlbumListResponse).isEqualTo(albumListResponse)
+        assertThat(roundtrippedAlbumBulkRetrieveResponse).isEqualTo(albumBulkRetrieveResponse)
     }
 }

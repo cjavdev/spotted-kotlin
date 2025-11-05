@@ -15,8 +15,8 @@ import com.spotted.api.core.http.HttpResponse.Handler
 import com.spotted.api.core.http.HttpResponseFor
 import com.spotted.api.core.http.parseable
 import com.spotted.api.core.prepareAsync
-import com.spotted.api.models.albums.AlbumListParams
-import com.spotted.api.models.albums.AlbumListResponse
+import com.spotted.api.models.albums.AlbumBulkRetrieveParams
+import com.spotted.api.models.albums.AlbumBulkRetrieveResponse
 import com.spotted.api.models.albums.AlbumListTracksPageAsync
 import com.spotted.api.models.albums.AlbumListTracksPageResponse
 import com.spotted.api.models.albums.AlbumListTracksParams
@@ -42,12 +42,12 @@ class AlbumServiceAsyncImpl internal constructor(private val clientOptions: Clie
         // get /albums/{id}
         withRawResponse().retrieve(params, requestOptions).parse()
 
-    override suspend fun list(
-        params: AlbumListParams,
+    override suspend fun bulkRetrieve(
+        params: AlbumBulkRetrieveParams,
         requestOptions: RequestOptions,
-    ): AlbumListResponse =
+    ): AlbumBulkRetrieveResponse =
         // get /albums
-        withRawResponse().list(params, requestOptions).parse()
+        withRawResponse().bulkRetrieve(params, requestOptions).parse()
 
     override suspend fun listTracks(
         params: AlbumListTracksParams,
@@ -99,13 +99,13 @@ class AlbumServiceAsyncImpl internal constructor(private val clientOptions: Clie
             }
         }
 
-        private val listHandler: Handler<AlbumListResponse> =
-            jsonHandler<AlbumListResponse>(clientOptions.jsonMapper)
+        private val bulkRetrieveHandler: Handler<AlbumBulkRetrieveResponse> =
+            jsonHandler<AlbumBulkRetrieveResponse>(clientOptions.jsonMapper)
 
-        override suspend fun list(
-            params: AlbumListParams,
+        override suspend fun bulkRetrieve(
+            params: AlbumBulkRetrieveParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<AlbumListResponse> {
+        ): HttpResponseFor<AlbumBulkRetrieveResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -117,7 +117,7 @@ class AlbumServiceAsyncImpl internal constructor(private val clientOptions: Clie
             val response = clientOptions.httpClient.executeAsync(request, requestOptions)
             return errorHandler.handle(response).parseable {
                 response
-                    .use { listHandler.handle(it) }
+                    .use { bulkRetrieveHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()
