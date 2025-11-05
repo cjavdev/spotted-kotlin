@@ -47,9 +47,13 @@ interface FollowingService {
 
     /** Remove the current user as a follower of one or more artists or other Spotify users. */
     fun unfollow(
-        params: FollowingUnfollowParams,
+        params: FollowingUnfollowParams = FollowingUnfollowParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     )
+
+    /** @see unfollow */
+    fun unfollow(requestOptions: RequestOptions) =
+        unfollow(FollowingUnfollowParams.none(), requestOptions)
 
     /** A view of [FollowingService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
@@ -97,8 +101,13 @@ interface FollowingService {
          */
         @MustBeClosed
         fun unfollow(
-            params: FollowingUnfollowParams,
+            params: FollowingUnfollowParams = FollowingUnfollowParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponse
+
+        /** @see unfollow */
+        @MustBeClosed
+        fun unfollow(requestOptions: RequestOptions): HttpResponse =
+            unfollow(FollowingUnfollowParams.none(), requestOptions)
     }
 }

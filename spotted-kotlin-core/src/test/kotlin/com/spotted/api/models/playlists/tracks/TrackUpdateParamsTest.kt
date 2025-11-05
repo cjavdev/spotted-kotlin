@@ -2,7 +2,6 @@
 
 package com.spotted.api.models.playlists.tracks
 
-import com.spotted.api.core.http.QueryParams
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -12,12 +11,11 @@ internal class TrackUpdateParamsTest {
     fun create() {
         TrackUpdateParams.builder()
             .playlistId("3cEYpjA9oz9GiPac4AsH4n")
-            .queryUris("uris")
             .insertBefore(3L)
             .rangeLength(2L)
             .rangeStart(1L)
             .snapshotId("snapshot_id")
-            .addBodyUris("string")
+            .addUris("string")
             .build()
     }
 
@@ -31,43 +29,15 @@ internal class TrackUpdateParamsTest {
     }
 
     @Test
-    fun queryParams() {
-        val params =
-            TrackUpdateParams.builder()
-                .playlistId("3cEYpjA9oz9GiPac4AsH4n")
-                .queryUris("uris")
-                .insertBefore(3L)
-                .rangeLength(2L)
-                .rangeStart(1L)
-                .snapshotId("snapshot_id")
-                .addBodyUris("string")
-                .build()
-
-        val queryParams = params._queryParams()
-
-        assertThat(queryParams).isEqualTo(QueryParams.builder().put("uris", "uris").build())
-    }
-
-    @Test
-    fun queryParamsWithoutOptionalFields() {
-        val params = TrackUpdateParams.builder().playlistId("3cEYpjA9oz9GiPac4AsH4n").build()
-
-        val queryParams = params._queryParams()
-
-        assertThat(queryParams).isEqualTo(QueryParams.builder().build())
-    }
-
-    @Test
     fun body() {
         val params =
             TrackUpdateParams.builder()
                 .playlistId("3cEYpjA9oz9GiPac4AsH4n")
-                .queryUris("uris")
                 .insertBefore(3L)
                 .rangeLength(2L)
                 .rangeStart(1L)
                 .snapshotId("snapshot_id")
-                .addBodyUris("string")
+                .addUris("string")
                 .build()
 
         val body = params._body()
@@ -76,7 +46,7 @@ internal class TrackUpdateParamsTest {
         assertThat(body.rangeLength()).isEqualTo(2L)
         assertThat(body.rangeStart()).isEqualTo(1L)
         assertThat(body.snapshotId()).isEqualTo("snapshot_id")
-        assertThat(body.bodyUris()).containsExactly("string")
+        assertThat(body.uris()).containsExactly("string")
     }
 
     @Test

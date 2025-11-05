@@ -12,7 +12,6 @@ import com.spotted.api.core.JsonMissing
 import com.spotted.api.core.JsonValue
 import com.spotted.api.core.Params
 import com.spotted.api.core.checkKnown
-import com.spotted.api.core.checkRequired
 import com.spotted.api.core.http.Headers
 import com.spotted.api.core.http.QueryParams
 import com.spotted.api.core.toImmutable
@@ -23,18 +22,10 @@ import java.util.Objects
 /** Remove one or more tracks from the current user's 'Your Music' library. */
 class TrackRemoveParams
 private constructor(
-    private val queryIds: String,
     private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
-
-    /**
-     * A comma-separated list of the
-     * [Spotify IDs](/documentation/web-api/concepts/spotify-uris-ids). For example:
-     * `ids=4iV5W9uYEdYUVa79Axb7Rh,1301WleyT98MSxVHPZCA6M`. Maximum: 50 IDs.
-     */
-    fun queryIds(): String = queryIds
 
     /**
      * A JSON array of the [Spotify IDs](/documentation/web-api/concepts/spotify-uris-ids). For
@@ -45,14 +36,14 @@ private constructor(
      * @throws SpottedInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun bodyIds(): List<String>? = body.bodyIds()
+    fun ids(): List<String>? = body.ids()
 
     /**
-     * Returns the raw JSON value of [bodyIds].
+     * Returns the raw JSON value of [ids].
      *
-     * Unlike [bodyIds], this method doesn't throw if the JSON field has an unexpected type.
+     * Unlike [ids], this method doesn't throw if the JSON field has an unexpected type.
      */
-    fun _bodyIds(): JsonField<List<String>> = body._bodyIds()
+    fun _ids(): JsonField<List<String>> = body._ids()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
@@ -66,45 +57,31 @@ private constructor(
 
     companion object {
 
-        /**
-         * Returns a mutable builder for constructing an instance of [TrackRemoveParams].
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .queryIds()
-         * ```
-         */
+        fun none(): TrackRemoveParams = builder().build()
+
+        /** Returns a mutable builder for constructing an instance of [TrackRemoveParams]. */
         fun builder() = Builder()
     }
 
     /** A builder for [TrackRemoveParams]. */
     class Builder internal constructor() {
 
-        private var queryIds: String? = null
         private var body: Body.Builder = Body.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         internal fun from(trackRemoveParams: TrackRemoveParams) = apply {
-            queryIds = trackRemoveParams.queryIds
             body = trackRemoveParams.body.toBuilder()
             additionalHeaders = trackRemoveParams.additionalHeaders.toBuilder()
             additionalQueryParams = trackRemoveParams.additionalQueryParams.toBuilder()
         }
 
         /**
-         * A comma-separated list of the
-         * [Spotify IDs](/documentation/web-api/concepts/spotify-uris-ids). For example:
-         * `ids=4iV5W9uYEdYUVa79Axb7Rh,1301WleyT98MSxVHPZCA6M`. Maximum: 50 IDs.
-         */
-        fun queryIds(queryIds: String) = apply { this.queryIds = queryIds }
-
-        /**
          * Sets the entire request body.
          *
          * This is generally only useful if you are already constructing the body separately.
          * Otherwise, it's more convenient to use the top-level setters instead:
-         * - [bodyIds]
+         * - [ids]
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
 
@@ -114,23 +91,23 @@ private constructor(
          * can be specified in one request. _**Note**: if the `ids` parameter is present in the
          * query string, any IDs listed here in the body will be ignored._
          */
-        fun bodyIds(bodyIds: List<String>) = apply { body.bodyIds(bodyIds) }
+        fun ids(ids: List<String>) = apply { body.ids(ids) }
 
         /**
-         * Sets [Builder.bodyIds] to an arbitrary JSON value.
+         * Sets [Builder.ids] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.bodyIds] with a well-typed `List<String>` value instead.
+         * You should usually call [Builder.ids] with a well-typed `List<String>` value instead.
          * This method is primarily for setting the field to an undocumented or not yet supported
          * value.
          */
-        fun bodyIds(bodyIds: JsonField<List<String>>) = apply { body.bodyIds(bodyIds) }
+        fun ids(ids: JsonField<List<String>>) = apply { body.ids(ids) }
 
         /**
-         * Adds a single [String] to [bodyIds].
+         * Adds a single [String] to [ids].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addBodyId(bodyId: String) = apply { body.addBodyId(bodyId) }
+        fun addId(id: String) = apply { body.addId(id) }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             body.additionalProperties(additionalBodyProperties)
@@ -253,17 +230,9 @@ private constructor(
          * Returns an immutable instance of [TrackRemoveParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .queryIds()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): TrackRemoveParams =
             TrackRemoveParams(
-                checkRequired("queryIds", queryIds),
                 body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -274,25 +243,19 @@ private constructor(
 
     override fun _headers(): Headers = additionalHeaders
 
-    override fun _queryParams(): QueryParams =
-        QueryParams.builder()
-            .apply {
-                put("ids", queryIds)
-                putAll(additionalQueryParams)
-            }
-            .build()
+    override fun _queryParams(): QueryParams = additionalQueryParams
 
     class Body
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
-        private val bodyIds: JsonField<List<String>>,
+        private val ids: JsonField<List<String>>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
         @JsonCreator
         private constructor(
-            @JsonProperty("ids") @ExcludeMissing bodyIds: JsonField<List<String>> = JsonMissing.of()
-        ) : this(bodyIds, mutableMapOf())
+            @JsonProperty("ids") @ExcludeMissing ids: JsonField<List<String>> = JsonMissing.of()
+        ) : this(ids, mutableMapOf())
 
         /**
          * A JSON array of the [Spotify IDs](/documentation/web-api/concepts/spotify-uris-ids). For
@@ -303,14 +266,14 @@ private constructor(
          * @throws SpottedInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
-        fun bodyIds(): List<String>? = bodyIds.getNullable("ids")
+        fun ids(): List<String>? = ids.getNullable("ids")
 
         /**
-         * Returns the raw JSON value of [bodyIds].
+         * Returns the raw JSON value of [ids].
          *
-         * Unlike [bodyIds], this method doesn't throw if the JSON field has an unexpected type.
+         * Unlike [ids], this method doesn't throw if the JSON field has an unexpected type.
          */
-        @JsonProperty("ids") @ExcludeMissing fun _bodyIds(): JsonField<List<String>> = bodyIds
+        @JsonProperty("ids") @ExcludeMissing fun _ids(): JsonField<List<String>> = ids
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -333,11 +296,11 @@ private constructor(
         /** A builder for [Body]. */
         class Builder internal constructor() {
 
-            private var bodyIds: JsonField<MutableList<String>>? = null
+            private var ids: JsonField<MutableList<String>>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(body: Body) = apply {
-                bodyIds = body.bodyIds.map { it.toMutableList() }
+                ids = body.ids.map { it.toMutableList() }
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
 
@@ -347,29 +310,26 @@ private constructor(
              * 50 items can be specified in one request. _**Note**: if the `ids` parameter is
              * present in the query string, any IDs listed here in the body will be ignored._
              */
-            fun bodyIds(bodyIds: List<String>) = bodyIds(JsonField.of(bodyIds))
+            fun ids(ids: List<String>) = ids(JsonField.of(ids))
 
             /**
-             * Sets [Builder.bodyIds] to an arbitrary JSON value.
+             * Sets [Builder.ids] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.bodyIds] with a well-typed `List<String>` value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * You should usually call [Builder.ids] with a well-typed `List<String>` value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
-            fun bodyIds(bodyIds: JsonField<List<String>>) = apply {
-                this.bodyIds = bodyIds.map { it.toMutableList() }
+            fun ids(ids: JsonField<List<String>>) = apply {
+                this.ids = ids.map { it.toMutableList() }
             }
 
             /**
-             * Adds a single [String] to [bodyIds].
+             * Adds a single [String] to [ids].
              *
              * @throws IllegalStateException if the field was previously set to a non-list.
              */
-            fun addBodyId(bodyId: String) = apply {
-                bodyIds =
-                    (bodyIds ?: JsonField.of(mutableListOf())).also {
-                        checkKnown("bodyIds", it).add(bodyId)
-                    }
+            fun addId(id: String) = apply {
+                ids = (ids ?: JsonField.of(mutableListOf())).also { checkKnown("ids", it).add(id) }
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -398,7 +358,7 @@ private constructor(
              */
             fun build(): Body =
                 Body(
-                    (bodyIds ?: JsonMissing.of()).map { it.toImmutable() },
+                    (ids ?: JsonMissing.of()).map { it.toImmutable() },
                     additionalProperties.toMutableMap(),
                 )
         }
@@ -410,7 +370,7 @@ private constructor(
                 return@apply
             }
 
-            bodyIds()
+            ids()
             validated = true
         }
 
@@ -428,7 +388,7 @@ private constructor(
          *
          * Used for best match union deserialization.
          */
-        internal fun validity(): Int = (bodyIds.asKnown()?.size ?: 0)
+        internal fun validity(): Int = (ids.asKnown()?.size ?: 0)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -436,16 +396,15 @@ private constructor(
             }
 
             return other is Body &&
-                bodyIds == other.bodyIds &&
+                ids == other.ids &&
                 additionalProperties == other.additionalProperties
         }
 
-        private val hashCode: Int by lazy { Objects.hash(bodyIds, additionalProperties) }
+        private val hashCode: Int by lazy { Objects.hash(ids, additionalProperties) }
 
         override fun hashCode(): Int = hashCode
 
-        override fun toString() =
-            "Body{bodyIds=$bodyIds, additionalProperties=$additionalProperties}"
+        override fun toString() = "Body{ids=$ids, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {
@@ -454,15 +413,13 @@ private constructor(
         }
 
         return other is TrackRemoveParams &&
-            queryIds == other.queryIds &&
             body == other.body &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int =
-        Objects.hash(queryIds, body, additionalHeaders, additionalQueryParams)
+    override fun hashCode(): Int = Objects.hash(body, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "TrackRemoveParams{queryIds=$queryIds, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "TrackRemoveParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

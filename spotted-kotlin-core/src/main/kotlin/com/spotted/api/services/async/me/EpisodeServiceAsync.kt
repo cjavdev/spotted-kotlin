@@ -60,9 +60,13 @@ interface EpisodeServiceAsync {
      * [developer community forum](https://community.spotify.com/t5/Spotify-for-Developers/bd-p/Spotify_Developer).
      */
     suspend fun remove(
-        params: EpisodeRemoveParams,
+        params: EpisodeRemoveParams = EpisodeRemoveParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     )
+
+    /** @see remove */
+    suspend fun remove(requestOptions: RequestOptions) =
+        remove(EpisodeRemoveParams.none(), requestOptions)
 
     /**
      * Save one or more episodes to the current user's library.<br/> This API endpoint is in
@@ -120,9 +124,14 @@ interface EpisodeServiceAsync {
          */
         @MustBeClosed
         suspend fun remove(
-            params: EpisodeRemoveParams,
+            params: EpisodeRemoveParams = EpisodeRemoveParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponse
+
+        /** @see remove */
+        @MustBeClosed
+        suspend fun remove(requestOptions: RequestOptions): HttpResponse =
+            remove(EpisodeRemoveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `put /me/episodes`, but is otherwise the same as

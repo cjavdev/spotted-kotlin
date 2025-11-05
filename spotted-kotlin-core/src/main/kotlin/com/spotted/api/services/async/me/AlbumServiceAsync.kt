@@ -48,15 +48,22 @@ interface AlbumServiceAsync {
 
     /** Remove one or more albums from the current user's 'Your Music' library. */
     suspend fun remove(
-        params: AlbumRemoveParams,
+        params: AlbumRemoveParams = AlbumRemoveParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     )
 
+    /** @see remove */
+    suspend fun remove(requestOptions: RequestOptions) =
+        remove(AlbumRemoveParams.none(), requestOptions)
+
     /** Save one or more albums to the current user's 'Your Music' library. */
     suspend fun save(
-        params: AlbumSaveParams,
+        params: AlbumSaveParams = AlbumSaveParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     )
+
+    /** @see save */
+    suspend fun save(requestOptions: RequestOptions) = save(AlbumSaveParams.none(), requestOptions)
 
     /** A view of [AlbumServiceAsync] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
@@ -101,9 +108,14 @@ interface AlbumServiceAsync {
          */
         @MustBeClosed
         suspend fun remove(
-            params: AlbumRemoveParams,
+            params: AlbumRemoveParams = AlbumRemoveParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponse
+
+        /** @see remove */
+        @MustBeClosed
+        suspend fun remove(requestOptions: RequestOptions): HttpResponse =
+            remove(AlbumRemoveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `put /me/albums`, but is otherwise the same as
@@ -111,8 +123,13 @@ interface AlbumServiceAsync {
          */
         @MustBeClosed
         suspend fun save(
-            params: AlbumSaveParams,
+            params: AlbumSaveParams = AlbumSaveParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponse
+
+        /** @see save */
+        @MustBeClosed
+        suspend fun save(requestOptions: RequestOptions): HttpResponse =
+            save(AlbumSaveParams.none(), requestOptions)
     }
 }

@@ -59,7 +59,13 @@ interface EpisodeService {
      * that you discover, in our
      * [developer community forum](https://community.spotify.com/t5/Spotify-for-Developers/bd-p/Spotify_Developer).
      */
-    fun remove(params: EpisodeRemoveParams, requestOptions: RequestOptions = RequestOptions.none())
+    fun remove(
+        params: EpisodeRemoveParams = EpisodeRemoveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    )
+
+    /** @see remove */
+    fun remove(requestOptions: RequestOptions) = remove(EpisodeRemoveParams.none(), requestOptions)
 
     /**
      * Save one or more episodes to the current user's library.<br/> This API endpoint is in
@@ -110,9 +116,14 @@ interface EpisodeService {
          */
         @MustBeClosed
         fun remove(
-            params: EpisodeRemoveParams,
+            params: EpisodeRemoveParams = EpisodeRemoveParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponse
+
+        /** @see remove */
+        @MustBeClosed
+        fun remove(requestOptions: RequestOptions): HttpResponse =
+            remove(EpisodeRemoveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `put /me/episodes`, but is otherwise the same as

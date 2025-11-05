@@ -47,9 +47,13 @@ interface FollowingServiceAsync {
 
     /** Remove the current user as a follower of one or more artists or other Spotify users. */
     suspend fun unfollow(
-        params: FollowingUnfollowParams,
+        params: FollowingUnfollowParams = FollowingUnfollowParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     )
+
+    /** @see unfollow */
+    suspend fun unfollow(requestOptions: RequestOptions) =
+        unfollow(FollowingUnfollowParams.none(), requestOptions)
 
     /**
      * A view of [FollowingServiceAsync] that provides access to raw HTTP responses for each method.
@@ -101,8 +105,13 @@ interface FollowingServiceAsync {
          */
         @MustBeClosed
         suspend fun unfollow(
-            params: FollowingUnfollowParams,
+            params: FollowingUnfollowParams = FollowingUnfollowParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponse
+
+        /** @see unfollow */
+        @MustBeClosed
+        suspend fun unfollow(requestOptions: RequestOptions): HttpResponse =
+            unfollow(FollowingUnfollowParams.none(), requestOptions)
     }
 }
