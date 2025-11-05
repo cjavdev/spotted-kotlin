@@ -6,11 +6,11 @@ import com.spotted.api.core.http.QueryParams
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-internal class AlbumListParamsTest {
+internal class AlbumBulkRetrieveParamsTest {
 
     @Test
     fun create() {
-        AlbumListParams.builder()
+        AlbumBulkRetrieveParams.builder()
             .ids("382ObEPsp2rxGrnsizN5TX,1A2GTWGtFfWp7KSQTwWOyo,2noRn2Aes5aoNVsU6iWThc")
             .market("ES")
             .build()
@@ -19,7 +19,7 @@ internal class AlbumListParamsTest {
     @Test
     fun queryParams() {
         val params =
-            AlbumListParams.builder()
+            AlbumBulkRetrieveParams.builder()
                 .ids("382ObEPsp2rxGrnsizN5TX,1A2GTWGtFfWp7KSQTwWOyo,2noRn2Aes5aoNVsU6iWThc")
                 .market("ES")
                 .build()
@@ -41,7 +41,7 @@ internal class AlbumListParamsTest {
     @Test
     fun queryParamsWithoutOptionalFields() {
         val params =
-            AlbumListParams.builder()
+            AlbumBulkRetrieveParams.builder()
                 .ids("382ObEPsp2rxGrnsizN5TX,1A2GTWGtFfWp7KSQTwWOyo,2noRn2Aes5aoNVsU6iWThc")
                 .build()
 

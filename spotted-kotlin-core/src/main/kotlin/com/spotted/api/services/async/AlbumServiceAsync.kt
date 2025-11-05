@@ -6,8 +6,8 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.spotted.api.core.ClientOptions
 import com.spotted.api.core.RequestOptions
 import com.spotted.api.core.http.HttpResponseFor
-import com.spotted.api.models.albums.AlbumListParams
-import com.spotted.api.models.albums.AlbumListResponse
+import com.spotted.api.models.albums.AlbumBulkRetrieveParams
+import com.spotted.api.models.albums.AlbumBulkRetrieveResponse
 import com.spotted.api.models.albums.AlbumListTracksPageAsync
 import com.spotted.api.models.albums.AlbumListTracksParams
 import com.spotted.api.models.albums.AlbumRetrieveParams
@@ -45,10 +45,10 @@ interface AlbumServiceAsync {
         retrieve(id, AlbumRetrieveParams.none(), requestOptions)
 
     /** Get Spotify catalog information for multiple albums identified by their Spotify IDs. */
-    suspend fun list(
-        params: AlbumListParams,
+    suspend fun bulkRetrieve(
+        params: AlbumBulkRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): AlbumListResponse
+    ): AlbumBulkRetrieveResponse
 
     /**
      * Get Spotify catalog information about an album’s tracks. Optional parameters can be used to
@@ -111,13 +111,13 @@ interface AlbumServiceAsync {
 
         /**
          * Returns a raw HTTP response for `get /albums`, but is otherwise the same as
-         * [AlbumServiceAsync.list].
+         * [AlbumServiceAsync.bulkRetrieve].
          */
         @MustBeClosed
-        suspend fun list(
-            params: AlbumListParams,
+        suspend fun bulkRetrieve(
+            params: AlbumBulkRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<AlbumListResponse>
+        ): HttpResponseFor<AlbumBulkRetrieveResponse>
 
         /**
          * Returns a raw HTTP response for `get /albums/{id}/tracks`, but is otherwise the same as
