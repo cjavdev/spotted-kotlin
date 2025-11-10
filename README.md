@@ -39,8 +39,8 @@ import com.spotted.api.client.okhttp.SpottedOkHttpClient
 import com.spotted.api.models.albums.AlbumRetrieveParams
 import com.spotted.api.models.albums.AlbumRetrieveResponse
 
-// Configures using the `spotted.spotifyClientId`, `spotted.spotifyClientSecret` and `spotted.baseUrl` system properties
-// Or configures using the `SPOTIFY_CLIENT_ID`, `SPOTIFY_CLIENT_SECRET` and `SPOTTED_BASE_URL` environment variables
+// Configures using the `spotted.spotifyClientId`, `spotted.spotifyClientSecret`, `spotted.spotifyAccessToken` and `spotted.baseUrl` system properties
+// Or configures using the `SPOTIFY_CLIENT_ID`, `SPOTIFY_CLIENT_SECRET`, `SPOTIFY_ACCESS_TOKEN` and `SPOTTED_BASE_URL` environment variables
 val client: SpottedClient = SpottedOkHttpClient.fromEnv()
 
 val album: AlbumRetrieveResponse = client.albums().retrieve("4aawyAB9vmqN3uQ7FjRGTy")
@@ -54,8 +54,8 @@ Configure the client using system properties or environment variables:
 import com.spotted.api.client.SpottedClient
 import com.spotted.api.client.okhttp.SpottedOkHttpClient
 
-// Configures using the `spotted.spotifyClientId`, `spotted.spotifyClientSecret` and `spotted.baseUrl` system properties
-// Or configures using the `SPOTIFY_CLIENT_ID`, `SPOTIFY_CLIENT_SECRET` and `SPOTTED_BASE_URL` environment variables
+// Configures using the `spotted.spotifyClientId`, `spotted.spotifyClientSecret`, `spotted.spotifyAccessToken` and `spotted.baseUrl` system properties
+// Or configures using the `SPOTIFY_CLIENT_ID`, `SPOTIFY_CLIENT_SECRET`, `SPOTIFY_ACCESS_TOKEN` and `SPOTTED_BASE_URL` environment variables
 val client: SpottedClient = SpottedOkHttpClient.fromEnv()
 ```
 
@@ -78,8 +78,8 @@ import com.spotted.api.client.SpottedClient
 import com.spotted.api.client.okhttp.SpottedOkHttpClient
 
 val client: SpottedClient = SpottedOkHttpClient.builder()
-    // Configures using the `spotted.spotifyClientId`, `spotted.spotifyClientSecret` and `spotted.baseUrl` system properties
-    // Or configures using the `SPOTIFY_CLIENT_ID`, `SPOTIFY_CLIENT_SECRET` and `SPOTTED_BASE_URL` environment variables
+    // Configures using the `spotted.spotifyClientId`, `spotted.spotifyClientSecret`, `spotted.spotifyAccessToken` and `spotted.baseUrl` system properties
+    // Or configures using the `SPOTIFY_CLIENT_ID`, `SPOTIFY_CLIENT_SECRET`, `SPOTIFY_ACCESS_TOKEN` and `SPOTTED_BASE_URL` environment variables
     .fromEnv()
     .clientId("My Client ID")
     .build()
@@ -89,8 +89,9 @@ See this table for the available options:
 
 | Setter         | System property               | Environment variable    | Required | Default value                  |
 | -------------- | ----------------------------- | ----------------------- | -------- | ------------------------------ |
-| `clientId`     | `spotted.spotifyClientId`     | `SPOTIFY_CLIENT_ID`     | true     | -                              |
-| `clientSecret` | `spotted.spotifyClientSecret` | `SPOTIFY_CLIENT_SECRET` | true     | -                              |
+| `clientId`     | `spotted.spotifyClientId`     | `SPOTIFY_CLIENT_ID`     | false    | -                              |
+| `clientSecret` | `spotted.spotifyClientSecret` | `SPOTIFY_CLIENT_SECRET` | false    | -                              |
+| `accessToken`  | `spotted.spotifyAccessToken`  | `SPOTIFY_ACCESS_TOKEN`  | false    | -                              |
 | `baseUrl`      | `spotted.baseUrl`             | `SPOTTED_BASE_URL`      | true     | `"https://api.spotify.com/v1"` |
 
 System properties take precedence over environment variables.
@@ -138,8 +139,8 @@ import com.spotted.api.client.okhttp.SpottedOkHttpClient
 import com.spotted.api.models.albums.AlbumRetrieveParams
 import com.spotted.api.models.albums.AlbumRetrieveResponse
 
-// Configures using the `spotted.spotifyClientId`, `spotted.spotifyClientSecret` and `spotted.baseUrl` system properties
-// Or configures using the `SPOTIFY_CLIENT_ID`, `SPOTIFY_CLIENT_SECRET` and `SPOTTED_BASE_URL` environment variables
+// Configures using the `spotted.spotifyClientId`, `spotted.spotifyClientSecret`, `spotted.spotifyAccessToken` and `spotted.baseUrl` system properties
+// Or configures using the `SPOTIFY_CLIENT_ID`, `SPOTIFY_CLIENT_SECRET`, `SPOTIFY_ACCESS_TOKEN` and `SPOTTED_BASE_URL` environment variables
 val client: SpottedClient = SpottedOkHttpClient.fromEnv()
 
 val album: AlbumRetrieveResponse = client.async().albums().retrieve("4aawyAB9vmqN3uQ7FjRGTy")
@@ -153,8 +154,8 @@ import com.spotted.api.client.okhttp.SpottedOkHttpClientAsync
 import com.spotted.api.models.albums.AlbumRetrieveParams
 import com.spotted.api.models.albums.AlbumRetrieveResponse
 
-// Configures using the `spotted.spotifyClientId`, `spotted.spotifyClientSecret` and `spotted.baseUrl` system properties
-// Or configures using the `SPOTIFY_CLIENT_ID`, `SPOTIFY_CLIENT_SECRET` and `SPOTTED_BASE_URL` environment variables
+// Configures using the `spotted.spotifyClientId`, `spotted.spotifyClientSecret`, `spotted.spotifyAccessToken` and `spotted.baseUrl` system properties
+// Or configures using the `SPOTIFY_CLIENT_ID`, `SPOTIFY_CLIENT_SECRET`, `SPOTIFY_ACCESS_TOKEN` and `SPOTTED_BASE_URL` environment variables
 val client: SpottedClientAsync = SpottedOkHttpClientAsync.fromEnv()
 
 val album: AlbumRetrieveResponse = client.albums().retrieve("4aawyAB9vmqN3uQ7FjRGTy")

@@ -175,9 +175,11 @@ class SpottedOkHttpClientAsync private constructor() {
          */
         fun maxRetries(maxRetries: Int) = apply { clientOptions.maxRetries(maxRetries) }
 
-        fun clientId(clientId: String) = apply { clientOptions.clientId(clientId) }
+        fun clientId(clientId: String?) = apply { clientOptions.clientId(clientId) }
 
-        fun clientSecret(clientSecret: String) = apply { clientOptions.clientSecret(clientSecret) }
+        fun clientSecret(clientSecret: String?) = apply { clientOptions.clientSecret(clientSecret) }
+
+        fun accessToken(accessToken: String?) = apply { clientOptions.accessToken(accessToken) }
 
         fun headers(headers: Headers) = apply { clientOptions.headers(headers) }
 

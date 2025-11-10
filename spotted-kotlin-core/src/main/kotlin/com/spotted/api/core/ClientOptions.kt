@@ -92,8 +92,9 @@ private constructor(
      * Defaults to 2.
      */
     val maxRetries: Int,
-    val clientId: String,
-    val clientSecret: String,
+    val clientId: String?,
+    val clientSecret: String?,
+    val accessToken: String?,
 ) {
 
     init {
@@ -121,8 +122,6 @@ private constructor(
          * The following fields are required:
          * ```kotlin
          * .httpClient()
-         * .clientId()
-         * .clientSecret()
          * ```
          */
         fun builder() = Builder()
@@ -151,6 +150,7 @@ private constructor(
         private var maxRetries: Int = 2
         private var clientId: String? = null
         private var clientSecret: String? = null
+        private var accessToken: String? = null
 
         internal fun from(clientOptions: ClientOptions) = apply {
             httpClient = clientOptions.originalHttpClient
@@ -166,6 +166,7 @@ private constructor(
             maxRetries = clientOptions.maxRetries
             clientId = clientOptions.clientId
             clientSecret = clientOptions.clientSecret
+            accessToken = clientOptions.accessToken
         }
 
         /**
@@ -269,9 +270,11 @@ private constructor(
          */
         fun maxRetries(maxRetries: Int) = apply { this.maxRetries = maxRetries }
 
-        fun clientId(clientId: String) = apply { this.clientId = clientId }
+        fun clientId(clientId: String?) = apply { this.clientId = clientId }
 
-        fun clientSecret(clientSecret: String) = apply { this.clientSecret = clientSecret }
+        fun clientSecret(clientSecret: String?) = apply { this.clientSecret = clientSecret }
+
+        fun accessToken(accessToken: String?) = apply { this.accessToken = accessToken }
 
         fun headers(headers: Headers) = apply {
             this.headers.clear()
@@ -362,8 +365,9 @@ private constructor(
          *
          * |Setter        |System property              |Environment variable   |Required|Default value                 |
          * |--------------|-----------------------------|-----------------------|--------|------------------------------|
-         * |`clientId`    |`spotted.spotifyClientId`    |`SPOTIFY_CLIENT_ID`    |true    |-                             |
-         * |`clientSecret`|`spotted.spotifyClientSecret`|`SPOTIFY_CLIENT_SECRET`|true    |-                             |
+         * |`clientId`    |`spotted.spotifyClientId`    |`SPOTIFY_CLIENT_ID`    |false   |-                             |
+         * |`clientSecret`|`spotted.spotifyClientSecret`|`SPOTIFY_CLIENT_SECRET`|false   |-                             |
+         * |`accessToken` |`spotted.spotifyAccessToken` |`SPOTIFY_ACCESS_TOKEN` |false   |-                             |
          * |`baseUrl`     |`spotted.baseUrl`            |`SPOTTED_BASE_URL`     |true    |`"https://api.spotify.com/v1"`|
          *
          * System properties take precedence over environment variables.
@@ -377,6 +381,9 @@ private constructor(
             (System.getProperty("spotted.spotifyClientSecret")
                     ?: System.getenv("SPOTIFY_CLIENT_SECRET"))
                 ?.let { clientSecret(it) }
+            (System.getProperty("spotted.spotifyAccessToken")
+                    ?: System.getenv("SPOTIFY_ACCESS_TOKEN"))
+                ?.let { accessToken(it) }
         }
 
         /**
@@ -387,8 +394,6 @@ private constructor(
          * The following fields are required:
          * ```kotlin
          * .httpClient()
-         * .clientId()
-         * .clientSecret()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
@@ -396,8 +401,6 @@ private constructor(
         fun build(): ClientOptions {
             val httpClient = checkRequired("httpClient", httpClient)
             val sleeper = sleeper ?: PhantomReachableSleeper(DefaultSleeper())
-            val clientId = checkRequired("clientId", clientId)
-            val clientSecret = checkRequired("clientSecret", clientSecret)
 
             val headers = Headers.builder()
             val queryParams = QueryParams.builder()
@@ -408,6 +411,11 @@ private constructor(
             headers.put("X-Stainless-Package-Version", getPackageVersion())
             headers.put("X-Stainless-Runtime", "JRE")
             headers.put("X-Stainless-Runtime-Version", getJavaVersion())
+            accessToken?.let {
+                if (!it.isEmpty()) {
+                    headers.put("Authorization", "Bearer $it")
+                }
+            }
             headers.replaceAll(this.headers.build())
             queryParams.replaceAll(this.queryParams.build())
 
@@ -447,6 +455,7 @@ private constructor(
                 maxRetries,
                 clientId,
                 clientSecret,
+                accessToken,
             )
         }
     }
