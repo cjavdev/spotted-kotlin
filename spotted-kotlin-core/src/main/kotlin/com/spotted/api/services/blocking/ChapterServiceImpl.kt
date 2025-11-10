@@ -15,8 +15,8 @@ import com.spotted.api.core.http.HttpResponse.Handler
 import com.spotted.api.core.http.HttpResponseFor
 import com.spotted.api.core.http.parseable
 import com.spotted.api.core.prepare
-import com.spotted.api.models.chapters.ChapterListParams
-import com.spotted.api.models.chapters.ChapterListResponse
+import com.spotted.api.models.chapters.ChapterBulkRetrieveParams
+import com.spotted.api.models.chapters.ChapterBulkRetrieveResponse
 import com.spotted.api.models.chapters.ChapterRetrieveParams
 import com.spotted.api.models.chapters.ChapterRetrieveResponse
 
@@ -39,12 +39,12 @@ class ChapterServiceImpl internal constructor(private val clientOptions: ClientO
         // get /chapters/{id}
         withRawResponse().retrieve(params, requestOptions).parse()
 
-    override fun list(
-        params: ChapterListParams,
+    override fun bulkRetrieve(
+        params: ChapterBulkRetrieveParams,
         requestOptions: RequestOptions,
-    ): ChapterListResponse =
+    ): ChapterBulkRetrieveResponse =
         // get /chapters
-        withRawResponse().list(params, requestOptions).parse()
+        withRawResponse().bulkRetrieve(params, requestOptions).parse()
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         ChapterService.WithRawResponse {
@@ -89,13 +89,13 @@ class ChapterServiceImpl internal constructor(private val clientOptions: ClientO
             }
         }
 
-        private val listHandler: Handler<ChapterListResponse> =
-            jsonHandler<ChapterListResponse>(clientOptions.jsonMapper)
+        private val bulkRetrieveHandler: Handler<ChapterBulkRetrieveResponse> =
+            jsonHandler<ChapterBulkRetrieveResponse>(clientOptions.jsonMapper)
 
-        override fun list(
-            params: ChapterListParams,
+        override fun bulkRetrieve(
+            params: ChapterBulkRetrieveParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<ChapterListResponse> {
+        ): HttpResponseFor<ChapterBulkRetrieveResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -107,7 +107,7 @@ class ChapterServiceImpl internal constructor(private val clientOptions: ClientO
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
                 response
-                    .use { listHandler.handle(it) }
+                    .use { bulkRetrieveHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()

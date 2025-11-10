@@ -4,7 +4,7 @@ package com.spotted.api.services.blocking
 
 import com.spotted.api.TestServerExtension
 import com.spotted.api.client.okhttp.SpottedOkHttpClient
-import com.spotted.api.models.audiobooks.AudiobookListParams
+import com.spotted.api.models.audiobooks.AudiobookBulkRetrieveParams
 import com.spotted.api.models.audiobooks.AudiobookRetrieveParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -34,7 +34,7 @@ internal class AudiobookServiceTest {
 
     @Disabled("Prism tests are disabled")
     @Test
-    fun list() {
+    fun bulkRetrieve() {
         val client =
             SpottedOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -43,15 +43,15 @@ internal class AudiobookServiceTest {
                 .build()
         val audiobookService = client.audiobooks()
 
-        val audiobooks =
-            audiobookService.list(
-                AudiobookListParams.builder()
+        val response =
+            audiobookService.bulkRetrieve(
+                AudiobookBulkRetrieveParams.builder()
                     .ids("18yVqkdbdRvS24c0Ilj2ci,1HGw3J3NxZO1TP1BTtVhpZ,7iHfbu1YPACw6oZPAFJtqe")
                     .market("ES")
                     .build()
             )
 
-        audiobooks.validate()
+        response.validate()
     }
 
     @Disabled("Prism tests are disabled")

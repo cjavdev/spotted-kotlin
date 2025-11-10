@@ -6,10 +6,10 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.spotted.api.core.ClientOptions
 import com.spotted.api.core.RequestOptions
 import com.spotted.api.core.http.HttpResponseFor
+import com.spotted.api.models.audiobooks.AudiobookBulkRetrieveParams
+import com.spotted.api.models.audiobooks.AudiobookBulkRetrieveResponse
 import com.spotted.api.models.audiobooks.AudiobookListChaptersPageAsync
 import com.spotted.api.models.audiobooks.AudiobookListChaptersParams
-import com.spotted.api.models.audiobooks.AudiobookListParams
-import com.spotted.api.models.audiobooks.AudiobookListResponse
 import com.spotted.api.models.audiobooks.AudiobookRetrieveParams
 import com.spotted.api.models.audiobooks.AudiobookRetrieveResponse
 
@@ -52,10 +52,10 @@ interface AudiobookServiceAsync {
      * Audiobooks are only available within the US, UK, Canada, Ireland, New Zealand and Australia
      * markets.
      */
-    suspend fun list(
-        params: AudiobookListParams,
+    suspend fun bulkRetrieve(
+        params: AudiobookBulkRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): AudiobookListResponse
+    ): AudiobookBulkRetrieveResponse
 
     /**
      * Get Spotify catalog information about an audiobook's chapters. Audiobooks are only available
@@ -124,13 +124,13 @@ interface AudiobookServiceAsync {
 
         /**
          * Returns a raw HTTP response for `get /audiobooks`, but is otherwise the same as
-         * [AudiobookServiceAsync.list].
+         * [AudiobookServiceAsync.bulkRetrieve].
          */
         @MustBeClosed
-        suspend fun list(
-            params: AudiobookListParams,
+        suspend fun bulkRetrieve(
+            params: AudiobookBulkRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<AudiobookListResponse>
+        ): HttpResponseFor<AudiobookBulkRetrieveResponse>
 
         /**
          * Returns a raw HTTP response for `get /audiobooks/{id}/chapters`, but is otherwise the

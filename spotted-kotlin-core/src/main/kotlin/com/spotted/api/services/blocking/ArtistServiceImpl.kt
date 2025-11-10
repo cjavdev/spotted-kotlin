@@ -16,13 +16,13 @@ import com.spotted.api.core.http.HttpResponseFor
 import com.spotted.api.core.http.parseable
 import com.spotted.api.core.prepare
 import com.spotted.api.models.ArtistObject
+import com.spotted.api.models.artists.ArtistBulkRetrieveParams
+import com.spotted.api.models.artists.ArtistBulkRetrieveResponse
 import com.spotted.api.models.artists.ArtistListAlbumsPage
 import com.spotted.api.models.artists.ArtistListAlbumsPageResponse
 import com.spotted.api.models.artists.ArtistListAlbumsParams
-import com.spotted.api.models.artists.ArtistListParams
 import com.spotted.api.models.artists.ArtistListRelatedArtistsParams
 import com.spotted.api.models.artists.ArtistListRelatedArtistsResponse
-import com.spotted.api.models.artists.ArtistListResponse
 import com.spotted.api.models.artists.ArtistListTopTracksParams
 import com.spotted.api.models.artists.ArtistListTopTracksResponse
 import com.spotted.api.models.artists.ArtistRetrieveParams
@@ -46,12 +46,12 @@ class ArtistServiceImpl internal constructor(private val clientOptions: ClientOp
         // get /artists/{id}
         withRawResponse().retrieve(params, requestOptions).parse()
 
-    override fun list(
-        params: ArtistListParams,
+    override fun bulkRetrieve(
+        params: ArtistBulkRetrieveParams,
         requestOptions: RequestOptions,
-    ): ArtistListResponse =
+    ): ArtistBulkRetrieveResponse =
         // get /artists
-        withRawResponse().list(params, requestOptions).parse()
+        withRawResponse().bulkRetrieve(params, requestOptions).parse()
 
     override fun listAlbums(
         params: ArtistListAlbumsParams,
@@ -116,13 +116,13 @@ class ArtistServiceImpl internal constructor(private val clientOptions: ClientOp
             }
         }
 
-        private val listHandler: Handler<ArtistListResponse> =
-            jsonHandler<ArtistListResponse>(clientOptions.jsonMapper)
+        private val bulkRetrieveHandler: Handler<ArtistBulkRetrieveResponse> =
+            jsonHandler<ArtistBulkRetrieveResponse>(clientOptions.jsonMapper)
 
-        override fun list(
-            params: ArtistListParams,
+        override fun bulkRetrieve(
+            params: ArtistBulkRetrieveParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<ArtistListResponse> {
+        ): HttpResponseFor<ArtistBulkRetrieveResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -134,7 +134,7 @@ class ArtistServiceImpl internal constructor(private val clientOptions: ClientOp
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
                 response
-                    .use { listHandler.handle(it) }
+                    .use { bulkRetrieveHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()

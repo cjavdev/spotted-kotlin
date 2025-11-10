@@ -4,7 +4,7 @@ package com.spotted.api.services.blocking
 
 import com.spotted.api.TestServerExtension
 import com.spotted.api.client.okhttp.SpottedOkHttpClient
-import com.spotted.api.models.audiofeatures.AudioFeatureListParams
+import com.spotted.api.models.audiofeatures.AudioFeatureBulkRetrieveParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -30,7 +30,7 @@ internal class AudioFeatureServiceTest {
 
     @Disabled("Prism tests are disabled")
     @Test
-    fun list() {
+    fun bulkRetrieve() {
         val client =
             SpottedOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -39,13 +39,13 @@ internal class AudioFeatureServiceTest {
                 .build()
         val audioFeatureService = client.audioFeatures()
 
-        val audioFeatures =
-            audioFeatureService.list(
-                AudioFeatureListParams.builder()
+        val response =
+            audioFeatureService.bulkRetrieve(
+                AudioFeatureBulkRetrieveParams.builder()
                     .ids("7ouMYWpwJ422jRcDASZB7P,4VqPOruhp5EdPBeR92t6lQ,2takcwOaAZWiXQijPHIx7B")
                     .build()
             )
 
-        audioFeatures.validate()
+        response.validate()
     }
 }

@@ -6,8 +6,8 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.spotted.api.core.ClientOptions
 import com.spotted.api.core.RequestOptions
 import com.spotted.api.core.http.HttpResponseFor
-import com.spotted.api.models.chapters.ChapterListParams
-import com.spotted.api.models.chapters.ChapterListResponse
+import com.spotted.api.models.chapters.ChapterBulkRetrieveParams
+import com.spotted.api.models.chapters.ChapterBulkRetrieveResponse
 import com.spotted.api.models.chapters.ChapterRetrieveParams
 import com.spotted.api.models.chapters.ChapterRetrieveResponse
 
@@ -50,10 +50,10 @@ interface ChapterService {
      * IDs. Chapters are only available within the US, UK, Canada, Ireland, New Zealand and
      * Australia markets.
      */
-    fun list(
-        params: ChapterListParams,
+    fun bulkRetrieve(
+        params: ChapterBulkRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ChapterListResponse
+    ): ChapterBulkRetrieveResponse
 
     /** A view of [ChapterService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
@@ -94,12 +94,12 @@ interface ChapterService {
 
         /**
          * Returns a raw HTTP response for `get /chapters`, but is otherwise the same as
-         * [ChapterService.list].
+         * [ChapterService.bulkRetrieve].
          */
         @MustBeClosed
-        fun list(
-            params: ChapterListParams,
+        fun bulkRetrieve(
+            params: ChapterBulkRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ChapterListResponse>
+        ): HttpResponseFor<ChapterBulkRetrieveResponse>
     }
 }

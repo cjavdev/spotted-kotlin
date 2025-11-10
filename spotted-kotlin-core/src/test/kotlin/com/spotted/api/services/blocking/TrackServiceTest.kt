@@ -4,7 +4,7 @@ package com.spotted.api.services.blocking
 
 import com.spotted.api.TestServerExtension
 import com.spotted.api.client.okhttp.SpottedOkHttpClient
-import com.spotted.api.models.tracks.TrackListParams
+import com.spotted.api.models.tracks.TrackBulkRetrieveParams
 import com.spotted.api.models.tracks.TrackRetrieveParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -34,7 +34,7 @@ internal class TrackServiceTest {
 
     @Disabled("Prism tests are disabled")
     @Test
-    fun list() {
+    fun bulkRetrieve() {
         val client =
             SpottedOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -43,14 +43,14 @@ internal class TrackServiceTest {
                 .build()
         val trackService = client.tracks()
 
-        val tracks =
-            trackService.list(
-                TrackListParams.builder()
+        val response =
+            trackService.bulkRetrieve(
+                TrackBulkRetrieveParams.builder()
                     .ids("7ouMYWpwJ422jRcDASZB7P,4VqPOruhp5EdPBeR92t6lQ,2takcwOaAZWiXQijPHIx7B")
                     .market("ES")
                     .build()
             )
 
-        tracks.validate()
+        response.validate()
     }
 }

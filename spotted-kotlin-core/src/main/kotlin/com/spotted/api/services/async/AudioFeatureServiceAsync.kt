@@ -6,8 +6,8 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.spotted.api.core.ClientOptions
 import com.spotted.api.core.RequestOptions
 import com.spotted.api.core.http.HttpResponseFor
-import com.spotted.api.models.audiofeatures.AudioFeatureListParams
-import com.spotted.api.models.audiofeatures.AudioFeatureListResponse
+import com.spotted.api.models.audiofeatures.AudioFeatureBulkRetrieveParams
+import com.spotted.api.models.audiofeatures.AudioFeatureBulkRetrieveResponse
 import com.spotted.api.models.audiofeatures.AudioFeatureRetrieveParams
 import com.spotted.api.models.audiofeatures.AudioFeatureRetrieveResponse
 
@@ -47,10 +47,10 @@ interface AudioFeatureServiceAsync {
 
     /** Get audio features for multiple tracks based on their Spotify IDs. */
     @Deprecated("deprecated")
-    suspend fun list(
-        params: AudioFeatureListParams,
+    suspend fun bulkRetrieve(
+        params: AudioFeatureBulkRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): AudioFeatureListResponse
+    ): AudioFeatureBulkRetrieveResponse
 
     /**
      * A view of [AudioFeatureServiceAsync] that provides access to raw HTTP responses for each
@@ -99,13 +99,13 @@ interface AudioFeatureServiceAsync {
 
         /**
          * Returns a raw HTTP response for `get /audio-features`, but is otherwise the same as
-         * [AudioFeatureServiceAsync.list].
+         * [AudioFeatureServiceAsync.bulkRetrieve].
          */
         @Deprecated("deprecated")
         @MustBeClosed
-        suspend fun list(
-            params: AudioFeatureListParams,
+        suspend fun bulkRetrieve(
+            params: AudioFeatureBulkRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<AudioFeatureListResponse>
+        ): HttpResponseFor<AudioFeatureBulkRetrieveResponse>
     }
 }

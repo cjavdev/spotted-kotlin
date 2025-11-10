@@ -15,8 +15,8 @@ import com.spotted.api.core.http.HttpResponse.Handler
 import com.spotted.api.core.http.HttpResponseFor
 import com.spotted.api.core.http.parseable
 import com.spotted.api.core.prepareAsync
-import com.spotted.api.models.chapters.ChapterListParams
-import com.spotted.api.models.chapters.ChapterListResponse
+import com.spotted.api.models.chapters.ChapterBulkRetrieveParams
+import com.spotted.api.models.chapters.ChapterBulkRetrieveResponse
 import com.spotted.api.models.chapters.ChapterRetrieveParams
 import com.spotted.api.models.chapters.ChapterRetrieveResponse
 
@@ -39,12 +39,12 @@ class ChapterServiceAsyncImpl internal constructor(private val clientOptions: Cl
         // get /chapters/{id}
         withRawResponse().retrieve(params, requestOptions).parse()
 
-    override suspend fun list(
-        params: ChapterListParams,
+    override suspend fun bulkRetrieve(
+        params: ChapterBulkRetrieveParams,
         requestOptions: RequestOptions,
-    ): ChapterListResponse =
+    ): ChapterBulkRetrieveResponse =
         // get /chapters
-        withRawResponse().list(params, requestOptions).parse()
+        withRawResponse().bulkRetrieve(params, requestOptions).parse()
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         ChapterServiceAsync.WithRawResponse {
@@ -89,13 +89,13 @@ class ChapterServiceAsyncImpl internal constructor(private val clientOptions: Cl
             }
         }
 
-        private val listHandler: Handler<ChapterListResponse> =
-            jsonHandler<ChapterListResponse>(clientOptions.jsonMapper)
+        private val bulkRetrieveHandler: Handler<ChapterBulkRetrieveResponse> =
+            jsonHandler<ChapterBulkRetrieveResponse>(clientOptions.jsonMapper)
 
-        override suspend fun list(
-            params: ChapterListParams,
+        override suspend fun bulkRetrieve(
+            params: ChapterBulkRetrieveParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<ChapterListResponse> {
+        ): HttpResponseFor<ChapterBulkRetrieveResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -107,7 +107,7 @@ class ChapterServiceAsyncImpl internal constructor(private val clientOptions: Cl
             val response = clientOptions.httpClient.executeAsync(request, requestOptions)
             return errorHandler.handle(response).parseable {
                 response
-                    .use { listHandler.handle(it) }
+                    .use { bulkRetrieveHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()

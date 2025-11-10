@@ -15,8 +15,8 @@ import com.spotted.api.core.http.HttpResponse.Handler
 import com.spotted.api.core.http.HttpResponseFor
 import com.spotted.api.core.http.parseable
 import com.spotted.api.core.prepare
-import com.spotted.api.models.audiofeatures.AudioFeatureListParams
-import com.spotted.api.models.audiofeatures.AudioFeatureListResponse
+import com.spotted.api.models.audiofeatures.AudioFeatureBulkRetrieveParams
+import com.spotted.api.models.audiofeatures.AudioFeatureBulkRetrieveResponse
 import com.spotted.api.models.audiofeatures.AudioFeatureRetrieveParams
 import com.spotted.api.models.audiofeatures.AudioFeatureRetrieveResponse
 
@@ -41,12 +41,12 @@ class AudioFeatureServiceImpl internal constructor(private val clientOptions: Cl
         withRawResponse().retrieve(params, requestOptions).parse()
 
     @Deprecated("deprecated")
-    override fun list(
-        params: AudioFeatureListParams,
+    override fun bulkRetrieve(
+        params: AudioFeatureBulkRetrieveParams,
         requestOptions: RequestOptions,
-    ): AudioFeatureListResponse =
+    ): AudioFeatureBulkRetrieveResponse =
         // get /audio-features
-        withRawResponse().list(params, requestOptions).parse()
+        withRawResponse().bulkRetrieve(params, requestOptions).parse()
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         AudioFeatureService.WithRawResponse {
@@ -92,14 +92,14 @@ class AudioFeatureServiceImpl internal constructor(private val clientOptions: Cl
             }
         }
 
-        private val listHandler: Handler<AudioFeatureListResponse> =
-            jsonHandler<AudioFeatureListResponse>(clientOptions.jsonMapper)
+        private val bulkRetrieveHandler: Handler<AudioFeatureBulkRetrieveResponse> =
+            jsonHandler<AudioFeatureBulkRetrieveResponse>(clientOptions.jsonMapper)
 
         @Deprecated("deprecated")
-        override fun list(
-            params: AudioFeatureListParams,
+        override fun bulkRetrieve(
+            params: AudioFeatureBulkRetrieveParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<AudioFeatureListResponse> {
+        ): HttpResponseFor<AudioFeatureBulkRetrieveResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -111,7 +111,7 @@ class AudioFeatureServiceImpl internal constructor(private val clientOptions: Cl
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
                 response
-                    .use { listHandler.handle(it) }
+                    .use { bulkRetrieveHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()

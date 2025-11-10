@@ -4,7 +4,7 @@ package com.spotted.api.services.blocking
 
 import com.spotted.api.TestServerExtension
 import com.spotted.api.client.okhttp.SpottedOkHttpClient
-import com.spotted.api.models.shows.ShowListParams
+import com.spotted.api.models.shows.ShowBulkRetrieveParams
 import com.spotted.api.models.shows.ShowRetrieveParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -34,7 +34,7 @@ internal class ShowServiceTest {
 
     @Disabled("Prism tests are disabled")
     @Test
-    fun list() {
+    fun bulkRetrieve() {
         val client =
             SpottedOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -43,15 +43,15 @@ internal class ShowServiceTest {
                 .build()
         val showService = client.shows()
 
-        val shows =
-            showService.list(
-                ShowListParams.builder()
+        val response =
+            showService.bulkRetrieve(
+                ShowBulkRetrieveParams.builder()
                     .ids("5CfCWKI5pZ28U0uOzXkDHe,5as3aKmN2k11yfDDDSrvaZ")
                     .market("ES")
                     .build()
             )
 
-        shows.validate()
+        response.validate()
     }
 
     @Disabled("Prism tests are disabled")
