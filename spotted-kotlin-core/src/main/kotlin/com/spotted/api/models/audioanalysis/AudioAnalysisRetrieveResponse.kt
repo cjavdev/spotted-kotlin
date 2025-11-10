@@ -1484,10 +1484,13 @@ private constructor(
 
             companion object {
 
+                /** No result */
                 val minus_1 = of(-1.0)
 
+                /** Minor */
                 val _0 = of(0.0)
 
+                /** Major */
                 val _1 = of(1.0)
 
                 fun of(value: Double) = Mode(JsonField.of(value))
@@ -1495,8 +1498,11 @@ private constructor(
 
             /** An enum containing [Mode]'s known values. */
             enum class Known {
+                /** No result */
                 minus_1,
+                /** Minor */
                 _0,
+                /** Major */
                 _1,
             }
 
@@ -1510,8 +1516,11 @@ private constructor(
              * - It was constructed with an arbitrary value using the [of] method.
              */
             enum class Value {
+                /** No result */
                 minus_1,
+                /** Minor */
                 _0,
+                /** Major */
                 _1,
                 /** An enum member indicating that [Mode] was instantiated with an unknown value. */
                 _UNKNOWN,
