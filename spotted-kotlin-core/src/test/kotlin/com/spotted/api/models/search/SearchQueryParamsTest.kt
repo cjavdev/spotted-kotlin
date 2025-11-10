@@ -6,14 +6,14 @@ import com.spotted.api.core.http.QueryParams
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-internal class SearchSearchParamsTest {
+internal class SearchQueryParamsTest {
 
     @Test
     fun create() {
-        SearchSearchParams.builder()
+        SearchQueryParams.builder()
             .q("remaster%20track:Doxy%20artist:Miles%20Davis")
-            .addType(SearchSearchParams.Type.ALBUM)
-            .includeExternal(SearchSearchParams.IncludeExternal.AUDIO)
+            .addType(SearchQueryParams.Type.ALBUM)
+            .includeExternal(SearchQueryParams.IncludeExternal.AUDIO)
             .limit(10L)
             .market("ES")
             .offset(5L)
@@ -23,10 +23,10 @@ internal class SearchSearchParamsTest {
     @Test
     fun queryParams() {
         val params =
-            SearchSearchParams.builder()
+            SearchQueryParams.builder()
                 .q("remaster%20track:Doxy%20artist:Miles%20Davis")
-                .addType(SearchSearchParams.Type.ALBUM)
-                .includeExternal(SearchSearchParams.IncludeExternal.AUDIO)
+                .addType(SearchQueryParams.Type.ALBUM)
+                .includeExternal(SearchQueryParams.IncludeExternal.AUDIO)
                 .limit(10L)
                 .market("ES")
                 .offset(5L)
@@ -50,9 +50,9 @@ internal class SearchSearchParamsTest {
     @Test
     fun queryParamsWithoutOptionalFields() {
         val params =
-            SearchSearchParams.builder()
+            SearchQueryParams.builder()
                 .q("remaster%20track:Doxy%20artist:Miles%20Davis")
-                .addType(SearchSearchParams.Type.ALBUM)
+                .addType(SearchQueryParams.Type.ALBUM)
                 .build()
 
         val queryParams = params._queryParams()
