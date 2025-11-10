@@ -28,7 +28,7 @@ import com.spotted.api.models.TrackObject
 import java.util.Collections
 import java.util.Objects
 
-class SearchSearchResponse
+class SearchQueryResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val albums: JsonField<Albums>,
@@ -165,11 +165,11 @@ private constructor(
 
     companion object {
 
-        /** Returns a mutable builder for constructing an instance of [SearchSearchResponse]. */
+        /** Returns a mutable builder for constructing an instance of [SearchQueryResponse]. */
         fun builder() = Builder()
     }
 
-    /** A builder for [SearchSearchResponse]. */
+    /** A builder for [SearchQueryResponse]. */
     class Builder internal constructor() {
 
         private var albums: JsonField<Albums> = JsonMissing.of()
@@ -181,15 +181,15 @@ private constructor(
         private var tracks: JsonField<Tracks> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-        internal fun from(searchSearchResponse: SearchSearchResponse) = apply {
-            albums = searchSearchResponse.albums
-            artists = searchSearchResponse.artists
-            audiobooks = searchSearchResponse.audiobooks
-            episodes = searchSearchResponse.episodes
-            playlists = searchSearchResponse.playlists
-            shows = searchSearchResponse.shows
-            tracks = searchSearchResponse.tracks
-            additionalProperties = searchSearchResponse.additionalProperties.toMutableMap()
+        internal fun from(searchQueryResponse: SearchQueryResponse) = apply {
+            albums = searchQueryResponse.albums
+            artists = searchQueryResponse.artists
+            audiobooks = searchQueryResponse.audiobooks
+            episodes = searchQueryResponse.episodes
+            playlists = searchQueryResponse.playlists
+            shows = searchQueryResponse.shows
+            tracks = searchQueryResponse.tracks
+            additionalProperties = searchQueryResponse.additionalProperties.toMutableMap()
         }
 
         fun albums(albums: Albums) = albums(JsonField.of(albums))
@@ -287,12 +287,12 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [SearchSearchResponse].
+         * Returns an immutable instance of [SearchQueryResponse].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          */
-        fun build(): SearchSearchResponse =
-            SearchSearchResponse(
+        fun build(): SearchQueryResponse =
+            SearchQueryResponse(
                 albums,
                 artists,
                 audiobooks,
@@ -306,7 +306,7 @@ private constructor(
 
     private var validated: Boolean = false
 
-    fun validate(): SearchSearchResponse = apply {
+    fun validate(): SearchQueryResponse = apply {
         if (validated) {
             return@apply
         }
@@ -3954,7 +3954,7 @@ private constructor(
             return true
         }
 
-        return other is SearchSearchResponse &&
+        return other is SearchQueryResponse &&
             albums == other.albums &&
             artists == other.artists &&
             audiobooks == other.audiobooks &&
@@ -3981,5 +3981,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "SearchSearchResponse{albums=$albums, artists=$artists, audiobooks=$audiobooks, episodes=$episodes, playlists=$playlists, shows=$shows, tracks=$tracks, additionalProperties=$additionalProperties}"
+        "SearchQueryResponse{albums=$albums, artists=$artists, audiobooks=$audiobooks, episodes=$episodes, playlists=$playlists, shows=$shows, tracks=$tracks, additionalProperties=$additionalProperties}"
 }
