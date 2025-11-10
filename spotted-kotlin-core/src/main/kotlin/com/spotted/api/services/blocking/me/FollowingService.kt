@@ -7,10 +7,10 @@ import com.spotted.api.core.ClientOptions
 import com.spotted.api.core.RequestOptions
 import com.spotted.api.core.http.HttpResponse
 import com.spotted.api.core.http.HttpResponseFor
+import com.spotted.api.models.me.following.FollowingBulkRetrieveParams
+import com.spotted.api.models.me.following.FollowingBulkRetrieveResponse
 import com.spotted.api.models.me.following.FollowingCheckParams
 import com.spotted.api.models.me.following.FollowingFollowParams
-import com.spotted.api.models.me.following.FollowingListParams
-import com.spotted.api.models.me.following.FollowingListResponse
 import com.spotted.api.models.me.following.FollowingUnfollowParams
 
 interface FollowingService {
@@ -28,10 +28,10 @@ interface FollowingService {
     fun withOptions(modifier: (ClientOptions.Builder) -> Unit): FollowingService
 
     /** Get the current user's followed artists. */
-    fun list(
-        params: FollowingListParams,
+    fun bulkRetrieve(
+        params: FollowingBulkRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): FollowingListResponse
+    ): FollowingBulkRetrieveResponse
 
     /** Check to see if the current user is following one or more artists or other Spotify users. */
     fun check(
@@ -67,13 +67,13 @@ interface FollowingService {
 
         /**
          * Returns a raw HTTP response for `get /me/following`, but is otherwise the same as
-         * [FollowingService.list].
+         * [FollowingService.bulkRetrieve].
          */
         @MustBeClosed
-        fun list(
-            params: FollowingListParams,
+        fun bulkRetrieve(
+            params: FollowingBulkRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<FollowingListResponse>
+        ): HttpResponseFor<FollowingBulkRetrieveResponse>
 
         /**
          * Returns a raw HTTP response for `get /me/following/contains`, but is otherwise the same

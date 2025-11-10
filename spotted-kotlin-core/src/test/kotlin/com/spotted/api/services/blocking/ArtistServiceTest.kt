@@ -4,7 +4,7 @@ package com.spotted.api.services.blocking
 
 import com.spotted.api.TestServerExtension
 import com.spotted.api.client.okhttp.SpottedOkHttpClient
-import com.spotted.api.models.artists.ArtistListParams
+import com.spotted.api.models.artists.ArtistBulkRetrieveParams
 import com.spotted.api.models.artists.ArtistListTopTracksParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -31,7 +31,7 @@ internal class ArtistServiceTest {
 
     @Disabled("Prism tests are disabled")
     @Test
-    fun list() {
+    fun bulkRetrieve() {
         val client =
             SpottedOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -40,14 +40,14 @@ internal class ArtistServiceTest {
                 .build()
         val artistService = client.artists()
 
-        val artists =
-            artistService.list(
-                ArtistListParams.builder()
+        val response =
+            artistService.bulkRetrieve(
+                ArtistBulkRetrieveParams.builder()
                     .ids("2CIMQHirSU0MQqyYHq0eOx,57dN52uHvrHOxijzpIgu3E,1vCWHaC5f2uS3yhpwWbIA6")
                     .build()
             )
 
-        artists.validate()
+        response.validate()
     }
 
     @Disabled("Prism tests are disabled")

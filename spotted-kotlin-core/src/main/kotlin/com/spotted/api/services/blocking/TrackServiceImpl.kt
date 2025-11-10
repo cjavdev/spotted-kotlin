@@ -16,8 +16,8 @@ import com.spotted.api.core.http.HttpResponseFor
 import com.spotted.api.core.http.parseable
 import com.spotted.api.core.prepare
 import com.spotted.api.models.TrackObject
-import com.spotted.api.models.tracks.TrackListParams
-import com.spotted.api.models.tracks.TrackListResponse
+import com.spotted.api.models.tracks.TrackBulkRetrieveParams
+import com.spotted.api.models.tracks.TrackBulkRetrieveResponse
 import com.spotted.api.models.tracks.TrackRetrieveParams
 
 class TrackServiceImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -39,9 +39,12 @@ class TrackServiceImpl internal constructor(private val clientOptions: ClientOpt
         // get /tracks/{id}
         withRawResponse().retrieve(params, requestOptions).parse()
 
-    override fun list(params: TrackListParams, requestOptions: RequestOptions): TrackListResponse =
+    override fun bulkRetrieve(
+        params: TrackBulkRetrieveParams,
+        requestOptions: RequestOptions,
+    ): TrackBulkRetrieveResponse =
         // get /tracks
-        withRawResponse().list(params, requestOptions).parse()
+        withRawResponse().bulkRetrieve(params, requestOptions).parse()
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         TrackService.WithRawResponse {
@@ -84,13 +87,13 @@ class TrackServiceImpl internal constructor(private val clientOptions: ClientOpt
             }
         }
 
-        private val listHandler: Handler<TrackListResponse> =
-            jsonHandler<TrackListResponse>(clientOptions.jsonMapper)
+        private val bulkRetrieveHandler: Handler<TrackBulkRetrieveResponse> =
+            jsonHandler<TrackBulkRetrieveResponse>(clientOptions.jsonMapper)
 
-        override fun list(
-            params: TrackListParams,
+        override fun bulkRetrieve(
+            params: TrackBulkRetrieveParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<TrackListResponse> {
+        ): HttpResponseFor<TrackBulkRetrieveResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -102,7 +105,7 @@ class TrackServiceImpl internal constructor(private val clientOptions: ClientOpt
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
                 response
-                    .use { listHandler.handle(it) }
+                    .use { bulkRetrieveHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()

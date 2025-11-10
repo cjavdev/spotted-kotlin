@@ -7,8 +7,8 @@ import com.spotted.api.core.ClientOptions
 import com.spotted.api.core.RequestOptions
 import com.spotted.api.core.http.HttpResponseFor
 import com.spotted.api.models.TrackObject
-import com.spotted.api.models.tracks.TrackListParams
-import com.spotted.api.models.tracks.TrackListResponse
+import com.spotted.api.models.tracks.TrackBulkRetrieveParams
+import com.spotted.api.models.tracks.TrackBulkRetrieveResponse
 import com.spotted.api.models.tracks.TrackRetrieveParams
 
 interface TrackService {
@@ -43,10 +43,10 @@ interface TrackService {
         retrieve(id, TrackRetrieveParams.none(), requestOptions)
 
     /** Get Spotify catalog information for multiple tracks based on their Spotify IDs. */
-    fun list(
-        params: TrackListParams,
+    fun bulkRetrieve(
+        params: TrackBulkRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): TrackListResponse
+    ): TrackBulkRetrieveResponse
 
     /** A view of [TrackService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
@@ -84,12 +84,12 @@ interface TrackService {
 
         /**
          * Returns a raw HTTP response for `get /tracks`, but is otherwise the same as
-         * [TrackService.list].
+         * [TrackService.bulkRetrieve].
          */
         @MustBeClosed
-        fun list(
-            params: TrackListParams,
+        fun bulkRetrieve(
+            params: TrackBulkRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<TrackListResponse>
+        ): HttpResponseFor<TrackBulkRetrieveResponse>
     }
 }

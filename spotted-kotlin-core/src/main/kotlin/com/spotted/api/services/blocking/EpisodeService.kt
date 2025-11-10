@@ -7,8 +7,8 @@ import com.spotted.api.core.ClientOptions
 import com.spotted.api.core.RequestOptions
 import com.spotted.api.core.http.HttpResponseFor
 import com.spotted.api.models.EpisodeObject
-import com.spotted.api.models.episodes.EpisodeListParams
-import com.spotted.api.models.episodes.EpisodeListResponse
+import com.spotted.api.models.episodes.EpisodeBulkRetrieveParams
+import com.spotted.api.models.episodes.EpisodeBulkRetrieveResponse
 import com.spotted.api.models.episodes.EpisodeRetrieveParams
 
 interface EpisodeService {
@@ -43,10 +43,10 @@ interface EpisodeService {
         retrieve(id, EpisodeRetrieveParams.none(), requestOptions)
 
     /** Get Spotify catalog information for several episodes based on their Spotify IDs. */
-    fun list(
-        params: EpisodeListParams,
+    fun bulkRetrieve(
+        params: EpisodeBulkRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): EpisodeListResponse
+    ): EpisodeBulkRetrieveResponse
 
     /** A view of [EpisodeService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
@@ -84,12 +84,12 @@ interface EpisodeService {
 
         /**
          * Returns a raw HTTP response for `get /episodes`, but is otherwise the same as
-         * [EpisodeService.list].
+         * [EpisodeService.bulkRetrieve].
          */
         @MustBeClosed
-        fun list(
-            params: EpisodeListParams,
+        fun bulkRetrieve(
+            params: EpisodeBulkRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<EpisodeListResponse>
+        ): HttpResponseFor<EpisodeBulkRetrieveResponse>
     }
 }

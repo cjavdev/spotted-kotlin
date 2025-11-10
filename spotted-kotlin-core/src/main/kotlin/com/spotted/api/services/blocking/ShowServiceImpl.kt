@@ -15,11 +15,11 @@ import com.spotted.api.core.http.HttpResponse.Handler
 import com.spotted.api.core.http.HttpResponseFor
 import com.spotted.api.core.http.parseable
 import com.spotted.api.core.prepare
+import com.spotted.api.models.shows.ShowBulkRetrieveParams
+import com.spotted.api.models.shows.ShowBulkRetrieveResponse
 import com.spotted.api.models.shows.ShowListEpisodesPage
 import com.spotted.api.models.shows.ShowListEpisodesPageResponse
 import com.spotted.api.models.shows.ShowListEpisodesParams
-import com.spotted.api.models.shows.ShowListParams
-import com.spotted.api.models.shows.ShowListResponse
 import com.spotted.api.models.shows.ShowRetrieveParams
 import com.spotted.api.models.shows.ShowRetrieveResponse
 
@@ -41,9 +41,12 @@ class ShowServiceImpl internal constructor(private val clientOptions: ClientOpti
         // get /shows/{id}
         withRawResponse().retrieve(params, requestOptions).parse()
 
-    override fun list(params: ShowListParams, requestOptions: RequestOptions): ShowListResponse =
+    override fun bulkRetrieve(
+        params: ShowBulkRetrieveParams,
+        requestOptions: RequestOptions,
+    ): ShowBulkRetrieveResponse =
         // get /shows
-        withRawResponse().list(params, requestOptions).parse()
+        withRawResponse().bulkRetrieve(params, requestOptions).parse()
 
     override fun listEpisodes(
         params: ShowListEpisodesParams,
@@ -93,13 +96,13 @@ class ShowServiceImpl internal constructor(private val clientOptions: ClientOpti
             }
         }
 
-        private val listHandler: Handler<ShowListResponse> =
-            jsonHandler<ShowListResponse>(clientOptions.jsonMapper)
+        private val bulkRetrieveHandler: Handler<ShowBulkRetrieveResponse> =
+            jsonHandler<ShowBulkRetrieveResponse>(clientOptions.jsonMapper)
 
-        override fun list(
-            params: ShowListParams,
+        override fun bulkRetrieve(
+            params: ShowBulkRetrieveParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<ShowListResponse> {
+        ): HttpResponseFor<ShowBulkRetrieveResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -111,7 +114,7 @@ class ShowServiceImpl internal constructor(private val clientOptions: ClientOpti
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
                 response
-                    .use { listHandler.handle(it) }
+                    .use { bulkRetrieveHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()
