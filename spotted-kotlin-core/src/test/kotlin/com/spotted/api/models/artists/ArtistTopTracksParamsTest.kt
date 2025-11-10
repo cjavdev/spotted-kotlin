@@ -6,16 +6,16 @@ import com.spotted.api.core.http.QueryParams
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-internal class ArtistListTopTracksParamsTest {
+internal class ArtistTopTracksParamsTest {
 
     @Test
     fun create() {
-        ArtistListTopTracksParams.builder().id("0TnOYISbd1XYRBk9myaseg").market("ES").build()
+        ArtistTopTracksParams.builder().id("0TnOYISbd1XYRBk9myaseg").market("ES").build()
     }
 
     @Test
     fun pathParams() {
-        val params = ArtistListTopTracksParams.builder().id("0TnOYISbd1XYRBk9myaseg").build()
+        val params = ArtistTopTracksParams.builder().id("0TnOYISbd1XYRBk9myaseg").build()
 
         assertThat(params._pathParam(0)).isEqualTo("0TnOYISbd1XYRBk9myaseg")
         // out-of-bound path param
@@ -25,7 +25,7 @@ internal class ArtistListTopTracksParamsTest {
     @Test
     fun queryParams() {
         val params =
-            ArtistListTopTracksParams.builder().id("0TnOYISbd1XYRBk9myaseg").market("ES").build()
+            ArtistTopTracksParams.builder().id("0TnOYISbd1XYRBk9myaseg").market("ES").build()
 
         val queryParams = params._queryParams()
 
@@ -34,7 +34,7 @@ internal class ArtistListTopTracksParamsTest {
 
     @Test
     fun queryParamsWithoutOptionalFields() {
-        val params = ArtistListTopTracksParams.builder().id("0TnOYISbd1XYRBk9myaseg").build()
+        val params = ArtistTopTracksParams.builder().id("0TnOYISbd1XYRBk9myaseg").build()
 
         val queryParams = params._queryParams()
 

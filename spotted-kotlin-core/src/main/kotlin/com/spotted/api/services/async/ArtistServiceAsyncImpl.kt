@@ -23,9 +23,9 @@ import com.spotted.api.models.artists.ArtistListAlbumsPageResponse
 import com.spotted.api.models.artists.ArtistListAlbumsParams
 import com.spotted.api.models.artists.ArtistListRelatedArtistsParams
 import com.spotted.api.models.artists.ArtistListRelatedArtistsResponse
-import com.spotted.api.models.artists.ArtistListTopTracksParams
-import com.spotted.api.models.artists.ArtistListTopTracksResponse
 import com.spotted.api.models.artists.ArtistRetrieveParams
+import com.spotted.api.models.artists.ArtistTopTracksParams
+import com.spotted.api.models.artists.ArtistTopTracksResponse
 
 class ArtistServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     ArtistServiceAsync {
@@ -68,12 +68,12 @@ class ArtistServiceAsyncImpl internal constructor(private val clientOptions: Cli
         // get /artists/{id}/related-artists
         withRawResponse().listRelatedArtists(params, requestOptions).parse()
 
-    override suspend fun listTopTracks(
-        params: ArtistListTopTracksParams,
+    override suspend fun topTracks(
+        params: ArtistTopTracksParams,
         requestOptions: RequestOptions,
-    ): ArtistListTopTracksResponse =
+    ): ArtistTopTracksResponse =
         // get /artists/{id}/top-tracks
-        withRawResponse().listTopTracks(params, requestOptions).parse()
+        withRawResponse().topTracks(params, requestOptions).parse()
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         ArtistServiceAsync.WithRawResponse {
@@ -213,13 +213,13 @@ class ArtistServiceAsyncImpl internal constructor(private val clientOptions: Cli
             }
         }
 
-        private val listTopTracksHandler: Handler<ArtistListTopTracksResponse> =
-            jsonHandler<ArtistListTopTracksResponse>(clientOptions.jsonMapper)
+        private val topTracksHandler: Handler<ArtistTopTracksResponse> =
+            jsonHandler<ArtistTopTracksResponse>(clientOptions.jsonMapper)
 
-        override suspend fun listTopTracks(
-            params: ArtistListTopTracksParams,
+        override suspend fun topTracks(
+            params: ArtistTopTracksParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<ArtistListTopTracksResponse> {
+        ): HttpResponseFor<ArtistTopTracksResponse> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("id", params.id())
@@ -234,7 +234,7 @@ class ArtistServiceAsyncImpl internal constructor(private val clientOptions: Cli
             val response = clientOptions.httpClient.executeAsync(request, requestOptions)
             return errorHandler.handle(response).parseable {
                 response
-                    .use { listTopTracksHandler.handle(it) }
+                    .use { topTracksHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()
