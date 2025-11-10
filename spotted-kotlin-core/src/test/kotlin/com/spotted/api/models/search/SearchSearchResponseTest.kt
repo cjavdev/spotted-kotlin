@@ -29,19 +29,19 @@ import com.spotted.api.models.TrackRestrictionObject
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-internal class SearchRetrieveResponseTest {
+internal class SearchSearchResponseTest {
 
     @Test
     fun create() {
-        val searchRetrieveResponse =
-            SearchRetrieveResponse.builder()
+        val searchSearchResponse =
+            SearchSearchResponse.builder()
                 .albums(
-                    SearchRetrieveResponse.Albums.builder()
+                    SearchSearchResponse.Albums.builder()
                         .href("https://api.spotify.com/v1/me/shows?offset=0&limit=20\n")
                         .addItem(
-                            SearchRetrieveResponse.Albums.Item.builder()
+                            SearchSearchResponse.Albums.Item.builder()
                                 .id("2up3OPMp9Tb4dAKM2erWXQ")
-                                .albumType(SearchRetrieveResponse.Albums.Item.AlbumType.COMPILATION)
+                                .albumType(SearchSearchResponse.Albums.Item.AlbumType.COMPILATION)
                                 .addArtist(
                                     SimplifiedArtistObject.builder()
                                         .id("id")
@@ -71,10 +71,10 @@ internal class SearchRetrieveResponseTest {
                                 .name("name")
                                 .releaseDate("1981-12")
                                 .releaseDatePrecision(
-                                    SearchRetrieveResponse.Albums.Item.ReleaseDatePrecision.YEAR
+                                    SearchSearchResponse.Albums.Item.ReleaseDatePrecision.YEAR
                                 )
                                 .totalTracks(9L)
-                                .type(SearchRetrieveResponse.Albums.Item.Type.ALBUM)
+                                .type(SearchSearchResponse.Albums.Item.Type.ALBUM)
                                 .uri("spotify:album:2up3OPMp9Tb4dAKM2erWXQ")
                                 .restrictions(
                                     AlbumRestrictionObject.builder()
@@ -91,7 +91,7 @@ internal class SearchRetrieveResponseTest {
                         .build()
                 )
                 .artists(
-                    SearchRetrieveResponse.Artists.builder()
+                    SearchSearchResponse.Artists.builder()
                         .href("https://api.spotify.com/v1/me/shows?offset=0&limit=20\n")
                         .addItem(
                             ArtistObject.builder()
@@ -126,7 +126,7 @@ internal class SearchRetrieveResponseTest {
                         .build()
                 )
                 .audiobooks(
-                    SearchRetrieveResponse.Audiobooks.builder()
+                    SearchSearchResponse.Audiobooks.builder()
                         .href("https://api.spotify.com/v1/me/shows?offset=0&limit=20\n")
                         .addItem(
                             AudiobookBase.builder()
@@ -171,7 +171,7 @@ internal class SearchRetrieveResponseTest {
                         .build()
                 )
                 .episodes(
-                    SearchRetrieveResponse.Episodes.builder()
+                    SearchSearchResponse.Episodes.builder()
                         .href("https://api.spotify.com/v1/me/shows?offset=0&limit=20\n")
                         .addItem(
                             SimplifiedEpisodeObject.builder()
@@ -283,7 +283,7 @@ internal class SearchRetrieveResponseTest {
                         .build()
                 )
                 .shows(
-                    SearchRetrieveResponse.Shows.builder()
+                    SearchSearchResponse.Shows.builder()
                         .href("https://api.spotify.com/v1/me/shows?offset=0&limit=20\n")
                         .addItem(
                             ShowBase.builder()
@@ -326,7 +326,7 @@ internal class SearchRetrieveResponseTest {
                         .build()
                 )
                 .tracks(
-                    SearchRetrieveResponse.Tracks.builder()
+                    SearchSearchResponse.Tracks.builder()
                         .href("https://api.spotify.com/v1/me/shows?offset=0&limit=20\n")
                         .addItem(
                             TrackObject.builder()
@@ -438,14 +438,14 @@ internal class SearchRetrieveResponseTest {
                 )
                 .build()
 
-        assertThat(searchRetrieveResponse.albums())
+        assertThat(searchSearchResponse.albums())
             .isEqualTo(
-                SearchRetrieveResponse.Albums.builder()
+                SearchSearchResponse.Albums.builder()
                     .href("https://api.spotify.com/v1/me/shows?offset=0&limit=20\n")
                     .addItem(
-                        SearchRetrieveResponse.Albums.Item.builder()
+                        SearchSearchResponse.Albums.Item.builder()
                             .id("2up3OPMp9Tb4dAKM2erWXQ")
-                            .albumType(SearchRetrieveResponse.Albums.Item.AlbumType.COMPILATION)
+                            .albumType(SearchSearchResponse.Albums.Item.AlbumType.COMPILATION)
                             .addArtist(
                                 SimplifiedArtistObject.builder()
                                     .id("id")
@@ -473,10 +473,10 @@ internal class SearchRetrieveResponseTest {
                             .name("name")
                             .releaseDate("1981-12")
                             .releaseDatePrecision(
-                                SearchRetrieveResponse.Albums.Item.ReleaseDatePrecision.YEAR
+                                SearchSearchResponse.Albums.Item.ReleaseDatePrecision.YEAR
                             )
                             .totalTracks(9L)
-                            .type(SearchRetrieveResponse.Albums.Item.Type.ALBUM)
+                            .type(SearchSearchResponse.Albums.Item.Type.ALBUM)
                             .uri("spotify:album:2up3OPMp9Tb4dAKM2erWXQ")
                             .restrictions(
                                 AlbumRestrictionObject.builder()
@@ -492,9 +492,9 @@ internal class SearchRetrieveResponseTest {
                     .total(4L)
                     .build()
             )
-        assertThat(searchRetrieveResponse.artists())
+        assertThat(searchSearchResponse.artists())
             .isEqualTo(
-                SearchRetrieveResponse.Artists.builder()
+                SearchSearchResponse.Artists.builder()
                     .href("https://api.spotify.com/v1/me/shows?offset=0&limit=20\n")
                     .addItem(
                         ArtistObject.builder()
@@ -526,9 +526,9 @@ internal class SearchRetrieveResponseTest {
                     .total(4L)
                     .build()
             )
-        assertThat(searchRetrieveResponse.audiobooks())
+        assertThat(searchSearchResponse.audiobooks())
             .isEqualTo(
-                SearchRetrieveResponse.Audiobooks.builder()
+                SearchSearchResponse.Audiobooks.builder()
                     .href("https://api.spotify.com/v1/me/shows?offset=0&limit=20\n")
                     .addItem(
                         AudiobookBase.builder()
@@ -570,9 +570,9 @@ internal class SearchRetrieveResponseTest {
                     .total(4L)
                     .build()
             )
-        assertThat(searchRetrieveResponse.episodes())
+        assertThat(searchSearchResponse.episodes())
             .isEqualTo(
-                SearchRetrieveResponse.Episodes.builder()
+                SearchSearchResponse.Episodes.builder()
                     .href("https://api.spotify.com/v1/me/shows?offset=0&limit=20\n")
                     .addItem(
                         SimplifiedEpisodeObject.builder()
@@ -629,7 +629,7 @@ internal class SearchRetrieveResponseTest {
                     .total(4L)
                     .build()
             )
-        assertThat(searchRetrieveResponse.playlists())
+        assertThat(searchSearchResponse.playlists())
             .isEqualTo(
                 PagingPlaylistObject.builder()
                     .href("https://api.spotify.com/v1/me/shows?offset=0&limit=20\n")
@@ -678,9 +678,9 @@ internal class SearchRetrieveResponseTest {
                     .total(4L)
                     .build()
             )
-        assertThat(searchRetrieveResponse.shows())
+        assertThat(searchSearchResponse.shows())
             .isEqualTo(
-                SearchRetrieveResponse.Shows.builder()
+                SearchSearchResponse.Shows.builder()
                     .href("https://api.spotify.com/v1/me/shows?offset=0&limit=20\n")
                     .addItem(
                         ShowBase.builder()
@@ -720,9 +720,9 @@ internal class SearchRetrieveResponseTest {
                     .total(4L)
                     .build()
             )
-        assertThat(searchRetrieveResponse.tracks())
+        assertThat(searchSearchResponse.tracks())
             .isEqualTo(
-                SearchRetrieveResponse.Tracks.builder()
+                SearchSearchResponse.Tracks.builder()
                     .href("https://api.spotify.com/v1/me/shows?offset=0&limit=20\n")
                     .addItem(
                         TrackObject.builder()
@@ -833,15 +833,15 @@ internal class SearchRetrieveResponseTest {
     @Test
     fun roundtrip() {
         val jsonMapper = jsonMapper()
-        val searchRetrieveResponse =
-            SearchRetrieveResponse.builder()
+        val searchSearchResponse =
+            SearchSearchResponse.builder()
                 .albums(
-                    SearchRetrieveResponse.Albums.builder()
+                    SearchSearchResponse.Albums.builder()
                         .href("https://api.spotify.com/v1/me/shows?offset=0&limit=20\n")
                         .addItem(
-                            SearchRetrieveResponse.Albums.Item.builder()
+                            SearchSearchResponse.Albums.Item.builder()
                                 .id("2up3OPMp9Tb4dAKM2erWXQ")
-                                .albumType(SearchRetrieveResponse.Albums.Item.AlbumType.COMPILATION)
+                                .albumType(SearchSearchResponse.Albums.Item.AlbumType.COMPILATION)
                                 .addArtist(
                                     SimplifiedArtistObject.builder()
                                         .id("id")
@@ -871,10 +871,10 @@ internal class SearchRetrieveResponseTest {
                                 .name("name")
                                 .releaseDate("1981-12")
                                 .releaseDatePrecision(
-                                    SearchRetrieveResponse.Albums.Item.ReleaseDatePrecision.YEAR
+                                    SearchSearchResponse.Albums.Item.ReleaseDatePrecision.YEAR
                                 )
                                 .totalTracks(9L)
-                                .type(SearchRetrieveResponse.Albums.Item.Type.ALBUM)
+                                .type(SearchSearchResponse.Albums.Item.Type.ALBUM)
                                 .uri("spotify:album:2up3OPMp9Tb4dAKM2erWXQ")
                                 .restrictions(
                                     AlbumRestrictionObject.builder()
@@ -891,7 +891,7 @@ internal class SearchRetrieveResponseTest {
                         .build()
                 )
                 .artists(
-                    SearchRetrieveResponse.Artists.builder()
+                    SearchSearchResponse.Artists.builder()
                         .href("https://api.spotify.com/v1/me/shows?offset=0&limit=20\n")
                         .addItem(
                             ArtistObject.builder()
@@ -926,7 +926,7 @@ internal class SearchRetrieveResponseTest {
                         .build()
                 )
                 .audiobooks(
-                    SearchRetrieveResponse.Audiobooks.builder()
+                    SearchSearchResponse.Audiobooks.builder()
                         .href("https://api.spotify.com/v1/me/shows?offset=0&limit=20\n")
                         .addItem(
                             AudiobookBase.builder()
@@ -971,7 +971,7 @@ internal class SearchRetrieveResponseTest {
                         .build()
                 )
                 .episodes(
-                    SearchRetrieveResponse.Episodes.builder()
+                    SearchSearchResponse.Episodes.builder()
                         .href("https://api.spotify.com/v1/me/shows?offset=0&limit=20\n")
                         .addItem(
                             SimplifiedEpisodeObject.builder()
@@ -1083,7 +1083,7 @@ internal class SearchRetrieveResponseTest {
                         .build()
                 )
                 .shows(
-                    SearchRetrieveResponse.Shows.builder()
+                    SearchSearchResponse.Shows.builder()
                         .href("https://api.spotify.com/v1/me/shows?offset=0&limit=20\n")
                         .addItem(
                             ShowBase.builder()
@@ -1126,7 +1126,7 @@ internal class SearchRetrieveResponseTest {
                         .build()
                 )
                 .tracks(
-                    SearchRetrieveResponse.Tracks.builder()
+                    SearchSearchResponse.Tracks.builder()
                         .href("https://api.spotify.com/v1/me/shows?offset=0&limit=20\n")
                         .addItem(
                             TrackObject.builder()
@@ -1238,12 +1238,12 @@ internal class SearchRetrieveResponseTest {
                 )
                 .build()
 
-        val roundtrippedSearchRetrieveResponse =
+        val roundtrippedSearchSearchResponse =
             jsonMapper.readValue(
-                jsonMapper.writeValueAsString(searchRetrieveResponse),
-                jacksonTypeRef<SearchRetrieveResponse>(),
+                jsonMapper.writeValueAsString(searchSearchResponse),
+                jacksonTypeRef<SearchSearchResponse>(),
             )
 
-        assertThat(roundtrippedSearchRetrieveResponse).isEqualTo(searchRetrieveResponse)
+        assertThat(roundtrippedSearchSearchResponse).isEqualTo(searchSearchResponse)
     }
 }

@@ -6,8 +6,8 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.spotted.api.core.ClientOptions
 import com.spotted.api.core.RequestOptions
 import com.spotted.api.core.http.HttpResponseFor
-import com.spotted.api.models.search.SearchRetrieveParams
-import com.spotted.api.models.search.SearchRetrieveResponse
+import com.spotted.api.models.search.SearchSearchParams
+import com.spotted.api.models.search.SearchSearchResponse
 
 interface SearchServiceAsync {
 
@@ -28,10 +28,10 @@ interface SearchServiceAsync {
      * audiobooks that match a keyword string. Audiobooks are only available within the US, UK,
      * Canada, Ireland, New Zealand and Australia markets.
      */
-    suspend fun retrieve(
-        params: SearchRetrieveParams,
+    suspend fun search(
+        params: SearchSearchParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): SearchRetrieveResponse
+    ): SearchSearchResponse
 
     /**
      * A view of [SearchServiceAsync] that provides access to raw HTTP responses for each method.
@@ -49,12 +49,12 @@ interface SearchServiceAsync {
 
         /**
          * Returns a raw HTTP response for `get /search`, but is otherwise the same as
-         * [SearchServiceAsync.retrieve].
+         * [SearchServiceAsync.search].
          */
         @MustBeClosed
-        suspend fun retrieve(
-            params: SearchRetrieveParams,
+        suspend fun search(
+            params: SearchSearchParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<SearchRetrieveResponse>
+        ): HttpResponseFor<SearchSearchResponse>
     }
 }

@@ -14,8 +14,8 @@ import com.spotted.api.core.http.HttpResponse.Handler
 import com.spotted.api.core.http.HttpResponseFor
 import com.spotted.api.core.http.parseable
 import com.spotted.api.core.prepareAsync
-import com.spotted.api.models.search.SearchRetrieveParams
-import com.spotted.api.models.search.SearchRetrieveResponse
+import com.spotted.api.models.search.SearchSearchParams
+import com.spotted.api.models.search.SearchSearchResponse
 
 class SearchServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     SearchServiceAsync {
@@ -29,12 +29,12 @@ class SearchServiceAsyncImpl internal constructor(private val clientOptions: Cli
     override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): SearchServiceAsync =
         SearchServiceAsyncImpl(clientOptions.toBuilder().apply(modifier).build())
 
-    override suspend fun retrieve(
-        params: SearchRetrieveParams,
+    override suspend fun search(
+        params: SearchSearchParams,
         requestOptions: RequestOptions,
-    ): SearchRetrieveResponse =
+    ): SearchSearchResponse =
         // get /search
-        withRawResponse().retrieve(params, requestOptions).parse()
+        withRawResponse().search(params, requestOptions).parse()
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         SearchServiceAsync.WithRawResponse {
@@ -49,13 +49,13 @@ class SearchServiceAsyncImpl internal constructor(private val clientOptions: Cli
                 clientOptions.toBuilder().apply(modifier).build()
             )
 
-        private val retrieveHandler: Handler<SearchRetrieveResponse> =
-            jsonHandler<SearchRetrieveResponse>(clientOptions.jsonMapper)
+        private val searchHandler: Handler<SearchSearchResponse> =
+            jsonHandler<SearchSearchResponse>(clientOptions.jsonMapper)
 
-        override suspend fun retrieve(
-            params: SearchRetrieveParams,
+        override suspend fun search(
+            params: SearchSearchParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<SearchRetrieveResponse> {
+        ): HttpResponseFor<SearchSearchResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -67,7 +67,7 @@ class SearchServiceAsyncImpl internal constructor(private val clientOptions: Cli
             val response = clientOptions.httpClient.executeAsync(request, requestOptions)
             return errorHandler.handle(response).parseable {
                 response
-                    .use { retrieveHandler.handle(it) }
+                    .use { searchHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()

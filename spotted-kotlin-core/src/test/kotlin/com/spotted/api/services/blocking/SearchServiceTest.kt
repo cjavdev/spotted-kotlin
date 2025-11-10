@@ -4,7 +4,7 @@ package com.spotted.api.services.blocking
 
 import com.spotted.api.TestServerExtension
 import com.spotted.api.client.okhttp.SpottedOkHttpClient
-import com.spotted.api.models.search.SearchRetrieveParams
+import com.spotted.api.models.search.SearchSearchParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -14,7 +14,7 @@ internal class SearchServiceTest {
 
     @Disabled("Prism tests are disabled")
     @Test
-    fun retrieve() {
+    fun search() {
         val client =
             SpottedOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -23,18 +23,18 @@ internal class SearchServiceTest {
                 .build()
         val searchService = client.search()
 
-        val search =
-            searchService.retrieve(
-                SearchRetrieveParams.builder()
+        val response =
+            searchService.search(
+                SearchSearchParams.builder()
                     .q("remaster%20track:Doxy%20artist:Miles%20Davis")
-                    .addType(SearchRetrieveParams.Type.ALBUM)
-                    .includeExternal(SearchRetrieveParams.IncludeExternal.AUDIO)
+                    .addType(SearchSearchParams.Type.ALBUM)
+                    .includeExternal(SearchSearchParams.IncludeExternal.AUDIO)
                     .limit(10L)
                     .market("ES")
                     .offset(5L)
                     .build()
             )
 
-        search.validate()
+        response.validate()
     }
 }
