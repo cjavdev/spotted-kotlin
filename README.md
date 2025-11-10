@@ -213,6 +213,59 @@ The SDK throws custom unchecked exception types:
 
 - [`SpottedException`](spotted-kotlin-core/src/main/kotlin/com/spotted/api/errors/SpottedException.kt): Base class for all exceptions. Most errors will result in one of the previously mentioned ones, but completely generic errors may be thrown using the base class.
 
+## Pagination
+
+The SDK defines methods that return a paginated lists of results. It provides convenient ways to access the results either one page at a time or item-by-item across all pages.
+
+### Auto-pagination
+
+To iterate through all results across all pages, use the `autoPager()` method, which automatically fetches more pages as needed.
+
+When using the synchronous client, the method returns a [`Sequence`](https://kotlinlang.org/docs/sequences.html)
+
+```kotlin
+import com.spotted.api.models.shows.ShowListEpisodesPage
+
+val page: ShowListEpisodesPage = client.shows().listEpisodes()
+page.autoPager()
+    .take(50)
+    .forEach { show -> println(show) }
+```
+
+When using the asynchronous client, the method returns a [`Flow`](https://kotlinlang.org/docs/flow.html):
+
+```kotlin
+import com.spotted.api.models.shows.ShowListEpisodesPageAsync
+
+val page: ShowListEpisodesPageAsync = client.async().shows().listEpisodes()
+page.autoPager()
+    .take(50)
+    .forEach { show -> println(show) }
+```
+
+### Manual pagination
+
+To access individual page items and manually request the next page, use the `items()`,
+`hasNextPage()`, and `nextPage()` methods:
+
+```kotlin
+import com.spotted.api.models.SimplifiedEpisodeObject
+import com.spotted.api.models.shows.ShowListEpisodesPage
+
+val page: ShowListEpisodesPage = client.shows().listEpisodes()
+while (true) {
+    for (show in page.items()) {
+        println(show)
+    }
+
+    if (!page.hasNextPage()) {
+        break
+    }
+
+    page = page.nextPage()
+}
+```
+
 ## Logging
 
 The SDK uses the standard [OkHttp logging interceptor](https://github.com/square/okhttp/tree/master/okhttp-logging-interceptor).

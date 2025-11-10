@@ -13,9 +13,9 @@ import com.spotted.api.models.artists.ArtistListAlbumsPageAsync
 import com.spotted.api.models.artists.ArtistListAlbumsParams
 import com.spotted.api.models.artists.ArtistListRelatedArtistsParams
 import com.spotted.api.models.artists.ArtistListRelatedArtistsResponse
-import com.spotted.api.models.artists.ArtistListTopTracksParams
-import com.spotted.api.models.artists.ArtistListTopTracksResponse
 import com.spotted.api.models.artists.ArtistRetrieveParams
+import com.spotted.api.models.artists.ArtistTopTracksParams
+import com.spotted.api.models.artists.ArtistTopTracksResponse
 
 interface ArtistServiceAsync {
 
@@ -101,25 +101,21 @@ interface ArtistServiceAsync {
         listRelatedArtists(id, ArtistListRelatedArtistsParams.none(), requestOptions)
 
     /** Get Spotify catalog information about an artist's top tracks by country. */
-    suspend fun listTopTracks(
+    suspend fun topTracks(
         id: String,
-        params: ArtistListTopTracksParams = ArtistListTopTracksParams.none(),
+        params: ArtistTopTracksParams = ArtistTopTracksParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ArtistListTopTracksResponse =
-        listTopTracks(params.toBuilder().id(id).build(), requestOptions)
+    ): ArtistTopTracksResponse = topTracks(params.toBuilder().id(id).build(), requestOptions)
 
-    /** @see listTopTracks */
-    suspend fun listTopTracks(
-        params: ArtistListTopTracksParams,
+    /** @see topTracks */
+    suspend fun topTracks(
+        params: ArtistTopTracksParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ArtistListTopTracksResponse
+    ): ArtistTopTracksResponse
 
-    /** @see listTopTracks */
-    suspend fun listTopTracks(
-        id: String,
-        requestOptions: RequestOptions,
-    ): ArtistListTopTracksResponse =
-        listTopTracks(id, ArtistListTopTracksParams.none(), requestOptions)
+    /** @see topTracks */
+    suspend fun topTracks(id: String, requestOptions: RequestOptions): ArtistTopTracksResponse =
+        topTracks(id, ArtistTopTracksParams.none(), requestOptions)
 
     /**
      * A view of [ArtistServiceAsync] that provides access to raw HTTP responses for each method.
@@ -230,29 +226,29 @@ interface ArtistServiceAsync {
 
         /**
          * Returns a raw HTTP response for `get /artists/{id}/top-tracks`, but is otherwise the same
-         * as [ArtistServiceAsync.listTopTracks].
+         * as [ArtistServiceAsync.topTracks].
          */
         @MustBeClosed
-        suspend fun listTopTracks(
+        suspend fun topTracks(
             id: String,
-            params: ArtistListTopTracksParams = ArtistListTopTracksParams.none(),
+            params: ArtistTopTracksParams = ArtistTopTracksParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ArtistListTopTracksResponse> =
-            listTopTracks(params.toBuilder().id(id).build(), requestOptions)
+        ): HttpResponseFor<ArtistTopTracksResponse> =
+            topTracks(params.toBuilder().id(id).build(), requestOptions)
 
-        /** @see listTopTracks */
+        /** @see topTracks */
         @MustBeClosed
-        suspend fun listTopTracks(
-            params: ArtistListTopTracksParams,
+        suspend fun topTracks(
+            params: ArtistTopTracksParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ArtistListTopTracksResponse>
+        ): HttpResponseFor<ArtistTopTracksResponse>
 
-        /** @see listTopTracks */
+        /** @see topTracks */
         @MustBeClosed
-        suspend fun listTopTracks(
+        suspend fun topTracks(
             id: String,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<ArtistListTopTracksResponse> =
-            listTopTracks(id, ArtistListTopTracksParams.none(), requestOptions)
+        ): HttpResponseFor<ArtistTopTracksResponse> =
+            topTracks(id, ArtistTopTracksParams.none(), requestOptions)
     }
 }

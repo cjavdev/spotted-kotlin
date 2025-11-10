@@ -15,12 +15,12 @@ import com.spotted.api.models.TrackRestrictionObject
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-internal class ArtistListTopTracksResponseTest {
+internal class ArtistTopTracksResponseTest {
 
     @Test
     fun create() {
-        val artistListTopTracksResponse =
-            ArtistListTopTracksResponse.builder()
+        val artistTopTracksResponse =
+            ArtistTopTracksResponse.builder()
                 .addTrack(
                     TrackObject.builder()
                         .id("id")
@@ -112,7 +112,7 @@ internal class ArtistListTopTracksResponseTest {
                 )
                 .build()
 
-        assertThat(artistListTopTracksResponse.tracks())
+        assertThat(artistTopTracksResponse.tracks())
             .containsExactly(
                 TrackObject.builder()
                     .id("id")
@@ -201,8 +201,8 @@ internal class ArtistListTopTracksResponseTest {
     @Test
     fun roundtrip() {
         val jsonMapper = jsonMapper()
-        val artistListTopTracksResponse =
-            ArtistListTopTracksResponse.builder()
+        val artistTopTracksResponse =
+            ArtistTopTracksResponse.builder()
                 .addTrack(
                     TrackObject.builder()
                         .id("id")
@@ -294,12 +294,12 @@ internal class ArtistListTopTracksResponseTest {
                 )
                 .build()
 
-        val roundtrippedArtistListTopTracksResponse =
+        val roundtrippedArtistTopTracksResponse =
             jsonMapper.readValue(
-                jsonMapper.writeValueAsString(artistListTopTracksResponse),
-                jacksonTypeRef<ArtistListTopTracksResponse>(),
+                jsonMapper.writeValueAsString(artistTopTracksResponse),
+                jacksonTypeRef<ArtistTopTracksResponse>(),
             )
 
-        assertThat(roundtrippedArtistListTopTracksResponse).isEqualTo(artistListTopTracksResponse)
+        assertThat(roundtrippedArtistTopTracksResponse).isEqualTo(artistTopTracksResponse)
     }
 }

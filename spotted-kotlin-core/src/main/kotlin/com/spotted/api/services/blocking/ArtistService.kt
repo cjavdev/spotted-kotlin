@@ -13,9 +13,9 @@ import com.spotted.api.models.artists.ArtistListAlbumsPage
 import com.spotted.api.models.artists.ArtistListAlbumsParams
 import com.spotted.api.models.artists.ArtistListRelatedArtistsParams
 import com.spotted.api.models.artists.ArtistListRelatedArtistsResponse
-import com.spotted.api.models.artists.ArtistListTopTracksParams
-import com.spotted.api.models.artists.ArtistListTopTracksResponse
 import com.spotted.api.models.artists.ArtistRetrieveParams
+import com.spotted.api.models.artists.ArtistTopTracksParams
+import com.spotted.api.models.artists.ArtistTopTracksResponse
 
 interface ArtistService {
 
@@ -101,22 +101,21 @@ interface ArtistService {
         listRelatedArtists(id, ArtistListRelatedArtistsParams.none(), requestOptions)
 
     /** Get Spotify catalog information about an artist's top tracks by country. */
-    fun listTopTracks(
+    fun topTracks(
         id: String,
-        params: ArtistListTopTracksParams = ArtistListTopTracksParams.none(),
+        params: ArtistTopTracksParams = ArtistTopTracksParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ArtistListTopTracksResponse =
-        listTopTracks(params.toBuilder().id(id).build(), requestOptions)
+    ): ArtistTopTracksResponse = topTracks(params.toBuilder().id(id).build(), requestOptions)
 
-    /** @see listTopTracks */
-    fun listTopTracks(
-        params: ArtistListTopTracksParams,
+    /** @see topTracks */
+    fun topTracks(
+        params: ArtistTopTracksParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ArtistListTopTracksResponse
+    ): ArtistTopTracksResponse
 
-    /** @see listTopTracks */
-    fun listTopTracks(id: String, requestOptions: RequestOptions): ArtistListTopTracksResponse =
-        listTopTracks(id, ArtistListTopTracksParams.none(), requestOptions)
+    /** @see topTracks */
+    fun topTracks(id: String, requestOptions: RequestOptions): ArtistTopTracksResponse =
+        topTracks(id, ArtistTopTracksParams.none(), requestOptions)
 
     /** A view of [ArtistService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
@@ -221,29 +220,29 @@ interface ArtistService {
 
         /**
          * Returns a raw HTTP response for `get /artists/{id}/top-tracks`, but is otherwise the same
-         * as [ArtistService.listTopTracks].
+         * as [ArtistService.topTracks].
          */
         @MustBeClosed
-        fun listTopTracks(
+        fun topTracks(
             id: String,
-            params: ArtistListTopTracksParams = ArtistListTopTracksParams.none(),
+            params: ArtistTopTracksParams = ArtistTopTracksParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ArtistListTopTracksResponse> =
-            listTopTracks(params.toBuilder().id(id).build(), requestOptions)
+        ): HttpResponseFor<ArtistTopTracksResponse> =
+            topTracks(params.toBuilder().id(id).build(), requestOptions)
 
-        /** @see listTopTracks */
+        /** @see topTracks */
         @MustBeClosed
-        fun listTopTracks(
-            params: ArtistListTopTracksParams,
+        fun topTracks(
+            params: ArtistTopTracksParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ArtistListTopTracksResponse>
+        ): HttpResponseFor<ArtistTopTracksResponse>
 
-        /** @see listTopTracks */
+        /** @see topTracks */
         @MustBeClosed
-        fun listTopTracks(
+        fun topTracks(
             id: String,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<ArtistListTopTracksResponse> =
-            listTopTracks(id, ArtistListTopTracksParams.none(), requestOptions)
+        ): HttpResponseFor<ArtistTopTracksResponse> =
+            topTracks(id, ArtistTopTracksParams.none(), requestOptions)
     }
 }
