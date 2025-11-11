@@ -24,6 +24,11 @@ internal class AlbumListPageResponseTest {
         val albumListPageResponse =
             AlbumListPageResponse.builder()
                 .href("https://api.spotify.com/v1/me/shows?offset=0&limit=20\n")
+                .limit(20L)
+                .next("https://api.spotify.com/v1/me/shows?offset=1&limit=1")
+                .offset(0L)
+                .previous("https://api.spotify.com/v1/me/shows?offset=1&limit=1")
+                .total(4L)
                 .addItem(
                     AlbumListResponse.builder()
                         .addedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -88,6 +93,15 @@ internal class AlbumListPageResponseTest {
                                         .href(
                                             "https://api.spotify.com/v1/me/shows?offset=0&limit=20\n"
                                         )
+                                        .limit(20L)
+                                        .next(
+                                            "https://api.spotify.com/v1/me/shows?offset=1&limit=1"
+                                        )
+                                        .offset(0L)
+                                        .previous(
+                                            "https://api.spotify.com/v1/me/shows?offset=1&limit=1"
+                                        )
+                                        .total(4L)
                                         .addItem(
                                             SimplifiedTrackObject.builder()
                                                 .id("id")
@@ -142,30 +156,23 @@ internal class AlbumListPageResponseTest {
                                                 .uri("uri")
                                                 .build()
                                         )
-                                        .limit(20L)
-                                        .next(
-                                            "https://api.spotify.com/v1/me/shows?offset=1&limit=1"
-                                        )
-                                        .offset(0L)
-                                        .previous(
-                                            "https://api.spotify.com/v1/me/shows?offset=1&limit=1"
-                                        )
-                                        .total(4L)
                                         .build()
                                 )
                                 .build()
                         )
                         .build()
                 )
-                .limit(20L)
-                .next("https://api.spotify.com/v1/me/shows?offset=1&limit=1")
-                .offset(0L)
-                .previous("https://api.spotify.com/v1/me/shows?offset=1&limit=1")
-                .total(4L)
                 .build()
 
         assertThat(albumListPageResponse.href())
             .isEqualTo("https://api.spotify.com/v1/me/shows?offset=0&limit=20\n")
+        assertThat(albumListPageResponse.limit()).isEqualTo(20L)
+        assertThat(albumListPageResponse.next())
+            .isEqualTo("https://api.spotify.com/v1/me/shows?offset=1&limit=1")
+        assertThat(albumListPageResponse.offset()).isEqualTo(0L)
+        assertThat(albumListPageResponse.previous())
+            .isEqualTo("https://api.spotify.com/v1/me/shows?offset=1&limit=1")
+        assertThat(albumListPageResponse.total()).isEqualTo(4L)
         assertThat(albumListPageResponse.items())
             .containsExactly(
                 AlbumListResponse.builder()
@@ -225,6 +232,13 @@ internal class AlbumListPageResponseTest {
                             .tracks(
                                 AlbumListResponse.Album.Tracks.builder()
                                     .href("https://api.spotify.com/v1/me/shows?offset=0&limit=20\n")
+                                    .limit(20L)
+                                    .next("https://api.spotify.com/v1/me/shows?offset=1&limit=1")
+                                    .offset(0L)
+                                    .previous(
+                                        "https://api.spotify.com/v1/me/shows?offset=1&limit=1"
+                                    )
+                                    .total(4L)
                                     .addItem(
                                         SimplifiedTrackObject.builder()
                                             .id("id")
@@ -279,26 +293,12 @@ internal class AlbumListPageResponseTest {
                                             .uri("uri")
                                             .build()
                                     )
-                                    .limit(20L)
-                                    .next("https://api.spotify.com/v1/me/shows?offset=1&limit=1")
-                                    .offset(0L)
-                                    .previous(
-                                        "https://api.spotify.com/v1/me/shows?offset=1&limit=1"
-                                    )
-                                    .total(4L)
                                     .build()
                             )
                             .build()
                     )
                     .build()
             )
-        assertThat(albumListPageResponse.limit()).isEqualTo(20L)
-        assertThat(albumListPageResponse.next())
-            .isEqualTo("https://api.spotify.com/v1/me/shows?offset=1&limit=1")
-        assertThat(albumListPageResponse.offset()).isEqualTo(0L)
-        assertThat(albumListPageResponse.previous())
-            .isEqualTo("https://api.spotify.com/v1/me/shows?offset=1&limit=1")
-        assertThat(albumListPageResponse.total()).isEqualTo(4L)
     }
 
     @Test
@@ -307,6 +307,11 @@ internal class AlbumListPageResponseTest {
         val albumListPageResponse =
             AlbumListPageResponse.builder()
                 .href("https://api.spotify.com/v1/me/shows?offset=0&limit=20\n")
+                .limit(20L)
+                .next("https://api.spotify.com/v1/me/shows?offset=1&limit=1")
+                .offset(0L)
+                .previous("https://api.spotify.com/v1/me/shows?offset=1&limit=1")
+                .total(4L)
                 .addItem(
                     AlbumListResponse.builder()
                         .addedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -371,6 +376,15 @@ internal class AlbumListPageResponseTest {
                                         .href(
                                             "https://api.spotify.com/v1/me/shows?offset=0&limit=20\n"
                                         )
+                                        .limit(20L)
+                                        .next(
+                                            "https://api.spotify.com/v1/me/shows?offset=1&limit=1"
+                                        )
+                                        .offset(0L)
+                                        .previous(
+                                            "https://api.spotify.com/v1/me/shows?offset=1&limit=1"
+                                        )
+                                        .total(4L)
                                         .addItem(
                                             SimplifiedTrackObject.builder()
                                                 .id("id")
@@ -425,26 +439,12 @@ internal class AlbumListPageResponseTest {
                                                 .uri("uri")
                                                 .build()
                                         )
-                                        .limit(20L)
-                                        .next(
-                                            "https://api.spotify.com/v1/me/shows?offset=1&limit=1"
-                                        )
-                                        .offset(0L)
-                                        .previous(
-                                            "https://api.spotify.com/v1/me/shows?offset=1&limit=1"
-                                        )
-                                        .total(4L)
                                         .build()
                                 )
                                 .build()
                         )
                         .build()
                 )
-                .limit(20L)
-                .next("https://api.spotify.com/v1/me/shows?offset=1&limit=1")
-                .offset(0L)
-                .previous("https://api.spotify.com/v1/me/shows?offset=1&limit=1")
-                .total(4L)
                 .build()
 
         val roundtrippedAlbumListPageResponse =

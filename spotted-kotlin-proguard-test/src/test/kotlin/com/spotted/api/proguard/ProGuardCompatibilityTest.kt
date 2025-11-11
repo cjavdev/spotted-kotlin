@@ -124,6 +124,11 @@ internal class ProGuardCompatibilityTest {
                 .tracks(
                     AlbumRetrieveResponse.Tracks.builder()
                         .href("https://api.spotify.com/v1/me/shows?offset=0&limit=20\n")
+                        .limit(20L)
+                        .next("https://api.spotify.com/v1/me/shows?offset=1&limit=1")
+                        .offset(0L)
+                        .previous("https://api.spotify.com/v1/me/shows?offset=1&limit=1")
+                        .total(4L)
                         .addItem(
                             SimplifiedTrackObject.builder()
                                 .id("id")
@@ -170,11 +175,6 @@ internal class ProGuardCompatibilityTest {
                                 .uri("uri")
                                 .build()
                         )
-                        .limit(20L)
-                        .next("https://api.spotify.com/v1/me/shows?offset=1&limit=1")
-                        .offset(0L)
-                        .previous("https://api.spotify.com/v1/me/shows?offset=1&limit=1")
-                        .total(4L)
                         .build()
                 )
                 .build()

@@ -23,6 +23,11 @@ internal class TrackListPageResponseTest {
         val trackListPageResponse =
             TrackListPageResponse.builder()
                 .href("https://api.spotify.com/v1/me/shows?offset=0&limit=20\n")
+                .limit(20L)
+                .next("https://api.spotify.com/v1/me/shows?offset=1&limit=1")
+                .offset(0L)
+                .previous("https://api.spotify.com/v1/me/shows?offset=1&limit=1")
+                .total(4L)
                 .addItem(
                     TrackListResponse.builder()
                         .addedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -129,15 +134,17 @@ internal class TrackListPageResponseTest {
                         )
                         .build()
                 )
-                .limit(20L)
-                .next("https://api.spotify.com/v1/me/shows?offset=1&limit=1")
-                .offset(0L)
-                .previous("https://api.spotify.com/v1/me/shows?offset=1&limit=1")
-                .total(4L)
                 .build()
 
         assertThat(trackListPageResponse.href())
             .isEqualTo("https://api.spotify.com/v1/me/shows?offset=0&limit=20\n")
+        assertThat(trackListPageResponse.limit()).isEqualTo(20L)
+        assertThat(trackListPageResponse.next())
+            .isEqualTo("https://api.spotify.com/v1/me/shows?offset=1&limit=1")
+        assertThat(trackListPageResponse.offset()).isEqualTo(0L)
+        assertThat(trackListPageResponse.previous())
+            .isEqualTo("https://api.spotify.com/v1/me/shows?offset=1&limit=1")
+        assertThat(trackListPageResponse.total()).isEqualTo(4L)
         assertThat(trackListPageResponse.items())
             .containsExactly(
                 TrackListResponse.builder()
@@ -241,13 +248,6 @@ internal class TrackListPageResponseTest {
                     )
                     .build()
             )
-        assertThat(trackListPageResponse.limit()).isEqualTo(20L)
-        assertThat(trackListPageResponse.next())
-            .isEqualTo("https://api.spotify.com/v1/me/shows?offset=1&limit=1")
-        assertThat(trackListPageResponse.offset()).isEqualTo(0L)
-        assertThat(trackListPageResponse.previous())
-            .isEqualTo("https://api.spotify.com/v1/me/shows?offset=1&limit=1")
-        assertThat(trackListPageResponse.total()).isEqualTo(4L)
     }
 
     @Test
@@ -256,6 +256,11 @@ internal class TrackListPageResponseTest {
         val trackListPageResponse =
             TrackListPageResponse.builder()
                 .href("https://api.spotify.com/v1/me/shows?offset=0&limit=20\n")
+                .limit(20L)
+                .next("https://api.spotify.com/v1/me/shows?offset=1&limit=1")
+                .offset(0L)
+                .previous("https://api.spotify.com/v1/me/shows?offset=1&limit=1")
+                .total(4L)
                 .addItem(
                     TrackListResponse.builder()
                         .addedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -362,11 +367,6 @@ internal class TrackListPageResponseTest {
                         )
                         .build()
                 )
-                .limit(20L)
-                .next("https://api.spotify.com/v1/me/shows?offset=1&limit=1")
-                .offset(0L)
-                .previous("https://api.spotify.com/v1/me/shows?offset=1&limit=1")
-                .total(4L)
                 .build()
 
         val roundtrippedTrackListPageResponse =

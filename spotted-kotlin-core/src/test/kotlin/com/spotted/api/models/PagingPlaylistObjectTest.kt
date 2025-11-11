@@ -14,6 +14,11 @@ internal class PagingPlaylistObjectTest {
         val pagingPlaylistObject =
             PagingPlaylistObject.builder()
                 .href("https://api.spotify.com/v1/me/shows?offset=0&limit=20\n")
+                .limit(20L)
+                .next("https://api.spotify.com/v1/me/shows?offset=1&limit=1")
+                .offset(0L)
+                .previous("https://api.spotify.com/v1/me/shows?offset=1&limit=1")
+                .total(4L)
                 .addItem(
                     SimplifiedPlaylistObject.builder()
                         .id("id")
@@ -50,15 +55,17 @@ internal class PagingPlaylistObjectTest {
                         .uri("uri")
                         .build()
                 )
-                .limit(20L)
-                .next("https://api.spotify.com/v1/me/shows?offset=1&limit=1")
-                .offset(0L)
-                .previous("https://api.spotify.com/v1/me/shows?offset=1&limit=1")
-                .total(4L)
                 .build()
 
         assertThat(pagingPlaylistObject.href())
             .isEqualTo("https://api.spotify.com/v1/me/shows?offset=0&limit=20\n")
+        assertThat(pagingPlaylistObject.limit()).isEqualTo(20L)
+        assertThat(pagingPlaylistObject.next())
+            .isEqualTo("https://api.spotify.com/v1/me/shows?offset=1&limit=1")
+        assertThat(pagingPlaylistObject.offset()).isEqualTo(0L)
+        assertThat(pagingPlaylistObject.previous())
+            .isEqualTo("https://api.spotify.com/v1/me/shows?offset=1&limit=1")
+        assertThat(pagingPlaylistObject.total()).isEqualTo(4L)
         assertThat(pagingPlaylistObject.items())
             .containsExactly(
                 SimplifiedPlaylistObject.builder()
@@ -94,13 +101,6 @@ internal class PagingPlaylistObjectTest {
                     .uri("uri")
                     .build()
             )
-        assertThat(pagingPlaylistObject.limit()).isEqualTo(20L)
-        assertThat(pagingPlaylistObject.next())
-            .isEqualTo("https://api.spotify.com/v1/me/shows?offset=1&limit=1")
-        assertThat(pagingPlaylistObject.offset()).isEqualTo(0L)
-        assertThat(pagingPlaylistObject.previous())
-            .isEqualTo("https://api.spotify.com/v1/me/shows?offset=1&limit=1")
-        assertThat(pagingPlaylistObject.total()).isEqualTo(4L)
     }
 
     @Test
@@ -109,6 +109,11 @@ internal class PagingPlaylistObjectTest {
         val pagingPlaylistObject =
             PagingPlaylistObject.builder()
                 .href("https://api.spotify.com/v1/me/shows?offset=0&limit=20\n")
+                .limit(20L)
+                .next("https://api.spotify.com/v1/me/shows?offset=1&limit=1")
+                .offset(0L)
+                .previous("https://api.spotify.com/v1/me/shows?offset=1&limit=1")
+                .total(4L)
                 .addItem(
                     SimplifiedPlaylistObject.builder()
                         .id("id")
@@ -145,11 +150,6 @@ internal class PagingPlaylistObjectTest {
                         .uri("uri")
                         .build()
                 )
-                .limit(20L)
-                .next("https://api.spotify.com/v1/me/shows?offset=1&limit=1")
-                .offset(0L)
-                .previous("https://api.spotify.com/v1/me/shows?offset=1&limit=1")
-                .total(4L)
                 .build()
 
         val roundtrippedPagingPlaylistObject =

@@ -24,6 +24,11 @@ internal class AudiobookListPageResponseTest {
         val audiobookListPageResponse =
             AudiobookListPageResponse.builder()
                 .href("https://api.spotify.com/v1/me/shows?offset=0&limit=20\n")
+                .limit(20L)
+                .next("https://api.spotify.com/v1/me/shows?offset=1&limit=1")
+                .offset(0L)
+                .previous("https://api.spotify.com/v1/me/shows?offset=1&limit=1")
+                .total(4L)
                 .addItem(
                     AudiobookListResponse.builder()
                         .addedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -65,6 +70,15 @@ internal class AudiobookListPageResponseTest {
                                         .href(
                                             "https://api.spotify.com/v1/me/shows?offset=0&limit=20\n"
                                         )
+                                        .limit(20L)
+                                        .next(
+                                            "https://api.spotify.com/v1/me/shows?offset=1&limit=1"
+                                        )
+                                        .offset(0L)
+                                        .previous(
+                                            "https://api.spotify.com/v1/me/shows?offset=1&limit=1"
+                                        )
+                                        .total(4L)
                                         .addItem(
                                             SimplifiedChapterObject.builder()
                                                 .id("5Xt5DXGzch68nYYamXrNxZ")
@@ -123,30 +137,23 @@ internal class AudiobookListPageResponseTest {
                                                 )
                                                 .build()
                                         )
-                                        .limit(20L)
-                                        .next(
-                                            "https://api.spotify.com/v1/me/shows?offset=1&limit=1"
-                                        )
-                                        .offset(0L)
-                                        .previous(
-                                            "https://api.spotify.com/v1/me/shows?offset=1&limit=1"
-                                        )
-                                        .total(4L)
                                         .build()
                                 )
                                 .build()
                         )
                         .build()
                 )
-                .limit(20L)
-                .next("https://api.spotify.com/v1/me/shows?offset=1&limit=1")
-                .offset(0L)
-                .previous("https://api.spotify.com/v1/me/shows?offset=1&limit=1")
-                .total(4L)
                 .build()
 
         assertThat(audiobookListPageResponse.href())
             .isEqualTo("https://api.spotify.com/v1/me/shows?offset=0&limit=20\n")
+        assertThat(audiobookListPageResponse.limit()).isEqualTo(20L)
+        assertThat(audiobookListPageResponse.next())
+            .isEqualTo("https://api.spotify.com/v1/me/shows?offset=1&limit=1")
+        assertThat(audiobookListPageResponse.offset()).isEqualTo(0L)
+        assertThat(audiobookListPageResponse.previous())
+            .isEqualTo("https://api.spotify.com/v1/me/shows?offset=1&limit=1")
+        assertThat(audiobookListPageResponse.total()).isEqualTo(4L)
         assertThat(audiobookListPageResponse.items())
             .containsExactly(
                 AudiobookListResponse.builder()
@@ -185,6 +192,13 @@ internal class AudiobookListPageResponseTest {
                             .chapters(
                                 AudiobookListResponse.Audiobook.Chapters.builder()
                                     .href("https://api.spotify.com/v1/me/shows?offset=0&limit=20\n")
+                                    .limit(20L)
+                                    .next("https://api.spotify.com/v1/me/shows?offset=1&limit=1")
+                                    .offset(0L)
+                                    .previous(
+                                        "https://api.spotify.com/v1/me/shows?offset=1&limit=1"
+                                    )
+                                    .total(4L)
                                     .addItem(
                                         SimplifiedChapterObject.builder()
                                             .id("5Xt5DXGzch68nYYamXrNxZ")
@@ -243,26 +257,12 @@ internal class AudiobookListPageResponseTest {
                                             )
                                             .build()
                                     )
-                                    .limit(20L)
-                                    .next("https://api.spotify.com/v1/me/shows?offset=1&limit=1")
-                                    .offset(0L)
-                                    .previous(
-                                        "https://api.spotify.com/v1/me/shows?offset=1&limit=1"
-                                    )
-                                    .total(4L)
                                     .build()
                             )
                             .build()
                     )
                     .build()
             )
-        assertThat(audiobookListPageResponse.limit()).isEqualTo(20L)
-        assertThat(audiobookListPageResponse.next())
-            .isEqualTo("https://api.spotify.com/v1/me/shows?offset=1&limit=1")
-        assertThat(audiobookListPageResponse.offset()).isEqualTo(0L)
-        assertThat(audiobookListPageResponse.previous())
-            .isEqualTo("https://api.spotify.com/v1/me/shows?offset=1&limit=1")
-        assertThat(audiobookListPageResponse.total()).isEqualTo(4L)
     }
 
     @Test
@@ -271,6 +271,11 @@ internal class AudiobookListPageResponseTest {
         val audiobookListPageResponse =
             AudiobookListPageResponse.builder()
                 .href("https://api.spotify.com/v1/me/shows?offset=0&limit=20\n")
+                .limit(20L)
+                .next("https://api.spotify.com/v1/me/shows?offset=1&limit=1")
+                .offset(0L)
+                .previous("https://api.spotify.com/v1/me/shows?offset=1&limit=1")
+                .total(4L)
                 .addItem(
                     AudiobookListResponse.builder()
                         .addedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -312,6 +317,15 @@ internal class AudiobookListPageResponseTest {
                                         .href(
                                             "https://api.spotify.com/v1/me/shows?offset=0&limit=20\n"
                                         )
+                                        .limit(20L)
+                                        .next(
+                                            "https://api.spotify.com/v1/me/shows?offset=1&limit=1"
+                                        )
+                                        .offset(0L)
+                                        .previous(
+                                            "https://api.spotify.com/v1/me/shows?offset=1&limit=1"
+                                        )
+                                        .total(4L)
                                         .addItem(
                                             SimplifiedChapterObject.builder()
                                                 .id("5Xt5DXGzch68nYYamXrNxZ")
@@ -370,26 +384,12 @@ internal class AudiobookListPageResponseTest {
                                                 )
                                                 .build()
                                         )
-                                        .limit(20L)
-                                        .next(
-                                            "https://api.spotify.com/v1/me/shows?offset=1&limit=1"
-                                        )
-                                        .offset(0L)
-                                        .previous(
-                                            "https://api.spotify.com/v1/me/shows?offset=1&limit=1"
-                                        )
-                                        .total(4L)
                                         .build()
                                 )
                                 .build()
                         )
                         .build()
                 )
-                .limit(20L)
-                .next("https://api.spotify.com/v1/me/shows?offset=1&limit=1")
-                .offset(0L)
-                .previous("https://api.spotify.com/v1/me/shows?offset=1&limit=1")
-                .total(4L)
                 .build()
 
         val roundtrippedAudiobookListPageResponse =
