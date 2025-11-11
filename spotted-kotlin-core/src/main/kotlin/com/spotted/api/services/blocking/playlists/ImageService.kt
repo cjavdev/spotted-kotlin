@@ -26,19 +26,19 @@ interface ImageService {
     fun withOptions(modifier: (ClientOptions.Builder) -> Unit): ImageService
 
     /** Replace the image used to represent a specific playlist. */
+    @MustBeClosed
     fun update(
         playlistId: String,
-        body: String,
-        params: ImageUpdateParams = ImageUpdateParams.none(),
+        params: ImageUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ) = update(params.toBuilder().playlistId(playlistId).body(body).build(), requestOptions)
+    ): HttpResponse = update(params.toBuilder().playlistId(playlistId).build(), requestOptions)
 
     /** @see update */
-    fun update(params: ImageUpdateParams, requestOptions: RequestOptions = RequestOptions.none())
-
-    /** @see update */
-    fun update(playlistId: String, body: String, requestOptions: RequestOptions) =
-        update(playlistId, body, ImageUpdateParams.none(), requestOptions)
+    @MustBeClosed
+    fun update(
+        params: ImageUpdateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): HttpResponse
 
     /** Get the current image associated with a specific playlist. */
     fun list(
@@ -74,11 +74,9 @@ interface ImageService {
         @MustBeClosed
         fun update(
             playlistId: String,
-            body: String,
-            params: ImageUpdateParams = ImageUpdateParams.none(),
+            params: ImageUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponse =
-            update(params.toBuilder().playlistId(playlistId).body(body).build(), requestOptions)
+        ): HttpResponse = update(params.toBuilder().playlistId(playlistId).build(), requestOptions)
 
         /** @see update */
         @MustBeClosed
@@ -86,11 +84,6 @@ interface ImageService {
             params: ImageUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponse
-
-        /** @see update */
-        @MustBeClosed
-        fun update(playlistId: String, body: String, requestOptions: RequestOptions): HttpResponse =
-            update(playlistId, body, ImageUpdateParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /playlists/{playlist_id}/images`, but is otherwise
