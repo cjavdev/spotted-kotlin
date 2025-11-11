@@ -4,7 +4,6 @@ package com.spotted.api.models.me.audiobooks
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.spotted.api.core.jsonMapper
-import com.spotted.api.models.AudiobookBase
 import com.spotted.api.models.AuthorObject
 import com.spotted.api.models.ChapterRestrictionObject
 import com.spotted.api.models.CopyrightObject
@@ -62,7 +61,6 @@ internal class AudiobookListPageResponseTest {
                                 .addNarrator(NarratorObject.builder().name("name").build())
                                 .publisher("publisher")
                                 .totalChapters(0L)
-                                .type(AudiobookBase.Type.AUDIOBOOK)
                                 .uri("uri")
                                 .edition("Unabridged")
                                 .chapters(
@@ -121,7 +119,6 @@ internal class AudiobookListPageResponseTest {
                                                 .releaseDatePrecision(
                                                     SimplifiedChapterObject.ReleaseDatePrecision.DAY
                                                 )
-                                                .type(SimplifiedChapterObject.Type.EPISODE)
                                                 .uri("spotify:episode:0zLhl3WsOCQHbe1BPTiHgr")
                                                 .addAvailableMarket("string")
                                                 .restrictions(
@@ -186,7 +183,6 @@ internal class AudiobookListPageResponseTest {
                             .addNarrator(NarratorObject.builder().name("name").build())
                             .publisher("publisher")
                             .totalChapters(0L)
-                            .type(AudiobookBase.Type.AUDIOBOOK)
                             .uri("uri")
                             .edition("Unabridged")
                             .chapters(
@@ -241,7 +237,6 @@ internal class AudiobookListPageResponseTest {
                                             .releaseDatePrecision(
                                                 SimplifiedChapterObject.ReleaseDatePrecision.DAY
                                             )
-                                            .type(SimplifiedChapterObject.Type.EPISODE)
                                             .uri("spotify:episode:0zLhl3WsOCQHbe1BPTiHgr")
                                             .addAvailableMarket("string")
                                             .restrictions(
@@ -309,7 +304,6 @@ internal class AudiobookListPageResponseTest {
                                 .addNarrator(NarratorObject.builder().name("name").build())
                                 .publisher("publisher")
                                 .totalChapters(0L)
-                                .type(AudiobookBase.Type.AUDIOBOOK)
                                 .uri("uri")
                                 .edition("Unabridged")
                                 .chapters(
@@ -368,7 +362,6 @@ internal class AudiobookListPageResponseTest {
                                                 .releaseDatePrecision(
                                                     SimplifiedChapterObject.ReleaseDatePrecision.DAY
                                                 )
-                                                .type(SimplifiedChapterObject.Type.EPISODE)
                                                 .uri("spotify:episode:0zLhl3WsOCQHbe1BPTiHgr")
                                                 .addAvailableMarket("string")
                                                 .restrictions(

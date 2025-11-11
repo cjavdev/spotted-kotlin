@@ -57,7 +57,6 @@ internal class ChapterBulkRetrieveResponseTest {
                                 .addNarrator(NarratorObject.builder().name("name").build())
                                 .publisher("publisher")
                                 .totalChapters(0L)
-                                .type(AudiobookBase.Type.AUDIOBOOK)
                                 .uri("uri")
                                 .edition("Unabridged")
                                 .build()
@@ -92,7 +91,6 @@ internal class ChapterBulkRetrieveResponseTest {
                         .releaseDatePrecision(
                             ChapterBulkRetrieveResponse.Chapter.ReleaseDatePrecision.DAY
                         )
-                        .type(ChapterBulkRetrieveResponse.Chapter.Type.EPISODE)
                         .uri("spotify:episode:0zLhl3WsOCQHbe1BPTiHgr")
                         .addAvailableMarket("string")
                         .restrictions(ChapterRestrictionObject.builder().reason("reason").build())
@@ -141,7 +139,6 @@ internal class ChapterBulkRetrieveResponseTest {
                             .addNarrator(NarratorObject.builder().name("name").build())
                             .publisher("publisher")
                             .totalChapters(0L)
-                            .type(AudiobookBase.Type.AUDIOBOOK)
                             .uri("uri")
                             .edition("Unabridged")
                             .build()
@@ -176,7 +173,6 @@ internal class ChapterBulkRetrieveResponseTest {
                     .releaseDatePrecision(
                         ChapterBulkRetrieveResponse.Chapter.ReleaseDatePrecision.DAY
                     )
-                    .type(ChapterBulkRetrieveResponse.Chapter.Type.EPISODE)
                     .uri("spotify:episode:0zLhl3WsOCQHbe1BPTiHgr")
                     .addAvailableMarket("string")
                     .restrictions(ChapterRestrictionObject.builder().reason("reason").build())
@@ -228,7 +224,6 @@ internal class ChapterBulkRetrieveResponseTest {
                                 .addNarrator(NarratorObject.builder().name("name").build())
                                 .publisher("publisher")
                                 .totalChapters(0L)
-                                .type(AudiobookBase.Type.AUDIOBOOK)
                                 .uri("uri")
                                 .edition("Unabridged")
                                 .build()
@@ -263,7 +258,6 @@ internal class ChapterBulkRetrieveResponseTest {
                         .releaseDatePrecision(
                             ChapterBulkRetrieveResponse.Chapter.ReleaseDatePrecision.DAY
                         )
-                        .type(ChapterBulkRetrieveResponse.Chapter.Type.EPISODE)
                         .uri("spotify:episode:0zLhl3WsOCQHbe1BPTiHgr")
                         .addAvailableMarket("string")
                         .restrictions(ChapterRestrictionObject.builder().reason("reason").build())

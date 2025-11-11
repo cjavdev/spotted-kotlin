@@ -9,7 +9,6 @@ import com.spotted.api.models.EpisodeRestrictionObject
 import com.spotted.api.models.ExternalUrlObject
 import com.spotted.api.models.ImageObject
 import com.spotted.api.models.ResumePointObject
-import com.spotted.api.models.ShowBase
 import com.spotted.api.models.SimplifiedEpisodeObject
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -41,7 +40,6 @@ internal class ShowRetrieveResponseTest {
                 .name("name")
                 .publisher("publisher")
                 .totalEpisodes(0L)
-                .type(ShowBase.Type.SHOW)
                 .uri("uri")
                 .episodes(
                     ShowRetrieveResponse.Episodes.builder()
@@ -89,7 +87,6 @@ internal class ShowRetrieveResponseTest {
                                 .releaseDatePrecision(
                                     SimplifiedEpisodeObject.ReleaseDatePrecision.DAY
                                 )
-                                .type(SimplifiedEpisodeObject.Type.EPISODE)
                                 .uri("spotify:episode:0zLhl3WsOCQHbe1BPTiHgr")
                                 .language("en")
                                 .restrictions(
@@ -131,7 +128,6 @@ internal class ShowRetrieveResponseTest {
         assertThat(showRetrieveResponse.name()).isEqualTo("name")
         assertThat(showRetrieveResponse.publisher()).isEqualTo("publisher")
         assertThat(showRetrieveResponse.totalEpisodes()).isEqualTo(0L)
-        assertThat(showRetrieveResponse.type()).isEqualTo(ShowBase.Type.SHOW)
         assertThat(showRetrieveResponse.uri()).isEqualTo("uri")
         assertThat(showRetrieveResponse.episodes())
             .isEqualTo(
@@ -176,7 +172,6 @@ internal class ShowRetrieveResponseTest {
                             )
                             .releaseDate("1981-12-15")
                             .releaseDatePrecision(SimplifiedEpisodeObject.ReleaseDatePrecision.DAY)
-                            .type(SimplifiedEpisodeObject.Type.EPISODE)
                             .uri("spotify:episode:0zLhl3WsOCQHbe1BPTiHgr")
                             .language("en")
                             .restrictions(
@@ -220,7 +215,6 @@ internal class ShowRetrieveResponseTest {
                 .name("name")
                 .publisher("publisher")
                 .totalEpisodes(0L)
-                .type(ShowBase.Type.SHOW)
                 .uri("uri")
                 .episodes(
                     ShowRetrieveResponse.Episodes.builder()
@@ -268,7 +262,6 @@ internal class ShowRetrieveResponseTest {
                                 .releaseDatePrecision(
                                     SimplifiedEpisodeObject.ReleaseDatePrecision.DAY
                                 )
-                                .type(SimplifiedEpisodeObject.Type.EPISODE)
                                 .uri("spotify:episode:0zLhl3WsOCQHbe1BPTiHgr")
                                 .language("en")
                                 .restrictions(

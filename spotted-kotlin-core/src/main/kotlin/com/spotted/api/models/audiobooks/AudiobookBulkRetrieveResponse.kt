@@ -197,7 +197,7 @@ private constructor(
         private val narrators: JsonField<List<NarratorObject>>,
         private val publisher: JsonField<String>,
         private val totalChapters: JsonField<Long>,
-        private val type: JsonField<AudiobookBase.Type>,
+        private val type: JsonValue,
         private val uri: JsonField<String>,
         private val edition: JsonField<String>,
         private val chapters: JsonField<Chapters>,
@@ -248,9 +248,7 @@ private constructor(
             @JsonProperty("total_chapters")
             @ExcludeMissing
             totalChapters: JsonField<Long> = JsonMissing.of(),
-            @JsonProperty("type")
-            @ExcludeMissing
-            type: JsonField<AudiobookBase.Type> = JsonMissing.of(),
+            @JsonProperty("type") @ExcludeMissing type: JsonValue = JsonMissing.of(),
             @JsonProperty("uri") @ExcludeMissing uri: JsonField<String> = JsonMissing.of(),
             @JsonProperty("edition") @ExcludeMissing edition: JsonField<String> = JsonMissing.of(),
             @JsonProperty("chapters")
@@ -438,10 +436,15 @@ private constructor(
         /**
          * The object type.
          *
-         * @throws SpottedInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         * Expected to always return the following:
+         * ```kotlin
+         * JsonValue.from("audiobook")
+         * ```
+         *
+         * However, this method can be useful for debugging and logging (e.g. if the server
+         * responded with an unexpected value).
          */
-        fun type(): AudiobookBase.Type = type.getRequired("type")
+        @JsonProperty("type") @ExcludeMissing fun _type(): JsonValue = type
 
         /**
          * The [Spotify URI](/documentation/web-api/concepts/spotify-uris-ids) for the audiobook.
@@ -602,13 +605,6 @@ private constructor(
         fun _totalChapters(): JsonField<Long> = totalChapters
 
         /**
-         * Returns the raw JSON value of [type].
-         *
-         * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<AudiobookBase.Type> = type
-
-        /**
          * Returns the raw JSON value of [uri].
          *
          * Unlike [uri], this method doesn't throw if the JSON field has an unexpected type.
@@ -664,7 +660,6 @@ private constructor(
              * .narrators()
              * .publisher()
              * .totalChapters()
-             * .type()
              * .uri()
              * .chapters()
              * ```
@@ -691,7 +686,7 @@ private constructor(
             private var narrators: JsonField<MutableList<NarratorObject>>? = null
             private var publisher: JsonField<String>? = null
             private var totalChapters: JsonField<Long>? = null
-            private var type: JsonField<AudiobookBase.Type>? = null
+            private var type: JsonValue = JsonValue.from("audiobook")
             private var uri: JsonField<String>? = null
             private var edition: JsonField<String> = JsonMissing.of()
             private var chapters: JsonField<Chapters>? = null
@@ -1022,17 +1017,19 @@ private constructor(
                 this.totalChapters = totalChapters
             }
 
-            /** The object type. */
-            fun type(type: AudiobookBase.Type) = type(JsonField.of(type))
-
             /**
-             * Sets [Builder.type] to an arbitrary JSON value.
+             * Sets the field to an arbitrary JSON value.
              *
-             * You should usually call [Builder.type] with a well-typed [AudiobookBase.Type] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * It is usually unnecessary to call this method because the field defaults to the
+             * following:
+             * ```kotlin
+             * JsonValue.from("audiobook")
+             * ```
+             *
+             * This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
-            fun type(type: JsonField<AudiobookBase.Type>) = apply { this.type = type }
+            fun type(type: JsonValue) = apply { this.type = type }
 
             /**
              * The [Spotify URI](/documentation/web-api/concepts/spotify-uris-ids) for the
@@ -1115,7 +1112,6 @@ private constructor(
              * .narrators()
              * .publisher()
              * .totalChapters()
-             * .type()
              * .uri()
              * .chapters()
              * ```
@@ -1140,7 +1136,7 @@ private constructor(
                     checkRequired("narrators", narrators).map { it.toImmutable() },
                     checkRequired("publisher", publisher),
                     checkRequired("totalChapters", totalChapters),
-                    checkRequired("type", type),
+                    type,
                     checkRequired("uri", uri),
                     edition,
                     checkRequired("chapters", chapters),
@@ -1171,7 +1167,11 @@ private constructor(
             narrators().forEach { it.validate() }
             publisher()
             totalChapters()
-            type().validate()
+            _type().let {
+                if (it != JsonValue.from("audiobook")) {
+                    throw SpottedInvalidDataException("'type' is invalid, received $it")
+                }
+            }
             uri()
             edition()
             chapters().validate()
@@ -1209,7 +1209,7 @@ private constructor(
                 (narrators.asKnown()?.sumOf { it.validity().toInt() } ?: 0) +
                 (if (publisher.asKnown() == null) 0 else 1) +
                 (if (totalChapters.asKnown() == null) 0 else 1) +
-                (type.asKnown()?.validity() ?: 0) +
+                type.let { if (it == JsonValue.from("audiobook")) 1 else 0 } +
                 (if (uri.asKnown() == null) 0 else 1) +
                 (if (edition.asKnown() == null) 0 else 1) +
                 (chapters.asKnown()?.validity() ?: 0)

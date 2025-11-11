@@ -40,7 +40,7 @@ private constructor(
     private val name: JsonField<String>,
     private val publisher: JsonField<String>,
     private val totalEpisodes: JsonField<Long>,
-    private val type: JsonField<ShowBase.Type>,
+    private val type: JsonValue,
     private val uri: JsonField<String>,
     private val episodes: JsonField<Episodes>,
     private val additionalProperties: MutableMap<String, JsonValue>,
@@ -81,7 +81,7 @@ private constructor(
         @JsonProperty("total_episodes")
         @ExcludeMissing
         totalEpisodes: JsonField<Long> = JsonMissing.of(),
-        @JsonProperty("type") @ExcludeMissing type: JsonField<ShowBase.Type> = JsonMissing.of(),
+        @JsonProperty("type") @ExcludeMissing type: JsonValue = JsonMissing.of(),
         @JsonProperty("uri") @ExcludeMissing uri: JsonField<String> = JsonMissing.of(),
         @JsonProperty("episodes") @ExcludeMissing episodes: JsonField<Episodes> = JsonMissing.of(),
     ) : this(
@@ -255,10 +255,15 @@ private constructor(
     /**
      * The object type.
      *
-     * @throws SpottedInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     * Expected to always return the following:
+     * ```kotlin
+     * JsonValue.from("show")
+     * ```
+     *
+     * However, this method can be useful for debugging and logging (e.g. if the server responded
+     * with an unexpected value).
      */
-    fun type(): ShowBase.Type = type.getRequired("type")
+    @JsonProperty("type") @ExcludeMissing fun _type(): JsonValue = type
 
     /**
      * The [Spotify URI](/documentation/web-api/concepts/spotify-uris-ids) for the show.
@@ -396,13 +401,6 @@ private constructor(
     fun _totalEpisodes(): JsonField<Long> = totalEpisodes
 
     /**
-     * Returns the raw JSON value of [type].
-     *
-     * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<ShowBase.Type> = type
-
-    /**
      * Returns the raw JSON value of [uri].
      *
      * Unlike [uri], this method doesn't throw if the JSON field has an unexpected type.
@@ -450,7 +448,6 @@ private constructor(
          * .name()
          * .publisher()
          * .totalEpisodes()
-         * .type()
          * .uri()
          * .episodes()
          * ```
@@ -476,7 +473,7 @@ private constructor(
         private var name: JsonField<String>? = null
         private var publisher: JsonField<String>? = null
         private var totalEpisodes: JsonField<Long>? = null
-        private var type: JsonField<ShowBase.Type>? = null
+        private var type: JsonValue = JsonValue.from("show")
         private var uri: JsonField<String>? = null
         private var episodes: JsonField<Episodes>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -762,17 +759,19 @@ private constructor(
             this.totalEpisodes = totalEpisodes
         }
 
-        /** The object type. */
-        fun type(type: ShowBase.Type) = type(JsonField.of(type))
-
         /**
-         * Sets [Builder.type] to an arbitrary JSON value.
+         * Sets the field to an arbitrary JSON value.
          *
-         * You should usually call [Builder.type] with a well-typed [ShowBase.Type] value instead.
+         * It is usually unnecessary to call this method because the field defaults to the
+         * following:
+         * ```kotlin
+         * JsonValue.from("show")
+         * ```
+         *
          * This method is primarily for setting the field to an undocumented or not yet supported
          * value.
          */
-        fun type(type: JsonField<ShowBase.Type>) = apply { this.type = type }
+        fun type(type: JsonValue) = apply { this.type = type }
 
         /** The [Spotify URI](/documentation/web-api/concepts/spotify-uris-ids) for the show. */
         fun uri(uri: String) = uri(JsonField.of(uri))
@@ -838,7 +837,6 @@ private constructor(
          * .name()
          * .publisher()
          * .totalEpisodes()
-         * .type()
          * .uri()
          * .episodes()
          * ```
@@ -862,7 +860,7 @@ private constructor(
                 checkRequired("name", name),
                 checkRequired("publisher", publisher),
                 checkRequired("totalEpisodes", totalEpisodes),
-                checkRequired("type", type),
+                type,
                 checkRequired("uri", uri),
                 checkRequired("episodes", episodes),
                 additionalProperties.toMutableMap(),
@@ -891,7 +889,11 @@ private constructor(
         name()
         publisher()
         totalEpisodes()
-        type().validate()
+        _type().let {
+            if (it != JsonValue.from("show")) {
+                throw SpottedInvalidDataException("'type' is invalid, received $it")
+            }
+        }
         uri()
         episodes().validate()
         validated = true
@@ -926,7 +928,7 @@ private constructor(
             (if (name.asKnown() == null) 0 else 1) +
             (if (publisher.asKnown() == null) 0 else 1) +
             (if (totalEpisodes.asKnown() == null) 0 else 1) +
-            (type.asKnown()?.validity() ?: 0) +
+            type.let { if (it == JsonValue.from("show")) 1 else 0 } +
             (if (uri.asKnown() == null) 0 else 1) +
             (episodes.asKnown()?.validity() ?: 0)
 

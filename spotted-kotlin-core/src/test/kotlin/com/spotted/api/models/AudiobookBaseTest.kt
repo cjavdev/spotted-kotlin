@@ -35,7 +35,6 @@ internal class AudiobookBaseTest {
                 .addNarrator(NarratorObject.builder().name("name").build())
                 .publisher("publisher")
                 .totalChapters(0L)
-                .type(AudiobookBase.Type.AUDIOBOOK)
                 .uri("uri")
                 .edition("Unabridged")
                 .build()
@@ -67,7 +66,6 @@ internal class AudiobookBaseTest {
             .containsExactly(NarratorObject.builder().name("name").build())
         assertThat(audiobookBase.publisher()).isEqualTo("publisher")
         assertThat(audiobookBase.totalChapters()).isEqualTo(0L)
-        assertThat(audiobookBase.type()).isEqualTo(AudiobookBase.Type.AUDIOBOOK)
         assertThat(audiobookBase.uri()).isEqualTo("uri")
         assertThat(audiobookBase.edition()).isEqualTo("Unabridged")
     }
@@ -99,7 +97,6 @@ internal class AudiobookBaseTest {
                 .addNarrator(NarratorObject.builder().name("name").build())
                 .publisher("publisher")
                 .totalChapters(0L)
-                .type(AudiobookBase.Type.AUDIOBOOK)
                 .uri("uri")
                 .edition("Unabridged")
                 .build()

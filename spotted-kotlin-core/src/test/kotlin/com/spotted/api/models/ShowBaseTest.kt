@@ -34,7 +34,6 @@ internal class ShowBaseTest {
                 .name("name")
                 .publisher("publisher")
                 .totalEpisodes(0L)
-                .type(ShowBase.Type.SHOW)
                 .uri("uri")
                 .build()
 
@@ -62,7 +61,6 @@ internal class ShowBaseTest {
         assertThat(showBase.name()).isEqualTo("name")
         assertThat(showBase.publisher()).isEqualTo("publisher")
         assertThat(showBase.totalEpisodes()).isEqualTo(0L)
-        assertThat(showBase.type()).isEqualTo(ShowBase.Type.SHOW)
         assertThat(showBase.uri()).isEqualTo("uri")
     }
 
@@ -92,7 +90,6 @@ internal class ShowBaseTest {
                 .name("name")
                 .publisher("publisher")
                 .totalEpisodes(0L)
-                .type(ShowBase.Type.SHOW)
                 .uri("uri")
                 .build()
 

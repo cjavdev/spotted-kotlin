@@ -37,7 +37,7 @@ private constructor(
     private val releaseDate: JsonField<String>,
     private val releaseDatePrecision: JsonField<ReleaseDatePrecision>,
     private val show: JsonField<ShowBase>,
-    private val type: JsonField<Type>,
+    private val type: JsonValue,
     private val uri: JsonField<String>,
     private val language: JsonField<String>,
     private val restrictions: JsonField<EpisodeRestrictionObject>,
@@ -83,7 +83,7 @@ private constructor(
         @ExcludeMissing
         releaseDatePrecision: JsonField<ReleaseDatePrecision> = JsonMissing.of(),
         @JsonProperty("show") @ExcludeMissing show: JsonField<ShowBase> = JsonMissing.of(),
-        @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
+        @JsonProperty("type") @ExcludeMissing type: JsonValue = JsonMissing.of(),
         @JsonProperty("uri") @ExcludeMissing uri: JsonField<String> = JsonMissing.of(),
         @JsonProperty("language") @ExcludeMissing language: JsonField<String> = JsonMissing.of(),
         @JsonProperty("restrictions")
@@ -254,10 +254,15 @@ private constructor(
     /**
      * The object type.
      *
-     * @throws SpottedInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     * Expected to always return the following:
+     * ```kotlin
+     * JsonValue.from("episode")
+     * ```
+     *
+     * However, this method can be useful for debugging and logging (e.g. if the server responded
+     * with an unexpected value).
      */
-    fun type(): Type = type.getRequired("type")
+    @JsonProperty("type") @ExcludeMissing fun _type(): JsonValue = type
 
     /**
      * The [Spotify URI](/documentation/web-api/concepts/spotify-uris-ids) for the episode.
@@ -422,13 +427,6 @@ private constructor(
     @JsonProperty("show") @ExcludeMissing fun _show(): JsonField<ShowBase> = show
 
     /**
-     * Returns the raw JSON value of [type].
-     *
-     * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
-
-    /**
      * Returns the raw JSON value of [uri].
      *
      * Unlike [uri], this method doesn't throw if the JSON field has an unexpected type.
@@ -498,7 +496,6 @@ private constructor(
          * .releaseDate()
          * .releaseDatePrecision()
          * .show()
-         * .type()
          * .uri()
          * ```
          */
@@ -524,7 +521,7 @@ private constructor(
         private var releaseDate: JsonField<String>? = null
         private var releaseDatePrecision: JsonField<ReleaseDatePrecision>? = null
         private var show: JsonField<ShowBase>? = null
-        private var type: JsonField<Type>? = null
+        private var type: JsonValue = JsonValue.from("episode")
         private var uri: JsonField<String>? = null
         private var language: JsonField<String> = JsonMissing.of()
         private var restrictions: JsonField<EpisodeRestrictionObject> = JsonMissing.of()
@@ -799,16 +796,19 @@ private constructor(
          */
         fun show(show: JsonField<ShowBase>) = apply { this.show = show }
 
-        /** The object type. */
-        fun type(type: Type) = type(JsonField.of(type))
-
         /**
-         * Sets [Builder.type] to an arbitrary JSON value.
+         * Sets the field to an arbitrary JSON value.
          *
-         * You should usually call [Builder.type] with a well-typed [Type] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
+         * It is usually unnecessary to call this method because the field defaults to the
+         * following:
+         * ```kotlin
+         * JsonValue.from("episode")
+         * ```
+         *
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
-        fun type(type: JsonField<Type>) = apply { this.type = type }
+        fun type(type: JsonValue) = apply { this.type = type }
 
         /** The [Spotify URI](/documentation/web-api/concepts/spotify-uris-ids) for the episode. */
         fun uri(uri: String) = uri(JsonField.of(uri))
@@ -911,7 +911,6 @@ private constructor(
          * .releaseDate()
          * .releaseDatePrecision()
          * .show()
-         * .type()
          * .uri()
          * ```
          *
@@ -935,7 +934,7 @@ private constructor(
                 checkRequired("releaseDate", releaseDate),
                 checkRequired("releaseDatePrecision", releaseDatePrecision),
                 checkRequired("show", show),
-                checkRequired("type", type),
+                type,
                 checkRequired("uri", uri),
                 language,
                 restrictions,
@@ -967,7 +966,11 @@ private constructor(
         releaseDate()
         releaseDatePrecision().validate()
         show().validate()
-        type().validate()
+        _type().let {
+            if (it != JsonValue.from("episode")) {
+                throw SpottedInvalidDataException("'type' is invalid, received $it")
+            }
+        }
         uri()
         language()
         restrictions()?.validate()
@@ -1005,7 +1008,7 @@ private constructor(
             (if (releaseDate.asKnown() == null) 0 else 1) +
             (releaseDatePrecision.asKnown()?.validity() ?: 0) +
             (show.asKnown()?.validity() ?: 0) +
-            (type.asKnown()?.validity() ?: 0) +
+            type.let { if (it == JsonValue.from("episode")) 1 else 0 } +
             (if (uri.asKnown() == null) 0 else 1) +
             (if (language.asKnown() == null) 0 else 1) +
             (restrictions.asKnown()?.validity() ?: 0) +
@@ -1142,126 +1145,6 @@ private constructor(
             }
 
             return other is ReleaseDatePrecision && value == other.value
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-    }
-
-    /** The object type. */
-    class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
-
-        /**
-         * Returns this class instance's raw value.
-         *
-         * This is usually only useful if this instance was deserialized from data that doesn't
-         * match any known member, and you want to know that value. For example, if the SDK is on an
-         * older version than the API, then the API may respond with new members that the SDK is
-         * unaware of.
-         */
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-        companion object {
-
-            val EPISODE = of("episode")
-
-            fun of(value: String) = Type(JsonField.of(value))
-        }
-
-        /** An enum containing [Type]'s known values. */
-        enum class Known {
-            EPISODE
-        }
-
-        /**
-         * An enum containing [Type]'s known values, as well as an [_UNKNOWN] member.
-         *
-         * An instance of [Type] can contain an unknown value in a couple of cases:
-         * - It was deserialized from data that doesn't match any known member. For example, if the
-         *   SDK is on an older version than the API, then the API may respond with new members that
-         *   the SDK is unaware of.
-         * - It was constructed with an arbitrary value using the [of] method.
-         */
-        enum class Value {
-            EPISODE,
-            /** An enum member indicating that [Type] was instantiated with an unknown value. */
-            _UNKNOWN,
-        }
-
-        /**
-         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
-         * if the class was instantiated with an unknown value.
-         *
-         * Use the [known] method instead if you're certain the value is always known or if you want
-         * to throw for the unknown case.
-         */
-        fun value(): Value =
-            when (this) {
-                EPISODE -> Value.EPISODE
-                else -> Value._UNKNOWN
-            }
-
-        /**
-         * Returns an enum member corresponding to this class instance's value.
-         *
-         * Use the [value] method instead if you're uncertain the value is always known and don't
-         * want to throw for the unknown case.
-         *
-         * @throws SpottedInvalidDataException if this class instance's value is a not a known
-         *   member.
-         */
-        fun known(): Known =
-            when (this) {
-                EPISODE -> Known.EPISODE
-                else -> throw SpottedInvalidDataException("Unknown Type: $value")
-            }
-
-        /**
-         * Returns this class instance's primitive wire representation.
-         *
-         * This differs from the [toString] method because that method is primarily for debugging
-         * and generally doesn't throw.
-         *
-         * @throws SpottedInvalidDataException if this class instance's value does not have the
-         *   expected primitive type.
-         */
-        fun asString(): String =
-            _value().asString() ?: throw SpottedInvalidDataException("Value is not a String")
-
-        private var validated: Boolean = false
-
-        fun validate(): Type = apply {
-            if (validated) {
-                return@apply
-            }
-
-            known()
-            validated = true
-        }
-
-        fun isValid(): Boolean =
-            try {
-                validate()
-                true
-            } catch (e: SpottedInvalidDataException) {
-                false
-            }
-
-        /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
-         *
-         * Used for best match union deserialization.
-         */
-        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Type && value == other.value
         }
 
         override fun hashCode() = value.hashCode()

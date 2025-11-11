@@ -64,7 +64,6 @@ internal class BrowseGetNewReleasesResponseTest {
                                         .YEAR
                                 )
                                 .totalTracks(9L)
-                                .type(BrowseGetNewReleasesResponse.Albums.Item.Type.ALBUM)
                                 .uri("spotify:album:2up3OPMp9Tb4dAKM2erWXQ")
                                 .restrictions(
                                     AlbumRestrictionObject.builder()
@@ -122,7 +121,6 @@ internal class BrowseGetNewReleasesResponseTest {
                                 BrowseGetNewReleasesResponse.Albums.Item.ReleaseDatePrecision.YEAR
                             )
                             .totalTracks(9L)
-                            .type(BrowseGetNewReleasesResponse.Albums.Item.Type.ALBUM)
                             .uri("spotify:album:2up3OPMp9Tb4dAKM2erWXQ")
                             .restrictions(
                                 AlbumRestrictionObject.builder()
@@ -187,7 +185,6 @@ internal class BrowseGetNewReleasesResponseTest {
                                         .YEAR
                                 )
                                 .totalTracks(9L)
-                                .type(BrowseGetNewReleasesResponse.Albums.Item.Type.ALBUM)
                                 .uri("spotify:album:2up3OPMp9Tb4dAKM2erWXQ")
                                 .restrictions(
                                     AlbumRestrictionObject.builder()
