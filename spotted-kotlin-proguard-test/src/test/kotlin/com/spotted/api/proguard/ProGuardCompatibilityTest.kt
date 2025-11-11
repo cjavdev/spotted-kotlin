@@ -99,7 +99,6 @@ internal class ProGuardCompatibilityTest {
                 .releaseDate("1981-12")
                 .releaseDatePrecision(AlbumRetrieveResponse.ReleaseDatePrecision.YEAR)
                 .totalTracks(9L)
-                .type(AlbumRetrieveResponse.Type.ALBUM)
                 .uri("spotify:album:2up3OPMp9Tb4dAKM2erWXQ")
                 .addArtist(
                     SimplifiedArtistObject.builder()

@@ -79,7 +79,6 @@ internal class SearchQueryResponseTest {
                                     SearchQueryResponse.Albums.Item.ReleaseDatePrecision.YEAR
                                 )
                                 .totalTracks(9L)
-                                .type(SearchQueryResponse.Albums.Item.Type.ALBUM)
                                 .uri("spotify:album:2up3OPMp9Tb4dAKM2erWXQ")
                                 .restrictions(
                                     AlbumRestrictionObject.builder()
@@ -163,7 +162,6 @@ internal class SearchQueryResponseTest {
                                 .addNarrator(NarratorObject.builder().name("name").build())
                                 .publisher("publisher")
                                 .totalChapters(0L)
-                                .type(AudiobookBase.Type.AUDIOBOOK)
                                 .uri("uri")
                                 .edition("Unabridged")
                                 .build()
@@ -216,7 +214,6 @@ internal class SearchQueryResponseTest {
                                 .releaseDatePrecision(
                                     SimplifiedEpisodeObject.ReleaseDatePrecision.DAY
                                 )
-                                .type(SimplifiedEpisodeObject.Type.EPISODE)
                                 .uri("spotify:episode:0zLhl3WsOCQHbe1BPTiHgr")
                                 .language("en")
                                 .restrictions(
@@ -319,7 +316,6 @@ internal class SearchQueryResponseTest {
                                 .name("name")
                                 .publisher("publisher")
                                 .totalEpisodes(0L)
-                                .type(ShowBase.Type.SHOW)
                                 .uri("uri")
                                 .build()
                         )
@@ -374,7 +370,6 @@ internal class SearchQueryResponseTest {
                                             TrackObject.Album.ReleaseDatePrecision.YEAR
                                         )
                                         .totalTracks(9L)
-                                        .type(TrackObject.Album.Type.ALBUM)
                                         .uri("spotify:album:2up3OPMp9Tb4dAKM2erWXQ")
                                         .restrictions(
                                             AlbumRestrictionObject.builder()
@@ -481,7 +476,6 @@ internal class SearchQueryResponseTest {
                                 SearchQueryResponse.Albums.Item.ReleaseDatePrecision.YEAR
                             )
                             .totalTracks(9L)
-                            .type(SearchQueryResponse.Albums.Item.Type.ALBUM)
                             .uri("spotify:album:2up3OPMp9Tb4dAKM2erWXQ")
                             .restrictions(
                                 AlbumRestrictionObject.builder()
@@ -563,7 +557,6 @@ internal class SearchQueryResponseTest {
                             .addNarrator(NarratorObject.builder().name("name").build())
                             .publisher("publisher")
                             .totalChapters(0L)
-                            .type(AudiobookBase.Type.AUDIOBOOK)
                             .uri("uri")
                             .edition("Unabridged")
                             .build()
@@ -613,7 +606,6 @@ internal class SearchQueryResponseTest {
                             )
                             .releaseDate("1981-12-15")
                             .releaseDatePrecision(SimplifiedEpisodeObject.ReleaseDatePrecision.DAY)
-                            .type(SimplifiedEpisodeObject.Type.EPISODE)
                             .uri("spotify:episode:0zLhl3WsOCQHbe1BPTiHgr")
                             .language("en")
                             .restrictions(
@@ -714,7 +706,6 @@ internal class SearchQueryResponseTest {
                             .name("name")
                             .publisher("publisher")
                             .totalEpisodes(0L)
-                            .type(ShowBase.Type.SHOW)
                             .uri("uri")
                             .build()
                     )
@@ -770,7 +761,6 @@ internal class SearchQueryResponseTest {
                                         TrackObject.Album.ReleaseDatePrecision.YEAR
                                     )
                                     .totalTracks(9L)
-                                    .type(TrackObject.Album.Type.ALBUM)
                                     .uri("spotify:album:2up3OPMp9Tb4dAKM2erWXQ")
                                     .restrictions(
                                         AlbumRestrictionObject.builder()
@@ -879,7 +869,6 @@ internal class SearchQueryResponseTest {
                                     SearchQueryResponse.Albums.Item.ReleaseDatePrecision.YEAR
                                 )
                                 .totalTracks(9L)
-                                .type(SearchQueryResponse.Albums.Item.Type.ALBUM)
                                 .uri("spotify:album:2up3OPMp9Tb4dAKM2erWXQ")
                                 .restrictions(
                                     AlbumRestrictionObject.builder()
@@ -963,7 +952,6 @@ internal class SearchQueryResponseTest {
                                 .addNarrator(NarratorObject.builder().name("name").build())
                                 .publisher("publisher")
                                 .totalChapters(0L)
-                                .type(AudiobookBase.Type.AUDIOBOOK)
                                 .uri("uri")
                                 .edition("Unabridged")
                                 .build()
@@ -1016,7 +1004,6 @@ internal class SearchQueryResponseTest {
                                 .releaseDatePrecision(
                                     SimplifiedEpisodeObject.ReleaseDatePrecision.DAY
                                 )
-                                .type(SimplifiedEpisodeObject.Type.EPISODE)
                                 .uri("spotify:episode:0zLhl3WsOCQHbe1BPTiHgr")
                                 .language("en")
                                 .restrictions(
@@ -1119,7 +1106,6 @@ internal class SearchQueryResponseTest {
                                 .name("name")
                                 .publisher("publisher")
                                 .totalEpisodes(0L)
-                                .type(ShowBase.Type.SHOW)
                                 .uri("uri")
                                 .build()
                         )
@@ -1174,7 +1160,6 @@ internal class SearchQueryResponseTest {
                                             TrackObject.Album.ReleaseDatePrecision.YEAR
                                         )
                                         .totalTracks(9L)
-                                        .type(TrackObject.Album.Type.ALBUM)
                                         .uri("spotify:album:2up3OPMp9Tb4dAKM2erWXQ")
                                         .restrictions(
                                             AlbumRestrictionObject.builder()

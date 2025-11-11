@@ -44,7 +44,6 @@ internal class ArtistListAlbumsResponseTest {
                 .releaseDate("1981-12")
                 .releaseDatePrecision(ArtistListAlbumsResponse.ReleaseDatePrecision.YEAR)
                 .totalTracks(9L)
-                .type(ArtistListAlbumsResponse.Type.ALBUM)
                 .uri("spotify:album:2up3OPMp9Tb4dAKM2erWXQ")
                 .restrictions(
                     AlbumRestrictionObject.builder()
@@ -86,7 +85,6 @@ internal class ArtistListAlbumsResponseTest {
         assertThat(artistListAlbumsResponse.releaseDatePrecision())
             .isEqualTo(ArtistListAlbumsResponse.ReleaseDatePrecision.YEAR)
         assertThat(artistListAlbumsResponse.totalTracks()).isEqualTo(9L)
-        assertThat(artistListAlbumsResponse.type()).isEqualTo(ArtistListAlbumsResponse.Type.ALBUM)
         assertThat(artistListAlbumsResponse.uri()).isEqualTo("spotify:album:2up3OPMp9Tb4dAKM2erWXQ")
         assertThat(artistListAlbumsResponse.restrictions())
             .isEqualTo(
@@ -128,7 +126,6 @@ internal class ArtistListAlbumsResponseTest {
                 .releaseDate("1981-12")
                 .releaseDatePrecision(ArtistListAlbumsResponse.ReleaseDatePrecision.YEAR)
                 .totalTracks(9L)
-                .type(ArtistListAlbumsResponse.Type.ALBUM)
                 .uri("spotify:album:2up3OPMp9Tb4dAKM2erWXQ")
                 .restrictions(
                     AlbumRestrictionObject.builder()

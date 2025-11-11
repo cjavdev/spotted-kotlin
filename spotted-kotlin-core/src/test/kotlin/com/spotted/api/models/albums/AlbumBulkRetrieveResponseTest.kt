@@ -44,7 +44,6 @@ internal class AlbumBulkRetrieveResponseTest {
                             AlbumBulkRetrieveResponse.Album.ReleaseDatePrecision.YEAR
                         )
                         .totalTracks(9L)
-                        .type(AlbumBulkRetrieveResponse.Album.Type.ALBUM)
                         .uri("spotify:album:2up3OPMp9Tb4dAKM2erWXQ")
                         .addArtist(
                             SimplifiedArtistObject.builder()
@@ -157,7 +156,6 @@ internal class AlbumBulkRetrieveResponseTest {
                     .releaseDate("1981-12")
                     .releaseDatePrecision(AlbumBulkRetrieveResponse.Album.ReleaseDatePrecision.YEAR)
                     .totalTracks(9L)
-                    .type(AlbumBulkRetrieveResponse.Album.Type.ALBUM)
                     .uri("spotify:album:2up3OPMp9Tb4dAKM2erWXQ")
                     .addArtist(
                         SimplifiedArtistObject.builder()
@@ -272,7 +270,6 @@ internal class AlbumBulkRetrieveResponseTest {
                             AlbumBulkRetrieveResponse.Album.ReleaseDatePrecision.YEAR
                         )
                         .totalTracks(9L)
-                        .type(AlbumBulkRetrieveResponse.Album.Type.ALBUM)
                         .uri("spotify:album:2up3OPMp9Tb4dAKM2erWXQ")
                         .addArtist(
                             SimplifiedArtistObject.builder()

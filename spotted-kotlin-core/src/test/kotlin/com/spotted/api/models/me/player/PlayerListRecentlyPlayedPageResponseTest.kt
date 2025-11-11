@@ -83,7 +83,6 @@ internal class PlayerListRecentlyPlayedPageResponseTest {
                                             TrackObject.Album.ReleaseDatePrecision.YEAR
                                         )
                                         .totalTracks(9L)
-                                        .type(TrackObject.Album.Type.ALBUM)
                                         .uri("spotify:album:2up3OPMp9Tb4dAKM2erWXQ")
                                         .restrictions(
                                             AlbumRestrictionObject.builder()
@@ -211,7 +210,6 @@ internal class PlayerListRecentlyPlayedPageResponseTest {
                                         TrackObject.Album.ReleaseDatePrecision.YEAR
                                     )
                                     .totalTracks(9L)
-                                    .type(TrackObject.Album.Type.ALBUM)
                                     .uri("spotify:album:2up3OPMp9Tb4dAKM2erWXQ")
                                     .restrictions(
                                         AlbumRestrictionObject.builder()
@@ -340,7 +338,6 @@ internal class PlayerListRecentlyPlayedPageResponseTest {
                                             TrackObject.Album.ReleaseDatePrecision.YEAR
                                         )
                                         .totalTracks(9L)
-                                        .type(TrackObject.Album.Type.ALBUM)
                                         .uri("spotify:album:2up3OPMp9Tb4dAKM2erWXQ")
                                         .restrictions(
                                             AlbumRestrictionObject.builder()
