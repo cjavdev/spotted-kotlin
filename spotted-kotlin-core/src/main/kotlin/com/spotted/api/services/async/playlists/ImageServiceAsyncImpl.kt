@@ -66,12 +66,13 @@ class ImageServiceAsyncImpl internal constructor(private val clientOptions: Clie
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("playlistId", params.playlistId())
+            checkRequired("body", params._body())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.PUT)
                     .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("playlists", params._pathParam(0), "images")
-                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .apply { params._body()?.let { body(json(clientOptions.jsonMapper, it)) } }
                     .build()
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))

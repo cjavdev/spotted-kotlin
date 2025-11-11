@@ -29,9 +29,11 @@ interface ImageService {
     @MustBeClosed
     fun update(
         playlistId: String,
-        params: ImageUpdateParams,
+        body: String,
+        params: ImageUpdateParams = ImageUpdateParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): HttpResponse = update(params.toBuilder().playlistId(playlistId).build(), requestOptions)
+    ): HttpResponse =
+        update(params.toBuilder().playlistId(playlistId).body(body).build(), requestOptions)
 
     /** @see update */
     @MustBeClosed
@@ -39,6 +41,11 @@ interface ImageService {
         params: ImageUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): HttpResponse
+
+    /** @see update */
+    @MustBeClosed
+    fun update(playlistId: String, body: String, requestOptions: RequestOptions): HttpResponse =
+        update(playlistId, body, ImageUpdateParams.none(), requestOptions)
 
     /** Get the current image associated with a specific playlist. */
     fun list(
@@ -74,9 +81,11 @@ interface ImageService {
         @MustBeClosed
         fun update(
             playlistId: String,
-            params: ImageUpdateParams,
+            body: String,
+            params: ImageUpdateParams = ImageUpdateParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponse = update(params.toBuilder().playlistId(playlistId).build(), requestOptions)
+        ): HttpResponse =
+            update(params.toBuilder().playlistId(playlistId).body(body).build(), requestOptions)
 
         /** @see update */
         @MustBeClosed
@@ -84,6 +93,11 @@ interface ImageService {
             params: ImageUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponse
+
+        /** @see update */
+        @MustBeClosed
+        fun update(playlistId: String, body: String, requestOptions: RequestOptions): HttpResponse =
+            update(playlistId, body, ImageUpdateParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /playlists/{playlist_id}/images`, but is otherwise
