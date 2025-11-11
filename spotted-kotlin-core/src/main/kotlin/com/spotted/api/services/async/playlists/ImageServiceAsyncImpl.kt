@@ -5,7 +5,6 @@ package com.spotted.api.services.async.playlists
 import com.spotted.api.core.ClientOptions
 import com.spotted.api.core.RequestOptions
 import com.spotted.api.core.checkRequired
-import com.spotted.api.core.handlers.emptyHandler
 import com.spotted.api.core.handlers.errorBodyHandler
 import com.spotted.api.core.handlers.errorHandler
 import com.spotted.api.core.handlers.jsonHandler
@@ -33,10 +32,12 @@ class ImageServiceAsyncImpl internal constructor(private val clientOptions: Clie
     override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): ImageServiceAsync =
         ImageServiceAsyncImpl(clientOptions.toBuilder().apply(modifier).build())
 
-    override suspend fun update(params: ImageUpdateParams, requestOptions: RequestOptions) {
+    override suspend fun update(
+        params: ImageUpdateParams,
+        requestOptions: RequestOptions,
+    ): HttpResponse =
         // put /playlists/{playlist_id}/images
         withRawResponse().update(params, requestOptions)
-    }
 
     override suspend fun list(
         params: ImageListParams,
@@ -58,8 +59,6 @@ class ImageServiceAsyncImpl internal constructor(private val clientOptions: Clie
                 clientOptions.toBuilder().apply(modifier).build()
             )
 
-        private val updateHandler: Handler<Void?> = emptyHandler()
-
         override suspend fun update(
             params: ImageUpdateParams,
             requestOptions: RequestOptions,
@@ -67,20 +66,17 @@ class ImageServiceAsyncImpl internal constructor(private val clientOptions: Clie
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("playlistId", params.playlistId())
-            checkRequired("body", params._body())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.PUT)
                     .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("playlists", params._pathParam(0), "images")
-                    .apply { params._body()?.let { body(json(clientOptions.jsonMapper, it)) } }
+                    .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response.use { updateHandler.handle(it) }
-            }
+            return errorHandler.handle(response)
         }
 
         private val listHandler: Handler<List<ImageObject>> =

@@ -163,6 +163,50 @@ val album: AlbumRetrieveResponse = client.albums().retrieve("4aawyAB9vmqN3uQ7FjR
 
 The asynchronous client supports the same options as the synchronous one, except most methods are [suspending](https://kotlinlang.org/docs/coroutines-guide.html).
 
+## Binary responses
+
+The SDK defines methods that return binary responses, which are used for API responses that shouldn't necessarily be parsed, like non-JSON data.
+
+These methods return [`HttpResponse`](spotted-kotlin-core/src/main/kotlin/com/spotted/api/core/http/HttpResponse.kt):
+
+```kotlin
+import com.spotted.api.core.http.HttpResponse
+import com.spotted.api.models.playlists.images.ImageUpdateParams
+
+val params: ImageUpdateParams = ImageUpdateParams.builder()
+    .playlistId("3cEYpjA9oz9GiPac4AsH4n")
+    .body("/9j/2wCEABoZGSccJz4lJT5CLy8vQkc9Ozs9R0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0cBHCcnMyYzPSYmPUc9Mj1HR0dEREdHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR//dAAQAAf/uAA5BZG9iZQBkwAAAAAH/wAARCAABAAEDACIAAREBAhEB/8QASwABAQAAAAAAAAAAAAAAAAAAAAYBAQAAAAAAAAAAAAAAAAAAAAAQAQAAAAAAAAAAAAAAAAAAAAARAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwAAARECEQA/AJgAH//Z")
+    .build()
+val image: HttpResponse = client.playlists().images().update(params)
+```
+
+To save the response content to a file, use the [`Files.copy(...)`](https://docs.oracle.com/javase/8/docs/api/java/nio/file/Files.html#copy-java.io.InputStream-java.nio.file.Path-java.nio.file.CopyOption...-) method:
+
+```kotlin
+import java.nio.file.Files
+import java.nio.file.Paths
+import java.nio.file.StandardCopyOption
+
+client.playlists().images().update(params).use {
+    Files.copy(
+        it.body(),
+        Paths.get(path),
+        StandardCopyOption.REPLACE_EXISTING
+    )
+}
+```
+
+Or transfer the response content to any [`OutputStream`](https://docs.oracle.com/javase/8/docs/api/java/io/OutputStream.html):
+
+```kotlin
+import java.nio.file.Files
+import java.nio.file.Paths
+
+client.playlists().images().update(params).use {
+    it.body().transferTo(Files.newOutputStream(Paths.get(path)))
+}
+```
+
 ## Raw responses
 
 The SDK defines methods that deserialize responses into instances of Kotlin classes. However, these methods don't provide access to the response headers, status code, or the raw response body.
