@@ -1484,26 +1484,20 @@ private constructor(
 
             companion object {
 
-                /** No result */
-                val minus_1 = of(-1.0)
+                val MODE_NO_RESULT = of(-1.0)
 
-                /** Minor */
-                val _0 = of(0.0)
+                val MODE_MINOR = of(0.0)
 
-                /** Major */
-                val _1 = of(1.0)
+                val MODE_MAJOR = of(1.0)
 
                 fun of(value: Double) = Mode(JsonField.of(value))
             }
 
             /** An enum containing [Mode]'s known values. */
             enum class Known {
-                /** No result */
-                minus_1,
-                /** Minor */
-                _0,
-                /** Major */
-                _1,
+                MODE_NO_RESULT,
+                MODE_MINOR,
+                MODE_MAJOR,
             }
 
             /**
@@ -1516,12 +1510,9 @@ private constructor(
              * - It was constructed with an arbitrary value using the [of] method.
              */
             enum class Value {
-                /** No result */
-                minus_1,
-                /** Minor */
-                _0,
-                /** Major */
-                _1,
+                MODE_NO_RESULT,
+                MODE_MINOR,
+                MODE_MAJOR,
                 /** An enum member indicating that [Mode] was instantiated with an unknown value. */
                 _UNKNOWN,
             }
@@ -1535,9 +1526,9 @@ private constructor(
              */
             fun value(): Value =
                 when (this) {
-                    minus_1 -> Value.minus_1
-                    _0 -> Value._0
-                    _1 -> Value._1
+                    MODE_NO_RESULT -> Value.MODE_NO_RESULT
+                    MODE_MINOR -> Value.MODE_MINOR
+                    MODE_MAJOR -> Value.MODE_MAJOR
                     else -> Value._UNKNOWN
                 }
 
@@ -1552,9 +1543,9 @@ private constructor(
              */
             fun known(): Known =
                 when (this) {
-                    minus_1 -> Known.minus_1
-                    _0 -> Known._0
-                    _1 -> Known._1
+                    MODE_NO_RESULT -> Known.MODE_NO_RESULT
+                    MODE_MINOR -> Known.MODE_MINOR
+                    MODE_MAJOR -> Known.MODE_MAJOR
                     else -> throw SpottedInvalidDataException("Unknown Mode: $value")
                 }
 
