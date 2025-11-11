@@ -22,6 +22,11 @@ internal class TopListTopTracksPageResponseTest {
         val topListTopTracksPageResponse =
             TopListTopTracksPageResponse.builder()
                 .href("https://api.spotify.com/v1/me/shows?offset=0&limit=20\n")
+                .limit(20L)
+                .next("https://api.spotify.com/v1/me/shows?offset=1&limit=1")
+                .offset(0L)
+                .previous("https://api.spotify.com/v1/me/shows?offset=1&limit=1")
+                .total(4L)
                 .addItem(
                     TrackObject.builder()
                         .id("id")
@@ -111,15 +116,17 @@ internal class TopListTopTracksPageResponseTest {
                         .uri("uri")
                         .build()
                 )
-                .limit(20L)
-                .next("https://api.spotify.com/v1/me/shows?offset=1&limit=1")
-                .offset(0L)
-                .previous("https://api.spotify.com/v1/me/shows?offset=1&limit=1")
-                .total(4L)
                 .build()
 
         assertThat(topListTopTracksPageResponse.href())
             .isEqualTo("https://api.spotify.com/v1/me/shows?offset=0&limit=20\n")
+        assertThat(topListTopTracksPageResponse.limit()).isEqualTo(20L)
+        assertThat(topListTopTracksPageResponse.next())
+            .isEqualTo("https://api.spotify.com/v1/me/shows?offset=1&limit=1")
+        assertThat(topListTopTracksPageResponse.offset()).isEqualTo(0L)
+        assertThat(topListTopTracksPageResponse.previous())
+            .isEqualTo("https://api.spotify.com/v1/me/shows?offset=1&limit=1")
+        assertThat(topListTopTracksPageResponse.total()).isEqualTo(4L)
         assertThat(topListTopTracksPageResponse.items())
             .containsExactly(
                 TrackObject.builder()
@@ -204,13 +211,6 @@ internal class TopListTopTracksPageResponseTest {
                     .uri("uri")
                     .build()
             )
-        assertThat(topListTopTracksPageResponse.limit()).isEqualTo(20L)
-        assertThat(topListTopTracksPageResponse.next())
-            .isEqualTo("https://api.spotify.com/v1/me/shows?offset=1&limit=1")
-        assertThat(topListTopTracksPageResponse.offset()).isEqualTo(0L)
-        assertThat(topListTopTracksPageResponse.previous())
-            .isEqualTo("https://api.spotify.com/v1/me/shows?offset=1&limit=1")
-        assertThat(topListTopTracksPageResponse.total()).isEqualTo(4L)
     }
 
     @Test
@@ -219,6 +219,11 @@ internal class TopListTopTracksPageResponseTest {
         val topListTopTracksPageResponse =
             TopListTopTracksPageResponse.builder()
                 .href("https://api.spotify.com/v1/me/shows?offset=0&limit=20\n")
+                .limit(20L)
+                .next("https://api.spotify.com/v1/me/shows?offset=1&limit=1")
+                .offset(0L)
+                .previous("https://api.spotify.com/v1/me/shows?offset=1&limit=1")
+                .total(4L)
                 .addItem(
                     TrackObject.builder()
                         .id("id")
@@ -308,11 +313,6 @@ internal class TopListTopTracksPageResponseTest {
                         .uri("uri")
                         .build()
                 )
-                .limit(20L)
-                .next("https://api.spotify.com/v1/me/shows?offset=1&limit=1")
-                .offset(0L)
-                .previous("https://api.spotify.com/v1/me/shows?offset=1&limit=1")
-                .total(4L)
                 .build()
 
         val roundtrippedTopListTopTracksPageResponse =

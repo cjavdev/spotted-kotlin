@@ -19,6 +19,11 @@ internal class ShowListEpisodesPageResponseTest {
         val showListEpisodesPageResponse =
             ShowListEpisodesPageResponse.builder()
                 .href("https://api.spotify.com/v1/me/shows?offset=0&limit=20\n")
+                .limit(20L)
+                .next("https://api.spotify.com/v1/me/shows?offset=1&limit=1")
+                .offset(0L)
+                .previous("https://api.spotify.com/v1/me/shows?offset=1&limit=1")
+                .total(4L)
                 .addItem(
                     SimplifiedEpisodeObject.builder()
                         .id("5Xt5DXGzch68nYYamXrNxZ")
@@ -65,15 +70,17 @@ internal class ShowListEpisodesPageResponseTest {
                         )
                         .build()
                 )
-                .limit(20L)
-                .next("https://api.spotify.com/v1/me/shows?offset=1&limit=1")
-                .offset(0L)
-                .previous("https://api.spotify.com/v1/me/shows?offset=1&limit=1")
-                .total(4L)
                 .build()
 
         assertThat(showListEpisodesPageResponse.href())
             .isEqualTo("https://api.spotify.com/v1/me/shows?offset=0&limit=20\n")
+        assertThat(showListEpisodesPageResponse.limit()).isEqualTo(20L)
+        assertThat(showListEpisodesPageResponse.next())
+            .isEqualTo("https://api.spotify.com/v1/me/shows?offset=1&limit=1")
+        assertThat(showListEpisodesPageResponse.offset()).isEqualTo(0L)
+        assertThat(showListEpisodesPageResponse.previous())
+            .isEqualTo("https://api.spotify.com/v1/me/shows?offset=1&limit=1")
+        assertThat(showListEpisodesPageResponse.total()).isEqualTo(4L)
         assertThat(showListEpisodesPageResponse.items())
             .containsExactly(
                 SimplifiedEpisodeObject.builder()
@@ -118,13 +125,6 @@ internal class ShowListEpisodesPageResponseTest {
                     )
                     .build()
             )
-        assertThat(showListEpisodesPageResponse.limit()).isEqualTo(20L)
-        assertThat(showListEpisodesPageResponse.next())
-            .isEqualTo("https://api.spotify.com/v1/me/shows?offset=1&limit=1")
-        assertThat(showListEpisodesPageResponse.offset()).isEqualTo(0L)
-        assertThat(showListEpisodesPageResponse.previous())
-            .isEqualTo("https://api.spotify.com/v1/me/shows?offset=1&limit=1")
-        assertThat(showListEpisodesPageResponse.total()).isEqualTo(4L)
     }
 
     @Test
@@ -133,6 +133,11 @@ internal class ShowListEpisodesPageResponseTest {
         val showListEpisodesPageResponse =
             ShowListEpisodesPageResponse.builder()
                 .href("https://api.spotify.com/v1/me/shows?offset=0&limit=20\n")
+                .limit(20L)
+                .next("https://api.spotify.com/v1/me/shows?offset=1&limit=1")
+                .offset(0L)
+                .previous("https://api.spotify.com/v1/me/shows?offset=1&limit=1")
+                .total(4L)
                 .addItem(
                     SimplifiedEpisodeObject.builder()
                         .id("5Xt5DXGzch68nYYamXrNxZ")
@@ -179,11 +184,6 @@ internal class ShowListEpisodesPageResponseTest {
                         )
                         .build()
                 )
-                .limit(20L)
-                .next("https://api.spotify.com/v1/me/shows?offset=1&limit=1")
-                .offset(0L)
-                .previous("https://api.spotify.com/v1/me/shows?offset=1&limit=1")
-                .total(4L)
                 .build()
 
         val roundtrippedShowListEpisodesPageResponse =
