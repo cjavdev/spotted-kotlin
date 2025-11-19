@@ -5,6 +5,8 @@
 
 The Spotted Kotlin SDK provides convenient access to the [Spotted REST API](https://spotted.stldocs.com) from applications written in Kotlin.
 
+The Spotted Kotlin SDK is similar to the Spotted Java SDK but with minor differences that make it more ergonomic for use in Kotlin, such as nullable values instead of `Optional`, `Sequence` instead of `Stream`, and suspend functions instead of `CompletableFuture`.
+
 It is generated with [Stainless](https://www.stainless.com/).
 
 The REST API documentation can be found on [spotted.stldocs.com](https://spotted.stldocs.com). KDocs are available on [javadoc.io](https://javadoc.io/doc/com.spotted.api/spotted-kotlin/0.0.1).
