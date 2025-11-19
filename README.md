@@ -1,7 +1,7 @@
 # Spotted Kotlin API Library
 
-[![Maven Central](https://img.shields.io/maven-central/v/com.spotted.api/spotted-kotlin)](https://central.sonatype.com/artifact/com.spotted.api/spotted-kotlin/0.0.1)
-[![javadoc](https://javadoc.io/badge2/com.spotted.api/spotted-kotlin/0.0.1/javadoc.svg)](https://javadoc.io/doc/com.spotted.api/spotted-kotlin/0.0.1)
+[![Maven Central](https://img.shields.io/maven-central/v/dev.cjav.spotted/spotted-kotlin)](https://central.sonatype.com/artifact/dev.cjav.spotted/spotted-kotlin/0.0.1)
+[![javadoc](https://javadoc.io/badge2/dev.cjav.spotted/spotted-kotlin/0.0.1/javadoc.svg)](https://javadoc.io/doc/dev.cjav.spotted/spotted-kotlin/0.0.1)
 
 The Spotted Kotlin SDK provides convenient access to the [Spotted REST API](https://spotted.stldocs.com) from applications written in Kotlin.
 
@@ -9,21 +9,21 @@ The Spotted Kotlin SDK is similar to the Spotted Java SDK but with minor differe
 
 It is generated with [Stainless](https://www.stainless.com/).
 
-The REST API documentation can be found on [spotted.stldocs.com](https://spotted.stldocs.com). KDocs are available on [javadoc.io](https://javadoc.io/doc/com.spotted.api/spotted-kotlin/0.0.1).
+The REST API documentation can be found on [spotted.stldocs.com](https://spotted.stldocs.com). KDocs are available on [javadoc.io](https://javadoc.io/doc/dev.cjav.spotted/spotted-kotlin/0.0.1).
 
 ## Installation
 
 ### Gradle
 
 ```kotlin
-implementation("com.spotted.api:spotted-kotlin:0.0.1")
+implementation("dev.cjav.spotted:spotted-kotlin:0.0.1")
 ```
 
 ### Maven
 
 ```xml
 <dependency>
-  <groupId>com.spotted.api</groupId>
+  <groupId>dev.cjav.spotted</groupId>
   <artifactId>spotted-kotlin</artifactId>
   <version>0.0.1</version>
 </dependency>
@@ -36,10 +36,10 @@ This library requires Java 8 or later.
 ## Usage
 
 ```kotlin
-import com.spotted.api.client.SpottedClient
-import com.spotted.api.client.okhttp.SpottedOkHttpClient
-import com.spotted.api.models.albums.AlbumRetrieveParams
-import com.spotted.api.models.albums.AlbumRetrieveResponse
+import dev.cjav.spotted.client.SpottedClient
+import dev.cjav.spotted.client.okhttp.SpottedOkHttpClient
+import dev.cjav.spotted.models.albums.AlbumRetrieveParams
+import dev.cjav.spotted.models.albums.AlbumRetrieveResponse
 
 // Configures using the `spotted.spotifyClientId`, `spotted.spotifyClientSecret`, `spotted.spotifyAccessToken` and `spotted.baseUrl` system properties
 // Or configures using the `SPOTIFY_CLIENT_ID`, `SPOTIFY_CLIENT_SECRET`, `SPOTIFY_ACCESS_TOKEN` and `SPOTTED_BASE_URL` environment variables
@@ -53,8 +53,8 @@ val album: AlbumRetrieveResponse = client.albums().retrieve("4aawyAB9vmqN3uQ7FjR
 Configure the client using system properties or environment variables:
 
 ```kotlin
-import com.spotted.api.client.SpottedClient
-import com.spotted.api.client.okhttp.SpottedOkHttpClient
+import dev.cjav.spotted.client.SpottedClient
+import dev.cjav.spotted.client.okhttp.SpottedOkHttpClient
 
 // Configures using the `spotted.spotifyClientId`, `spotted.spotifyClientSecret`, `spotted.spotifyAccessToken` and `spotted.baseUrl` system properties
 // Or configures using the `SPOTIFY_CLIENT_ID`, `SPOTIFY_CLIENT_SECRET`, `SPOTIFY_ACCESS_TOKEN` and `SPOTTED_BASE_URL` environment variables
@@ -64,8 +64,8 @@ val client: SpottedClient = SpottedOkHttpClient.fromEnv()
 Or manually:
 
 ```kotlin
-import com.spotted.api.client.SpottedClient
-import com.spotted.api.client.okhttp.SpottedOkHttpClient
+import dev.cjav.spotted.client.SpottedClient
+import dev.cjav.spotted.client.okhttp.SpottedOkHttpClient
 
 val client: SpottedClient = SpottedOkHttpClient.builder()
     .clientId("My Client ID")
@@ -76,8 +76,8 @@ val client: SpottedClient = SpottedOkHttpClient.builder()
 Or using a combination of the two approaches:
 
 ```kotlin
-import com.spotted.api.client.SpottedClient
-import com.spotted.api.client.okhttp.SpottedOkHttpClient
+import dev.cjav.spotted.client.SpottedClient
+import dev.cjav.spotted.client.okhttp.SpottedOkHttpClient
 
 val client: SpottedClient = SpottedOkHttpClient.builder()
     // Configures using the `spotted.spotifyClientId`, `spotted.spotifyClientSecret`, `spotted.spotifyAccessToken` and `spotted.baseUrl` system properties
@@ -107,7 +107,7 @@ System properties take precedence over environment variables.
 To temporarily use a modified client configuration, while reusing the same connection and thread pools, call `withOptions()` on any client or service:
 
 ```kotlin
-import com.spotted.api.client.SpottedClient
+import dev.cjav.spotted.client.SpottedClient
 
 val clientWithOptions: SpottedClient = client.withOptions {
     it.baseUrl("https://example.com")
@@ -136,10 +136,10 @@ Because each class is immutable, builder modification will _never_ affect alread
 The default client is synchronous. To switch to asynchronous execution, call the `async()` method:
 
 ```kotlin
-import com.spotted.api.client.SpottedClient
-import com.spotted.api.client.okhttp.SpottedOkHttpClient
-import com.spotted.api.models.albums.AlbumRetrieveParams
-import com.spotted.api.models.albums.AlbumRetrieveResponse
+import dev.cjav.spotted.client.SpottedClient
+import dev.cjav.spotted.client.okhttp.SpottedOkHttpClient
+import dev.cjav.spotted.models.albums.AlbumRetrieveParams
+import dev.cjav.spotted.models.albums.AlbumRetrieveResponse
 
 // Configures using the `spotted.spotifyClientId`, `spotted.spotifyClientSecret`, `spotted.spotifyAccessToken` and `spotted.baseUrl` system properties
 // Or configures using the `SPOTIFY_CLIENT_ID`, `SPOTIFY_CLIENT_SECRET`, `SPOTIFY_ACCESS_TOKEN` and `SPOTTED_BASE_URL` environment variables
@@ -151,10 +151,10 @@ val album: AlbumRetrieveResponse = client.async().albums().retrieve("4aawyAB9vmq
 Or create an asynchronous client from the beginning:
 
 ```kotlin
-import com.spotted.api.client.SpottedClientAsync
-import com.spotted.api.client.okhttp.SpottedOkHttpClientAsync
-import com.spotted.api.models.albums.AlbumRetrieveParams
-import com.spotted.api.models.albums.AlbumRetrieveResponse
+import dev.cjav.spotted.client.SpottedClientAsync
+import dev.cjav.spotted.client.okhttp.SpottedOkHttpClientAsync
+import dev.cjav.spotted.models.albums.AlbumRetrieveParams
+import dev.cjav.spotted.models.albums.AlbumRetrieveResponse
 
 // Configures using the `spotted.spotifyClientId`, `spotted.spotifyClientSecret`, `spotted.spotifyAccessToken` and `spotted.baseUrl` system properties
 // Or configures using the `SPOTIFY_CLIENT_ID`, `SPOTIFY_CLIENT_SECRET`, `SPOTIFY_ACCESS_TOKEN` and `SPOTTED_BASE_URL` environment variables
@@ -169,11 +169,11 @@ The asynchronous client supports the same options as the synchronous one, except
 
 The SDK defines methods that return binary responses, which are used for API responses that shouldn't necessarily be parsed, like non-JSON data.
 
-These methods return [`HttpResponse`](spotted-kotlin-core/src/main/kotlin/com/spotted/api/core/http/HttpResponse.kt):
+These methods return [`HttpResponse`](spotted-kotlin-core/src/main/kotlin/dev/cjav/spotted/core/http/HttpResponse.kt):
 
 ```kotlin
-import com.spotted.api.core.http.HttpResponse
-import com.spotted.api.models.playlists.images.ImageUpdateParams
+import dev.cjav.spotted.core.http.HttpResponse
+import dev.cjav.spotted.models.playlists.images.ImageUpdateParams
 
 val image: HttpResponse = client.playlists().images().update(
   "3cEYpjA9oz9GiPac4AsH4n", "some content"
@@ -214,10 +214,10 @@ The SDK defines methods that deserialize responses into instances of Kotlin clas
 To access this data, prefix any HTTP method call on a client or service with `withRawResponse()`:
 
 ```kotlin
-import com.spotted.api.core.http.Headers
-import com.spotted.api.core.http.HttpResponseFor
-import com.spotted.api.models.albums.AlbumRetrieveParams
-import com.spotted.api.models.albums.AlbumRetrieveResponse
+import dev.cjav.spotted.core.http.Headers
+import dev.cjav.spotted.core.http.HttpResponseFor
+import dev.cjav.spotted.models.albums.AlbumRetrieveParams
+import dev.cjav.spotted.models.albums.AlbumRetrieveResponse
 
 val album: HttpResponseFor<AlbumRetrieveResponse> = client.albums().withRawResponse().retrieve("4aawyAB9vmqN3uQ7FjRGTy")
 
@@ -228,7 +228,7 @@ val headers: Headers = album.headers()
 You can still deserialize the response into an instance of a Kotlin class if needed:
 
 ```kotlin
-import com.spotted.api.models.albums.AlbumRetrieveResponse
+import dev.cjav.spotted.models.albums.AlbumRetrieveResponse
 
 val parsedAlbum: AlbumRetrieveResponse = album.parse()
 ```
@@ -237,26 +237,26 @@ val parsedAlbum: AlbumRetrieveResponse = album.parse()
 
 The SDK throws custom unchecked exception types:
 
-- [`SpottedServiceException`](spotted-kotlin-core/src/main/kotlin/com/spotted/api/errors/SpottedServiceException.kt): Base class for HTTP errors. See this table for which exception subclass is thrown for each HTTP status code:
+- [`SpottedServiceException`](spotted-kotlin-core/src/main/kotlin/dev/cjav/spotted/errors/SpottedServiceException.kt): Base class for HTTP errors. See this table for which exception subclass is thrown for each HTTP status code:
 
-  | Status | Exception                                                                                                                      |
-  | ------ | ------------------------------------------------------------------------------------------------------------------------------ |
-  | 400    | [`BadRequestException`](spotted-kotlin-core/src/main/kotlin/com/spotted/api/errors/BadRequestException.kt)                     |
-  | 401    | [`UnauthorizedException`](spotted-kotlin-core/src/main/kotlin/com/spotted/api/errors/UnauthorizedException.kt)                 |
-  | 403    | [`PermissionDeniedException`](spotted-kotlin-core/src/main/kotlin/com/spotted/api/errors/PermissionDeniedException.kt)         |
-  | 404    | [`NotFoundException`](spotted-kotlin-core/src/main/kotlin/com/spotted/api/errors/NotFoundException.kt)                         |
-  | 422    | [`UnprocessableEntityException`](spotted-kotlin-core/src/main/kotlin/com/spotted/api/errors/UnprocessableEntityException.kt)   |
-  | 429    | [`RateLimitException`](spotted-kotlin-core/src/main/kotlin/com/spotted/api/errors/RateLimitException.kt)                       |
-  | 5xx    | [`InternalServerException`](spotted-kotlin-core/src/main/kotlin/com/spotted/api/errors/InternalServerException.kt)             |
-  | others | [`UnexpectedStatusCodeException`](spotted-kotlin-core/src/main/kotlin/com/spotted/api/errors/UnexpectedStatusCodeException.kt) |
+  | Status | Exception                                                                                                                       |
+  | ------ | ------------------------------------------------------------------------------------------------------------------------------- |
+  | 400    | [`BadRequestException`](spotted-kotlin-core/src/main/kotlin/dev/cjav/spotted/errors/BadRequestException.kt)                     |
+  | 401    | [`UnauthorizedException`](spotted-kotlin-core/src/main/kotlin/dev/cjav/spotted/errors/UnauthorizedException.kt)                 |
+  | 403    | [`PermissionDeniedException`](spotted-kotlin-core/src/main/kotlin/dev/cjav/spotted/errors/PermissionDeniedException.kt)         |
+  | 404    | [`NotFoundException`](spotted-kotlin-core/src/main/kotlin/dev/cjav/spotted/errors/NotFoundException.kt)                         |
+  | 422    | [`UnprocessableEntityException`](spotted-kotlin-core/src/main/kotlin/dev/cjav/spotted/errors/UnprocessableEntityException.kt)   |
+  | 429    | [`RateLimitException`](spotted-kotlin-core/src/main/kotlin/dev/cjav/spotted/errors/RateLimitException.kt)                       |
+  | 5xx    | [`InternalServerException`](spotted-kotlin-core/src/main/kotlin/dev/cjav/spotted/errors/InternalServerException.kt)             |
+  | others | [`UnexpectedStatusCodeException`](spotted-kotlin-core/src/main/kotlin/dev/cjav/spotted/errors/UnexpectedStatusCodeException.kt) |
 
-- [`SpottedIoException`](spotted-kotlin-core/src/main/kotlin/com/spotted/api/errors/SpottedIoException.kt): I/O networking errors.
+- [`SpottedIoException`](spotted-kotlin-core/src/main/kotlin/dev/cjav/spotted/errors/SpottedIoException.kt): I/O networking errors.
 
-- [`SpottedRetryableException`](spotted-kotlin-core/src/main/kotlin/com/spotted/api/errors/SpottedRetryableException.kt): Generic error indicating a failure that could be retried by the client.
+- [`SpottedRetryableException`](spotted-kotlin-core/src/main/kotlin/dev/cjav/spotted/errors/SpottedRetryableException.kt): Generic error indicating a failure that could be retried by the client.
 
-- [`SpottedInvalidDataException`](spotted-kotlin-core/src/main/kotlin/com/spotted/api/errors/SpottedInvalidDataException.kt): Failure to interpret successfully parsed data. For example, when accessing a property that's supposed to be required, but the API unexpectedly omitted it from the response.
+- [`SpottedInvalidDataException`](spotted-kotlin-core/src/main/kotlin/dev/cjav/spotted/errors/SpottedInvalidDataException.kt): Failure to interpret successfully parsed data. For example, when accessing a property that's supposed to be required, but the API unexpectedly omitted it from the response.
 
-- [`SpottedException`](spotted-kotlin-core/src/main/kotlin/com/spotted/api/errors/SpottedException.kt): Base class for all exceptions. Most errors will result in one of the previously mentioned ones, but completely generic errors may be thrown using the base class.
+- [`SpottedException`](spotted-kotlin-core/src/main/kotlin/dev/cjav/spotted/errors/SpottedException.kt): Base class for all exceptions. Most errors will result in one of the previously mentioned ones, but completely generic errors may be thrown using the base class.
 
 ## Pagination
 
@@ -269,7 +269,7 @@ To iterate through all results across all pages, use the `autoPager()` method, w
 When using the synchronous client, the method returns a [`Sequence`](https://kotlinlang.org/docs/sequences.html)
 
 ```kotlin
-import com.spotted.api.models.shows.ShowListEpisodesPage
+import dev.cjav.spotted.models.shows.ShowListEpisodesPage
 
 val page: ShowListEpisodesPage = client.shows().listEpisodes()
 page.autoPager()
@@ -280,7 +280,7 @@ page.autoPager()
 When using the asynchronous client, the method returns a [`Flow`](https://kotlinlang.org/docs/flow.html):
 
 ```kotlin
-import com.spotted.api.models.shows.ShowListEpisodesPageAsync
+import dev.cjav.spotted.models.shows.ShowListEpisodesPageAsync
 
 val page: ShowListEpisodesPageAsync = client.async().shows().listEpisodes()
 page.autoPager()
@@ -294,8 +294,8 @@ To access individual page items and manually request the next page, use the `ite
 `hasNextPage()`, and `nextPage()` methods:
 
 ```kotlin
-import com.spotted.api.models.SimplifiedEpisodeObject
-import com.spotted.api.models.shows.ShowListEpisodesPage
+import dev.cjav.spotted.models.SimplifiedEpisodeObject
+import dev.cjav.spotted.models.shows.ShowListEpisodesPage
 
 val page: ShowListEpisodesPage = client.shows().listEpisodes()
 while (true) {
@@ -339,7 +339,7 @@ The SDK depends on [Jackson](https://github.com/FasterXML/jackson) for JSON seri
 
 The SDK throws an exception if it detects an incompatible Jackson version at runtime (e.g. if the default version was overridden in your Maven or Gradle config).
 
-If the SDK threw an exception, but you're _certain_ the version is compatible, then disable the version check using the `checkJacksonVersionCompatibility` on [`SpottedOkHttpClient`](spotted-kotlin-client-okhttp/src/main/kotlin/com/spotted/api/client/okhttp/SpottedOkHttpClient.kt) or [`SpottedOkHttpClientAsync`](spotted-kotlin-client-okhttp/src/main/kotlin/com/spotted/api/client/okhttp/SpottedOkHttpClientAsync.kt).
+If the SDK threw an exception, but you're _certain_ the version is compatible, then disable the version check using the `checkJacksonVersionCompatibility` on [`SpottedOkHttpClient`](spotted-kotlin-client-okhttp/src/main/kotlin/dev/cjav/spotted/client/okhttp/SpottedOkHttpClient.kt) or [`SpottedOkHttpClientAsync`](spotted-kotlin-client-okhttp/src/main/kotlin/dev/cjav/spotted/client/okhttp/SpottedOkHttpClientAsync.kt).
 
 > [!CAUTION]
 > We make no guarantee that the SDK works correctly when the Jackson version check is disabled.
@@ -363,8 +363,8 @@ The API may also explicitly instruct the SDK to retry or not retry a request.
 To set a custom number of retries, configure the client using the `maxRetries` method:
 
 ```kotlin
-import com.spotted.api.client.SpottedClient
-import com.spotted.api.client.okhttp.SpottedOkHttpClient
+import dev.cjav.spotted.client.SpottedClient
+import dev.cjav.spotted.client.okhttp.SpottedOkHttpClient
 
 val client: SpottedClient = SpottedOkHttpClient.builder()
     .fromEnv()
@@ -379,7 +379,7 @@ Requests time out after 1 minute by default.
 To set a custom timeout, configure the method call using the `timeout` method:
 
 ```kotlin
-import com.spotted.api.models.albums.AlbumRetrieveResponse
+import dev.cjav.spotted.models.albums.AlbumRetrieveResponse
 
 val album: AlbumRetrieveResponse = client.albums().retrieve(RequestOptions.builder().timeout(Duration.ofSeconds(30)).build())
 ```
@@ -387,8 +387,8 @@ val album: AlbumRetrieveResponse = client.albums().retrieve(RequestOptions.build
 Or configure the default for all method calls at the client level:
 
 ```kotlin
-import com.spotted.api.client.SpottedClient
-import com.spotted.api.client.okhttp.SpottedOkHttpClient
+import dev.cjav.spotted.client.SpottedClient
+import dev.cjav.spotted.client.okhttp.SpottedOkHttpClient
 import java.time.Duration
 
 val client: SpottedClient = SpottedOkHttpClient.builder()
@@ -402,8 +402,8 @@ val client: SpottedClient = SpottedOkHttpClient.builder()
 To route requests through a proxy, configure the client using the `proxy` method:
 
 ```kotlin
-import com.spotted.api.client.SpottedClient
-import com.spotted.api.client.okhttp.SpottedOkHttpClient
+import dev.cjav.spotted.client.SpottedClient
+import dev.cjav.spotted.client.okhttp.SpottedOkHttpClient
 import java.net.InetSocketAddress
 import java.net.Proxy
 
@@ -426,8 +426,8 @@ val client: SpottedClient = SpottedOkHttpClient.builder()
 To configure how HTTPS connections are secured, configure the client using the `sslSocketFactory`, `trustManager`, and `hostnameVerifier` methods:
 
 ```kotlin
-import com.spotted.api.client.SpottedClient
-import com.spotted.api.client.okhttp.SpottedOkHttpClient
+import dev.cjav.spotted.client.SpottedClient
+import dev.cjav.spotted.client.okhttp.SpottedOkHttpClient
 
 val client: SpottedClient = SpottedOkHttpClient.builder()
     .fromEnv()
@@ -445,10 +445,10 @@ The SDK consists of three artifacts:
 - `spotted-kotlin-core`
   - Contains core SDK logic
   - Does not depend on [OkHttp](https://square.github.io/okhttp)
-  - Exposes [`SpottedClient`](spotted-kotlin-core/src/main/kotlin/com/spotted/api/client/SpottedClient.kt), [`SpottedClientAsync`](spotted-kotlin-core/src/main/kotlin/com/spotted/api/client/SpottedClientAsync.kt), [`SpottedClientImpl`](spotted-kotlin-core/src/main/kotlin/com/spotted/api/client/SpottedClientImpl.kt), and [`SpottedClientAsyncImpl`](spotted-kotlin-core/src/main/kotlin/com/spotted/api/client/SpottedClientAsyncImpl.kt), all of which can work with any HTTP client
+  - Exposes [`SpottedClient`](spotted-kotlin-core/src/main/kotlin/dev/cjav/spotted/client/SpottedClient.kt), [`SpottedClientAsync`](spotted-kotlin-core/src/main/kotlin/dev/cjav/spotted/client/SpottedClientAsync.kt), [`SpottedClientImpl`](spotted-kotlin-core/src/main/kotlin/dev/cjav/spotted/client/SpottedClientImpl.kt), and [`SpottedClientAsyncImpl`](spotted-kotlin-core/src/main/kotlin/dev/cjav/spotted/client/SpottedClientAsyncImpl.kt), all of which can work with any HTTP client
 - `spotted-kotlin-client-okhttp`
   - Depends on [OkHttp](https://square.github.io/okhttp)
-  - Exposes [`SpottedOkHttpClient`](spotted-kotlin-client-okhttp/src/main/kotlin/com/spotted/api/client/okhttp/SpottedOkHttpClient.kt) and [`SpottedOkHttpClientAsync`](spotted-kotlin-client-okhttp/src/main/kotlin/com/spotted/api/client/okhttp/SpottedOkHttpClientAsync.kt), which provide a way to construct [`SpottedClientImpl`](spotted-kotlin-core/src/main/kotlin/com/spotted/api/client/SpottedClientImpl.kt) and [`SpottedClientAsyncImpl`](spotted-kotlin-core/src/main/kotlin/com/spotted/api/client/SpottedClientAsyncImpl.kt), respectively, using OkHttp
+  - Exposes [`SpottedOkHttpClient`](spotted-kotlin-client-okhttp/src/main/kotlin/dev/cjav/spotted/client/okhttp/SpottedOkHttpClient.kt) and [`SpottedOkHttpClientAsync`](spotted-kotlin-client-okhttp/src/main/kotlin/dev/cjav/spotted/client/okhttp/SpottedOkHttpClientAsync.kt), which provide a way to construct [`SpottedClientImpl`](spotted-kotlin-core/src/main/kotlin/dev/cjav/spotted/client/SpottedClientImpl.kt) and [`SpottedClientAsyncImpl`](spotted-kotlin-core/src/main/kotlin/dev/cjav/spotted/client/SpottedClientAsyncImpl.kt), respectively, using OkHttp
 - `spotted-kotlin`
   - Depends on and exposes the APIs of both `spotted-kotlin-core` and `spotted-kotlin-client-okhttp`
   - Does not have its own logic
@@ -463,16 +463,16 @@ This structure allows replacing the SDK's default HTTP client without pulling in
 To use a customized `OkHttpClient`:
 
 1. Replace your [`spotted-kotlin` dependency](#installation) with `spotted-kotlin-core`
-2. Copy `spotted-kotlin-client-okhttp`'s [`OkHttpClient`](spotted-kotlin-client-okhttp/src/main/kotlin/com/spotted/api/client/okhttp/OkHttpClient.kt) class into your code and customize it
-3. Construct [`SpottedClientImpl`](spotted-kotlin-core/src/main/kotlin/com/spotted/api/client/SpottedClientImpl.kt) or [`SpottedClientAsyncImpl`](spotted-kotlin-core/src/main/kotlin/com/spotted/api/client/SpottedClientAsyncImpl.kt), similarly to [`SpottedOkHttpClient`](spotted-kotlin-client-okhttp/src/main/kotlin/com/spotted/api/client/okhttp/SpottedOkHttpClient.kt) or [`SpottedOkHttpClientAsync`](spotted-kotlin-client-okhttp/src/main/kotlin/com/spotted/api/client/okhttp/SpottedOkHttpClientAsync.kt), using your customized client
+2. Copy `spotted-kotlin-client-okhttp`'s [`OkHttpClient`](spotted-kotlin-client-okhttp/src/main/kotlin/dev/cjav/spotted/client/okhttp/OkHttpClient.kt) class into your code and customize it
+3. Construct [`SpottedClientImpl`](spotted-kotlin-core/src/main/kotlin/dev/cjav/spotted/client/SpottedClientImpl.kt) or [`SpottedClientAsyncImpl`](spotted-kotlin-core/src/main/kotlin/dev/cjav/spotted/client/SpottedClientAsyncImpl.kt), similarly to [`SpottedOkHttpClient`](spotted-kotlin-client-okhttp/src/main/kotlin/dev/cjav/spotted/client/okhttp/SpottedOkHttpClient.kt) or [`SpottedOkHttpClientAsync`](spotted-kotlin-client-okhttp/src/main/kotlin/dev/cjav/spotted/client/okhttp/SpottedOkHttpClientAsync.kt), using your customized client
 
 ### Completely custom HTTP client
 
 To use a completely custom HTTP client:
 
 1. Replace your [`spotted-kotlin` dependency](#installation) with `spotted-kotlin-core`
-2. Write a class that implements the [`HttpClient`](spotted-kotlin-core/src/main/kotlin/com/spotted/api/core/http/HttpClient.kt) interface
-3. Construct [`SpottedClientImpl`](spotted-kotlin-core/src/main/kotlin/com/spotted/api/client/SpottedClientImpl.kt) or [`SpottedClientAsyncImpl`](spotted-kotlin-core/src/main/kotlin/com/spotted/api/client/SpottedClientAsyncImpl.kt), similarly to [`SpottedOkHttpClient`](spotted-kotlin-client-okhttp/src/main/kotlin/com/spotted/api/client/okhttp/SpottedOkHttpClient.kt) or [`SpottedOkHttpClientAsync`](spotted-kotlin-client-okhttp/src/main/kotlin/com/spotted/api/client/okhttp/SpottedOkHttpClientAsync.kt), using your new client class
+2. Write a class that implements the [`HttpClient`](spotted-kotlin-core/src/main/kotlin/dev/cjav/spotted/core/http/HttpClient.kt) interface
+3. Construct [`SpottedClientImpl`](spotted-kotlin-core/src/main/kotlin/dev/cjav/spotted/client/SpottedClientImpl.kt) or [`SpottedClientAsyncImpl`](spotted-kotlin-core/src/main/kotlin/dev/cjav/spotted/client/SpottedClientAsyncImpl.kt), similarly to [`SpottedOkHttpClient`](spotted-kotlin-client-okhttp/src/main/kotlin/dev/cjav/spotted/client/okhttp/SpottedOkHttpClient.kt) or [`SpottedOkHttpClientAsync`](spotted-kotlin-client-okhttp/src/main/kotlin/dev/cjav/spotted/client/okhttp/SpottedOkHttpClientAsync.kt), using your new client class
 
 ## Undocumented API functionality
 
@@ -483,8 +483,8 @@ The SDK is typed for convenient usage of the documented API. However, it also su
 To set undocumented parameters, call the `putAdditionalHeader`, `putAdditionalQueryParam`, or `putAdditionalBodyProperty` methods on any `Params` class:
 
 ```kotlin
-import com.spotted.api.core.JsonValue
-import com.spotted.api.models.albums.AlbumRetrieveParams
+import dev.cjav.spotted.core.JsonValue
+import dev.cjav.spotted.models.albums.AlbumRetrieveParams
 
 val params: AlbumRetrieveParams = AlbumRetrieveParams.builder()
     .putAdditionalHeader("Secret-Header", "42")
@@ -495,18 +495,18 @@ val params: AlbumRetrieveParams = AlbumRetrieveParams.builder()
 
 These can be accessed on the built object later using the `_additionalHeaders()`, `_additionalQueryParams()`, and `_additionalBodyProperties()` methods.
 
-To set a documented parameter or property to an undocumented or not yet supported _value_, pass a [`JsonValue`](spotted-kotlin-core/src/main/kotlin/com/spotted/api/core/Values.kt) object to its setter:
+To set a documented parameter or property to an undocumented or not yet supported _value_, pass a [`JsonValue`](spotted-kotlin-core/src/main/kotlin/dev/cjav/spotted/core/Values.kt) object to its setter:
 
 ```kotlin
-import com.spotted.api.models.albums.AlbumRetrieveParams
+import dev.cjav.spotted.models.albums.AlbumRetrieveParams
 
 val params: AlbumRetrieveParams = AlbumRetrieveParams.builder().build()
 ```
 
-The most straightforward way to create a [`JsonValue`](spotted-kotlin-core/src/main/kotlin/com/spotted/api/core/Values.kt) is using its `from(...)` method:
+The most straightforward way to create a [`JsonValue`](spotted-kotlin-core/src/main/kotlin/dev/cjav/spotted/core/Values.kt) is using its `from(...)` method:
 
 ```kotlin
-import com.spotted.api.core.JsonValue
+import dev.cjav.spotted.core.JsonValue
 
 // Create primitive JSON values
 val nullValue: JsonValue = JsonValue.from(null)
@@ -540,11 +540,11 @@ val complexValue: JsonValue = JsonValue.from(mapOf(
 
 Normally a `Builder` class's `build` method will throw [`IllegalStateException`](https://docs.oracle.com/javase/8/docs/api/java/lang/IllegalStateException.html) if any required parameter or property is unset.
 
-To forcibly omit a required parameter or property, pass [`JsonMissing`](spotted-kotlin-core/src/main/kotlin/com/spotted/api/core/Values.kt):
+To forcibly omit a required parameter or property, pass [`JsonMissing`](spotted-kotlin-core/src/main/kotlin/dev/cjav/spotted/core/Values.kt):
 
 ```kotlin
-import com.spotted.api.core.JsonMissing
-import com.spotted.api.models.albums.AlbumRetrieveParams
+import dev.cjav.spotted.core.JsonMissing
+import dev.cjav.spotted.models.albums.AlbumRetrieveParams
 
 val params: AlbumRetrieveParams = AlbumRetrieveParams.builder()
     .id(JsonMissing.of())
@@ -556,10 +556,10 @@ val params: AlbumRetrieveParams = AlbumRetrieveParams.builder()
 To access undocumented response properties, call the `_additionalProperties()` method:
 
 ```kotlin
-import com.spotted.api.core.JsonBoolean
-import com.spotted.api.core.JsonNull
-import com.spotted.api.core.JsonNumber
-import com.spotted.api.core.JsonValue
+import dev.cjav.spotted.core.JsonBoolean
+import dev.cjav.spotted.core.JsonNull
+import dev.cjav.spotted.core.JsonNumber
+import dev.cjav.spotted.core.JsonValue
 
 val additionalProperties: Map<String, JsonValue> = client.albums().retrieve(params)._additionalProperties()
 val secretPropertyValue: JsonValue = additionalProperties.get("secretProperty")
@@ -576,7 +576,7 @@ val result = when (secretPropertyValue) {
 To access a property's raw JSON value, which may be undocumented, call its `_` prefixed method:
 
 ```kotlin
-import com.spotted.api.core.JsonField
+import dev.cjav.spotted.core.JsonField
 
 val field: JsonField<Any> = client.albums().retrieve(params)._field()
 
@@ -598,12 +598,12 @@ if (field.isMissing()) {
 
 In rare cases, the API may return a response that doesn't match the expected type. For example, the SDK may expect a property to contain a `String`, but the API could return something else.
 
-By default, the SDK will not throw an exception in this case. It will throw [`SpottedInvalidDataException`](spotted-kotlin-core/src/main/kotlin/com/spotted/api/errors/SpottedInvalidDataException.kt) only if you directly access the property.
+By default, the SDK will not throw an exception in this case. It will throw [`SpottedInvalidDataException`](spotted-kotlin-core/src/main/kotlin/dev/cjav/spotted/errors/SpottedInvalidDataException.kt) only if you directly access the property.
 
 If you would prefer to check that the response is completely well-typed upfront, then either call `validate()`:
 
 ```kotlin
-import com.spotted.api.models.albums.AlbumRetrieveResponse
+import dev.cjav.spotted.models.albums.AlbumRetrieveResponse
 
 val album: AlbumRetrieveResponse = client.albums().retrieve(params).validate()
 ```
@@ -611,7 +611,7 @@ val album: AlbumRetrieveResponse = client.albums().retrieve(params).validate()
 Or configure the method call to validate the response using the `responseValidation` method:
 
 ```kotlin
-import com.spotted.api.models.albums.AlbumRetrieveResponse
+import dev.cjav.spotted.models.albums.AlbumRetrieveResponse
 
 val album: AlbumRetrieveResponse = client.albums().retrieve(RequestOptions.builder().responseValidation(true).build())
 ```
@@ -619,8 +619,8 @@ val album: AlbumRetrieveResponse = client.albums().retrieve(RequestOptions.build
 Or configure the default for all method calls at the client level:
 
 ```kotlin
-import com.spotted.api.client.SpottedClient
-import com.spotted.api.client.okhttp.SpottedOkHttpClient
+import dev.cjav.spotted.client.SpottedClient
+import dev.cjav.spotted.client.okhttp.SpottedOkHttpClient
 
 val client: SpottedClient = SpottedOkHttpClient.builder()
     .fromEnv()

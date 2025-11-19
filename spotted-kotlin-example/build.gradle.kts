@@ -10,7 +10,7 @@ dependencies {
 application {
     // Use `./gradlew :spotted-kotlin-example:run` to run `Main`
     // Use `./gradlew :spotted-kotlin-example:run -Pexample=Something` to run `SomethingExample`
-    mainClass = "com.spotted.api.example.${
+    mainClass = "dev.cjav.spotted.example.${
         if (project.hasProperty("example"))
             "${project.property("example")}ExampleKt"
         else

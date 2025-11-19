@@ -8,7 +8,7 @@ repositories {
 }
 
 allprojects {
-    group = "com.spotted.api"
+    group = "dev.cjav.spotted"
     version = "0.0.1"
 }
 
