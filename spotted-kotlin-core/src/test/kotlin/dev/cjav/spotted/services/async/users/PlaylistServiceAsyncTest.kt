@@ -28,9 +28,9 @@ internal class PlaylistServiceAsyncTest {
                 PlaylistCreateParams.builder()
                     .userId("smedjan")
                     .name("New Playlist")
-                    .pathsRequestBodyContentApplicationJsonSchemaPropertiesPublished(true)
                     .collaborative(true)
                     .description("New playlist description")
+                    .public_(false)
                     .build()
             )
 
