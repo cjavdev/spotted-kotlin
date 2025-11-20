@@ -12,9 +12,9 @@ internal class PlaylistCreateParamsTest {
         PlaylistCreateParams.builder()
             .userId("smedjan")
             .name("New Playlist")
-            .pathsRequestBodyContentApplicationJsonSchemaPropertiesPublished(true)
             .collaborative(true)
             .description("New playlist description")
+            .public_(false)
             .build()
     }
 
@@ -33,18 +33,17 @@ internal class PlaylistCreateParamsTest {
             PlaylistCreateParams.builder()
                 .userId("smedjan")
                 .name("New Playlist")
-                .pathsRequestBodyContentApplicationJsonSchemaPropertiesPublished(true)
                 .collaborative(true)
                 .description("New playlist description")
+                .public_(false)
                 .build()
 
         val body = params._body()
 
         assertThat(body.name()).isEqualTo("New Playlist")
-        assertThat(body.pathsRequestBodyContentApplicationJsonSchemaPropertiesPublished())
-            .isEqualTo(true)
         assertThat(body.collaborative()).isEqualTo(true)
         assertThat(body.description()).isEqualTo("New playlist description")
+        assertThat(body.public_()).isEqualTo(false)
     }
 
     @Test
