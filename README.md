@@ -2,8 +2,8 @@
 
 <!-- x-release-please-start-version -->
 
-[![Maven Central](https://img.shields.io/maven-central/v/dev.cjav.spotted/spotted-kotlin)](https://central.sonatype.com/artifact/dev.cjav.spotted/spotted-kotlin/0.1.0)
-[![javadoc](https://javadoc.io/badge2/dev.cjav.spotted/spotted-kotlin/0.1.0/javadoc.svg)](https://javadoc.io/doc/dev.cjav.spotted/spotted-kotlin/0.1.0)
+[![Maven Central](https://img.shields.io/maven-central/v/dev.cjav.spotted/spotted-kotlin)](https://central.sonatype.com/artifact/dev.cjav.spotted/spotted-kotlin/0.2.0)
+[![javadoc](https://javadoc.io/badge2/dev.cjav.spotted/spotted-kotlin/0.2.0/javadoc.svg)](https://javadoc.io/doc/dev.cjav.spotted/spotted-kotlin/0.2.0)
 
 <!-- x-release-please-end -->
 
@@ -15,7 +15,7 @@ It is generated with [Stainless](https://www.stainless.com/).
 
 <!-- x-release-please-start-version -->
 
-The REST API documentation can be found on [spotted.stldocs.com](https://spotted.stldocs.com). KDocs are available on [javadoc.io](https://javadoc.io/doc/dev.cjav.spotted/spotted-kotlin/0.1.0).
+The REST API documentation can be found on [spotted.stldocs.com](https://spotted.stldocs.com). KDocs are available on [javadoc.io](https://javadoc.io/doc/dev.cjav.spotted/spotted-kotlin/0.2.0).
 
 <!-- x-release-please-end -->
 
@@ -26,7 +26,7 @@ The REST API documentation can be found on [spotted.stldocs.com](https://spotted
 ### Gradle
 
 ```kotlin
-implementation("dev.cjav.spotted:spotted-kotlin:0.1.0")
+implementation("dev.cjav.spotted:spotted-kotlin:0.2.0")
 ```
 
 ### Maven
@@ -35,7 +35,7 @@ implementation("dev.cjav.spotted:spotted-kotlin:0.1.0")
 <dependency>
   <groupId>dev.cjav.spotted</groupId>
   <artifactId>spotted-kotlin</artifactId>
-  <version>0.1.0</version>
+  <version>0.2.0</version>
 </dependency>
 ```
 
@@ -176,6 +176,48 @@ val album: AlbumRetrieveResponse = client.albums().retrieve("4aawyAB9vmqN3uQ7FjR
 ```
 
 The asynchronous client supports the same options as the synchronous one, except most methods are [suspending](https://kotlinlang.org/docs/coroutines-guide.html).
+
+## Binary responses
+
+The SDK defines methods that return binary responses, which are used for API responses that shouldn't necessarily be parsed, like non-JSON data.
+
+These methods return [`HttpResponse`](spotted-kotlin-core/src/main/kotlin/dev/cjav/spotted/core/http/HttpResponse.kt):
+
+```kotlin
+import dev.cjav.spotted.core.http.HttpResponse
+import dev.cjav.spotted.models.playlists.images.ImageUpdateParams
+
+val image: HttpResponse = client.playlists().images().update(
+  "3cEYpjA9oz9GiPac4AsH4n", "some content"
+)
+```
+
+To save the response content to a file, use the [`Files.copy(...)`](https://docs.oracle.com/javase/8/docs/api/java/nio/file/Files.html#copy-java.io.InputStream-java.nio.file.Path-java.nio.file.CopyOption...-) method:
+
+```kotlin
+import java.nio.file.Files
+import java.nio.file.Paths
+import java.nio.file.StandardCopyOption
+
+client.playlists().images().update(params).use {
+    Files.copy(
+        it.body(),
+        Paths.get(path),
+        StandardCopyOption.REPLACE_EXISTING
+    )
+}
+```
+
+Or transfer the response content to any [`OutputStream`](https://docs.oracle.com/javase/8/docs/api/java/io/OutputStream.html):
+
+```kotlin
+import java.nio.file.Files
+import java.nio.file.Paths
+
+client.playlists().images().update(params).use {
+    it.body().transferTo(Files.newOutputStream(Paths.get(path)))
+}
+```
 
 ## Raw responses
 
