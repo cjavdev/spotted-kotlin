@@ -37,14 +37,17 @@ private constructor(
      * @throws SpottedInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun public_(): Boolean? = body.public_()
+    fun componentsSchemasPropertiesPublished(): Boolean? =
+        body.componentsSchemasPropertiesPublished()
 
     /**
-     * Returns the raw JSON value of [public_].
+     * Returns the raw JSON value of [componentsSchemasPropertiesPublished].
      *
-     * Unlike [public_], this method doesn't throw if the JSON field has an unexpected type.
+     * Unlike [componentsSchemasPropertiesPublished], this method doesn't throw if the JSON field
+     * has an unexpected type.
      */
-    fun _public_(): JsonField<Boolean> = body._public_()
+    fun _componentsSchemasPropertiesPublished(): JsonField<Boolean> =
+        body._componentsSchemasPropertiesPublished()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
@@ -87,7 +90,7 @@ private constructor(
          *
          * This is generally only useful if you are already constructing the body separately.
          * Otherwise, it's more convenient to use the top-level setters instead:
-         * - [public_]
+         * - [componentsSchemasPropertiesPublished]
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
 
@@ -96,15 +99,23 @@ private constructor(
          * (added to profile), if `false` it will remain private. For more about public/private
          * status, see [Working with Playlists](/documentation/web-api/concepts/playlists)
          */
-        fun public_(public_: Boolean) = apply { body.public_(public_) }
+        fun componentsSchemasPropertiesPublished(componentsSchemasPropertiesPublished: Boolean) =
+            apply {
+                body.componentsSchemasPropertiesPublished(componentsSchemasPropertiesPublished)
+            }
 
         /**
-         * Sets [Builder.public_] to an arbitrary JSON value.
+         * Sets [Builder.componentsSchemasPropertiesPublished] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.public_] with a well-typed [Boolean] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
+         * You should usually call [Builder.componentsSchemasPropertiesPublished] with a well-typed
+         * [Boolean] value instead. This method is primarily for setting the field to an
+         * undocumented or not yet supported value.
          */
-        fun public_(public_: JsonField<Boolean>) = apply { body.public_(public_) }
+        fun componentsSchemasPropertiesPublished(
+            componentsSchemasPropertiesPublished: JsonField<Boolean>
+        ) = apply {
+            body.componentsSchemasPropertiesPublished(componentsSchemasPropertiesPublished)
+        }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             body.additionalProperties(additionalBodyProperties)
@@ -252,14 +263,16 @@ private constructor(
     class Body
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
-        private val public_: JsonField<Boolean>,
+        private val componentsSchemasPropertiesPublished: JsonField<Boolean>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
         @JsonCreator
         private constructor(
-            @JsonProperty("public") @ExcludeMissing public_: JsonField<Boolean> = JsonMissing.of()
-        ) : this(public_, mutableMapOf())
+            @JsonProperty("\$.components.schemas.*.properties.published")
+            @ExcludeMissing
+            componentsSchemasPropertiesPublished: JsonField<Boolean> = JsonMissing.of()
+        ) : this(componentsSchemasPropertiesPublished, mutableMapOf())
 
         /**
          * Defaults to `true`. If `true` the playlist will be included in user's public playlists
@@ -269,14 +282,21 @@ private constructor(
          * @throws SpottedInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
-        fun public_(): Boolean? = public_.getNullable("public")
+        fun componentsSchemasPropertiesPublished(): Boolean? =
+            componentsSchemasPropertiesPublished.getNullable(
+                "\$.components.schemas.*.properties.published"
+            )
 
         /**
-         * Returns the raw JSON value of [public_].
+         * Returns the raw JSON value of [componentsSchemasPropertiesPublished].
          *
-         * Unlike [public_], this method doesn't throw if the JSON field has an unexpected type.
+         * Unlike [componentsSchemasPropertiesPublished], this method doesn't throw if the JSON
+         * field has an unexpected type.
          */
-        @JsonProperty("public") @ExcludeMissing fun _public_(): JsonField<Boolean> = public_
+        @JsonProperty("\$.components.schemas.*.properties.published")
+        @ExcludeMissing
+        fun _componentsSchemasPropertiesPublished(): JsonField<Boolean> =
+            componentsSchemasPropertiesPublished
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -299,11 +319,11 @@ private constructor(
         /** A builder for [Body]. */
         class Builder internal constructor() {
 
-            private var public_: JsonField<Boolean> = JsonMissing.of()
+            private var componentsSchemasPropertiesPublished: JsonField<Boolean> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(body: Body) = apply {
-                public_ = body.public_
+                componentsSchemasPropertiesPublished = body.componentsSchemasPropertiesPublished
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
 
@@ -313,16 +333,25 @@ private constructor(
              * public/private status, see
              * [Working with Playlists](/documentation/web-api/concepts/playlists)
              */
-            fun public_(public_: Boolean) = public_(JsonField.of(public_))
+            fun componentsSchemasPropertiesPublished(
+                componentsSchemasPropertiesPublished: Boolean
+            ) =
+                componentsSchemasPropertiesPublished(
+                    JsonField.of(componentsSchemasPropertiesPublished)
+                )
 
             /**
-             * Sets [Builder.public_] to an arbitrary JSON value.
+             * Sets [Builder.componentsSchemasPropertiesPublished] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.public_] with a well-typed [Boolean] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
+             * You should usually call [Builder.componentsSchemasPropertiesPublished] with a
+             * well-typed [Boolean] value instead. This method is primarily for setting the field to
+             * an undocumented or not yet supported value.
              */
-            fun public_(public_: JsonField<Boolean>) = apply { this.public_ = public_ }
+            fun componentsSchemasPropertiesPublished(
+                componentsSchemasPropertiesPublished: JsonField<Boolean>
+            ) = apply {
+                this.componentsSchemasPropertiesPublished = componentsSchemasPropertiesPublished
+            }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -348,7 +377,8 @@ private constructor(
              *
              * Further updates to this [Builder] will not mutate the returned instance.
              */
-            fun build(): Body = Body(public_, additionalProperties.toMutableMap())
+            fun build(): Body =
+                Body(componentsSchemasPropertiesPublished, additionalProperties.toMutableMap())
         }
 
         private var validated: Boolean = false
@@ -358,7 +388,7 @@ private constructor(
                 return@apply
             }
 
-            public_()
+            componentsSchemasPropertiesPublished()
             validated = true
         }
 
@@ -376,7 +406,8 @@ private constructor(
          *
          * Used for best match union deserialization.
          */
-        internal fun validity(): Int = (if (public_.asKnown() == null) 0 else 1)
+        internal fun validity(): Int =
+            (if (componentsSchemasPropertiesPublished.asKnown() == null) 0 else 1)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -384,16 +415,19 @@ private constructor(
             }
 
             return other is Body &&
-                public_ == other.public_ &&
+                componentsSchemasPropertiesPublished ==
+                    other.componentsSchemasPropertiesPublished &&
                 additionalProperties == other.additionalProperties
         }
 
-        private val hashCode: Int by lazy { Objects.hash(public_, additionalProperties) }
+        private val hashCode: Int by lazy {
+            Objects.hash(componentsSchemasPropertiesPublished, additionalProperties)
+        }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{public_=$public_, additionalProperties=$additionalProperties}"
+            "Body{componentsSchemasPropertiesPublished=$componentsSchemasPropertiesPublished, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {

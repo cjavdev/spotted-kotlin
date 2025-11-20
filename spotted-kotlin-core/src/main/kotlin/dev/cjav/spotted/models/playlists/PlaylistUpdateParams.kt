@@ -32,6 +32,18 @@ private constructor(
     fun playlistId(): String? = playlistId
 
     /**
+     * The playlist's public/private status (if it should be added to the user's profile or not):
+     * `true` the playlist will be public, `false` the playlist will be private, `null` the playlist
+     * status is not relevant. For more about public/private status, see
+     * [Working with Playlists](/documentation/web-api/concepts/playlists)
+     *
+     * @throws SpottedInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun componentsSchemasPropertiesPublished(): Boolean? =
+        body.componentsSchemasPropertiesPublished()
+
+    /**
      * If `true`, the playlist will become collaborative and other users will be able to modify the
      * playlist in their Spotify client. <br/> _**Note**: You can only set `collaborative` to `true`
      * on non-public playlists._
@@ -58,15 +70,13 @@ private constructor(
     fun name(): String? = body.name()
 
     /**
-     * The playlist's public/private status (if it should be added to the user's profile or not):
-     * `true` the playlist will be public, `false` the playlist will be private, `null` the playlist
-     * status is not relevant. For more about public/private status, see
-     * [Working with Playlists](/documentation/web-api/concepts/playlists)
+     * Returns the raw JSON value of [componentsSchemasPropertiesPublished].
      *
-     * @throws SpottedInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
+     * Unlike [componentsSchemasPropertiesPublished], this method doesn't throw if the JSON field
+     * has an unexpected type.
      */
-    fun public_(): Boolean? = body.public_()
+    fun _componentsSchemasPropertiesPublished(): JsonField<Boolean> =
+        body._componentsSchemasPropertiesPublished()
 
     /**
      * Returns the raw JSON value of [collaborative].
@@ -88,13 +98,6 @@ private constructor(
      * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _name(): JsonField<String> = body._name()
-
-    /**
-     * Returns the raw JSON value of [public_].
-     *
-     * Unlike [public_], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    fun _public_(): JsonField<Boolean> = body._public_()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
@@ -137,12 +140,36 @@ private constructor(
          *
          * This is generally only useful if you are already constructing the body separately.
          * Otherwise, it's more convenient to use the top-level setters instead:
+         * - [componentsSchemasPropertiesPublished]
          * - [collaborative]
          * - [description]
          * - [name]
-         * - [public_]
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
+
+        /**
+         * The playlist's public/private status (if it should be added to the user's profile or
+         * not): `true` the playlist will be public, `false` the playlist will be private, `null`
+         * the playlist status is not relevant. For more about public/private status, see
+         * [Working with Playlists](/documentation/web-api/concepts/playlists)
+         */
+        fun componentsSchemasPropertiesPublished(componentsSchemasPropertiesPublished: Boolean) =
+            apply {
+                body.componentsSchemasPropertiesPublished(componentsSchemasPropertiesPublished)
+            }
+
+        /**
+         * Sets [Builder.componentsSchemasPropertiesPublished] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.componentsSchemasPropertiesPublished] with a well-typed
+         * [Boolean] value instead. This method is primarily for setting the field to an
+         * undocumented or not yet supported value.
+         */
+        fun componentsSchemasPropertiesPublished(
+            componentsSchemasPropertiesPublished: JsonField<Boolean>
+        ) = apply {
+            body.componentsSchemasPropertiesPublished(componentsSchemasPropertiesPublished)
+        }
 
         /**
          * If `true`, the playlist will become collaborative and other users will be able to modify
@@ -184,22 +211,6 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun name(name: JsonField<String>) = apply { body.name(name) }
-
-        /**
-         * The playlist's public/private status (if it should be added to the user's profile or
-         * not): `true` the playlist will be public, `false` the playlist will be private, `null`
-         * the playlist status is not relevant. For more about public/private status, see
-         * [Working with Playlists](/documentation/web-api/concepts/playlists)
-         */
-        fun public_(public_: Boolean) = apply { body.public_(public_) }
-
-        /**
-         * Sets [Builder.public_] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.public_] with a well-typed [Boolean] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
-         */
-        fun public_(public_: JsonField<Boolean>) = apply { body.public_(public_) }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             body.additionalProperties(additionalBodyProperties)
@@ -347,15 +358,18 @@ private constructor(
     class Body
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
+        private val componentsSchemasPropertiesPublished: JsonField<Boolean>,
         private val collaborative: JsonField<Boolean>,
         private val description: JsonField<String>,
         private val name: JsonField<String>,
-        private val public_: JsonField<Boolean>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
         @JsonCreator
         private constructor(
+            @JsonProperty("\$.components.schemas.*.properties.published")
+            @ExcludeMissing
+            componentsSchemasPropertiesPublished: JsonField<Boolean> = JsonMissing.of(),
             @JsonProperty("collaborative")
             @ExcludeMissing
             collaborative: JsonField<Boolean> = JsonMissing.of(),
@@ -363,8 +377,27 @@ private constructor(
             @ExcludeMissing
             description: JsonField<String> = JsonMissing.of(),
             @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("public") @ExcludeMissing public_: JsonField<Boolean> = JsonMissing.of(),
-        ) : this(collaborative, description, name, public_, mutableMapOf())
+        ) : this(
+            componentsSchemasPropertiesPublished,
+            collaborative,
+            description,
+            name,
+            mutableMapOf(),
+        )
+
+        /**
+         * The playlist's public/private status (if it should be added to the user's profile or
+         * not): `true` the playlist will be public, `false` the playlist will be private, `null`
+         * the playlist status is not relevant. For more about public/private status, see
+         * [Working with Playlists](/documentation/web-api/concepts/playlists)
+         *
+         * @throws SpottedInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun componentsSchemasPropertiesPublished(): Boolean? =
+            componentsSchemasPropertiesPublished.getNullable(
+                "\$.components.schemas.*.properties.published"
+            )
 
         /**
          * If `true`, the playlist will become collaborative and other users will be able to modify
@@ -393,15 +426,15 @@ private constructor(
         fun name(): String? = name.getNullable("name")
 
         /**
-         * The playlist's public/private status (if it should be added to the user's profile or
-         * not): `true` the playlist will be public, `false` the playlist will be private, `null`
-         * the playlist status is not relevant. For more about public/private status, see
-         * [Working with Playlists](/documentation/web-api/concepts/playlists)
+         * Returns the raw JSON value of [componentsSchemasPropertiesPublished].
          *
-         * @throws SpottedInvalidDataException if the JSON field has an unexpected type (e.g. if the
-         *   server responded with an unexpected value).
+         * Unlike [componentsSchemasPropertiesPublished], this method doesn't throw if the JSON
+         * field has an unexpected type.
          */
-        fun public_(): Boolean? = public_.getNullable("public")
+        @JsonProperty("\$.components.schemas.*.properties.published")
+        @ExcludeMissing
+        fun _componentsSchemasPropertiesPublished(): JsonField<Boolean> =
+            componentsSchemasPropertiesPublished
 
         /**
          * Returns the raw JSON value of [collaborative].
@@ -429,13 +462,6 @@ private constructor(
          */
         @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
 
-        /**
-         * Returns the raw JSON value of [public_].
-         *
-         * Unlike [public_], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("public") @ExcludeMissing fun _public_(): JsonField<Boolean> = public_
-
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
             additionalProperties.put(key, value)
@@ -457,18 +483,44 @@ private constructor(
         /** A builder for [Body]. */
         class Builder internal constructor() {
 
+            private var componentsSchemasPropertiesPublished: JsonField<Boolean> = JsonMissing.of()
             private var collaborative: JsonField<Boolean> = JsonMissing.of()
             private var description: JsonField<String> = JsonMissing.of()
             private var name: JsonField<String> = JsonMissing.of()
-            private var public_: JsonField<Boolean> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(body: Body) = apply {
+                componentsSchemasPropertiesPublished = body.componentsSchemasPropertiesPublished
                 collaborative = body.collaborative
                 description = body.description
                 name = body.name
-                public_ = body.public_
                 additionalProperties = body.additionalProperties.toMutableMap()
+            }
+
+            /**
+             * The playlist's public/private status (if it should be added to the user's profile or
+             * not): `true` the playlist will be public, `false` the playlist will be private,
+             * `null` the playlist status is not relevant. For more about public/private status, see
+             * [Working with Playlists](/documentation/web-api/concepts/playlists)
+             */
+            fun componentsSchemasPropertiesPublished(
+                componentsSchemasPropertiesPublished: Boolean
+            ) =
+                componentsSchemasPropertiesPublished(
+                    JsonField.of(componentsSchemasPropertiesPublished)
+                )
+
+            /**
+             * Sets [Builder.componentsSchemasPropertiesPublished] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.componentsSchemasPropertiesPublished] with a
+             * well-typed [Boolean] value instead. This method is primarily for setting the field to
+             * an undocumented or not yet supported value.
+             */
+            fun componentsSchemasPropertiesPublished(
+                componentsSchemasPropertiesPublished: JsonField<Boolean>
+            ) = apply {
+                this.componentsSchemasPropertiesPublished = componentsSchemasPropertiesPublished
             }
 
             /**
@@ -517,23 +569,6 @@ private constructor(
              */
             fun name(name: JsonField<String>) = apply { this.name = name }
 
-            /**
-             * The playlist's public/private status (if it should be added to the user's profile or
-             * not): `true` the playlist will be public, `false` the playlist will be private,
-             * `null` the playlist status is not relevant. For more about public/private status, see
-             * [Working with Playlists](/documentation/web-api/concepts/playlists)
-             */
-            fun public_(public_: Boolean) = public_(JsonField.of(public_))
-
-            /**
-             * Sets [Builder.public_] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.public_] with a well-typed [Boolean] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun public_(public_: JsonField<Boolean>) = apply { this.public_ = public_ }
-
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 putAllAdditionalProperties(additionalProperties)
@@ -559,7 +594,13 @@ private constructor(
              * Further updates to this [Builder] will not mutate the returned instance.
              */
             fun build(): Body =
-                Body(collaborative, description, name, public_, additionalProperties.toMutableMap())
+                Body(
+                    componentsSchemasPropertiesPublished,
+                    collaborative,
+                    description,
+                    name,
+                    additionalProperties.toMutableMap(),
+                )
         }
 
         private var validated: Boolean = false
@@ -569,10 +610,10 @@ private constructor(
                 return@apply
             }
 
+            componentsSchemasPropertiesPublished()
             collaborative()
             description()
             name()
-            public_()
             validated = true
         }
 
@@ -591,10 +632,10 @@ private constructor(
          * Used for best match union deserialization.
          */
         internal fun validity(): Int =
-            (if (collaborative.asKnown() == null) 0 else 1) +
+            (if (componentsSchemasPropertiesPublished.asKnown() == null) 0 else 1) +
+                (if (collaborative.asKnown() == null) 0 else 1) +
                 (if (description.asKnown() == null) 0 else 1) +
-                (if (name.asKnown() == null) 0 else 1) +
-                (if (public_.asKnown() == null) 0 else 1)
+                (if (name.asKnown() == null) 0 else 1)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -602,21 +643,28 @@ private constructor(
             }
 
             return other is Body &&
+                componentsSchemasPropertiesPublished ==
+                    other.componentsSchemasPropertiesPublished &&
                 collaborative == other.collaborative &&
                 description == other.description &&
                 name == other.name &&
-                public_ == other.public_ &&
                 additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy {
-            Objects.hash(collaborative, description, name, public_, additionalProperties)
+            Objects.hash(
+                componentsSchemasPropertiesPublished,
+                collaborative,
+                description,
+                name,
+                additionalProperties,
+            )
         }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{collaborative=$collaborative, description=$description, name=$name, public_=$public_, additionalProperties=$additionalProperties}"
+            "Body{componentsSchemasPropertiesPublished=$componentsSchemasPropertiesPublished, collaborative=$collaborative, description=$description, name=$name, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {

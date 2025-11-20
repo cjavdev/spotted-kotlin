@@ -26,7 +26,7 @@ internal class PlaylistRetrieveResponseTest {
         val playlistRetrieveResponse =
             PlaylistRetrieveResponse.builder()
                 .id("id")
-                .componentsSchemasPropertiesIsPublic(true)
+                .componentsSchemasPropertiesPublished(true)
                 .collaborative(true)
                 .description("description")
                 .externalUrls(ExternalUrlObject.builder().spotify("spotify").build())
@@ -193,7 +193,7 @@ internal class PlaylistRetrieveResponseTest {
                 .build()
 
         assertThat(playlistRetrieveResponse.id()).isEqualTo("id")
-        assertThat(playlistRetrieveResponse.componentsSchemasPropertiesIsPublic()).isEqualTo(true)
+        assertThat(playlistRetrieveResponse.componentsSchemasPropertiesPublished()).isEqualTo(true)
         assertThat(playlistRetrieveResponse.collaborative()).isEqualTo(true)
         assertThat(playlistRetrieveResponse.description()).isEqualTo("description")
         assertThat(playlistRetrieveResponse.externalUrls())
@@ -366,7 +366,7 @@ internal class PlaylistRetrieveResponseTest {
         val playlistRetrieveResponse =
             PlaylistRetrieveResponse.builder()
                 .id("id")
-                .componentsSchemasPropertiesIsPublic(true)
+                .componentsSchemasPropertiesPublished(true)
                 .collaborative(true)
                 .description("description")
                 .externalUrls(ExternalUrlObject.builder().spotify("spotify").build())

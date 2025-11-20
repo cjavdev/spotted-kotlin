@@ -240,7 +240,7 @@ internal class SearchQueryResponseTest {
                         .addItem(
                             SimplifiedPlaylistObject.builder()
                                 .id("id")
-                                .componentsSchemasPropertiesIsPublic(true)
+                                .componentsSchemasPropertiesPublished(true)
                                 .collaborative(true)
                                 .description("description")
                                 .externalUrls(
@@ -633,7 +633,7 @@ internal class SearchQueryResponseTest {
                     .addItem(
                         SimplifiedPlaylistObject.builder()
                             .id("id")
-                            .componentsSchemasPropertiesIsPublic(true)
+                            .componentsSchemasPropertiesPublished(true)
                             .collaborative(true)
                             .description("description")
                             .externalUrls(ExternalUrlObject.builder().spotify("spotify").build())
@@ -1030,7 +1030,7 @@ internal class SearchQueryResponseTest {
                         .addItem(
                             SimplifiedPlaylistObject.builder()
                                 .id("id")
-                                .componentsSchemasPropertiesIsPublic(true)
+                                .componentsSchemasPropertiesPublished(true)
                                 .collaborative(true)
                                 .description("description")
                                 .externalUrls(

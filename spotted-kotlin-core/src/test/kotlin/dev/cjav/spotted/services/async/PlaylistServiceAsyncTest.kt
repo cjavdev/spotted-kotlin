@@ -51,10 +51,10 @@ internal class PlaylistServiceAsyncTest {
         playlistServiceAsync.update(
             PlaylistUpdateParams.builder()
                 .playlistId("3cEYpjA9oz9GiPac4AsH4n")
+                .componentsSchemasPropertiesPublished(true)
                 .collaborative(true)
                 .description("Updated playlist description")
                 .name("Updated Playlist Name")
-                .public_(false)
                 .build()
         )
     }
