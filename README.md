@@ -1,7 +1,11 @@
 # Spotted Kotlin API Library
 
-[![Maven Central](https://img.shields.io/maven-central/v/dev.cjav.spotted/spotted-kotlin)](https://central.sonatype.com/artifact/dev.cjav.spotted/spotted-kotlin/0.0.1)
-[![javadoc](https://javadoc.io/badge2/dev.cjav.spotted/spotted-kotlin/0.0.1/javadoc.svg)](https://javadoc.io/doc/dev.cjav.spotted/spotted-kotlin/0.0.1)
+<!-- x-release-please-start-version -->
+
+[![Maven Central](https://img.shields.io/maven-central/v/dev.cjav.spotted/spotted-kotlin)](https://central.sonatype.com/artifact/dev.cjav.spotted/spotted-kotlin/0.1.0)
+[![javadoc](https://javadoc.io/badge2/dev.cjav.spotted/spotted-kotlin/0.1.0/javadoc.svg)](https://javadoc.io/doc/dev.cjav.spotted/spotted-kotlin/0.1.0)
+
+<!-- x-release-please-end -->
 
 The Spotted Kotlin SDK provides convenient access to the [Spotted REST API](https://spotted.stldocs.com) from applications written in Kotlin.
 
@@ -9,14 +13,20 @@ The Spotted Kotlin SDK is similar to the Spotted Java SDK but with minor differe
 
 It is generated with [Stainless](https://www.stainless.com/).
 
-The REST API documentation can be found on [spotted.stldocs.com](https://spotted.stldocs.com). KDocs are available on [javadoc.io](https://javadoc.io/doc/dev.cjav.spotted/spotted-kotlin/0.0.1).
+<!-- x-release-please-start-version -->
+
+The REST API documentation can be found on [spotted.stldocs.com](https://spotted.stldocs.com). KDocs are available on [javadoc.io](https://javadoc.io/doc/dev.cjav.spotted/spotted-kotlin/0.1.0).
+
+<!-- x-release-please-end -->
 
 ## Installation
+
+<!-- x-release-please-start-version -->
 
 ### Gradle
 
 ```kotlin
-implementation("dev.cjav.spotted:spotted-kotlin:0.0.1")
+implementation("dev.cjav.spotted:spotted-kotlin:0.1.0")
 ```
 
 ### Maven
@@ -25,9 +35,11 @@ implementation("dev.cjav.spotted:spotted-kotlin:0.0.1")
 <dependency>
   <groupId>dev.cjav.spotted</groupId>
   <artifactId>spotted-kotlin</artifactId>
-  <version>0.0.1</version>
+  <version>0.1.0</version>
 </dependency>
 ```
+
+<!-- x-release-please-end -->
 
 ## Requirements
 
@@ -164,48 +176,6 @@ val album: AlbumRetrieveResponse = client.albums().retrieve("4aawyAB9vmqN3uQ7FjR
 ```
 
 The asynchronous client supports the same options as the synchronous one, except most methods are [suspending](https://kotlinlang.org/docs/coroutines-guide.html).
-
-## Binary responses
-
-The SDK defines methods that return binary responses, which are used for API responses that shouldn't necessarily be parsed, like non-JSON data.
-
-These methods return [`HttpResponse`](spotted-kotlin-core/src/main/kotlin/dev/cjav/spotted/core/http/HttpResponse.kt):
-
-```kotlin
-import dev.cjav.spotted.core.http.HttpResponse
-import dev.cjav.spotted.models.playlists.images.ImageUpdateParams
-
-val image: HttpResponse = client.playlists().images().update(
-  "3cEYpjA9oz9GiPac4AsH4n", "some content"
-)
-```
-
-To save the response content to a file, use the [`Files.copy(...)`](https://docs.oracle.com/javase/8/docs/api/java/nio/file/Files.html#copy-java.io.InputStream-java.nio.file.Path-java.nio.file.CopyOption...-) method:
-
-```kotlin
-import java.nio.file.Files
-import java.nio.file.Paths
-import java.nio.file.StandardCopyOption
-
-client.playlists().images().update(params).use {
-    Files.copy(
-        it.body(),
-        Paths.get(path),
-        StandardCopyOption.REPLACE_EXISTING
-    )
-}
-```
-
-Or transfer the response content to any [`OutputStream`](https://docs.oracle.com/javase/8/docs/api/java/io/OutputStream.html):
-
-```kotlin
-import java.nio.file.Files
-import java.nio.file.Paths
-
-client.playlists().images().update(params).use {
-    it.body().transferTo(Files.newOutputStream(Paths.get(path)))
-}
-```
 
 ## Raw responses
 
@@ -666,4 +636,4 @@ This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) con
 
 We take backwards-compatibility seriously and work hard to ensure you can rely on a smooth upgrade experience.
 
-We are keen for your feedback; please open an [issue](https://www.github.com/stainless-sdks/spotted-kotlin/issues) with questions, bugs, or suggestions.
+We are keen for your feedback; please open an [issue](https://www.github.com/cjavdev/spotted-kotlin/issues) with questions, bugs, or suggestions.

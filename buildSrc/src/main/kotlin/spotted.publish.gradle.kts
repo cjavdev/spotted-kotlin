@@ -27,9 +27,9 @@ configure<PublishingExtension> {
                 }
 
                 scm {
-                    connection.set("scm:git:git://github.com/stainless-sdks/spotted-kotlin.git")
-                    developerConnection.set("scm:git:git://github.com/stainless-sdks/spotted-kotlin.git")
-                    url.set("https://github.com/stainless-sdks/spotted-kotlin")
+                    connection.set("scm:git:git://github.com/cjavdev/spotted-kotlin.git")
+                    developerConnection.set("scm:git:git://github.com/cjavdev/spotted-kotlin.git")
+                    url.set("https://github.com/cjavdev/spotted-kotlin")
                 }
 
                 versionMapping {
