@@ -22,7 +22,6 @@ internal class PagingPlaylistObjectTest {
                 .addItem(
                     SimplifiedPlaylistObject.builder()
                         .id("id")
-                        .componentsSchemasPropertiesPublished(true)
                         .collaborative(true)
                         .description("description")
                         .externalUrls(ExternalUrlObject.builder().spotify("spotify").build())
@@ -49,6 +48,7 @@ internal class PagingPlaylistObjectTest {
                                 .displayName("display_name")
                                 .build()
                         )
+                        .published(true)
                         .snapshotId("snapshot_id")
                         .tracks(PlaylistTracksRefObject.builder().href("href").total(0L).build())
                         .type("type")
@@ -70,7 +70,6 @@ internal class PagingPlaylistObjectTest {
             .containsExactly(
                 SimplifiedPlaylistObject.builder()
                     .id("id")
-                    .componentsSchemasPropertiesPublished(true)
                     .collaborative(true)
                     .description("description")
                     .externalUrls(ExternalUrlObject.builder().spotify("spotify").build())
@@ -95,6 +94,7 @@ internal class PagingPlaylistObjectTest {
                             .displayName("display_name")
                             .build()
                     )
+                    .published(true)
                     .snapshotId("snapshot_id")
                     .tracks(PlaylistTracksRefObject.builder().href("href").total(0L).build())
                     .type("type")
@@ -117,7 +117,6 @@ internal class PagingPlaylistObjectTest {
                 .addItem(
                     SimplifiedPlaylistObject.builder()
                         .id("id")
-                        .componentsSchemasPropertiesPublished(true)
                         .collaborative(true)
                         .description("description")
                         .externalUrls(ExternalUrlObject.builder().spotify("spotify").build())
@@ -144,6 +143,7 @@ internal class PagingPlaylistObjectTest {
                                 .displayName("display_name")
                                 .build()
                         )
+                        .published(true)
                         .snapshotId("snapshot_id")
                         .tracks(PlaylistTracksRefObject.builder().href("href").total(0L).build())
                         .type("type")

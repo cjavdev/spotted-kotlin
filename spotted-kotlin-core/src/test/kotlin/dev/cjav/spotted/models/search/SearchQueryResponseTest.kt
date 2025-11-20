@@ -240,7 +240,6 @@ internal class SearchQueryResponseTest {
                         .addItem(
                             SimplifiedPlaylistObject.builder()
                                 .id("id")
-                                .componentsSchemasPropertiesPublished(true)
                                 .collaborative(true)
                                 .description("description")
                                 .externalUrls(
@@ -269,6 +268,7 @@ internal class SearchQueryResponseTest {
                                         .displayName("display_name")
                                         .build()
                                 )
+                                .published(true)
                                 .snapshotId("snapshot_id")
                                 .tracks(
                                     PlaylistTracksRefObject.builder().href("href").total(0L).build()
@@ -633,7 +633,6 @@ internal class SearchQueryResponseTest {
                     .addItem(
                         SimplifiedPlaylistObject.builder()
                             .id("id")
-                            .componentsSchemasPropertiesPublished(true)
                             .collaborative(true)
                             .description("description")
                             .externalUrls(ExternalUrlObject.builder().spotify("spotify").build())
@@ -660,6 +659,7 @@ internal class SearchQueryResponseTest {
                                     .displayName("display_name")
                                     .build()
                             )
+                            .published(true)
                             .snapshotId("snapshot_id")
                             .tracks(
                                 PlaylistTracksRefObject.builder().href("href").total(0L).build()
@@ -1030,7 +1030,6 @@ internal class SearchQueryResponseTest {
                         .addItem(
                             SimplifiedPlaylistObject.builder()
                                 .id("id")
-                                .componentsSchemasPropertiesPublished(true)
                                 .collaborative(true)
                                 .description("description")
                                 .externalUrls(
@@ -1059,6 +1058,7 @@ internal class SearchQueryResponseTest {
                                         .displayName("display_name")
                                         .build()
                                 )
+                                .published(true)
                                 .snapshotId("snapshot_id")
                                 .tracks(
                                     PlaylistTracksRefObject.builder().href("href").total(0L).build()
