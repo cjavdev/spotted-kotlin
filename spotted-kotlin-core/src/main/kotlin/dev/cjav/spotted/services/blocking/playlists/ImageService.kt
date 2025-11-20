@@ -5,9 +5,11 @@ package dev.cjav.spotted.services.blocking.playlists
 import com.google.errorprone.annotations.MustBeClosed
 import dev.cjav.spotted.core.ClientOptions
 import dev.cjav.spotted.core.RequestOptions
+import dev.cjav.spotted.core.http.HttpResponse
 import dev.cjav.spotted.core.http.HttpResponseFor
 import dev.cjav.spotted.models.ImageObject
 import dev.cjav.spotted.models.playlists.images.ImageListParams
+import dev.cjav.spotted.models.playlists.images.ImageUpdateParams
 
 interface ImageService {
 
@@ -22,6 +24,28 @@ interface ImageService {
      * The original service is not modified.
      */
     fun withOptions(modifier: (ClientOptions.Builder) -> Unit): ImageService
+
+    /** Replace the image used to represent a specific playlist. */
+    @MustBeClosed
+    fun update(
+        playlistId: String,
+        body: String,
+        params: ImageUpdateParams = ImageUpdateParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): HttpResponse =
+        update(params.toBuilder().playlistId(playlistId).body(body).build(), requestOptions)
+
+    /** @see update */
+    @MustBeClosed
+    fun update(
+        params: ImageUpdateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): HttpResponse
+
+    /** @see update */
+    @MustBeClosed
+    fun update(playlistId: String, body: String, requestOptions: RequestOptions): HttpResponse =
+        update(playlistId, body, ImageUpdateParams.none(), requestOptions)
 
     /** Get the current image associated with a specific playlist. */
     fun list(
@@ -49,6 +73,31 @@ interface ImageService {
          * The original service is not modified.
          */
         fun withOptions(modifier: (ClientOptions.Builder) -> Unit): ImageService.WithRawResponse
+
+        /**
+         * Returns a raw HTTP response for `put /playlists/{playlist_id}/images`, but is otherwise
+         * the same as [ImageService.update].
+         */
+        @MustBeClosed
+        fun update(
+            playlistId: String,
+            body: String,
+            params: ImageUpdateParams = ImageUpdateParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponse =
+            update(params.toBuilder().playlistId(playlistId).body(body).build(), requestOptions)
+
+        /** @see update */
+        @MustBeClosed
+        fun update(
+            params: ImageUpdateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponse
+
+        /** @see update */
+        @MustBeClosed
+        fun update(playlistId: String, body: String, requestOptions: RequestOptions): HttpResponse =
+            update(playlistId, body, ImageUpdateParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /playlists/{playlist_id}/images`, but is otherwise
