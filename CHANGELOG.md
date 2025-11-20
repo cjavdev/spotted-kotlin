@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.2.0 (2025-11-20)
+
+Full Changelog: [v0.1.0...v0.2.0](https://github.com/cjavdev/spotted-kotlin/compare/v0.1.0...v0.2.0)
+
+### Features
+
+* **api:** manual updates ([71343af](https://github.com/cjavdev/spotted-kotlin/commit/71343af18ad764eee7c228f22b50155c01c11885))
+* **api:** update kotlin maven config ([9f6ad69](https://github.com/cjavdev/spotted-kotlin/commit/9f6ad69c71c880d54cb2106ac87ea685d2989f9d))
+
 ## 0.1.0 (2025-11-19)
 
 Full Changelog: [v0.0.1...v0.1.0](https://github.com/cjavdev/spotted-kotlin/compare/v0.0.1...v0.1.0)
