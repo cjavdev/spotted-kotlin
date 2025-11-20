@@ -51,7 +51,7 @@ internal class PlaylistServiceTest {
         playlistService.update(
             PlaylistUpdateParams.builder()
                 .playlistId("3cEYpjA9oz9GiPac4AsH4n")
-                .componentsSchemasPropertiesPublished(true)
+                .pathsRequestBodyContentApplicationJsonSchemaPropertiesPublished(true)
                 .collaborative(true)
                 .description("Updated playlist description")
                 .name("Updated Playlist Name")
