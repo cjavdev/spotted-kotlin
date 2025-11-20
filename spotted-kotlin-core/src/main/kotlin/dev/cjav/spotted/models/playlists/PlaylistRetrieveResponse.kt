@@ -26,6 +26,7 @@ class PlaylistRetrieveResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val id: JsonField<String>,
+    private val componentsSchemasPropertiesIsPublic: JsonField<Boolean>,
     private val collaborative: JsonField<Boolean>,
     private val description: JsonField<String>,
     private val externalUrls: JsonField<ExternalUrlObject>,
@@ -34,7 +35,6 @@ private constructor(
     private val images: JsonField<List<ImageObject>>,
     private val name: JsonField<String>,
     private val owner: JsonField<Owner>,
-    private val public_: JsonField<Boolean>,
     private val snapshotId: JsonField<String>,
     private val tracks: JsonField<Tracks>,
     private val type: JsonField<String>,
@@ -45,6 +45,9 @@ private constructor(
     @JsonCreator
     private constructor(
         @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("\$.components.schemas.*.properties.is_public")
+        @ExcludeMissing
+        componentsSchemasPropertiesIsPublic: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("collaborative")
         @ExcludeMissing
         collaborative: JsonField<Boolean> = JsonMissing.of(),
@@ -63,7 +66,6 @@ private constructor(
         images: JsonField<List<ImageObject>> = JsonMissing.of(),
         @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
         @JsonProperty("owner") @ExcludeMissing owner: JsonField<Owner> = JsonMissing.of(),
-        @JsonProperty("public") @ExcludeMissing public_: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("snapshot_id")
         @ExcludeMissing
         snapshotId: JsonField<String> = JsonMissing.of(),
@@ -72,6 +74,7 @@ private constructor(
         @JsonProperty("uri") @ExcludeMissing uri: JsonField<String> = JsonMissing.of(),
     ) : this(
         id,
+        componentsSchemasPropertiesIsPublic,
         collaborative,
         description,
         externalUrls,
@@ -80,7 +83,6 @@ private constructor(
         images,
         name,
         owner,
-        public_,
         snapshotId,
         tracks,
         type,
@@ -95,6 +97,20 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun id(): String? = id.getNullable("id")
+
+    /**
+     * The playlist's public/private status (if it is added to the user's profile): `true` the
+     * playlist is public, `false` the playlist is private, `null` the playlist status is not
+     * relevant. For more about public/private status, see
+     * [Working with Playlists](/documentation/web-api/concepts/playlists)
+     *
+     * @throws SpottedInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun componentsSchemasPropertiesIsPublic(): Boolean? =
+        componentsSchemasPropertiesIsPublic.getNullable(
+            "\$.components.schemas.*.properties.is_public"
+        )
 
     /**
      * `true` if the owner allows other users to modify the playlist.
@@ -164,17 +180,6 @@ private constructor(
     fun owner(): Owner? = owner.getNullable("owner")
 
     /**
-     * The playlist's public/private status (if it is added to the user's profile): `true` the
-     * playlist is public, `false` the playlist is private, `null` the playlist status is not
-     * relevant. For more about public/private status, see
-     * [Working with Playlists](/documentation/web-api/concepts/playlists)
-     *
-     * @throws SpottedInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun public_(): Boolean? = public_.getNullable("public")
-
-    /**
      * The version identifier for the current playlist. Can be supplied in other requests to target
      * a specific playlist version
      *
@@ -213,6 +218,17 @@ private constructor(
      * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
+
+    /**
+     * Returns the raw JSON value of [componentsSchemasPropertiesIsPublic].
+     *
+     * Unlike [componentsSchemasPropertiesIsPublic], this method doesn't throw if the JSON field has
+     * an unexpected type.
+     */
+    @JsonProperty("\$.components.schemas.*.properties.is_public")
+    @ExcludeMissing
+    fun _componentsSchemasPropertiesIsPublic(): JsonField<Boolean> =
+        componentsSchemasPropertiesIsPublic
 
     /**
      * Returns the raw JSON value of [collaborative].
@@ -277,13 +293,6 @@ private constructor(
     @JsonProperty("owner") @ExcludeMissing fun _owner(): JsonField<Owner> = owner
 
     /**
-     * Returns the raw JSON value of [public_].
-     *
-     * Unlike [public_], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    @JsonProperty("public") @ExcludeMissing fun _public_(): JsonField<Boolean> = public_
-
-    /**
      * Returns the raw JSON value of [snapshotId].
      *
      * Unlike [snapshotId], this method doesn't throw if the JSON field has an unexpected type.
@@ -333,6 +342,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var id: JsonField<String> = JsonMissing.of()
+        private var componentsSchemasPropertiesIsPublic: JsonField<Boolean> = JsonMissing.of()
         private var collaborative: JsonField<Boolean> = JsonMissing.of()
         private var description: JsonField<String> = JsonMissing.of()
         private var externalUrls: JsonField<ExternalUrlObject> = JsonMissing.of()
@@ -341,7 +351,6 @@ private constructor(
         private var images: JsonField<MutableList<ImageObject>>? = null
         private var name: JsonField<String> = JsonMissing.of()
         private var owner: JsonField<Owner> = JsonMissing.of()
-        private var public_: JsonField<Boolean> = JsonMissing.of()
         private var snapshotId: JsonField<String> = JsonMissing.of()
         private var tracks: JsonField<Tracks> = JsonMissing.of()
         private var type: JsonField<String> = JsonMissing.of()
@@ -350,6 +359,8 @@ private constructor(
 
         internal fun from(playlistRetrieveResponse: PlaylistRetrieveResponse) = apply {
             id = playlistRetrieveResponse.id
+            componentsSchemasPropertiesIsPublic =
+                playlistRetrieveResponse.componentsSchemasPropertiesIsPublic
             collaborative = playlistRetrieveResponse.collaborative
             description = playlistRetrieveResponse.description
             externalUrls = playlistRetrieveResponse.externalUrls
@@ -358,7 +369,6 @@ private constructor(
             images = playlistRetrieveResponse.images.map { it.toMutableList() }
             name = playlistRetrieveResponse.name
             owner = playlistRetrieveResponse.owner
-            public_ = playlistRetrieveResponse.public_
             snapshotId = playlistRetrieveResponse.snapshotId
             tracks = playlistRetrieveResponse.tracks
             type = playlistRetrieveResponse.type
@@ -376,6 +386,26 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun id(id: JsonField<String>) = apply { this.id = id }
+
+        /**
+         * The playlist's public/private status (if it is added to the user's profile): `true` the
+         * playlist is public, `false` the playlist is private, `null` the playlist status is not
+         * relevant. For more about public/private status, see
+         * [Working with Playlists](/documentation/web-api/concepts/playlists)
+         */
+        fun componentsSchemasPropertiesIsPublic(componentsSchemasPropertiesIsPublic: Boolean) =
+            componentsSchemasPropertiesIsPublic(JsonField.of(componentsSchemasPropertiesIsPublic))
+
+        /**
+         * Sets [Builder.componentsSchemasPropertiesIsPublic] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.componentsSchemasPropertiesIsPublic] with a well-typed
+         * [Boolean] value instead. This method is primarily for setting the field to an
+         * undocumented or not yet supported value.
+         */
+        fun componentsSchemasPropertiesIsPublic(
+            componentsSchemasPropertiesIsPublic: JsonField<Boolean>
+        ) = apply { this.componentsSchemasPropertiesIsPublic = componentsSchemasPropertiesIsPublic }
 
         /** `true` if the owner allows other users to modify the playlist. */
         fun collaborative(collaborative: Boolean) = collaborative(JsonField.of(collaborative))
@@ -498,22 +528,6 @@ private constructor(
         fun owner(owner: JsonField<Owner>) = apply { this.owner = owner }
 
         /**
-         * The playlist's public/private status (if it is added to the user's profile): `true` the
-         * playlist is public, `false` the playlist is private, `null` the playlist status is not
-         * relevant. For more about public/private status, see
-         * [Working with Playlists](/documentation/web-api/concepts/playlists)
-         */
-        fun public_(public_: Boolean) = public_(JsonField.of(public_))
-
-        /**
-         * Sets [Builder.public_] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.public_] with a well-typed [Boolean] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
-         */
-        fun public_(public_: JsonField<Boolean>) = apply { this.public_ = public_ }
-
-        /**
          * The version identifier for the current playlist. Can be supplied in other requests to
          * target a specific playlist version
          */
@@ -588,6 +602,7 @@ private constructor(
         fun build(): PlaylistRetrieveResponse =
             PlaylistRetrieveResponse(
                 id,
+                componentsSchemasPropertiesIsPublic,
                 collaborative,
                 description,
                 externalUrls,
@@ -596,7 +611,6 @@ private constructor(
                 (images ?: JsonMissing.of()).map { it.toImmutable() },
                 name,
                 owner,
-                public_,
                 snapshotId,
                 tracks,
                 type,
@@ -613,6 +627,7 @@ private constructor(
         }
 
         id()
+        componentsSchemasPropertiesIsPublic()
         collaborative()
         description()
         externalUrls()?.validate()
@@ -621,7 +636,6 @@ private constructor(
         images()?.forEach { it.validate() }
         name()
         owner()?.validate()
-        public_()
         snapshotId()
         tracks()?.validate()
         type()
@@ -644,6 +658,7 @@ private constructor(
      */
     internal fun validity(): Int =
         (if (id.asKnown() == null) 0 else 1) +
+            (if (componentsSchemasPropertiesIsPublic.asKnown() == null) 0 else 1) +
             (if (collaborative.asKnown() == null) 0 else 1) +
             (if (description.asKnown() == null) 0 else 1) +
             (externalUrls.asKnown()?.validity() ?: 0) +
@@ -652,7 +667,6 @@ private constructor(
             (images.asKnown()?.sumOf { it.validity().toInt() } ?: 0) +
             (if (name.asKnown() == null) 0 else 1) +
             (owner.asKnown()?.validity() ?: 0) +
-            (if (public_.asKnown() == null) 0 else 1) +
             (if (snapshotId.asKnown() == null) 0 else 1) +
             (tracks.asKnown()?.validity() ?: 0) +
             (if (type.asKnown() == null) 0 else 1) +
@@ -1417,6 +1431,7 @@ private constructor(
 
         return other is PlaylistRetrieveResponse &&
             id == other.id &&
+            componentsSchemasPropertiesIsPublic == other.componentsSchemasPropertiesIsPublic &&
             collaborative == other.collaborative &&
             description == other.description &&
             externalUrls == other.externalUrls &&
@@ -1425,7 +1440,6 @@ private constructor(
             images == other.images &&
             name == other.name &&
             owner == other.owner &&
-            public_ == other.public_ &&
             snapshotId == other.snapshotId &&
             tracks == other.tracks &&
             type == other.type &&
@@ -1436,6 +1450,7 @@ private constructor(
     private val hashCode: Int by lazy {
         Objects.hash(
             id,
+            componentsSchemasPropertiesIsPublic,
             collaborative,
             description,
             externalUrls,
@@ -1444,7 +1459,6 @@ private constructor(
             images,
             name,
             owner,
-            public_,
             snapshotId,
             tracks,
             type,
@@ -1456,5 +1470,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "PlaylistRetrieveResponse{id=$id, collaborative=$collaborative, description=$description, externalUrls=$externalUrls, followers=$followers, href=$href, images=$images, name=$name, owner=$owner, public_=$public_, snapshotId=$snapshotId, tracks=$tracks, type=$type, uri=$uri, additionalProperties=$additionalProperties}"
+        "PlaylistRetrieveResponse{id=$id, componentsSchemasPropertiesIsPublic=$componentsSchemasPropertiesIsPublic, collaborative=$collaborative, description=$description, externalUrls=$externalUrls, followers=$followers, href=$href, images=$images, name=$name, owner=$owner, snapshotId=$snapshotId, tracks=$tracks, type=$type, uri=$uri, additionalProperties=$additionalProperties}"
 }
