@@ -31,7 +31,7 @@ internal class BrowseGetFeaturedPlaylistsResponseTest {
                         .addItem(
                             SimplifiedPlaylistObject.builder()
                                 .id("id")
-                                .componentsSchemasPropertiesIsPublic(true)
+                                .componentsSchemasPropertiesPublished(true)
                                 .collaborative(true)
                                 .description("description")
                                 .externalUrls(
@@ -85,7 +85,7 @@ internal class BrowseGetFeaturedPlaylistsResponseTest {
                     .addItem(
                         SimplifiedPlaylistObject.builder()
                             .id("id")
-                            .componentsSchemasPropertiesIsPublic(true)
+                            .componentsSchemasPropertiesPublished(true)
                             .collaborative(true)
                             .description("description")
                             .externalUrls(ExternalUrlObject.builder().spotify("spotify").build())
@@ -141,7 +141,7 @@ internal class BrowseGetFeaturedPlaylistsResponseTest {
                         .addItem(
                             SimplifiedPlaylistObject.builder()
                                 .id("id")
-                                .componentsSchemasPropertiesIsPublic(true)
+                                .componentsSchemasPropertiesPublished(true)
                                 .collaborative(true)
                                 .description("description")
                                 .externalUrls(

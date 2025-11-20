@@ -28,9 +28,9 @@ internal class PlaylistServiceTest {
                 PlaylistCreateParams.builder()
                     .userId("smedjan")
                     .name("New Playlist")
+                    .componentsSchemasPropertiesPublished(true)
                     .collaborative(true)
                     .description("New playlist description")
-                    .public_(false)
                     .build()
             )
 
