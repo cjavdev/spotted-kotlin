@@ -2,8 +2,8 @@
 
 <!-- x-release-please-start-version -->
 
-[![Maven Central](https://img.shields.io/maven-central/v/dev.cjav.spotted/spotted-kotlin)](https://central.sonatype.com/artifact/dev.cjav.spotted/spotted-kotlin/0.0.1)
-[![javadoc](https://javadoc.io/badge2/dev.cjav.spotted/spotted-kotlin/0.0.1/javadoc.svg)](https://javadoc.io/doc/dev.cjav.spotted/spotted-kotlin/0.0.1)
+[![Maven Central](https://img.shields.io/maven-central/v/dev.cjav.spotted/spotted-kotlin)](https://central.sonatype.com/artifact/dev.cjav.spotted/spotted-kotlin/0.1.0)
+[![javadoc](https://javadoc.io/badge2/dev.cjav.spotted/spotted-kotlin/0.1.0/javadoc.svg)](https://javadoc.io/doc/dev.cjav.spotted/spotted-kotlin/0.1.0)
 
 <!-- x-release-please-end -->
 
@@ -15,7 +15,7 @@ It is generated with [Stainless](https://www.stainless.com/).
 
 <!-- x-release-please-start-version -->
 
-The REST API documentation can be found on [spotted.stldocs.com](https://spotted.stldocs.com). KDocs are available on [javadoc.io](https://javadoc.io/doc/dev.cjav.spotted/spotted-kotlin/0.0.1).
+The REST API documentation can be found on [spotted.stldocs.com](https://spotted.stldocs.com). KDocs are available on [javadoc.io](https://javadoc.io/doc/dev.cjav.spotted/spotted-kotlin/0.1.0).
 
 <!-- x-release-please-end -->
 
@@ -26,7 +26,7 @@ The REST API documentation can be found on [spotted.stldocs.com](https://spotted
 ### Gradle
 
 ```kotlin
-implementation("dev.cjav.spotted:spotted-kotlin:0.0.1")
+implementation("dev.cjav.spotted:spotted-kotlin:0.1.0")
 ```
 
 ### Maven
@@ -35,7 +35,7 @@ implementation("dev.cjav.spotted:spotted-kotlin:0.0.1")
 <dependency>
   <groupId>dev.cjav.spotted</groupId>
   <artifactId>spotted-kotlin</artifactId>
-  <version>0.0.1</version>
+  <version>0.1.0</version>
 </dependency>
 ```
 
