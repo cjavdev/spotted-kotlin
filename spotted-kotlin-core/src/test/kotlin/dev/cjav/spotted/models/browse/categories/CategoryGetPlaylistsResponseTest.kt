@@ -31,7 +31,6 @@ internal class CategoryGetPlaylistsResponseTest {
                         .addItem(
                             SimplifiedPlaylistObject.builder()
                                 .id("id")
-                                .componentsSchemasPropertiesPublished(true)
                                 .collaborative(true)
                                 .description("description")
                                 .externalUrls(
@@ -60,6 +59,7 @@ internal class CategoryGetPlaylistsResponseTest {
                                         .displayName("display_name")
                                         .build()
                                 )
+                                .published(true)
                                 .snapshotId("snapshot_id")
                                 .tracks(
                                     PlaylistTracksRefObject.builder().href("href").total(0L).build()
@@ -85,7 +85,6 @@ internal class CategoryGetPlaylistsResponseTest {
                     .addItem(
                         SimplifiedPlaylistObject.builder()
                             .id("id")
-                            .componentsSchemasPropertiesPublished(true)
                             .collaborative(true)
                             .description("description")
                             .externalUrls(ExternalUrlObject.builder().spotify("spotify").build())
@@ -112,6 +111,7 @@ internal class CategoryGetPlaylistsResponseTest {
                                     .displayName("display_name")
                                     .build()
                             )
+                            .published(true)
                             .snapshotId("snapshot_id")
                             .tracks(
                                 PlaylistTracksRefObject.builder().href("href").total(0L).build()
@@ -141,7 +141,6 @@ internal class CategoryGetPlaylistsResponseTest {
                         .addItem(
                             SimplifiedPlaylistObject.builder()
                                 .id("id")
-                                .componentsSchemasPropertiesPublished(true)
                                 .collaborative(true)
                                 .description("description")
                                 .externalUrls(
@@ -170,6 +169,7 @@ internal class CategoryGetPlaylistsResponseTest {
                                         .displayName("display_name")
                                         .build()
                                 )
+                                .published(true)
                                 .snapshotId("snapshot_id")
                                 .tracks(
                                     PlaylistTracksRefObject.builder().href("href").total(0L).build()
