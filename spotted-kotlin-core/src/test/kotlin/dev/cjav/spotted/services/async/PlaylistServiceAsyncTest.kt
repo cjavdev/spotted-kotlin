@@ -54,7 +54,7 @@ internal class PlaylistServiceAsyncTest {
                 .collaborative(true)
                 .description("Updated playlist description")
                 .name("Updated Playlist Name")
-                .published(true)
+                .public_(false)
                 .build()
         )
     }
