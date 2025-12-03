@@ -330,13 +330,13 @@ The SDK uses the standard [OkHttp logging interceptor](https://github.com/square
 Enable logging by setting the `SPOTTED_LOG` environment variable to `info`:
 
 ```sh
-$ export SPOTTED_LOG=info
+export SPOTTED_LOG=info
 ```
 
 Or to `debug` for more verbose logging:
 
 ```sh
-$ export SPOTTED_LOG=debug
+export SPOTTED_LOG=debug
 ```
 
 ## ProGuard and R8
