@@ -1,5 +1,24 @@
 # Changelog
 
+## 0.3.0 (2025-12-03)
+
+Full Changelog: [v0.2.0...v0.3.0](https://github.com/cjavdev/spotted-kotlin/compare/v0.2.0...v0.3.0)
+
+### Features
+
+* **api:** manual updates ([71292e2](https://github.com/cjavdev/spotted-kotlin/commit/71292e2a5cc731d167b13aaf0d788ab292cde0b5))
+* **api:** manual updates ([4d4a559](https://github.com/cjavdev/spotted-kotlin/commit/4d4a559c5f14c01012859d8f1275246aa3725586))
+* **api:** manual updates ([f803a27](https://github.com/cjavdev/spotted-kotlin/commit/f803a27450695e5d6e0de1d2e0cf0e26f481366b))
+* **api:** manual updates ([07eb64c](https://github.com/cjavdev/spotted-kotlin/commit/07eb64c8948a6ac93a44436e6472c5335ab3f149))
+* **api:** manual updates ([12d5729](https://github.com/cjavdev/spotted-kotlin/commit/12d572995a7c1e45fb7874595c3f1e6280258706))
+* **api:** manual updates ([de657d6](https://github.com/cjavdev/spotted-kotlin/commit/de657d6c23640003a2d5b47845892eb6f8843a1f))
+* **api:** rename public to published for java ([690deae](https://github.com/cjavdev/spotted-kotlin/commit/690deae1430781cef440ec7f6fde1efc43daa417))
+
+
+### Documentation
+
+* remove `$` for better copy-pasteabality ([d24939f](https://github.com/cjavdev/spotted-kotlin/commit/d24939fd76456d1089c5fb78b045c182b9595073))
+
 ## 0.2.0 (2025-11-20)
 
 Full Changelog: [v0.1.0...v0.2.0](https://github.com/cjavdev/spotted-kotlin/compare/v0.1.0...v0.2.0)

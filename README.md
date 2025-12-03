@@ -2,8 +2,8 @@
 
 <!-- x-release-please-start-version -->
 
-[![Maven Central](https://img.shields.io/maven-central/v/dev.cjav.spotted/spotted-kotlin)](https://central.sonatype.com/artifact/dev.cjav.spotted/spotted-kotlin/0.2.0)
-[![javadoc](https://javadoc.io/badge2/dev.cjav.spotted/spotted-kotlin/0.2.0/javadoc.svg)](https://javadoc.io/doc/dev.cjav.spotted/spotted-kotlin/0.2.0)
+[![Maven Central](https://img.shields.io/maven-central/v/dev.cjav.spotted/spotted-kotlin)](https://central.sonatype.com/artifact/dev.cjav.spotted/spotted-kotlin/0.3.0)
+[![javadoc](https://javadoc.io/badge2/dev.cjav.spotted/spotted-kotlin/0.3.0/javadoc.svg)](https://javadoc.io/doc/dev.cjav.spotted/spotted-kotlin/0.3.0)
 
 <!-- x-release-please-end -->
 
@@ -15,7 +15,7 @@ It is generated with [Stainless](https://www.stainless.com/).
 
 <!-- x-release-please-start-version -->
 
-The REST API documentation can be found on [spotted.stldocs.com](https://spotted.stldocs.com). KDocs are available on [javadoc.io](https://javadoc.io/doc/dev.cjav.spotted/spotted-kotlin/0.2.0).
+The REST API documentation can be found on [spotted.stldocs.com](https://spotted.stldocs.com). KDocs are available on [javadoc.io](https://javadoc.io/doc/dev.cjav.spotted/spotted-kotlin/0.3.0).
 
 <!-- x-release-please-end -->
 
@@ -26,7 +26,7 @@ The REST API documentation can be found on [spotted.stldocs.com](https://spotted
 ### Gradle
 
 ```kotlin
-implementation("dev.cjav.spotted:spotted-kotlin:0.2.0")
+implementation("dev.cjav.spotted:spotted-kotlin:0.3.0")
 ```
 
 ### Maven
@@ -35,7 +35,7 @@ implementation("dev.cjav.spotted:spotted-kotlin:0.2.0")
 <dependency>
   <groupId>dev.cjav.spotted</groupId>
   <artifactId>spotted-kotlin</artifactId>
-  <version>0.2.0</version>
+  <version>0.3.0</version>
 </dependency>
 ```
 
@@ -330,13 +330,13 @@ The SDK uses the standard [OkHttp logging interceptor](https://github.com/square
 Enable logging by setting the `SPOTTED_LOG` environment variable to `info`:
 
 ```sh
-$ export SPOTTED_LOG=info
+export SPOTTED_LOG=info
 ```
 
 Or to `debug` for more verbose logging:
 
 ```sh
-$ export SPOTTED_LOG=debug
+export SPOTTED_LOG=debug
 ```
 
 ## ProGuard and R8
