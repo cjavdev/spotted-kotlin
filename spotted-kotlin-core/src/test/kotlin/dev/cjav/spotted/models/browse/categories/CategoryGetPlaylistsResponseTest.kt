@@ -59,7 +59,7 @@ internal class CategoryGetPlaylistsResponseTest {
                                         .displayName("display_name")
                                         .build()
                                 )
-                                .published(true)
+                                .public_(true)
                                 .snapshotId("snapshot_id")
                                 .tracks(
                                     PlaylistTracksRefObject.builder().href("href").total(0L).build()
@@ -111,7 +111,7 @@ internal class CategoryGetPlaylistsResponseTest {
                                     .displayName("display_name")
                                     .build()
                             )
-                            .published(true)
+                            .public_(true)
                             .snapshotId("snapshot_id")
                             .tracks(
                                 PlaylistTracksRefObject.builder().href("href").total(0L).build()
@@ -169,7 +169,7 @@ internal class CategoryGetPlaylistsResponseTest {
                                         .displayName("display_name")
                                         .build()
                                 )
-                                .published(true)
+                                .public_(true)
                                 .snapshotId("snapshot_id")
                                 .tracks(
                                     PlaylistTracksRefObject.builder().href("href").total(0L).build()
