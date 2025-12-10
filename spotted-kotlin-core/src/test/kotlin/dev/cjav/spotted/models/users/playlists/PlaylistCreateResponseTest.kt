@@ -49,6 +49,7 @@ internal class PlaylistCreateResponseTest {
                         .displayName("display_name")
                         .build()
                 )
+                .public_(true)
                 .snapshotId("snapshot_id")
                 .tracks(
                     PlaylistCreateResponse.Tracks.builder()
@@ -219,6 +220,7 @@ internal class PlaylistCreateResponseTest {
                     .displayName("display_name")
                     .build()
             )
+        assertThat(playlistCreateResponse.public_()).isEqualTo(true)
         assertThat(playlistCreateResponse.snapshotId()).isEqualTo("snapshot_id")
         assertThat(playlistCreateResponse.tracks())
             .isEqualTo(
@@ -387,6 +389,7 @@ internal class PlaylistCreateResponseTest {
                         .displayName("display_name")
                         .build()
                 )
+                .public_(true)
                 .snapshotId("snapshot_id")
                 .tracks(
                     PlaylistCreateResponse.Tracks.builder()
