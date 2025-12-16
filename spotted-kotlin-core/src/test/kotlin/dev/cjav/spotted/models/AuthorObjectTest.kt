@@ -11,15 +11,16 @@ internal class AuthorObjectTest {
 
     @Test
     fun create() {
-        val authorObject = AuthorObject.builder().name("name").build()
+        val authorObject = AuthorObject.builder().name("name").published(true).build()
 
         assertThat(authorObject.name()).isEqualTo("name")
+        assertThat(authorObject.published()).isEqualTo(true)
     }
 
     @Test
     fun roundtrip() {
         val jsonMapper = jsonMapper()
-        val authorObject = AuthorObject.builder().name("name").build()
+        val authorObject = AuthorObject.builder().name("name").published(true).build()
 
         val roundtrippedAuthorObject =
             jsonMapper.readValue(

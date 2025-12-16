@@ -14,18 +14,22 @@ internal class SimplifiedArtistObjectTest {
         val simplifiedArtistObject =
             SimplifiedArtistObject.builder()
                 .id("id")
-                .externalUrls(ExternalUrlObject.builder().spotify("spotify").build())
+                .externalUrls(
+                    ExternalUrlObject.builder().published(true).spotify("spotify").build()
+                )
                 .href("href")
                 .name("name")
+                .published(true)
                 .type(SimplifiedArtistObject.Type.ARTIST)
                 .uri("uri")
                 .build()
 
         assertThat(simplifiedArtistObject.id()).isEqualTo("id")
         assertThat(simplifiedArtistObject.externalUrls())
-            .isEqualTo(ExternalUrlObject.builder().spotify("spotify").build())
+            .isEqualTo(ExternalUrlObject.builder().published(true).spotify("spotify").build())
         assertThat(simplifiedArtistObject.href()).isEqualTo("href")
         assertThat(simplifiedArtistObject.name()).isEqualTo("name")
+        assertThat(simplifiedArtistObject.published()).isEqualTo(true)
         assertThat(simplifiedArtistObject.type()).isEqualTo(SimplifiedArtistObject.Type.ARTIST)
         assertThat(simplifiedArtistObject.uri()).isEqualTo("uri")
     }
@@ -36,9 +40,12 @@ internal class SimplifiedArtistObjectTest {
         val simplifiedArtistObject =
             SimplifiedArtistObject.builder()
                 .id("id")
-                .externalUrls(ExternalUrlObject.builder().spotify("spotify").build())
+                .externalUrls(
+                    ExternalUrlObject.builder().published(true).spotify("spotify").build()
+                )
                 .href("href")
                 .name("name")
+                .published(true)
                 .type(SimplifiedArtistObject.Type.ARTIST)
                 .uri("uri")
                 .build()

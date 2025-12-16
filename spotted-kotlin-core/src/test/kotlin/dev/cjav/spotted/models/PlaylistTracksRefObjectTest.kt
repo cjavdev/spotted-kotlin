@@ -12,9 +12,10 @@ internal class PlaylistTracksRefObjectTest {
     @Test
     fun create() {
         val playlistTracksRefObject =
-            PlaylistTracksRefObject.builder().href("href").total(0L).build()
+            PlaylistTracksRefObject.builder().href("href").published(true).total(0L).build()
 
         assertThat(playlistTracksRefObject.href()).isEqualTo("href")
+        assertThat(playlistTracksRefObject.published()).isEqualTo(true)
         assertThat(playlistTracksRefObject.total()).isEqualTo(0L)
     }
 
@@ -22,7 +23,7 @@ internal class PlaylistTracksRefObjectTest {
     fun roundtrip() {
         val jsonMapper = jsonMapper()
         val playlistTracksRefObject =
-            PlaylistTracksRefObject.builder().href("href").total(0L).build()
+            PlaylistTracksRefObject.builder().href("href").published(true).total(0L).build()
 
         val roundtrippedPlaylistTracksRefObject =
             jsonMapper.readValue(

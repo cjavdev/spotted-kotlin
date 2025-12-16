@@ -20,6 +20,7 @@ class CategoryGetPlaylistsResponse
 private constructor(
     private val message: JsonField<String>,
     private val playlists: JsonField<PagingPlaylistObject>,
+    private val published: JsonField<Boolean>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
@@ -29,7 +30,8 @@ private constructor(
         @JsonProperty("playlists")
         @ExcludeMissing
         playlists: JsonField<PagingPlaylistObject> = JsonMissing.of(),
-    ) : this(message, playlists, mutableMapOf())
+        @JsonProperty("published") @ExcludeMissing published: JsonField<Boolean> = JsonMissing.of(),
+    ) : this(message, playlists, published, mutableMapOf())
 
     /**
      * The localized message of a playlist.
@@ -46,6 +48,17 @@ private constructor(
     fun playlists(): PagingPlaylistObject? = playlists.getNullable("playlists")
 
     /**
+     * The playlist's public/private status (if it should be added to the user's profile or not):
+     * `true` the playlist will be public, `false` the playlist will be private, `null` the playlist
+     * status is not relevant. For more about public/private status, see
+     * [Working with Playlists](/documentation/web-api/concepts/playlists)
+     *
+     * @throws SpottedInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun published(): Boolean? = published.getNullable("published")
+
+    /**
      * Returns the raw JSON value of [message].
      *
      * Unlike [message], this method doesn't throw if the JSON field has an unexpected type.
@@ -60,6 +73,13 @@ private constructor(
     @JsonProperty("playlists")
     @ExcludeMissing
     fun _playlists(): JsonField<PagingPlaylistObject> = playlists
+
+    /**
+     * Returns the raw JSON value of [published].
+     *
+     * Unlike [published], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("published") @ExcludeMissing fun _published(): JsonField<Boolean> = published
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -86,11 +106,13 @@ private constructor(
 
         private var message: JsonField<String> = JsonMissing.of()
         private var playlists: JsonField<PagingPlaylistObject> = JsonMissing.of()
+        private var published: JsonField<Boolean> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(categoryGetPlaylistsResponse: CategoryGetPlaylistsResponse) = apply {
             message = categoryGetPlaylistsResponse.message
             playlists = categoryGetPlaylistsResponse.playlists
+            published = categoryGetPlaylistsResponse.published
             additionalProperties = categoryGetPlaylistsResponse.additionalProperties.toMutableMap()
         }
 
@@ -118,6 +140,23 @@ private constructor(
             this.playlists = playlists
         }
 
+        /**
+         * The playlist's public/private status (if it should be added to the user's profile or
+         * not): `true` the playlist will be public, `false` the playlist will be private, `null`
+         * the playlist status is not relevant. For more about public/private status, see
+         * [Working with Playlists](/documentation/web-api/concepts/playlists)
+         */
+        fun published(published: Boolean) = published(JsonField.of(published))
+
+        /**
+         * Sets [Builder.published] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.published] with a well-typed [Boolean] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun published(published: JsonField<Boolean>) = apply { this.published = published }
+
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
             putAllAdditionalProperties(additionalProperties)
@@ -143,7 +182,12 @@ private constructor(
          * Further updates to this [Builder] will not mutate the returned instance.
          */
         fun build(): CategoryGetPlaylistsResponse =
-            CategoryGetPlaylistsResponse(message, playlists, additionalProperties.toMutableMap())
+            CategoryGetPlaylistsResponse(
+                message,
+                playlists,
+                published,
+                additionalProperties.toMutableMap(),
+            )
     }
 
     private var validated: Boolean = false
@@ -155,6 +199,7 @@ private constructor(
 
         message()
         playlists()?.validate()
+        published()
         validated = true
     }
 
@@ -172,7 +217,9 @@ private constructor(
      * Used for best match union deserialization.
      */
     internal fun validity(): Int =
-        (if (message.asKnown() == null) 0 else 1) + (playlists.asKnown()?.validity() ?: 0)
+        (if (message.asKnown() == null) 0 else 1) +
+            (playlists.asKnown()?.validity() ?: 0) +
+            (if (published.asKnown() == null) 0 else 1)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {
@@ -182,13 +229,16 @@ private constructor(
         return other is CategoryGetPlaylistsResponse &&
             message == other.message &&
             playlists == other.playlists &&
+            published == other.published &&
             additionalProperties == other.additionalProperties
     }
 
-    private val hashCode: Int by lazy { Objects.hash(message, playlists, additionalProperties) }
+    private val hashCode: Int by lazy {
+        Objects.hash(message, playlists, published, additionalProperties)
+    }
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "CategoryGetPlaylistsResponse{message=$message, playlists=$playlists, additionalProperties=$additionalProperties}"
+        "CategoryGetPlaylistsResponse{message=$message, playlists=$playlists, published=$published, additionalProperties=$additionalProperties}"
 }

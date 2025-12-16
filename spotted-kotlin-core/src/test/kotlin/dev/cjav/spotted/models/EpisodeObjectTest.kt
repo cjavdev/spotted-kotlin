@@ -22,7 +22,9 @@ internal class EpisodeObjectTest {
                 )
                 .durationMs(1686230L)
                 .explicit(true)
-                .externalUrls(ExternalUrlObject.builder().spotify("spotify").build())
+                .externalUrls(
+                    ExternalUrlObject.builder().published(true).spotify("spotify").build()
+                )
                 .href("https://api.spotify.com/v1/episodes/5Xt5DXGzch68nYYamXrNxZ")
                 .htmlDescription(
                     "<p>A Spotify podcast sharing fresh insights on important topics of the moment—in a way only Spotify can. You’ll hear from experts in the music, podcast and tech industries as we discover and uncover stories about our work and the world around us.</p>\n"
@@ -32,6 +34,7 @@ internal class EpisodeObjectTest {
                         .height(300L)
                         .url("https://i.scdn.co/image/ab67616d00001e02ff9ca10b55ce82ae553c8228\n")
                         .width(300L)
+                        .published(true)
                         .build()
                 )
                 .isExternallyHosted(true)
@@ -45,10 +48,18 @@ internal class EpisodeObjectTest {
                     ShowBase.builder()
                         .id("id")
                         .addAvailableMarket("string")
-                        .addCopyright(CopyrightObject.builder().text("text").type("type").build())
+                        .addCopyright(
+                            CopyrightObject.builder()
+                                .published(true)
+                                .text("text")
+                                .type("type")
+                                .build()
+                        )
                         .description("description")
                         .explicit(true)
-                        .externalUrls(ExternalUrlObject.builder().spotify("spotify").build())
+                        .externalUrls(
+                            ExternalUrlObject.builder().published(true).spotify("spotify").build()
+                        )
                         .href("href")
                         .htmlDescription("html_description")
                         .addImage(
@@ -58,6 +69,7 @@ internal class EpisodeObjectTest {
                                     "https://i.scdn.co/image/ab67616d00001e02ff9ca10b55ce82ae553c8228\n"
                                 )
                                 .width(300L)
+                                .published(true)
                                 .build()
                         )
                         .isExternallyHosted(true)
@@ -67,13 +79,21 @@ internal class EpisodeObjectTest {
                         .publisher("publisher")
                         .totalEpisodes(0L)
                         .uri("uri")
+                        .published(true)
                         .build()
                 )
                 .uri("spotify:episode:0zLhl3WsOCQHbe1BPTiHgr")
                 .language("en")
-                .restrictions(EpisodeRestrictionObject.builder().reason("reason").build())
+                .published(true)
+                .restrictions(
+                    EpisodeRestrictionObject.builder().published(true).reason("reason").build()
+                )
                 .resumePoint(
-                    ResumePointObject.builder().fullyPlayed(true).resumePositionMs(0L).build()
+                    ResumePointObject.builder()
+                        .fullyPlayed(true)
+                        .published(true)
+                        .resumePositionMs(0L)
+                        .build()
                 )
                 .build()
 
@@ -87,7 +107,7 @@ internal class EpisodeObjectTest {
         assertThat(episodeObject.durationMs()).isEqualTo(1686230L)
         assertThat(episodeObject.explicit()).isEqualTo(true)
         assertThat(episodeObject.externalUrls())
-            .isEqualTo(ExternalUrlObject.builder().spotify("spotify").build())
+            .isEqualTo(ExternalUrlObject.builder().published(true).spotify("spotify").build())
         assertThat(episodeObject.href())
             .isEqualTo("https://api.spotify.com/v1/episodes/5Xt5DXGzch68nYYamXrNxZ")
         assertThat(episodeObject.htmlDescription())
@@ -100,6 +120,7 @@ internal class EpisodeObjectTest {
                     .height(300L)
                     .url("https://i.scdn.co/image/ab67616d00001e02ff9ca10b55ce82ae553c8228\n")
                     .width(300L)
+                    .published(true)
                     .build()
             )
         assertThat(episodeObject.isExternallyHosted()).isEqualTo(true)
@@ -115,10 +136,14 @@ internal class EpisodeObjectTest {
                 ShowBase.builder()
                     .id("id")
                     .addAvailableMarket("string")
-                    .addCopyright(CopyrightObject.builder().text("text").type("type").build())
+                    .addCopyright(
+                        CopyrightObject.builder().published(true).text("text").type("type").build()
+                    )
                     .description("description")
                     .explicit(true)
-                    .externalUrls(ExternalUrlObject.builder().spotify("spotify").build())
+                    .externalUrls(
+                        ExternalUrlObject.builder().published(true).spotify("spotify").build()
+                    )
                     .href("href")
                     .htmlDescription("html_description")
                     .addImage(
@@ -128,6 +153,7 @@ internal class EpisodeObjectTest {
                                 "https://i.scdn.co/image/ab67616d00001e02ff9ca10b55ce82ae553c8228\n"
                             )
                             .width(300L)
+                            .published(true)
                             .build()
                     )
                     .isExternallyHosted(true)
@@ -137,14 +163,22 @@ internal class EpisodeObjectTest {
                     .publisher("publisher")
                     .totalEpisodes(0L)
                     .uri("uri")
+                    .published(true)
                     .build()
             )
         assertThat(episodeObject.uri()).isEqualTo("spotify:episode:0zLhl3WsOCQHbe1BPTiHgr")
         assertThat(episodeObject.language()).isEqualTo("en")
+        assertThat(episodeObject.published()).isEqualTo(true)
         assertThat(episodeObject.restrictions())
-            .isEqualTo(EpisodeRestrictionObject.builder().reason("reason").build())
+            .isEqualTo(EpisodeRestrictionObject.builder().published(true).reason("reason").build())
         assertThat(episodeObject.resumePoint())
-            .isEqualTo(ResumePointObject.builder().fullyPlayed(true).resumePositionMs(0L).build())
+            .isEqualTo(
+                ResumePointObject.builder()
+                    .fullyPlayed(true)
+                    .published(true)
+                    .resumePositionMs(0L)
+                    .build()
+            )
     }
 
     @Test
@@ -161,7 +195,9 @@ internal class EpisodeObjectTest {
                 )
                 .durationMs(1686230L)
                 .explicit(true)
-                .externalUrls(ExternalUrlObject.builder().spotify("spotify").build())
+                .externalUrls(
+                    ExternalUrlObject.builder().published(true).spotify("spotify").build()
+                )
                 .href("https://api.spotify.com/v1/episodes/5Xt5DXGzch68nYYamXrNxZ")
                 .htmlDescription(
                     "<p>A Spotify podcast sharing fresh insights on important topics of the moment—in a way only Spotify can. You’ll hear from experts in the music, podcast and tech industries as we discover and uncover stories about our work and the world around us.</p>\n"
@@ -171,6 +207,7 @@ internal class EpisodeObjectTest {
                         .height(300L)
                         .url("https://i.scdn.co/image/ab67616d00001e02ff9ca10b55ce82ae553c8228\n")
                         .width(300L)
+                        .published(true)
                         .build()
                 )
                 .isExternallyHosted(true)
@@ -184,10 +221,18 @@ internal class EpisodeObjectTest {
                     ShowBase.builder()
                         .id("id")
                         .addAvailableMarket("string")
-                        .addCopyright(CopyrightObject.builder().text("text").type("type").build())
+                        .addCopyright(
+                            CopyrightObject.builder()
+                                .published(true)
+                                .text("text")
+                                .type("type")
+                                .build()
+                        )
                         .description("description")
                         .explicit(true)
-                        .externalUrls(ExternalUrlObject.builder().spotify("spotify").build())
+                        .externalUrls(
+                            ExternalUrlObject.builder().published(true).spotify("spotify").build()
+                        )
                         .href("href")
                         .htmlDescription("html_description")
                         .addImage(
@@ -197,6 +242,7 @@ internal class EpisodeObjectTest {
                                     "https://i.scdn.co/image/ab67616d00001e02ff9ca10b55ce82ae553c8228\n"
                                 )
                                 .width(300L)
+                                .published(true)
                                 .build()
                         )
                         .isExternallyHosted(true)
@@ -206,13 +252,21 @@ internal class EpisodeObjectTest {
                         .publisher("publisher")
                         .totalEpisodes(0L)
                         .uri("uri")
+                        .published(true)
                         .build()
                 )
                 .uri("spotify:episode:0zLhl3WsOCQHbe1BPTiHgr")
                 .language("en")
-                .restrictions(EpisodeRestrictionObject.builder().reason("reason").build())
+                .published(true)
+                .restrictions(
+                    EpisodeRestrictionObject.builder().published(true).reason("reason").build()
+                )
                 .resumePoint(
-                    ResumePointObject.builder().fullyPlayed(true).resumePositionMs(0L).build()
+                    ResumePointObject.builder()
+                        .fullyPlayed(true)
+                        .published(true)
+                        .resumePositionMs(0L)
+                        .build()
                 )
                 .build()
 

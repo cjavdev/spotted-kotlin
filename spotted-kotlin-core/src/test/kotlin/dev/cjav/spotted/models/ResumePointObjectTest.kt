@@ -12,9 +12,14 @@ internal class ResumePointObjectTest {
     @Test
     fun create() {
         val resumePointObject =
-            ResumePointObject.builder().fullyPlayed(true).resumePositionMs(0L).build()
+            ResumePointObject.builder()
+                .fullyPlayed(true)
+                .published(true)
+                .resumePositionMs(0L)
+                .build()
 
         assertThat(resumePointObject.fullyPlayed()).isEqualTo(true)
+        assertThat(resumePointObject.published()).isEqualTo(true)
         assertThat(resumePointObject.resumePositionMs()).isEqualTo(0L)
     }
 
@@ -22,7 +27,11 @@ internal class ResumePointObjectTest {
     fun roundtrip() {
         val jsonMapper = jsonMapper()
         val resumePointObject =
-            ResumePointObject.builder().fullyPlayed(true).resumePositionMs(0L).build()
+            ResumePointObject.builder()
+                .fullyPlayed(true)
+                .published(true)
+                .resumePositionMs(0L)
+                .build()
 
         val roundtrippedResumePointObject =
             jsonMapper.readValue(

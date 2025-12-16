@@ -30,6 +30,7 @@ class AudiobookListResponse
 private constructor(
     private val addedAt: JsonField<OffsetDateTime>,
     private val audiobook: JsonField<Audiobook>,
+    private val published: JsonField<Boolean>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
@@ -41,7 +42,8 @@ private constructor(
         @JsonProperty("audiobook")
         @ExcludeMissing
         audiobook: JsonField<Audiobook> = JsonMissing.of(),
-    ) : this(addedAt, audiobook, mutableMapOf())
+        @JsonProperty("published") @ExcludeMissing published: JsonField<Boolean> = JsonMissing.of(),
+    ) : this(addedAt, audiobook, published, mutableMapOf())
 
     /**
      * The date and time the audiobook was saved Timestamps are returned in ISO 8601 format as
@@ -63,6 +65,17 @@ private constructor(
     fun audiobook(): Audiobook? = audiobook.getNullable("audiobook")
 
     /**
+     * The playlist's public/private status (if it should be added to the user's profile or not):
+     * `true` the playlist will be public, `false` the playlist will be private, `null` the playlist
+     * status is not relevant. For more about public/private status, see
+     * [Working with Playlists](/documentation/web-api/concepts/playlists)
+     *
+     * @throws SpottedInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun published(): Boolean? = published.getNullable("published")
+
+    /**
      * Returns the raw JSON value of [addedAt].
      *
      * Unlike [addedAt], this method doesn't throw if the JSON field has an unexpected type.
@@ -75,6 +88,13 @@ private constructor(
      * Unlike [audiobook], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("audiobook") @ExcludeMissing fun _audiobook(): JsonField<Audiobook> = audiobook
+
+    /**
+     * Returns the raw JSON value of [published].
+     *
+     * Unlike [published], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("published") @ExcludeMissing fun _published(): JsonField<Boolean> = published
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -99,11 +119,13 @@ private constructor(
 
         private var addedAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var audiobook: JsonField<Audiobook> = JsonMissing.of()
+        private var published: JsonField<Boolean> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(audiobookListResponse: AudiobookListResponse) = apply {
             addedAt = audiobookListResponse.addedAt
             audiobook = audiobookListResponse.audiobook
+            published = audiobookListResponse.published
             additionalProperties = audiobookListResponse.additionalProperties.toMutableMap()
         }
 
@@ -136,6 +158,23 @@ private constructor(
          */
         fun audiobook(audiobook: JsonField<Audiobook>) = apply { this.audiobook = audiobook }
 
+        /**
+         * The playlist's public/private status (if it should be added to the user's profile or
+         * not): `true` the playlist will be public, `false` the playlist will be private, `null`
+         * the playlist status is not relevant. For more about public/private status, see
+         * [Working with Playlists](/documentation/web-api/concepts/playlists)
+         */
+        fun published(published: Boolean) = published(JsonField.of(published))
+
+        /**
+         * Sets [Builder.published] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.published] with a well-typed [Boolean] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun published(published: JsonField<Boolean>) = apply { this.published = published }
+
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
             putAllAdditionalProperties(additionalProperties)
@@ -161,7 +200,12 @@ private constructor(
          * Further updates to this [Builder] will not mutate the returned instance.
          */
         fun build(): AudiobookListResponse =
-            AudiobookListResponse(addedAt, audiobook, additionalProperties.toMutableMap())
+            AudiobookListResponse(
+                addedAt,
+                audiobook,
+                published,
+                additionalProperties.toMutableMap(),
+            )
     }
 
     private var validated: Boolean = false
@@ -173,6 +217,7 @@ private constructor(
 
         addedAt()
         audiobook()?.validate()
+        published()
         validated = true
     }
 
@@ -190,7 +235,9 @@ private constructor(
      * Used for best match union deserialization.
      */
     internal fun validity(): Int =
-        (if (addedAt.asKnown() == null) 0 else 1) + (audiobook.asKnown()?.validity() ?: 0)
+        (if (addedAt.asKnown() == null) 0 else 1) +
+            (audiobook.asKnown()?.validity() ?: 0) +
+            (if (published.asKnown() == null) 0 else 1)
 
     /** Information about the audiobook. */
     class Audiobook
@@ -215,6 +262,7 @@ private constructor(
         private val type: JsonValue,
         private val uri: JsonField<String>,
         private val edition: JsonField<String>,
+        private val published: JsonField<Boolean>,
         private val chapters: JsonField<Chapters>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
@@ -266,6 +314,9 @@ private constructor(
             @JsonProperty("type") @ExcludeMissing type: JsonValue = JsonMissing.of(),
             @JsonProperty("uri") @ExcludeMissing uri: JsonField<String> = JsonMissing.of(),
             @JsonProperty("edition") @ExcludeMissing edition: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("published")
+            @ExcludeMissing
+            published: JsonField<Boolean> = JsonMissing.of(),
             @JsonProperty("chapters")
             @ExcludeMissing
             chapters: JsonField<Chapters> = JsonMissing.of(),
@@ -289,6 +340,7 @@ private constructor(
             type,
             uri,
             edition,
+            published,
             chapters,
             mutableMapOf(),
         )
@@ -314,6 +366,7 @@ private constructor(
                 .type(type)
                 .uri(uri)
                 .edition(edition)
+                .published(published)
                 .build()
 
         /**
@@ -478,6 +531,17 @@ private constructor(
         fun edition(): String? = edition.getNullable("edition")
 
         /**
+         * The playlist's public/private status (if it should be added to the user's profile or
+         * not): `true` the playlist will be public, `false` the playlist will be private, `null`
+         * the playlist status is not relevant. For more about public/private status, see
+         * [Working with Playlists](/documentation/web-api/concepts/playlists)
+         *
+         * @throws SpottedInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun published(): Boolean? = published.getNullable("published")
+
+        /**
          * The chapters of the audiobook.
          *
          * @throws SpottedInvalidDataException if the JSON field has an unexpected type or is
@@ -634,6 +698,13 @@ private constructor(
         @JsonProperty("edition") @ExcludeMissing fun _edition(): JsonField<String> = edition
 
         /**
+         * Returns the raw JSON value of [published].
+         *
+         * Unlike [published], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("published") @ExcludeMissing fun _published(): JsonField<Boolean> = published
+
+        /**
          * Returns the raw JSON value of [chapters].
          *
          * Unlike [chapters], this method doesn't throw if the JSON field has an unexpected type.
@@ -704,6 +775,7 @@ private constructor(
             private var type: JsonValue = JsonValue.from("audiobook")
             private var uri: JsonField<String>? = null
             private var edition: JsonField<String> = JsonMissing.of()
+            private var published: JsonField<Boolean> = JsonMissing.of()
             private var chapters: JsonField<Chapters>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -727,6 +799,7 @@ private constructor(
                 type = audiobook.type
                 uri = audiobook.uri
                 edition = audiobook.edition
+                published = audiobook.published
                 chapters = audiobook.chapters
                 additionalProperties = audiobook.additionalProperties.toMutableMap()
             }
@@ -1073,6 +1146,23 @@ private constructor(
              */
             fun edition(edition: JsonField<String>) = apply { this.edition = edition }
 
+            /**
+             * The playlist's public/private status (if it should be added to the user's profile or
+             * not): `true` the playlist will be public, `false` the playlist will be private,
+             * `null` the playlist status is not relevant. For more about public/private status, see
+             * [Working with Playlists](/documentation/web-api/concepts/playlists)
+             */
+            fun published(published: Boolean) = published(JsonField.of(published))
+
+            /**
+             * Sets [Builder.published] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.published] with a well-typed [Boolean] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun published(published: JsonField<Boolean>) = apply { this.published = published }
+
             /** The chapters of the audiobook. */
             fun chapters(chapters: Chapters) = chapters(JsonField.of(chapters))
 
@@ -1154,6 +1244,7 @@ private constructor(
                     type,
                     checkRequired("uri", uri),
                     edition,
+                    published,
                     checkRequired("chapters", chapters),
                     additionalProperties.toMutableMap(),
                 )
@@ -1189,6 +1280,7 @@ private constructor(
             }
             uri()
             edition()
+            published()
             chapters().validate()
             validated = true
         }
@@ -1227,6 +1319,7 @@ private constructor(
                 type.let { if (it == JsonValue.from("audiobook")) 1 else 0 } +
                 (if (uri.asKnown() == null) 0 else 1) +
                 (if (edition.asKnown() == null) 0 else 1) +
+                (if (published.asKnown() == null) 0 else 1) +
                 (chapters.asKnown()?.validity() ?: 0)
 
         /** The chapters of the audiobook. */
@@ -1240,6 +1333,7 @@ private constructor(
             private val previous: JsonField<String>,
             private val total: JsonField<Long>,
             private val items: JsonField<List<SimplifiedChapterObject>>,
+            private val published: JsonField<Boolean>,
             private val additionalProperties: MutableMap<String, JsonValue>,
         ) {
 
@@ -1256,7 +1350,10 @@ private constructor(
                 @JsonProperty("items")
                 @ExcludeMissing
                 items: JsonField<List<SimplifiedChapterObject>> = JsonMissing.of(),
-            ) : this(href, limit, next, offset, previous, total, items, mutableMapOf())
+                @JsonProperty("published")
+                @ExcludeMissing
+                published: JsonField<Boolean> = JsonMissing.of(),
+            ) : this(href, limit, next, offset, previous, total, items, published, mutableMapOf())
 
             /**
              * A link to the Web API endpoint returning the full result of the request
@@ -1317,6 +1414,17 @@ private constructor(
             fun items(): List<SimplifiedChapterObject>? = items.getNullable("items")
 
             /**
+             * The playlist's public/private status (if it should be added to the user's profile or
+             * not): `true` the playlist will be public, `false` the playlist will be private,
+             * `null` the playlist status is not relevant. For more about public/private status, see
+             * [Working with Playlists](/documentation/web-api/concepts/playlists)
+             *
+             * @throws SpottedInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun published(): Boolean? = published.getNullable("published")
+
+            /**
              * Returns the raw JSON value of [href].
              *
              * Unlike [href], this method doesn't throw if the JSON field has an unexpected type.
@@ -1368,6 +1476,16 @@ private constructor(
             @ExcludeMissing
             fun _items(): JsonField<List<SimplifiedChapterObject>> = items
 
+            /**
+             * Returns the raw JSON value of [published].
+             *
+             * Unlike [published], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("published")
+            @ExcludeMissing
+            fun _published(): JsonField<Boolean> = published
+
             @JsonAnySetter
             private fun putAdditionalProperty(key: String, value: JsonValue) {
                 additionalProperties.put(key, value)
@@ -1408,6 +1526,7 @@ private constructor(
                 private var previous: JsonField<String>? = null
                 private var total: JsonField<Long>? = null
                 private var items: JsonField<MutableList<SimplifiedChapterObject>>? = null
+                private var published: JsonField<Boolean> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 internal fun from(chapters: Chapters) = apply {
@@ -1418,6 +1537,7 @@ private constructor(
                     previous = chapters.previous
                     total = chapters.total
                     items = chapters.items.map { it.toMutableList() }
+                    published = chapters.published
                     additionalProperties = chapters.additionalProperties.toMutableMap()
                 }
 
@@ -1520,6 +1640,24 @@ private constructor(
                         }
                 }
 
+                /**
+                 * The playlist's public/private status (if it should be added to the user's profile
+                 * or not): `true` the playlist will be public, `false` the playlist will be
+                 * private, `null` the playlist status is not relevant. For more about
+                 * public/private status, see
+                 * [Working with Playlists](/documentation/web-api/concepts/playlists)
+                 */
+                fun published(published: Boolean) = published(JsonField.of(published))
+
+                /**
+                 * Sets [Builder.published] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.published] with a well-typed [Boolean] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun published(published: JsonField<Boolean>) = apply { this.published = published }
+
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
                     putAllAdditionalProperties(additionalProperties)
@@ -1568,6 +1706,7 @@ private constructor(
                         checkRequired("previous", previous),
                         checkRequired("total", total),
                         (items ?: JsonMissing.of()).map { it.toImmutable() },
+                        published,
                         additionalProperties.toMutableMap(),
                     )
             }
@@ -1586,6 +1725,7 @@ private constructor(
                 previous()
                 total()
                 items()?.forEach { it.validate() }
+                published()
                 validated = true
             }
 
@@ -1610,7 +1750,8 @@ private constructor(
                     (if (offset.asKnown() == null) 0 else 1) +
                     (if (previous.asKnown() == null) 0 else 1) +
                     (if (total.asKnown() == null) 0 else 1) +
-                    (items.asKnown()?.sumOf { it.validity().toInt() } ?: 0)
+                    (items.asKnown()?.sumOf { it.validity().toInt() } ?: 0) +
+                    (if (published.asKnown() == null) 0 else 1)
 
             override fun equals(other: Any?): Boolean {
                 if (this === other) {
@@ -1625,6 +1766,7 @@ private constructor(
                     previous == other.previous &&
                     total == other.total &&
                     items == other.items &&
+                    published == other.published &&
                     additionalProperties == other.additionalProperties
             }
 
@@ -1637,6 +1779,7 @@ private constructor(
                     previous,
                     total,
                     items,
+                    published,
                     additionalProperties,
                 )
             }
@@ -1644,7 +1787,7 @@ private constructor(
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "Chapters{href=$href, limit=$limit, next=$next, offset=$offset, previous=$previous, total=$total, items=$items, additionalProperties=$additionalProperties}"
+                "Chapters{href=$href, limit=$limit, next=$next, offset=$offset, previous=$previous, total=$total, items=$items, published=$published, additionalProperties=$additionalProperties}"
         }
 
         override fun equals(other: Any?): Boolean {
@@ -1672,6 +1815,7 @@ private constructor(
                 type == other.type &&
                 uri == other.uri &&
                 edition == other.edition &&
+                published == other.published &&
                 chapters == other.chapters &&
                 additionalProperties == other.additionalProperties
         }
@@ -1697,6 +1841,7 @@ private constructor(
                 type,
                 uri,
                 edition,
+                published,
                 chapters,
                 additionalProperties,
             )
@@ -1705,7 +1850,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Audiobook{id=$id, authors=$authors, availableMarkets=$availableMarkets, copyrights=$copyrights, description=$description, explicit=$explicit, externalUrls=$externalUrls, href=$href, htmlDescription=$htmlDescription, images=$images, languages=$languages, mediaType=$mediaType, name=$name, narrators=$narrators, publisher=$publisher, totalChapters=$totalChapters, type=$type, uri=$uri, edition=$edition, chapters=$chapters, additionalProperties=$additionalProperties}"
+            "Audiobook{id=$id, authors=$authors, availableMarkets=$availableMarkets, copyrights=$copyrights, description=$description, explicit=$explicit, externalUrls=$externalUrls, href=$href, htmlDescription=$htmlDescription, images=$images, languages=$languages, mediaType=$mediaType, name=$name, narrators=$narrators, publisher=$publisher, totalChapters=$totalChapters, type=$type, uri=$uri, edition=$edition, published=$published, chapters=$chapters, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {
@@ -1716,13 +1861,16 @@ private constructor(
         return other is AudiobookListResponse &&
             addedAt == other.addedAt &&
             audiobook == other.audiobook &&
+            published == other.published &&
             additionalProperties == other.additionalProperties
     }
 
-    private val hashCode: Int by lazy { Objects.hash(addedAt, audiobook, additionalProperties) }
+    private val hashCode: Int by lazy {
+        Objects.hash(addedAt, audiobook, published, additionalProperties)
+    }
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "AudiobookListResponse{addedAt=$addedAt, audiobook=$audiobook, additionalProperties=$additionalProperties}"
+        "AudiobookListResponse{addedAt=$addedAt, audiobook=$audiobook, published=$published, additionalProperties=$additionalProperties}"
 }

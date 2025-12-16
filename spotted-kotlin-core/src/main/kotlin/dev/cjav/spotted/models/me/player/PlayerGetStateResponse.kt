@@ -36,6 +36,7 @@ private constructor(
     private val isPlaying: JsonField<Boolean>,
     private val item: JsonField<Item>,
     private val progressMs: JsonField<Long>,
+    private val published: JsonField<Boolean>,
     private val repeatState: JsonField<String>,
     private val shuffleState: JsonField<Boolean>,
     private val timestamp: JsonField<Long>,
@@ -57,6 +58,7 @@ private constructor(
         isPlaying: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("item") @ExcludeMissing item: JsonField<Item> = JsonMissing.of(),
         @JsonProperty("progress_ms") @ExcludeMissing progressMs: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("published") @ExcludeMissing published: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("repeat_state")
         @ExcludeMissing
         repeatState: JsonField<String> = JsonMissing.of(),
@@ -72,6 +74,7 @@ private constructor(
         isPlaying,
         item,
         progressMs,
+        published,
         repeatState,
         shuffleState,
         timestamp,
@@ -135,6 +138,17 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun progressMs(): Long? = progressMs.getNullable("progress_ms")
+
+    /**
+     * The playlist's public/private status (if it should be added to the user's profile or not):
+     * `true` the playlist will be public, `false` the playlist will be private, `null` the playlist
+     * status is not relevant. For more about public/private status, see
+     * [Working with Playlists](/documentation/web-api/concepts/playlists)
+     *
+     * @throws SpottedInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun published(): Boolean? = published.getNullable("published")
 
     /**
      * off, track, context
@@ -214,6 +228,13 @@ private constructor(
     @JsonProperty("progress_ms") @ExcludeMissing fun _progressMs(): JsonField<Long> = progressMs
 
     /**
+     * Returns the raw JSON value of [published].
+     *
+     * Unlike [published], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("published") @ExcludeMissing fun _published(): JsonField<Boolean> = published
+
+    /**
      * Returns the raw JSON value of [repeatState].
      *
      * Unlike [repeatState], this method doesn't throw if the JSON field has an unexpected type.
@@ -266,6 +287,7 @@ private constructor(
         private var isPlaying: JsonField<Boolean> = JsonMissing.of()
         private var item: JsonField<Item> = JsonMissing.of()
         private var progressMs: JsonField<Long> = JsonMissing.of()
+        private var published: JsonField<Boolean> = JsonMissing.of()
         private var repeatState: JsonField<String> = JsonMissing.of()
         private var shuffleState: JsonField<Boolean> = JsonMissing.of()
         private var timestamp: JsonField<Long> = JsonMissing.of()
@@ -279,6 +301,7 @@ private constructor(
             isPlaying = playerGetStateResponse.isPlaying
             item = playerGetStateResponse.item
             progressMs = playerGetStateResponse.progressMs
+            published = playerGetStateResponse.published
             repeatState = playerGetStateResponse.repeatState
             shuffleState = playerGetStateResponse.shuffleState
             timestamp = playerGetStateResponse.timestamp
@@ -381,6 +404,23 @@ private constructor(
          */
         fun progressMs(progressMs: JsonField<Long>) = apply { this.progressMs = progressMs }
 
+        /**
+         * The playlist's public/private status (if it should be added to the user's profile or
+         * not): `true` the playlist will be public, `false` the playlist will be private, `null`
+         * the playlist status is not relevant. For more about public/private status, see
+         * [Working with Playlists](/documentation/web-api/concepts/playlists)
+         */
+        fun published(published: Boolean) = published(JsonField.of(published))
+
+        /**
+         * Sets [Builder.published] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.published] with a well-typed [Boolean] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun published(published: JsonField<Boolean>) = apply { this.published = published }
+
         /** off, track, context */
         fun repeatState(repeatState: String) = repeatState(JsonField.of(repeatState))
 
@@ -454,6 +494,7 @@ private constructor(
                 isPlaying,
                 item,
                 progressMs,
+                published,
                 repeatState,
                 shuffleState,
                 timestamp,
@@ -475,6 +516,7 @@ private constructor(
         isPlaying()
         item()?.validate()
         progressMs()
+        published()
         repeatState()
         shuffleState()
         timestamp()
@@ -502,6 +544,7 @@ private constructor(
             (if (isPlaying.asKnown() == null) 0 else 1) +
             (item.asKnown()?.validity() ?: 0) +
             (if (progressMs.asKnown() == null) 0 else 1) +
+            (if (published.asKnown() == null) 0 else 1) +
             (if (repeatState.asKnown() == null) 0 else 1) +
             (if (shuffleState.asKnown() == null) 0 else 1) +
             (if (timestamp.asKnown() == null) 0 else 1)
@@ -515,6 +558,7 @@ private constructor(
     private constructor(
         private val interruptingPlayback: JsonField<Boolean>,
         private val pausing: JsonField<Boolean>,
+        private val published: JsonField<Boolean>,
         private val resuming: JsonField<Boolean>,
         private val seeking: JsonField<Boolean>,
         private val skippingNext: JsonField<Boolean>,
@@ -532,6 +576,9 @@ private constructor(
             @ExcludeMissing
             interruptingPlayback: JsonField<Boolean> = JsonMissing.of(),
             @JsonProperty("pausing") @ExcludeMissing pausing: JsonField<Boolean> = JsonMissing.of(),
+            @JsonProperty("published")
+            @ExcludeMissing
+            published: JsonField<Boolean> = JsonMissing.of(),
             @JsonProperty("resuming")
             @ExcludeMissing
             resuming: JsonField<Boolean> = JsonMissing.of(),
@@ -557,6 +604,7 @@ private constructor(
         ) : this(
             interruptingPlayback,
             pausing,
+            published,
             resuming,
             seeking,
             skippingNext,
@@ -584,6 +632,17 @@ private constructor(
          *   server responded with an unexpected value).
          */
         fun pausing(): Boolean? = pausing.getNullable("pausing")
+
+        /**
+         * The playlist's public/private status (if it should be added to the user's profile or
+         * not): `true` the playlist will be public, `false` the playlist will be private, `null`
+         * the playlist status is not relevant. For more about public/private status, see
+         * [Working with Playlists](/documentation/web-api/concepts/playlists)
+         *
+         * @throws SpottedInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun published(): Boolean? = published.getNullable("published")
 
         /**
          * Resuming. Optional field.
@@ -668,6 +727,13 @@ private constructor(
          * Unlike [pausing], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("pausing") @ExcludeMissing fun _pausing(): JsonField<Boolean> = pausing
+
+        /**
+         * Returns the raw JSON value of [published].
+         *
+         * Unlike [published], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("published") @ExcludeMissing fun _published(): JsonField<Boolean> = published
 
         /**
          * Returns the raw JSON value of [resuming].
@@ -766,6 +832,7 @@ private constructor(
 
             private var interruptingPlayback: JsonField<Boolean> = JsonMissing.of()
             private var pausing: JsonField<Boolean> = JsonMissing.of()
+            private var published: JsonField<Boolean> = JsonMissing.of()
             private var resuming: JsonField<Boolean> = JsonMissing.of()
             private var seeking: JsonField<Boolean> = JsonMissing.of()
             private var skippingNext: JsonField<Boolean> = JsonMissing.of()
@@ -779,6 +846,7 @@ private constructor(
             internal fun from(actions: Actions) = apply {
                 interruptingPlayback = actions.interruptingPlayback
                 pausing = actions.pausing
+                published = actions.published
                 resuming = actions.resuming
                 seeking = actions.seeking
                 skippingNext = actions.skippingNext
@@ -816,6 +884,23 @@ private constructor(
              * supported value.
              */
             fun pausing(pausing: JsonField<Boolean>) = apply { this.pausing = pausing }
+
+            /**
+             * The playlist's public/private status (if it should be added to the user's profile or
+             * not): `true` the playlist will be public, `false` the playlist will be private,
+             * `null` the playlist status is not relevant. For more about public/private status, see
+             * [Working with Playlists](/documentation/web-api/concepts/playlists)
+             */
+            fun published(published: Boolean) = published(JsonField.of(published))
+
+            /**
+             * Sets [Builder.published] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.published] with a well-typed [Boolean] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun published(published: JsonField<Boolean>) = apply { this.published = published }
 
             /** Resuming. Optional field. */
             fun resuming(resuming: Boolean) = resuming(JsonField.of(resuming))
@@ -957,6 +1042,7 @@ private constructor(
                 Actions(
                     interruptingPlayback,
                     pausing,
+                    published,
                     resuming,
                     seeking,
                     skippingNext,
@@ -978,6 +1064,7 @@ private constructor(
 
             interruptingPlayback()
             pausing()
+            published()
             resuming()
             seeking()
             skippingNext()
@@ -1006,6 +1093,7 @@ private constructor(
         internal fun validity(): Int =
             (if (interruptingPlayback.asKnown() == null) 0 else 1) +
                 (if (pausing.asKnown() == null) 0 else 1) +
+                (if (published.asKnown() == null) 0 else 1) +
                 (if (resuming.asKnown() == null) 0 else 1) +
                 (if (seeking.asKnown() == null) 0 else 1) +
                 (if (skippingNext.asKnown() == null) 0 else 1) +
@@ -1023,6 +1111,7 @@ private constructor(
             return other is Actions &&
                 interruptingPlayback == other.interruptingPlayback &&
                 pausing == other.pausing &&
+                published == other.published &&
                 resuming == other.resuming &&
                 seeking == other.seeking &&
                 skippingNext == other.skippingNext &&
@@ -1038,6 +1127,7 @@ private constructor(
             Objects.hash(
                 interruptingPlayback,
                 pausing,
+                published,
                 resuming,
                 seeking,
                 skippingNext,
@@ -1053,7 +1143,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Actions{interruptingPlayback=$interruptingPlayback, pausing=$pausing, resuming=$resuming, seeking=$seeking, skippingNext=$skippingNext, skippingPrev=$skippingPrev, togglingRepeatContext=$togglingRepeatContext, togglingRepeatTrack=$togglingRepeatTrack, togglingShuffle=$togglingShuffle, transferringPlayback=$transferringPlayback, additionalProperties=$additionalProperties}"
+            "Actions{interruptingPlayback=$interruptingPlayback, pausing=$pausing, published=$published, resuming=$resuming, seeking=$seeking, skippingNext=$skippingNext, skippingPrev=$skippingPrev, togglingRepeatContext=$togglingRepeatContext, togglingRepeatTrack=$togglingRepeatTrack, togglingShuffle=$togglingShuffle, transferringPlayback=$transferringPlayback, additionalProperties=$additionalProperties}"
     }
 
     /** The currently playing track or episode. Can be `null`. */
@@ -1232,6 +1322,7 @@ private constructor(
             isPlaying == other.isPlaying &&
             item == other.item &&
             progressMs == other.progressMs &&
+            published == other.published &&
             repeatState == other.repeatState &&
             shuffleState == other.shuffleState &&
             timestamp == other.timestamp &&
@@ -1247,6 +1338,7 @@ private constructor(
             isPlaying,
             item,
             progressMs,
+            published,
             repeatState,
             shuffleState,
             timestamp,
@@ -1257,5 +1349,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "PlayerGetStateResponse{actions=$actions, context=$context, currentlyPlayingType=$currentlyPlayingType, device=$device, isPlaying=$isPlaying, item=$item, progressMs=$progressMs, repeatState=$repeatState, shuffleState=$shuffleState, timestamp=$timestamp, additionalProperties=$additionalProperties}"
+        "PlayerGetStateResponse{actions=$actions, context=$context, currentlyPlayingType=$currentlyPlayingType, device=$device, isPlaying=$isPlaying, item=$item, progressMs=$progressMs, published=$published, repeatState=$repeatState, shuffleState=$shuffleState, timestamp=$timestamp, additionalProperties=$additionalProperties}"
 }

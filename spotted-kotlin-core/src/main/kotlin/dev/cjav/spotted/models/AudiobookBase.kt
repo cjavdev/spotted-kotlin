@@ -39,6 +39,7 @@ private constructor(
     private val type: JsonValue,
     private val uri: JsonField<String>,
     private val edition: JsonField<String>,
+    private val published: JsonField<Boolean>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
@@ -83,6 +84,7 @@ private constructor(
         @JsonProperty("type") @ExcludeMissing type: JsonValue = JsonMissing.of(),
         @JsonProperty("uri") @ExcludeMissing uri: JsonField<String> = JsonMissing.of(),
         @JsonProperty("edition") @ExcludeMissing edition: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("published") @ExcludeMissing published: JsonField<Boolean> = JsonMissing.of(),
     ) : this(
         id,
         authors,
@@ -103,6 +105,7 @@ private constructor(
         type,
         uri,
         edition,
+        published,
         mutableMapOf(),
     )
 
@@ -268,6 +271,17 @@ private constructor(
     fun edition(): String? = edition.getNullable("edition")
 
     /**
+     * The playlist's public/private status (if it should be added to the user's profile or not):
+     * `true` the playlist will be public, `false` the playlist will be private, `null` the playlist
+     * status is not relevant. For more about public/private status, see
+     * [Working with Playlists](/documentation/web-api/concepts/playlists)
+     *
+     * @throws SpottedInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun published(): Boolean? = published.getNullable("published")
+
+    /**
      * Returns the raw JSON value of [id].
      *
      * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
@@ -406,6 +420,13 @@ private constructor(
      */
     @JsonProperty("edition") @ExcludeMissing fun _edition(): JsonField<String> = edition
 
+    /**
+     * Returns the raw JSON value of [published].
+     *
+     * Unlike [published], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("published") @ExcludeMissing fun _published(): JsonField<Boolean> = published
+
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
         additionalProperties.put(key, value)
@@ -469,6 +490,7 @@ private constructor(
         private var type: JsonValue = JsonValue.from("audiobook")
         private var uri: JsonField<String>? = null
         private var edition: JsonField<String> = JsonMissing.of()
+        private var published: JsonField<Boolean> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(audiobookBase: AudiobookBase) = apply {
@@ -491,6 +513,7 @@ private constructor(
             type = audiobookBase.type
             uri = audiobookBase.uri
             edition = audiobookBase.edition
+            published = audiobookBase.published
             additionalProperties = audiobookBase.additionalProperties.toMutableMap()
         }
 
@@ -825,6 +848,23 @@ private constructor(
          */
         fun edition(edition: JsonField<String>) = apply { this.edition = edition }
 
+        /**
+         * The playlist's public/private status (if it should be added to the user's profile or
+         * not): `true` the playlist will be public, `false` the playlist will be private, `null`
+         * the playlist status is not relevant. For more about public/private status, see
+         * [Working with Playlists](/documentation/web-api/concepts/playlists)
+         */
+        fun published(published: Boolean) = published(JsonField.of(published))
+
+        /**
+         * Sets [Builder.published] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.published] with a well-typed [Boolean] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun published(published: JsonField<Boolean>) = apply { this.published = published }
+
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
             putAllAdditionalProperties(additionalProperties)
@@ -893,6 +933,7 @@ private constructor(
                 type,
                 checkRequired("uri", uri),
                 edition,
+                published,
                 additionalProperties.toMutableMap(),
             )
     }
@@ -927,6 +968,7 @@ private constructor(
         }
         uri()
         edition()
+        published()
         validated = true
     }
 
@@ -962,7 +1004,8 @@ private constructor(
             (if (totalChapters.asKnown() == null) 0 else 1) +
             type.let { if (it == JsonValue.from("audiobook")) 1 else 0 } +
             (if (uri.asKnown() == null) 0 else 1) +
-            (if (edition.asKnown() == null) 0 else 1)
+            (if (edition.asKnown() == null) 0 else 1) +
+            (if (published.asKnown() == null) 0 else 1)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {
@@ -989,6 +1032,7 @@ private constructor(
             type == other.type &&
             uri == other.uri &&
             edition == other.edition &&
+            published == other.published &&
             additionalProperties == other.additionalProperties
     }
 
@@ -1013,6 +1057,7 @@ private constructor(
             type,
             uri,
             edition,
+            published,
             additionalProperties,
         )
     }
@@ -1020,5 +1065,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "AudiobookBase{id=$id, authors=$authors, availableMarkets=$availableMarkets, copyrights=$copyrights, description=$description, explicit=$explicit, externalUrls=$externalUrls, href=$href, htmlDescription=$htmlDescription, images=$images, languages=$languages, mediaType=$mediaType, name=$name, narrators=$narrators, publisher=$publisher, totalChapters=$totalChapters, type=$type, uri=$uri, edition=$edition, additionalProperties=$additionalProperties}"
+        "AudiobookBase{id=$id, authors=$authors, availableMarkets=$availableMarkets, copyrights=$copyrights, description=$description, explicit=$explicit, externalUrls=$externalUrls, href=$href, htmlDescription=$htmlDescription, images=$images, languages=$languages, mediaType=$mediaType, name=$name, narrators=$narrators, publisher=$publisher, totalChapters=$totalChapters, type=$type, uri=$uri, edition=$edition, published=$published, additionalProperties=$additionalProperties}"
 }

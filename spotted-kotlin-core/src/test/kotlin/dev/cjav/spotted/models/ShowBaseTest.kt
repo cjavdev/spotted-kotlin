@@ -15,10 +15,14 @@ internal class ShowBaseTest {
             ShowBase.builder()
                 .id("id")
                 .addAvailableMarket("string")
-                .addCopyright(CopyrightObject.builder().text("text").type("type").build())
+                .addCopyright(
+                    CopyrightObject.builder().published(true).text("text").type("type").build()
+                )
                 .description("description")
                 .explicit(true)
-                .externalUrls(ExternalUrlObject.builder().spotify("spotify").build())
+                .externalUrls(
+                    ExternalUrlObject.builder().published(true).spotify("spotify").build()
+                )
                 .href("href")
                 .htmlDescription("html_description")
                 .addImage(
@@ -26,6 +30,7 @@ internal class ShowBaseTest {
                         .height(300L)
                         .url("https://i.scdn.co/image/ab67616d00001e02ff9ca10b55ce82ae553c8228\n")
                         .width(300L)
+                        .published(true)
                         .build()
                 )
                 .isExternallyHosted(true)
@@ -35,16 +40,19 @@ internal class ShowBaseTest {
                 .publisher("publisher")
                 .totalEpisodes(0L)
                 .uri("uri")
+                .published(true)
                 .build()
 
         assertThat(showBase.id()).isEqualTo("id")
         assertThat(showBase.availableMarkets()).containsExactly("string")
         assertThat(showBase.copyrights())
-            .containsExactly(CopyrightObject.builder().text("text").type("type").build())
+            .containsExactly(
+                CopyrightObject.builder().published(true).text("text").type("type").build()
+            )
         assertThat(showBase.description()).isEqualTo("description")
         assertThat(showBase.explicit()).isEqualTo(true)
         assertThat(showBase.externalUrls())
-            .isEqualTo(ExternalUrlObject.builder().spotify("spotify").build())
+            .isEqualTo(ExternalUrlObject.builder().published(true).spotify("spotify").build())
         assertThat(showBase.href()).isEqualTo("href")
         assertThat(showBase.htmlDescription()).isEqualTo("html_description")
         assertThat(showBase.images())
@@ -53,6 +61,7 @@ internal class ShowBaseTest {
                     .height(300L)
                     .url("https://i.scdn.co/image/ab67616d00001e02ff9ca10b55ce82ae553c8228\n")
                     .width(300L)
+                    .published(true)
                     .build()
             )
         assertThat(showBase.isExternallyHosted()).isEqualTo(true)
@@ -62,6 +71,7 @@ internal class ShowBaseTest {
         assertThat(showBase.publisher()).isEqualTo("publisher")
         assertThat(showBase.totalEpisodes()).isEqualTo(0L)
         assertThat(showBase.uri()).isEqualTo("uri")
+        assertThat(showBase.published()).isEqualTo(true)
     }
 
     @Test
@@ -71,10 +81,14 @@ internal class ShowBaseTest {
             ShowBase.builder()
                 .id("id")
                 .addAvailableMarket("string")
-                .addCopyright(CopyrightObject.builder().text("text").type("type").build())
+                .addCopyright(
+                    CopyrightObject.builder().published(true).text("text").type("type").build()
+                )
                 .description("description")
                 .explicit(true)
-                .externalUrls(ExternalUrlObject.builder().spotify("spotify").build())
+                .externalUrls(
+                    ExternalUrlObject.builder().published(true).spotify("spotify").build()
+                )
                 .href("href")
                 .htmlDescription("html_description")
                 .addImage(
@@ -82,6 +96,7 @@ internal class ShowBaseTest {
                         .height(300L)
                         .url("https://i.scdn.co/image/ab67616d00001e02ff9ca10b55ce82ae553c8228\n")
                         .width(300L)
+                        .published(true)
                         .build()
                 )
                 .isExternallyHosted(true)
@@ -91,6 +106,7 @@ internal class ShowBaseTest {
                 .publisher("publisher")
                 .totalEpisodes(0L)
                 .uri("uri")
+                .published(true)
                 .build()
 
         val roundtrippedShowBase =

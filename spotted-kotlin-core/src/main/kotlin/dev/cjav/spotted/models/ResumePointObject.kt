@@ -18,6 +18,7 @@ class ResumePointObject
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val fullyPlayed: JsonField<Boolean>,
+    private val published: JsonField<Boolean>,
     private val resumePositionMs: JsonField<Long>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
@@ -27,10 +28,11 @@ private constructor(
         @JsonProperty("fully_played")
         @ExcludeMissing
         fullyPlayed: JsonField<Boolean> = JsonMissing.of(),
+        @JsonProperty("published") @ExcludeMissing published: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("resume_position_ms")
         @ExcludeMissing
         resumePositionMs: JsonField<Long> = JsonMissing.of(),
-    ) : this(fullyPlayed, resumePositionMs, mutableMapOf())
+    ) : this(fullyPlayed, published, resumePositionMs, mutableMapOf())
 
     /**
      * Whether or not the episode has been fully played by the user.
@@ -39,6 +41,17 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun fullyPlayed(): Boolean? = fullyPlayed.getNullable("fully_played")
+
+    /**
+     * The playlist's public/private status (if it should be added to the user's profile or not):
+     * `true` the playlist will be public, `false` the playlist will be private, `null` the playlist
+     * status is not relevant. For more about public/private status, see
+     * [Working with Playlists](/documentation/web-api/concepts/playlists)
+     *
+     * @throws SpottedInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun published(): Boolean? = published.getNullable("published")
 
     /**
      * The user's most recent position in the episode in milliseconds.
@@ -56,6 +69,13 @@ private constructor(
     @JsonProperty("fully_played")
     @ExcludeMissing
     fun _fullyPlayed(): JsonField<Boolean> = fullyPlayed
+
+    /**
+     * Returns the raw JSON value of [published].
+     *
+     * Unlike [published], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("published") @ExcludeMissing fun _published(): JsonField<Boolean> = published
 
     /**
      * Returns the raw JSON value of [resumePositionMs].
@@ -89,11 +109,13 @@ private constructor(
     class Builder internal constructor() {
 
         private var fullyPlayed: JsonField<Boolean> = JsonMissing.of()
+        private var published: JsonField<Boolean> = JsonMissing.of()
         private var resumePositionMs: JsonField<Long> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(resumePointObject: ResumePointObject) = apply {
             fullyPlayed = resumePointObject.fullyPlayed
+            published = resumePointObject.published
             resumePositionMs = resumePointObject.resumePositionMs
             additionalProperties = resumePointObject.additionalProperties.toMutableMap()
         }
@@ -109,6 +131,23 @@ private constructor(
          * value.
          */
         fun fullyPlayed(fullyPlayed: JsonField<Boolean>) = apply { this.fullyPlayed = fullyPlayed }
+
+        /**
+         * The playlist's public/private status (if it should be added to the user's profile or
+         * not): `true` the playlist will be public, `false` the playlist will be private, `null`
+         * the playlist status is not relevant. For more about public/private status, see
+         * [Working with Playlists](/documentation/web-api/concepts/playlists)
+         */
+        fun published(published: Boolean) = published(JsonField.of(published))
+
+        /**
+         * Sets [Builder.published] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.published] with a well-typed [Boolean] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun published(published: JsonField<Boolean>) = apply { this.published = published }
 
         /** The user's most recent position in the episode in milliseconds. */
         fun resumePositionMs(resumePositionMs: Long) =
@@ -150,7 +189,12 @@ private constructor(
          * Further updates to this [Builder] will not mutate the returned instance.
          */
         fun build(): ResumePointObject =
-            ResumePointObject(fullyPlayed, resumePositionMs, additionalProperties.toMutableMap())
+            ResumePointObject(
+                fullyPlayed,
+                published,
+                resumePositionMs,
+                additionalProperties.toMutableMap(),
+            )
     }
 
     private var validated: Boolean = false
@@ -161,6 +205,7 @@ private constructor(
         }
 
         fullyPlayed()
+        published()
         resumePositionMs()
         validated = true
     }
@@ -180,6 +225,7 @@ private constructor(
      */
     internal fun validity(): Int =
         (if (fullyPlayed.asKnown() == null) 0 else 1) +
+            (if (published.asKnown() == null) 0 else 1) +
             (if (resumePositionMs.asKnown() == null) 0 else 1)
 
     override fun equals(other: Any?): Boolean {
@@ -189,16 +235,17 @@ private constructor(
 
         return other is ResumePointObject &&
             fullyPlayed == other.fullyPlayed &&
+            published == other.published &&
             resumePositionMs == other.resumePositionMs &&
             additionalProperties == other.additionalProperties
     }
 
     private val hashCode: Int by lazy {
-        Objects.hash(fullyPlayed, resumePositionMs, additionalProperties)
+        Objects.hash(fullyPlayed, published, resumePositionMs, additionalProperties)
     }
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "ResumePointObject{fullyPlayed=$fullyPlayed, resumePositionMs=$resumePositionMs, additionalProperties=$additionalProperties}"
+        "ResumePointObject{fullyPlayed=$fullyPlayed, published=$published, resumePositionMs=$resumePositionMs, additionalProperties=$additionalProperties}"
 }

@@ -21,9 +21,11 @@ internal class CategoryRetrieveResponseTest {
                         .height(300L)
                         .url("https://i.scdn.co/image/ab67616d00001e02ff9ca10b55ce82ae553c8228\n")
                         .width(300L)
+                        .published(true)
                         .build()
                 )
                 .name("EQUAL")
+                .published(true)
                 .build()
 
         assertThat(categoryRetrieveResponse.id()).isEqualTo("equal")
@@ -34,9 +36,11 @@ internal class CategoryRetrieveResponseTest {
                     .height(300L)
                     .url("https://i.scdn.co/image/ab67616d00001e02ff9ca10b55ce82ae553c8228\n")
                     .width(300L)
+                    .published(true)
                     .build()
             )
         assertThat(categoryRetrieveResponse.name()).isEqualTo("EQUAL")
+        assertThat(categoryRetrieveResponse.published()).isEqualTo(true)
     }
 
     @Test
@@ -51,9 +55,11 @@ internal class CategoryRetrieveResponseTest {
                         .height(300L)
                         .url("https://i.scdn.co/image/ab67616d00001e02ff9ca10b55ce82ae553c8228\n")
                         .width(300L)
+                        .published(true)
                         .build()
                 )
                 .name("EQUAL")
+                .published(true)
                 .build()
 
         val roundtrippedCategoryRetrieveResponse =

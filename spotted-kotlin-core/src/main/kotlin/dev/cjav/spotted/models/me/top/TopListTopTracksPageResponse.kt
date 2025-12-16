@@ -28,6 +28,7 @@ private constructor(
     private val previous: JsonField<String>,
     private val total: JsonField<Long>,
     private val items: JsonField<List<TrackObject>>,
+    private val published: JsonField<Boolean>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
@@ -42,7 +43,8 @@ private constructor(
         @JsonProperty("items")
         @ExcludeMissing
         items: JsonField<List<TrackObject>> = JsonMissing.of(),
-    ) : this(href, limit, next, offset, previous, total, items, mutableMapOf())
+        @JsonProperty("published") @ExcludeMissing published: JsonField<Boolean> = JsonMissing.of(),
+    ) : this(href, limit, next, offset, previous, total, items, published, mutableMapOf())
 
     /**
      * A link to the Web API endpoint returning the full result of the request
@@ -99,6 +101,17 @@ private constructor(
     fun items(): List<TrackObject>? = items.getNullable("items")
 
     /**
+     * The playlist's public/private status (if it should be added to the user's profile or not):
+     * `true` the playlist will be public, `false` the playlist will be private, `null` the playlist
+     * status is not relevant. For more about public/private status, see
+     * [Working with Playlists](/documentation/web-api/concepts/playlists)
+     *
+     * @throws SpottedInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun published(): Boolean? = published.getNullable("published")
+
+    /**
      * Returns the raw JSON value of [href].
      *
      * Unlike [href], this method doesn't throw if the JSON field has an unexpected type.
@@ -147,6 +160,13 @@ private constructor(
      */
     @JsonProperty("items") @ExcludeMissing fun _items(): JsonField<List<TrackObject>> = items
 
+    /**
+     * Returns the raw JSON value of [published].
+     *
+     * Unlike [published], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("published") @ExcludeMissing fun _published(): JsonField<Boolean> = published
+
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
         additionalProperties.put(key, value)
@@ -187,6 +207,7 @@ private constructor(
         private var previous: JsonField<String>? = null
         private var total: JsonField<Long>? = null
         private var items: JsonField<MutableList<TrackObject>>? = null
+        private var published: JsonField<Boolean> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(topListTopTracksPageResponse: TopListTopTracksPageResponse) = apply {
@@ -197,6 +218,7 @@ private constructor(
             previous = topListTopTracksPageResponse.previous
             total = topListTopTracksPageResponse.total
             items = topListTopTracksPageResponse.items.map { it.toMutableList() }
+            published = topListTopTracksPageResponse.published
             additionalProperties = topListTopTracksPageResponse.additionalProperties.toMutableMap()
         }
 
@@ -289,6 +311,23 @@ private constructor(
                 (items ?: JsonField.of(mutableListOf())).also { checkKnown("items", it).add(item) }
         }
 
+        /**
+         * The playlist's public/private status (if it should be added to the user's profile or
+         * not): `true` the playlist will be public, `false` the playlist will be private, `null`
+         * the playlist status is not relevant. For more about public/private status, see
+         * [Working with Playlists](/documentation/web-api/concepts/playlists)
+         */
+        fun published(published: Boolean) = published(JsonField.of(published))
+
+        /**
+         * Sets [Builder.published] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.published] with a well-typed [Boolean] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun published(published: JsonField<Boolean>) = apply { this.published = published }
+
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
             putAllAdditionalProperties(additionalProperties)
@@ -334,6 +373,7 @@ private constructor(
                 checkRequired("previous", previous),
                 checkRequired("total", total),
                 (items ?: JsonMissing.of()).map { it.toImmutable() },
+                published,
                 additionalProperties.toMutableMap(),
             )
     }
@@ -352,6 +392,7 @@ private constructor(
         previous()
         total()
         items()?.forEach { it.validate() }
+        published()
         validated = true
     }
 
@@ -375,7 +416,8 @@ private constructor(
             (if (offset.asKnown() == null) 0 else 1) +
             (if (previous.asKnown() == null) 0 else 1) +
             (if (total.asKnown() == null) 0 else 1) +
-            (items.asKnown()?.sumOf { it.validity().toInt() } ?: 0)
+            (items.asKnown()?.sumOf { it.validity().toInt() } ?: 0) +
+            (if (published.asKnown() == null) 0 else 1)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {
@@ -390,15 +432,26 @@ private constructor(
             previous == other.previous &&
             total == other.total &&
             items == other.items &&
+            published == other.published &&
             additionalProperties == other.additionalProperties
     }
 
     private val hashCode: Int by lazy {
-        Objects.hash(href, limit, next, offset, previous, total, items, additionalProperties)
+        Objects.hash(
+            href,
+            limit,
+            next,
+            offset,
+            previous,
+            total,
+            items,
+            published,
+            additionalProperties,
+        )
     }
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "TopListTopTracksPageResponse{href=$href, limit=$limit, next=$next, offset=$offset, previous=$previous, total=$total, items=$items, additionalProperties=$additionalProperties}"
+        "TopListTopTracksPageResponse{href=$href, limit=$limit, next=$next, offset=$offset, previous=$previous, total=$total, items=$items, published=$published, additionalProperties=$additionalProperties}"
 }
