@@ -46,7 +46,6 @@ internal class FollowerServiceAsyncTest {
         followerServiceAsync.follow(
             FollowerFollowParams.builder()
                 .playlistId("3cEYpjA9oz9GiPac4AsH4n")
-                .public_(false)
                 .published(true)
                 .build()
         )
