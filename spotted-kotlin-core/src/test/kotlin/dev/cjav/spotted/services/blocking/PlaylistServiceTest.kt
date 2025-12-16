@@ -54,7 +54,6 @@ internal class PlaylistServiceTest {
                 .collaborative(true)
                 .description("Updated playlist description")
                 .name("Updated Playlist Name")
-                .public_(false)
                 .published(true)
                 .build()
         )
