@@ -9,16 +9,17 @@ internal class FollowingUnfollowParamsTest {
 
     @Test
     fun create() {
-        FollowingUnfollowParams.builder().addId("string").build()
+        FollowingUnfollowParams.builder().addId("string").published(true).build()
     }
 
     @Test
     fun body() {
-        val params = FollowingUnfollowParams.builder().addId("string").build()
+        val params = FollowingUnfollowParams.builder().addId("string").published(true).build()
 
         val body = params._body()
 
         assertThat(body.ids()).containsExactly("string")
+        assertThat(body.published()).isEqualTo(true)
     }
 
     @Test

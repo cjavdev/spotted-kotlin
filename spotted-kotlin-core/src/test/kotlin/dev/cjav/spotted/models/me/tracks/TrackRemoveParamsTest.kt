@@ -9,16 +9,17 @@ internal class TrackRemoveParamsTest {
 
     @Test
     fun create() {
-        TrackRemoveParams.builder().addId("string").build()
+        TrackRemoveParams.builder().addId("string").published(true).build()
     }
 
     @Test
     fun body() {
-        val params = TrackRemoveParams.builder().addId("string").build()
+        val params = TrackRemoveParams.builder().addId("string").published(true).build()
 
         val body = params._body()
 
         assertThat(body.ids()).containsExactly("string")
+        assertThat(body.published()).isEqualTo(true)
     }
 
     @Test

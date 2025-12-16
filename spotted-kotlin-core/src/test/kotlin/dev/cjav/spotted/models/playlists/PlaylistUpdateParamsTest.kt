@@ -15,6 +15,7 @@ internal class PlaylistUpdateParamsTest {
             .description("Updated playlist description")
             .name("Updated Playlist Name")
             .public_(false)
+            .published(true)
             .build()
     }
 
@@ -36,6 +37,7 @@ internal class PlaylistUpdateParamsTest {
                 .description("Updated playlist description")
                 .name("Updated Playlist Name")
                 .public_(false)
+                .published(true)
                 .build()
 
         val body = params._body()
@@ -44,6 +46,7 @@ internal class PlaylistUpdateParamsTest {
         assertThat(body.description()).isEqualTo("Updated playlist description")
         assertThat(body.name()).isEqualTo("Updated Playlist Name")
         assertThat(body.public_()).isEqualTo(false)
+        assertThat(body.published()).isEqualTo(true)
     }
 
     @Test

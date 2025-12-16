@@ -45,6 +45,17 @@ private constructor(
     fun tracks(): List<Track> = body.tracks()
 
     /**
+     * The playlist's public/private status (if it should be added to the user's profile or not):
+     * `true` the playlist will be public, `false` the playlist will be private, `null` the playlist
+     * status is not relevant. For more about public/private status, see
+     * [Working with Playlists](/documentation/web-api/concepts/playlists)
+     *
+     * @throws SpottedInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun published(): Boolean? = body.published()
+
+    /**
      * The playlist's snapshot ID against which you want to make the changes. The API will validate
      * that the specified items exist and in the specified positions and make the changes, even if
      * more recent changes have been made to the playlist.
@@ -60,6 +71,13 @@ private constructor(
      * Unlike [tracks], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _tracks(): JsonField<List<Track>> = body._tracks()
+
+    /**
+     * Returns the raw JSON value of [published].
+     *
+     * Unlike [published], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _published(): JsonField<Boolean> = body._published()
 
     /**
      * Returns the raw JSON value of [snapshotId].
@@ -115,6 +133,7 @@ private constructor(
          * This is generally only useful if you are already constructing the body separately.
          * Otherwise, it's more convenient to use the top-level setters instead:
          * - [tracks]
+         * - [published]
          * - [snapshotId]
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
@@ -143,6 +162,23 @@ private constructor(
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
         fun addTrack(track: Track) = apply { body.addTrack(track) }
+
+        /**
+         * The playlist's public/private status (if it should be added to the user's profile or
+         * not): `true` the playlist will be public, `false` the playlist will be private, `null`
+         * the playlist status is not relevant. For more about public/private status, see
+         * [Working with Playlists](/documentation/web-api/concepts/playlists)
+         */
+        fun published(published: Boolean) = apply { body.published(published) }
+
+        /**
+         * Sets [Builder.published] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.published] with a well-typed [Boolean] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun published(published: JsonField<Boolean>) = apply { body.published(published) }
 
         /**
          * The playlist's snapshot ID against which you want to make the changes. The API will
@@ -314,6 +350,7 @@ private constructor(
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val tracks: JsonField<List<Track>>,
+        private val published: JsonField<Boolean>,
         private val snapshotId: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
@@ -323,10 +360,13 @@ private constructor(
             @JsonProperty("tracks")
             @ExcludeMissing
             tracks: JsonField<List<Track>> = JsonMissing.of(),
+            @JsonProperty("published")
+            @ExcludeMissing
+            published: JsonField<Boolean> = JsonMissing.of(),
             @JsonProperty("snapshot_id")
             @ExcludeMissing
             snapshotId: JsonField<String> = JsonMissing.of(),
-        ) : this(tracks, snapshotId, mutableMapOf())
+        ) : this(tracks, published, snapshotId, mutableMapOf())
 
         /**
          * An array of objects containing
@@ -339,6 +379,17 @@ private constructor(
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun tracks(): List<Track> = tracks.getRequired("tracks")
+
+        /**
+         * The playlist's public/private status (if it should be added to the user's profile or
+         * not): `true` the playlist will be public, `false` the playlist will be private, `null`
+         * the playlist status is not relevant. For more about public/private status, see
+         * [Working with Playlists](/documentation/web-api/concepts/playlists)
+         *
+         * @throws SpottedInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun published(): Boolean? = published.getNullable("published")
 
         /**
          * The playlist's snapshot ID against which you want to make the changes. The API will
@@ -356,6 +407,13 @@ private constructor(
          * Unlike [tracks], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("tracks") @ExcludeMissing fun _tracks(): JsonField<List<Track>> = tracks
+
+        /**
+         * Returns the raw JSON value of [published].
+         *
+         * Unlike [published], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("published") @ExcludeMissing fun _published(): JsonField<Boolean> = published
 
         /**
          * Returns the raw JSON value of [snapshotId].
@@ -395,11 +453,13 @@ private constructor(
         class Builder internal constructor() {
 
             private var tracks: JsonField<MutableList<Track>>? = null
+            private var published: JsonField<Boolean> = JsonMissing.of()
             private var snapshotId: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(body: Body) = apply {
                 tracks = body.tracks.map { it.toMutableList() }
+                published = body.published
                 snapshotId = body.snapshotId
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
@@ -435,6 +495,23 @@ private constructor(
                         checkKnown("tracks", it).add(track)
                     }
             }
+
+            /**
+             * The playlist's public/private status (if it should be added to the user's profile or
+             * not): `true` the playlist will be public, `false` the playlist will be private,
+             * `null` the playlist status is not relevant. For more about public/private status, see
+             * [Working with Playlists](/documentation/web-api/concepts/playlists)
+             */
+            fun published(published: Boolean) = published(JsonField.of(published))
+
+            /**
+             * Sets [Builder.published] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.published] with a well-typed [Boolean] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun published(published: JsonField<Boolean>) = apply { this.published = published }
 
             /**
              * The playlist's snapshot ID against which you want to make the changes. The API will
@@ -486,6 +563,7 @@ private constructor(
             fun build(): Body =
                 Body(
                     checkRequired("tracks", tracks).map { it.toImmutable() },
+                    published,
                     snapshotId,
                     additionalProperties.toMutableMap(),
                 )
@@ -499,6 +577,7 @@ private constructor(
             }
 
             tracks().forEach { it.validate() }
+            published()
             snapshotId()
             validated = true
         }
@@ -519,6 +598,7 @@ private constructor(
          */
         internal fun validity(): Int =
             (tracks.asKnown()?.sumOf { it.validity().toInt() } ?: 0) +
+                (if (published.asKnown() == null) 0 else 1) +
                 (if (snapshotId.asKnown() == null) 0 else 1)
 
         override fun equals(other: Any?): Boolean {
@@ -528,16 +608,19 @@ private constructor(
 
             return other is Body &&
                 tracks == other.tracks &&
+                published == other.published &&
                 snapshotId == other.snapshotId &&
                 additionalProperties == other.additionalProperties
         }
 
-        private val hashCode: Int by lazy { Objects.hash(tracks, snapshotId, additionalProperties) }
+        private val hashCode: Int by lazy {
+            Objects.hash(tracks, published, snapshotId, additionalProperties)
+        }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{tracks=$tracks, snapshotId=$snapshotId, additionalProperties=$additionalProperties}"
+            "Body{tracks=$tracks, published=$published, snapshotId=$snapshotId, additionalProperties=$additionalProperties}"
     }
 
     class Track

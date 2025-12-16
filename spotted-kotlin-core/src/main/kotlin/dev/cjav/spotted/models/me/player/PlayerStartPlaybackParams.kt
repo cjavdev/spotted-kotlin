@@ -69,6 +69,17 @@ private constructor(
     fun positionMs(): Long? = body.positionMs()
 
     /**
+     * The playlist's public/private status (if it should be added to the user's profile or not):
+     * `true` the playlist will be public, `false` the playlist will be private, `null` the playlist
+     * status is not relevant. For more about public/private status, see
+     * [Working with Playlists](/documentation/web-api/concepts/playlists)
+     *
+     * @throws SpottedInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun published(): Boolean? = body.published()
+
+    /**
      * Optional. A JSON array of the Spotify track URIs to play. For example: `{"uris":
      * ["spotify:track:4iV5W9uYEdYUVa79Axb7Rh", "spotify:track:1301WleyT98MSxVHPZCA6M"]}`
      *
@@ -97,6 +108,13 @@ private constructor(
      * Unlike [positionMs], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _positionMs(): JsonField<Long> = body._positionMs()
+
+    /**
+     * Returns the raw JSON value of [published].
+     *
+     * Unlike [published], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _published(): JsonField<Boolean> = body._published()
 
     /**
      * Returns the raw JSON value of [uris].
@@ -154,7 +172,9 @@ private constructor(
          * - [contextUri]
          * - [offset]
          * - [positionMs]
+         * - [published]
          * - [uris]
+         * - etc.
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
 
@@ -204,6 +224,23 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun positionMs(positionMs: JsonField<Long>) = apply { body.positionMs(positionMs) }
+
+        /**
+         * The playlist's public/private status (if it should be added to the user's profile or
+         * not): `true` the playlist will be public, `false` the playlist will be private, `null`
+         * the playlist status is not relevant. For more about public/private status, see
+         * [Working with Playlists](/documentation/web-api/concepts/playlists)
+         */
+        fun published(published: Boolean) = apply { body.published(published) }
+
+        /**
+         * Sets [Builder.published] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.published] with a well-typed [Boolean] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun published(published: JsonField<Boolean>) = apply { body.published(published) }
 
         /**
          * Optional. A JSON array of the Spotify track URIs to play. For example: `{"uris":
@@ -376,6 +413,7 @@ private constructor(
         private val contextUri: JsonField<String>,
         private val offset: JsonField<Offset>,
         private val positionMs: JsonField<Long>,
+        private val published: JsonField<Boolean>,
         private val uris: JsonField<List<String>>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
@@ -389,8 +427,11 @@ private constructor(
             @JsonProperty("position_ms")
             @ExcludeMissing
             positionMs: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("published")
+            @ExcludeMissing
+            published: JsonField<Boolean> = JsonMissing.of(),
             @JsonProperty("uris") @ExcludeMissing uris: JsonField<List<String>> = JsonMissing.of(),
-        ) : this(contextUri, offset, positionMs, uris, mutableMapOf())
+        ) : this(contextUri, offset, positionMs, published, uris, mutableMapOf())
 
         /**
          * Optional. Spotify URI of the context to play. Valid contexts are albums, artists &
@@ -422,6 +463,17 @@ private constructor(
          *   server responded with an unexpected value).
          */
         fun positionMs(): Long? = positionMs.getNullable("position_ms")
+
+        /**
+         * The playlist's public/private status (if it should be added to the user's profile or
+         * not): `true` the playlist will be public, `false` the playlist will be private, `null`
+         * the playlist status is not relevant. For more about public/private status, see
+         * [Working with Playlists](/documentation/web-api/concepts/playlists)
+         *
+         * @throws SpottedInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun published(): Boolean? = published.getNullable("published")
 
         /**
          * Optional. A JSON array of the Spotify track URIs to play. For example: `{"uris":
@@ -456,6 +508,13 @@ private constructor(
         @JsonProperty("position_ms") @ExcludeMissing fun _positionMs(): JsonField<Long> = positionMs
 
         /**
+         * Returns the raw JSON value of [published].
+         *
+         * Unlike [published], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("published") @ExcludeMissing fun _published(): JsonField<Boolean> = published
+
+        /**
          * Returns the raw JSON value of [uris].
          *
          * Unlike [uris], this method doesn't throw if the JSON field has an unexpected type.
@@ -486,6 +545,7 @@ private constructor(
             private var contextUri: JsonField<String> = JsonMissing.of()
             private var offset: JsonField<Offset> = JsonMissing.of()
             private var positionMs: JsonField<Long> = JsonMissing.of()
+            private var published: JsonField<Boolean> = JsonMissing.of()
             private var uris: JsonField<MutableList<String>>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -493,6 +553,7 @@ private constructor(
                 contextUri = body.contextUri
                 offset = body.offset
                 positionMs = body.positionMs
+                published = body.published
                 uris = body.uris.map { it.toMutableList() }
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
@@ -545,6 +606,23 @@ private constructor(
              * supported value.
              */
             fun positionMs(positionMs: JsonField<Long>) = apply { this.positionMs = positionMs }
+
+            /**
+             * The playlist's public/private status (if it should be added to the user's profile or
+             * not): `true` the playlist will be public, `false` the playlist will be private,
+             * `null` the playlist status is not relevant. For more about public/private status, see
+             * [Working with Playlists](/documentation/web-api/concepts/playlists)
+             */
+            fun published(published: Boolean) = published(JsonField.of(published))
+
+            /**
+             * Sets [Builder.published] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.published] with a well-typed [Boolean] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun published(published: JsonField<Boolean>) = apply { this.published = published }
 
             /**
              * Optional. A JSON array of the Spotify track URIs to play. For example: `{"uris":
@@ -604,6 +682,7 @@ private constructor(
                     contextUri,
                     offset,
                     positionMs,
+                    published,
                     (uris ?: JsonMissing.of()).map { it.toImmutable() },
                     additionalProperties.toMutableMap(),
                 )
@@ -619,6 +698,7 @@ private constructor(
             contextUri()
             offset()?.validate()
             positionMs()
+            published()
             uris()
             validated = true
         }
@@ -641,6 +721,7 @@ private constructor(
             (if (contextUri.asKnown() == null) 0 else 1) +
                 (offset.asKnown()?.validity() ?: 0) +
                 (if (positionMs.asKnown() == null) 0 else 1) +
+                (if (published.asKnown() == null) 0 else 1) +
                 (uris.asKnown()?.size ?: 0)
 
         override fun equals(other: Any?): Boolean {
@@ -652,18 +733,19 @@ private constructor(
                 contextUri == other.contextUri &&
                 offset == other.offset &&
                 positionMs == other.positionMs &&
+                published == other.published &&
                 uris == other.uris &&
                 additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy {
-            Objects.hash(contextUri, offset, positionMs, uris, additionalProperties)
+            Objects.hash(contextUri, offset, positionMs, published, uris, additionalProperties)
         }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{contextUri=$contextUri, offset=$offset, positionMs=$positionMs, uris=$uris, additionalProperties=$additionalProperties}"
+            "Body{contextUri=$contextUri, offset=$offset, positionMs=$positionMs, published=$published, uris=$uris, additionalProperties=$additionalProperties}"
     }
 
     /**

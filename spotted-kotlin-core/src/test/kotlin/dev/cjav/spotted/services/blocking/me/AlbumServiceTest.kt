@@ -59,7 +59,7 @@ internal class AlbumServiceTest {
                 .build()
         val albumService = client.me().albums()
 
-        albumService.remove(AlbumRemoveParams.builder().addId("string").build())
+        albumService.remove(AlbumRemoveParams.builder().addId("string").published(true).build())
     }
 
     @Disabled("Prism tests are disabled")
@@ -73,6 +73,6 @@ internal class AlbumServiceTest {
                 .build()
         val albumService = client.me().albums()
 
-        albumService.save(AlbumSaveParams.builder().addId("string").build())
+        albumService.save(AlbumSaveParams.builder().addId("string").published(true).build())
     }
 }

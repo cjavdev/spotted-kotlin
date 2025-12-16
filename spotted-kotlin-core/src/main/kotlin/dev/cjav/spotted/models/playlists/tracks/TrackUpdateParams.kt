@@ -53,6 +53,17 @@ private constructor(
     fun insertBefore(): Long? = body.insertBefore()
 
     /**
+     * The playlist's public/private status (if it should be added to the user's profile or not):
+     * `true` the playlist will be public, `false` the playlist will be private, `null` the playlist
+     * status is not relevant. For more about public/private status, see
+     * [Working with Playlists](/documentation/web-api/concepts/playlists)
+     *
+     * @throws SpottedInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun published(): Boolean? = body.published()
+
+    /**
      * The amount of items to be reordered. Defaults to 1 if not set.<br/>The range of items to be
      * reordered begins from the _range_start_ position, and includes the _range_length_ subsequent
      * items.<br/>Example:<br/>To move the items at index 9-10 to the start of the playlist,
@@ -91,6 +102,13 @@ private constructor(
      * Unlike [insertBefore], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _insertBefore(): JsonField<Long> = body._insertBefore()
+
+    /**
+     * Returns the raw JSON value of [published].
+     *
+     * Unlike [published], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _published(): JsonField<Boolean> = body._published()
 
     /**
      * Returns the raw JSON value of [rangeLength].
@@ -162,10 +180,10 @@ private constructor(
          * This is generally only useful if you are already constructing the body separately.
          * Otherwise, it's more convenient to use the top-level setters instead:
          * - [insertBefore]
+         * - [published]
          * - [rangeLength]
          * - [rangeStart]
          * - [snapshotId]
-         * - [uris]
          * - etc.
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
@@ -188,6 +206,23 @@ private constructor(
          * value.
          */
         fun insertBefore(insertBefore: JsonField<Long>) = apply { body.insertBefore(insertBefore) }
+
+        /**
+         * The playlist's public/private status (if it should be added to the user's profile or
+         * not): `true` the playlist will be public, `false` the playlist will be private, `null`
+         * the playlist status is not relevant. For more about public/private status, see
+         * [Working with Playlists](/documentation/web-api/concepts/playlists)
+         */
+        fun published(published: Boolean) = apply { body.published(published) }
+
+        /**
+         * Sets [Builder.published] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.published] with a well-typed [Boolean] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun published(published: JsonField<Boolean>) = apply { body.published(published) }
 
         /**
          * The amount of items to be reordered. Defaults to 1 if not set.<br/>The range of items to
@@ -394,6 +429,7 @@ private constructor(
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val insertBefore: JsonField<Long>,
+        private val published: JsonField<Boolean>,
         private val rangeLength: JsonField<Long>,
         private val rangeStart: JsonField<Long>,
         private val snapshotId: JsonField<String>,
@@ -406,6 +442,9 @@ private constructor(
             @JsonProperty("insert_before")
             @ExcludeMissing
             insertBefore: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("published")
+            @ExcludeMissing
+            published: JsonField<Boolean> = JsonMissing.of(),
             @JsonProperty("range_length")
             @ExcludeMissing
             rangeLength: JsonField<Long> = JsonMissing.of(),
@@ -416,7 +455,7 @@ private constructor(
             @ExcludeMissing
             snapshotId: JsonField<String> = JsonMissing.of(),
             @JsonProperty("uris") @ExcludeMissing uris: JsonField<List<String>> = JsonMissing.of(),
-        ) : this(insertBefore, rangeLength, rangeStart, snapshotId, uris, mutableMapOf())
+        ) : this(insertBefore, published, rangeLength, rangeStart, snapshotId, uris, mutableMapOf())
 
         /**
          * The position where the items should be inserted.<br/>To reorder the items to the end of
@@ -430,6 +469,17 @@ private constructor(
          *   server responded with an unexpected value).
          */
         fun insertBefore(): Long? = insertBefore.getNullable("insert_before")
+
+        /**
+         * The playlist's public/private status (if it should be added to the user's profile or
+         * not): `true` the playlist will be public, `false` the playlist will be private, `null`
+         * the playlist status is not relevant. For more about public/private status, see
+         * [Working with Playlists](/documentation/web-api/concepts/playlists)
+         *
+         * @throws SpottedInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun published(): Boolean? = published.getNullable("published")
 
         /**
          * The amount of items to be reordered. Defaults to 1 if not set.<br/>The range of items to
@@ -473,6 +523,13 @@ private constructor(
         @JsonProperty("insert_before")
         @ExcludeMissing
         fun _insertBefore(): JsonField<Long> = insertBefore
+
+        /**
+         * Returns the raw JSON value of [published].
+         *
+         * Unlike [published], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("published") @ExcludeMissing fun _published(): JsonField<Boolean> = published
 
         /**
          * Returns the raw JSON value of [rangeLength].
@@ -528,6 +585,7 @@ private constructor(
         class Builder internal constructor() {
 
             private var insertBefore: JsonField<Long> = JsonMissing.of()
+            private var published: JsonField<Boolean> = JsonMissing.of()
             private var rangeLength: JsonField<Long> = JsonMissing.of()
             private var rangeStart: JsonField<Long> = JsonMissing.of()
             private var snapshotId: JsonField<String> = JsonMissing.of()
@@ -536,6 +594,7 @@ private constructor(
 
             internal fun from(body: Body) = apply {
                 insertBefore = body.insertBefore
+                published = body.published
                 rangeLength = body.rangeLength
                 rangeStart = body.rangeStart
                 snapshotId = body.snapshotId
@@ -563,6 +622,23 @@ private constructor(
             fun insertBefore(insertBefore: JsonField<Long>) = apply {
                 this.insertBefore = insertBefore
             }
+
+            /**
+             * The playlist's public/private status (if it should be added to the user's profile or
+             * not): `true` the playlist will be public, `false` the playlist will be private,
+             * `null` the playlist status is not relevant. For more about public/private status, see
+             * [Working with Playlists](/documentation/web-api/concepts/playlists)
+             */
+            fun published(published: Boolean) = published(JsonField.of(published))
+
+            /**
+             * Sets [Builder.published] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.published] with a well-typed [Boolean] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun published(published: JsonField<Boolean>) = apply { this.published = published }
 
             /**
              * The amount of items to be reordered. Defaults to 1 if not set.<br/>The range of items
@@ -657,6 +733,7 @@ private constructor(
             fun build(): Body =
                 Body(
                     insertBefore,
+                    published,
                     rangeLength,
                     rangeStart,
                     snapshotId,
@@ -673,6 +750,7 @@ private constructor(
             }
 
             insertBefore()
+            published()
             rangeLength()
             rangeStart()
             snapshotId()
@@ -696,6 +774,7 @@ private constructor(
          */
         internal fun validity(): Int =
             (if (insertBefore.asKnown() == null) 0 else 1) +
+                (if (published.asKnown() == null) 0 else 1) +
                 (if (rangeLength.asKnown() == null) 0 else 1) +
                 (if (rangeStart.asKnown() == null) 0 else 1) +
                 (if (snapshotId.asKnown() == null) 0 else 1) +
@@ -708,6 +787,7 @@ private constructor(
 
             return other is Body &&
                 insertBefore == other.insertBefore &&
+                published == other.published &&
                 rangeLength == other.rangeLength &&
                 rangeStart == other.rangeStart &&
                 snapshotId == other.snapshotId &&
@@ -718,6 +798,7 @@ private constructor(
         private val hashCode: Int by lazy {
             Objects.hash(
                 insertBefore,
+                published,
                 rangeLength,
                 rangeStart,
                 snapshotId,
@@ -729,7 +810,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{insertBefore=$insertBefore, rangeLength=$rangeLength, rangeStart=$rangeStart, snapshotId=$snapshotId, uris=$uris, additionalProperties=$additionalProperties}"
+            "Body{insertBefore=$insertBefore, published=$published, rangeLength=$rangeLength, rangeStart=$rangeStart, snapshotId=$snapshotId, uris=$uris, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {

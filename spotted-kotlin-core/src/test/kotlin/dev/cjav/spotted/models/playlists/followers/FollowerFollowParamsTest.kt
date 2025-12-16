@@ -9,7 +9,11 @@ internal class FollowerFollowParamsTest {
 
     @Test
     fun create() {
-        FollowerFollowParams.builder().playlistId("3cEYpjA9oz9GiPac4AsH4n").public_(false).build()
+        FollowerFollowParams.builder()
+            .playlistId("3cEYpjA9oz9GiPac4AsH4n")
+            .public_(false)
+            .published(true)
+            .build()
     }
 
     @Test
@@ -27,11 +31,13 @@ internal class FollowerFollowParamsTest {
             FollowerFollowParams.builder()
                 .playlistId("3cEYpjA9oz9GiPac4AsH4n")
                 .public_(false)
+                .published(true)
                 .build()
 
         val body = params._body()
 
         assertThat(body.public_()).isEqualTo(false)
+        assertThat(body.published()).isEqualTo(true)
     }
 
     @Test

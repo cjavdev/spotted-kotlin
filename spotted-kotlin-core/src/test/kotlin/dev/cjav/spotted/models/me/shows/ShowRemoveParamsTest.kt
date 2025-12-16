@@ -9,16 +9,17 @@ internal class ShowRemoveParamsTest {
 
     @Test
     fun create() {
-        ShowRemoveParams.builder().addId("string").build()
+        ShowRemoveParams.builder().addId("string").published(true).build()
     }
 
     @Test
     fun body() {
-        val params = ShowRemoveParams.builder().addId("string").build()
+        val params = ShowRemoveParams.builder().addId("string").published(true).build()
 
         val body = params._body()
 
         assertThat(body.ids()).containsExactly("string")
+        assertThat(body.published()).isEqualTo(true)
     }
 
     @Test
