@@ -25,6 +25,7 @@ private constructor(
     private val href: JsonField<String>,
     private val icons: JsonField<List<ImageObject>>,
     private val name: JsonField<String>,
+    private val published: JsonField<Boolean>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
@@ -36,7 +37,8 @@ private constructor(
         @ExcludeMissing
         icons: JsonField<List<ImageObject>> = JsonMissing.of(),
         @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
-    ) : this(id, href, icons, name, mutableMapOf())
+        @JsonProperty("published") @ExcludeMissing published: JsonField<Boolean> = JsonMissing.of(),
+    ) : this(id, href, icons, name, published, mutableMapOf())
 
     /**
      * The [Spotify category ID](/documentation/web-api/concepts/spotify-uris-ids) of the category.
@@ -71,6 +73,17 @@ private constructor(
     fun name(): String = name.getRequired("name")
 
     /**
+     * The playlist's public/private status (if it should be added to the user's profile or not):
+     * `true` the playlist will be public, `false` the playlist will be private, `null` the playlist
+     * status is not relevant. For more about public/private status, see
+     * [Working with Playlists](/documentation/web-api/concepts/playlists)
+     *
+     * @throws SpottedInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun published(): Boolean? = published.getNullable("published")
+
+    /**
      * Returns the raw JSON value of [id].
      *
      * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
@@ -97,6 +110,13 @@ private constructor(
      * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
+
+    /**
+     * Returns the raw JSON value of [published].
+     *
+     * Unlike [published], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("published") @ExcludeMissing fun _published(): JsonField<Boolean> = published
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -133,6 +153,7 @@ private constructor(
         private var href: JsonField<String>? = null
         private var icons: JsonField<MutableList<ImageObject>>? = null
         private var name: JsonField<String>? = null
+        private var published: JsonField<Boolean> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(categoryRetrieveResponse: CategoryRetrieveResponse) = apply {
@@ -140,6 +161,7 @@ private constructor(
             href = categoryRetrieveResponse.href
             icons = categoryRetrieveResponse.icons.map { it.toMutableList() }
             name = categoryRetrieveResponse.name
+            published = categoryRetrieveResponse.published
             additionalProperties = categoryRetrieveResponse.additionalProperties.toMutableMap()
         }
 
@@ -203,6 +225,23 @@ private constructor(
          */
         fun name(name: JsonField<String>) = apply { this.name = name }
 
+        /**
+         * The playlist's public/private status (if it should be added to the user's profile or
+         * not): `true` the playlist will be public, `false` the playlist will be private, `null`
+         * the playlist status is not relevant. For more about public/private status, see
+         * [Working with Playlists](/documentation/web-api/concepts/playlists)
+         */
+        fun published(published: Boolean) = published(JsonField.of(published))
+
+        /**
+         * Sets [Builder.published] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.published] with a well-typed [Boolean] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun published(published: JsonField<Boolean>) = apply { this.published = published }
+
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
             putAllAdditionalProperties(additionalProperties)
@@ -243,6 +282,7 @@ private constructor(
                 checkRequired("href", href),
                 checkRequired("icons", icons).map { it.toImmutable() },
                 checkRequired("name", name),
+                published,
                 additionalProperties.toMutableMap(),
             )
     }
@@ -258,6 +298,7 @@ private constructor(
         href()
         icons().forEach { it.validate() }
         name()
+        published()
         validated = true
     }
 
@@ -278,7 +319,8 @@ private constructor(
         (if (id.asKnown() == null) 0 else 1) +
             (if (href.asKnown() == null) 0 else 1) +
             (icons.asKnown()?.sumOf { it.validity().toInt() } ?: 0) +
-            (if (name.asKnown() == null) 0 else 1)
+            (if (name.asKnown() == null) 0 else 1) +
+            (if (published.asKnown() == null) 0 else 1)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {
@@ -290,13 +332,16 @@ private constructor(
             href == other.href &&
             icons == other.icons &&
             name == other.name &&
+            published == other.published &&
             additionalProperties == other.additionalProperties
     }
 
-    private val hashCode: Int by lazy { Objects.hash(id, href, icons, name, additionalProperties) }
+    private val hashCode: Int by lazy {
+        Objects.hash(id, href, icons, name, published, additionalProperties)
+    }
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "CategoryRetrieveResponse{id=$id, href=$href, icons=$icons, name=$name, additionalProperties=$additionalProperties}"
+        "CategoryRetrieveResponse{id=$id, href=$href, icons=$icons, name=$name, published=$published, additionalProperties=$additionalProperties}"
 }

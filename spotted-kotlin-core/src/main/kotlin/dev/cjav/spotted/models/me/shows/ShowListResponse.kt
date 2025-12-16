@@ -20,6 +20,7 @@ class ShowListResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val addedAt: JsonField<OffsetDateTime>,
+    private val published: JsonField<Boolean>,
     private val show: JsonField<ShowBase>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
@@ -29,8 +30,9 @@ private constructor(
         @JsonProperty("added_at")
         @ExcludeMissing
         addedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("published") @ExcludeMissing published: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("show") @ExcludeMissing show: JsonField<ShowBase> = JsonMissing.of(),
-    ) : this(addedAt, show, mutableMapOf())
+    ) : this(addedAt, published, show, mutableMapOf())
 
     /**
      * The date and time the show was saved. Timestamps are returned in ISO 8601 format as
@@ -42,6 +44,17 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun addedAt(): OffsetDateTime? = addedAt.getNullable("added_at")
+
+    /**
+     * The playlist's public/private status (if it should be added to the user's profile or not):
+     * `true` the playlist will be public, `false` the playlist will be private, `null` the playlist
+     * status is not relevant. For more about public/private status, see
+     * [Working with Playlists](/documentation/web-api/concepts/playlists)
+     *
+     * @throws SpottedInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun published(): Boolean? = published.getNullable("published")
 
     /**
      * Information about the show.
@@ -57,6 +70,13 @@ private constructor(
      * Unlike [addedAt], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("added_at") @ExcludeMissing fun _addedAt(): JsonField<OffsetDateTime> = addedAt
+
+    /**
+     * Returns the raw JSON value of [published].
+     *
+     * Unlike [published], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("published") @ExcludeMissing fun _published(): JsonField<Boolean> = published
 
     /**
      * Returns the raw JSON value of [show].
@@ -87,11 +107,13 @@ private constructor(
     class Builder internal constructor() {
 
         private var addedAt: JsonField<OffsetDateTime> = JsonMissing.of()
+        private var published: JsonField<Boolean> = JsonMissing.of()
         private var show: JsonField<ShowBase> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(showListResponse: ShowListResponse) = apply {
             addedAt = showListResponse.addedAt
+            published = showListResponse.published
             show = showListResponse.show
             additionalProperties = showListResponse.additionalProperties.toMutableMap()
         }
@@ -112,6 +134,23 @@ private constructor(
          * supported value.
          */
         fun addedAt(addedAt: JsonField<OffsetDateTime>) = apply { this.addedAt = addedAt }
+
+        /**
+         * The playlist's public/private status (if it should be added to the user's profile or
+         * not): `true` the playlist will be public, `false` the playlist will be private, `null`
+         * the playlist status is not relevant. For more about public/private status, see
+         * [Working with Playlists](/documentation/web-api/concepts/playlists)
+         */
+        fun published(published: Boolean) = published(JsonField.of(published))
+
+        /**
+         * Sets [Builder.published] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.published] with a well-typed [Boolean] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun published(published: JsonField<Boolean>) = apply { this.published = published }
 
         /** Information about the show. */
         fun show(show: ShowBase) = show(JsonField.of(show))
@@ -149,7 +188,7 @@ private constructor(
          * Further updates to this [Builder] will not mutate the returned instance.
          */
         fun build(): ShowListResponse =
-            ShowListResponse(addedAt, show, additionalProperties.toMutableMap())
+            ShowListResponse(addedAt, published, show, additionalProperties.toMutableMap())
     }
 
     private var validated: Boolean = false
@@ -160,6 +199,7 @@ private constructor(
         }
 
         addedAt()
+        published()
         show()?.validate()
         validated = true
     }
@@ -178,7 +218,9 @@ private constructor(
      * Used for best match union deserialization.
      */
     internal fun validity(): Int =
-        (if (addedAt.asKnown() == null) 0 else 1) + (show.asKnown()?.validity() ?: 0)
+        (if (addedAt.asKnown() == null) 0 else 1) +
+            (if (published.asKnown() == null) 0 else 1) +
+            (show.asKnown()?.validity() ?: 0)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {
@@ -187,14 +229,17 @@ private constructor(
 
         return other is ShowListResponse &&
             addedAt == other.addedAt &&
+            published == other.published &&
             show == other.show &&
             additionalProperties == other.additionalProperties
     }
 
-    private val hashCode: Int by lazy { Objects.hash(addedAt, show, additionalProperties) }
+    private val hashCode: Int by lazy {
+        Objects.hash(addedAt, published, show, additionalProperties)
+    }
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "ShowListResponse{addedAt=$addedAt, show=$show, additionalProperties=$additionalProperties}"
+        "ShowListResponse{addedAt=$addedAt, published=$published, show=$show, additionalProperties=$additionalProperties}"
 }

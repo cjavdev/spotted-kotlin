@@ -11,15 +11,18 @@ internal class ChapterRestrictionObjectTest {
 
     @Test
     fun create() {
-        val chapterRestrictionObject = ChapterRestrictionObject.builder().reason("reason").build()
+        val chapterRestrictionObject =
+            ChapterRestrictionObject.builder().published(true).reason("reason").build()
 
+        assertThat(chapterRestrictionObject.published()).isEqualTo(true)
         assertThat(chapterRestrictionObject.reason()).isEqualTo("reason")
     }
 
     @Test
     fun roundtrip() {
         val jsonMapper = jsonMapper()
-        val chapterRestrictionObject = ChapterRestrictionObject.builder().reason("reason").build()
+        val chapterRestrictionObject =
+            ChapterRestrictionObject.builder().published(true).reason("reason").build()
 
         val roundtrippedChapterRestrictionObject =
             jsonMapper.readValue(

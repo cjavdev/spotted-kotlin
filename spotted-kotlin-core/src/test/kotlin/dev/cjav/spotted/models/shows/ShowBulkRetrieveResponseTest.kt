@@ -21,10 +21,18 @@ internal class ShowBulkRetrieveResponseTest {
                     ShowBase.builder()
                         .id("id")
                         .addAvailableMarket("string")
-                        .addCopyright(CopyrightObject.builder().text("text").type("type").build())
+                        .addCopyright(
+                            CopyrightObject.builder()
+                                .published(true)
+                                .text("text")
+                                .type("type")
+                                .build()
+                        )
                         .description("description")
                         .explicit(true)
-                        .externalUrls(ExternalUrlObject.builder().spotify("spotify").build())
+                        .externalUrls(
+                            ExternalUrlObject.builder().published(true).spotify("spotify").build()
+                        )
                         .href("href")
                         .htmlDescription("html_description")
                         .addImage(
@@ -34,6 +42,7 @@ internal class ShowBulkRetrieveResponseTest {
                                     "https://i.scdn.co/image/ab67616d00001e02ff9ca10b55ce82ae553c8228\n"
                                 )
                                 .width(300L)
+                                .published(true)
                                 .build()
                         )
                         .isExternallyHosted(true)
@@ -43,6 +52,7 @@ internal class ShowBulkRetrieveResponseTest {
                         .publisher("publisher")
                         .totalEpisodes(0L)
                         .uri("uri")
+                        .published(true)
                         .build()
                 )
                 .build()
@@ -52,10 +62,14 @@ internal class ShowBulkRetrieveResponseTest {
                 ShowBase.builder()
                     .id("id")
                     .addAvailableMarket("string")
-                    .addCopyright(CopyrightObject.builder().text("text").type("type").build())
+                    .addCopyright(
+                        CopyrightObject.builder().published(true).text("text").type("type").build()
+                    )
                     .description("description")
                     .explicit(true)
-                    .externalUrls(ExternalUrlObject.builder().spotify("spotify").build())
+                    .externalUrls(
+                        ExternalUrlObject.builder().published(true).spotify("spotify").build()
+                    )
                     .href("href")
                     .htmlDescription("html_description")
                     .addImage(
@@ -65,6 +79,7 @@ internal class ShowBulkRetrieveResponseTest {
                                 "https://i.scdn.co/image/ab67616d00001e02ff9ca10b55ce82ae553c8228\n"
                             )
                             .width(300L)
+                            .published(true)
                             .build()
                     )
                     .isExternallyHosted(true)
@@ -74,6 +89,7 @@ internal class ShowBulkRetrieveResponseTest {
                     .publisher("publisher")
                     .totalEpisodes(0L)
                     .uri("uri")
+                    .published(true)
                     .build()
             )
     }
@@ -87,10 +103,18 @@ internal class ShowBulkRetrieveResponseTest {
                     ShowBase.builder()
                         .id("id")
                         .addAvailableMarket("string")
-                        .addCopyright(CopyrightObject.builder().text("text").type("type").build())
+                        .addCopyright(
+                            CopyrightObject.builder()
+                                .published(true)
+                                .text("text")
+                                .type("type")
+                                .build()
+                        )
                         .description("description")
                         .explicit(true)
-                        .externalUrls(ExternalUrlObject.builder().spotify("spotify").build())
+                        .externalUrls(
+                            ExternalUrlObject.builder().published(true).spotify("spotify").build()
+                        )
                         .href("href")
                         .htmlDescription("html_description")
                         .addImage(
@@ -100,6 +124,7 @@ internal class ShowBulkRetrieveResponseTest {
                                     "https://i.scdn.co/image/ab67616d00001e02ff9ca10b55ce82ae553c8228\n"
                                 )
                                 .width(300L)
+                                .published(true)
                                 .build()
                         )
                         .isExternallyHosted(true)
@@ -109,6 +134,7 @@ internal class ShowBulkRetrieveResponseTest {
                         .publisher("publisher")
                         .totalEpisodes(0L)
                         .uri("uri")
+                        .published(true)
                         .build()
                 )
                 .build()

@@ -14,16 +14,20 @@ internal class LinkedTrackObjectTest {
         val linkedTrackObject =
             LinkedTrackObject.builder()
                 .id("id")
-                .externalUrls(ExternalUrlObject.builder().spotify("spotify").build())
+                .externalUrls(
+                    ExternalUrlObject.builder().published(true).spotify("spotify").build()
+                )
                 .href("href")
+                .published(true)
                 .type("type")
                 .uri("uri")
                 .build()
 
         assertThat(linkedTrackObject.id()).isEqualTo("id")
         assertThat(linkedTrackObject.externalUrls())
-            .isEqualTo(ExternalUrlObject.builder().spotify("spotify").build())
+            .isEqualTo(ExternalUrlObject.builder().published(true).spotify("spotify").build())
         assertThat(linkedTrackObject.href()).isEqualTo("href")
+        assertThat(linkedTrackObject.published()).isEqualTo(true)
         assertThat(linkedTrackObject.type()).isEqualTo("type")
         assertThat(linkedTrackObject.uri()).isEqualTo("uri")
     }
@@ -34,8 +38,11 @@ internal class LinkedTrackObjectTest {
         val linkedTrackObject =
             LinkedTrackObject.builder()
                 .id("id")
-                .externalUrls(ExternalUrlObject.builder().spotify("spotify").build())
+                .externalUrls(
+                    ExternalUrlObject.builder().published(true).spotify("spotify").build()
+                )
                 .href("href")
+                .published(true)
                 .type("type")
                 .uri("uri")
                 .build()

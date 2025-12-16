@@ -11,15 +11,18 @@ internal class TrackRestrictionObjectTest {
 
     @Test
     fun create() {
-        val trackRestrictionObject = TrackRestrictionObject.builder().reason("reason").build()
+        val trackRestrictionObject =
+            TrackRestrictionObject.builder().published(true).reason("reason").build()
 
+        assertThat(trackRestrictionObject.published()).isEqualTo(true)
         assertThat(trackRestrictionObject.reason()).isEqualTo("reason")
     }
 
     @Test
     fun roundtrip() {
         val jsonMapper = jsonMapper()
-        val trackRestrictionObject = TrackRestrictionObject.builder().reason("reason").build()
+        val trackRestrictionObject =
+            TrackRestrictionObject.builder().published(true).reason("reason").build()
 
         val roundtrippedTrackRestrictionObject =
             jsonMapper.readValue(

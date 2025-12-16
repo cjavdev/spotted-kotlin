@@ -19,6 +19,7 @@ class ExternalIdObject
 private constructor(
     private val ean: JsonField<String>,
     private val isrc: JsonField<String>,
+    private val published: JsonField<Boolean>,
     private val upc: JsonField<String>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
@@ -27,8 +28,9 @@ private constructor(
     private constructor(
         @JsonProperty("ean") @ExcludeMissing ean: JsonField<String> = JsonMissing.of(),
         @JsonProperty("isrc") @ExcludeMissing isrc: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("published") @ExcludeMissing published: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("upc") @ExcludeMissing upc: JsonField<String> = JsonMissing.of(),
-    ) : this(ean, isrc, upc, mutableMapOf())
+    ) : this(ean, isrc, published, upc, mutableMapOf())
 
     /**
      * [International Article
@@ -47,6 +49,17 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun isrc(): String? = isrc.getNullable("isrc")
+
+    /**
+     * The playlist's public/private status (if it should be added to the user's profile or not):
+     * `true` the playlist will be public, `false` the playlist will be private, `null` the playlist
+     * status is not relevant. For more about public/private status, see
+     * [Working with Playlists](/documentation/web-api/concepts/playlists)
+     *
+     * @throws SpottedInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun published(): Boolean? = published.getNullable("published")
 
     /**
      * [Universal Product Code](http://en.wikipedia.org/wiki/Universal_Product_Code)
@@ -69,6 +82,13 @@ private constructor(
      * Unlike [isrc], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("isrc") @ExcludeMissing fun _isrc(): JsonField<String> = isrc
+
+    /**
+     * Returns the raw JSON value of [published].
+     *
+     * Unlike [published], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("published") @ExcludeMissing fun _published(): JsonField<Boolean> = published
 
     /**
      * Returns the raw JSON value of [upc].
@@ -100,12 +120,14 @@ private constructor(
 
         private var ean: JsonField<String> = JsonMissing.of()
         private var isrc: JsonField<String> = JsonMissing.of()
+        private var published: JsonField<Boolean> = JsonMissing.of()
         private var upc: JsonField<String> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(externalIdObject: ExternalIdObject) = apply {
             ean = externalIdObject.ean
             isrc = externalIdObject.isrc
+            published = externalIdObject.published
             upc = externalIdObject.upc
             additionalProperties = externalIdObject.additionalProperties.toMutableMap()
         }
@@ -137,6 +159,23 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun isrc(isrc: JsonField<String>) = apply { this.isrc = isrc }
+
+        /**
+         * The playlist's public/private status (if it should be added to the user's profile or
+         * not): `true` the playlist will be public, `false` the playlist will be private, `null`
+         * the playlist status is not relevant. For more about public/private status, see
+         * [Working with Playlists](/documentation/web-api/concepts/playlists)
+         */
+        fun published(published: Boolean) = published(JsonField.of(published))
+
+        /**
+         * Sets [Builder.published] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.published] with a well-typed [Boolean] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun published(published: JsonField<Boolean>) = apply { this.published = published }
 
         /** [Universal Product Code](http://en.wikipedia.org/wiki/Universal_Product_Code) */
         fun upc(upc: String) = upc(JsonField.of(upc))
@@ -174,7 +213,7 @@ private constructor(
          * Further updates to this [Builder] will not mutate the returned instance.
          */
         fun build(): ExternalIdObject =
-            ExternalIdObject(ean, isrc, upc, additionalProperties.toMutableMap())
+            ExternalIdObject(ean, isrc, published, upc, additionalProperties.toMutableMap())
     }
 
     private var validated: Boolean = false
@@ -186,6 +225,7 @@ private constructor(
 
         ean()
         isrc()
+        published()
         upc()
         validated = true
     }
@@ -206,6 +246,7 @@ private constructor(
     internal fun validity(): Int =
         (if (ean.asKnown() == null) 0 else 1) +
             (if (isrc.asKnown() == null) 0 else 1) +
+            (if (published.asKnown() == null) 0 else 1) +
             (if (upc.asKnown() == null) 0 else 1)
 
     override fun equals(other: Any?): Boolean {
@@ -216,14 +257,17 @@ private constructor(
         return other is ExternalIdObject &&
             ean == other.ean &&
             isrc == other.isrc &&
+            published == other.published &&
             upc == other.upc &&
             additionalProperties == other.additionalProperties
     }
 
-    private val hashCode: Int by lazy { Objects.hash(ean, isrc, upc, additionalProperties) }
+    private val hashCode: Int by lazy {
+        Objects.hash(ean, isrc, published, upc, additionalProperties)
+    }
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "ExternalIdObject{ean=$ean, isrc=$isrc, upc=$upc, additionalProperties=$additionalProperties}"
+        "ExternalIdObject{ean=$ean, isrc=$isrc, published=$published, upc=$upc, additionalProperties=$additionalProperties}"
 }

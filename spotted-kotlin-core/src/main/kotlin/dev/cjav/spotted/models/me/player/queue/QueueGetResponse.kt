@@ -32,6 +32,7 @@ class QueueGetResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val currentlyPlaying: JsonField<CurrentlyPlaying>,
+    private val published: JsonField<Boolean>,
     private val queue: JsonField<List<Queue>>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
@@ -41,8 +42,9 @@ private constructor(
         @JsonProperty("currently_playing")
         @ExcludeMissing
         currentlyPlaying: JsonField<CurrentlyPlaying> = JsonMissing.of(),
+        @JsonProperty("published") @ExcludeMissing published: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("queue") @ExcludeMissing queue: JsonField<List<Queue>> = JsonMissing.of(),
-    ) : this(currentlyPlaying, queue, mutableMapOf())
+    ) : this(currentlyPlaying, published, queue, mutableMapOf())
 
     /**
      * The currently playing track or episode. Can be `null`.
@@ -51,6 +53,17 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun currentlyPlaying(): CurrentlyPlaying? = currentlyPlaying.getNullable("currently_playing")
+
+    /**
+     * The playlist's public/private status (if it should be added to the user's profile or not):
+     * `true` the playlist will be public, `false` the playlist will be private, `null` the playlist
+     * status is not relevant. For more about public/private status, see
+     * [Working with Playlists](/documentation/web-api/concepts/playlists)
+     *
+     * @throws SpottedInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun published(): Boolean? = published.getNullable("published")
 
     /**
      * The tracks or episodes in the queue. Can be empty.
@@ -69,6 +82,13 @@ private constructor(
     @JsonProperty("currently_playing")
     @ExcludeMissing
     fun _currentlyPlaying(): JsonField<CurrentlyPlaying> = currentlyPlaying
+
+    /**
+     * Returns the raw JSON value of [published].
+     *
+     * Unlike [published], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("published") @ExcludeMissing fun _published(): JsonField<Boolean> = published
 
     /**
      * Returns the raw JSON value of [queue].
@@ -99,11 +119,13 @@ private constructor(
     class Builder internal constructor() {
 
         private var currentlyPlaying: JsonField<CurrentlyPlaying> = JsonMissing.of()
+        private var published: JsonField<Boolean> = JsonMissing.of()
         private var queue: JsonField<MutableList<Queue>>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(queueGetResponse: QueueGetResponse) = apply {
             currentlyPlaying = queueGetResponse.currentlyPlaying
+            published = queueGetResponse.published
             queue = queueGetResponse.queue.map { it.toMutableList() }
             additionalProperties = queueGetResponse.additionalProperties.toMutableMap()
         }
@@ -129,6 +151,23 @@ private constructor(
         /** Alias for calling [currentlyPlaying] with `CurrentlyPlaying.ofEpisode(episode)`. */
         fun currentlyPlaying(episode: EpisodeObject) =
             currentlyPlaying(CurrentlyPlaying.ofEpisode(episode))
+
+        /**
+         * The playlist's public/private status (if it should be added to the user's profile or
+         * not): `true` the playlist will be public, `false` the playlist will be private, `null`
+         * the playlist status is not relevant. For more about public/private status, see
+         * [Working with Playlists](/documentation/web-api/concepts/playlists)
+         */
+        fun published(published: Boolean) = published(JsonField.of(published))
+
+        /**
+         * Sets [Builder.published] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.published] with a well-typed [Boolean] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun published(published: JsonField<Boolean>) = apply { this.published = published }
 
         /** The tracks or episodes in the queue. Can be empty. */
         fun queue(queue: List<Queue>) = queue(JsonField.of(queue))
@@ -189,6 +228,7 @@ private constructor(
         fun build(): QueueGetResponse =
             QueueGetResponse(
                 currentlyPlaying,
+                published,
                 (queue ?: JsonMissing.of()).map { it.toImmutable() },
                 additionalProperties.toMutableMap(),
             )
@@ -202,6 +242,7 @@ private constructor(
         }
 
         currentlyPlaying()?.validate()
+        published()
         queue()?.forEach { it.validate() }
         validated = true
     }
@@ -221,6 +262,7 @@ private constructor(
      */
     internal fun validity(): Int =
         (currentlyPlaying.asKnown()?.validity() ?: 0) +
+            (if (published.asKnown() == null) 0 else 1) +
             (queue.asKnown()?.sumOf { it.validity().toInt() } ?: 0)
 
     /** The currently playing track or episode. Can be `null`. */
@@ -560,16 +602,17 @@ private constructor(
 
         return other is QueueGetResponse &&
             currentlyPlaying == other.currentlyPlaying &&
+            published == other.published &&
             queue == other.queue &&
             additionalProperties == other.additionalProperties
     }
 
     private val hashCode: Int by lazy {
-        Objects.hash(currentlyPlaying, queue, additionalProperties)
+        Objects.hash(currentlyPlaying, published, queue, additionalProperties)
     }
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "QueueGetResponse{currentlyPlaying=$currentlyPlaying, queue=$queue, additionalProperties=$additionalProperties}"
+        "QueueGetResponse{currentlyPlaying=$currentlyPlaying, published=$published, queue=$queue, additionalProperties=$additionalProperties}"
 }

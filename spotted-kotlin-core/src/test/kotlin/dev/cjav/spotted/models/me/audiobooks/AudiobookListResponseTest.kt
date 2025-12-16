@@ -26,12 +26,20 @@ internal class AudiobookListResponseTest {
                 .audiobook(
                     AudiobookListResponse.Audiobook.builder()
                         .id("id")
-                        .addAuthor(AuthorObject.builder().name("name").build())
+                        .addAuthor(AuthorObject.builder().name("name").published(true).build())
                         .addAvailableMarket("string")
-                        .addCopyright(CopyrightObject.builder().text("text").type("type").build())
+                        .addCopyright(
+                            CopyrightObject.builder()
+                                .published(true)
+                                .text("text")
+                                .type("type")
+                                .build()
+                        )
                         .description("description")
                         .explicit(true)
-                        .externalUrls(ExternalUrlObject.builder().spotify("spotify").build())
+                        .externalUrls(
+                            ExternalUrlObject.builder().published(true).spotify("spotify").build()
+                        )
                         .href("href")
                         .htmlDescription("html_description")
                         .addImage(
@@ -41,16 +49,18 @@ internal class AudiobookListResponseTest {
                                     "https://i.scdn.co/image/ab67616d00001e02ff9ca10b55ce82ae553c8228\n"
                                 )
                                 .width(300L)
+                                .published(true)
                                 .build()
                         )
                         .addLanguage("string")
                         .mediaType("media_type")
                         .name("name")
-                        .addNarrator(NarratorObject.builder().name("name").build())
+                        .addNarrator(NarratorObject.builder().name("name").published(true).build())
                         .publisher("publisher")
                         .totalChapters(0L)
                         .uri("uri")
                         .edition("Unabridged")
+                        .published(true)
                         .chapters(
                             AudiobookListResponse.Audiobook.Chapters.builder()
                                 .href("https://api.spotify.com/v1/me/shows?offset=0&limit=20\n")
@@ -72,7 +82,10 @@ internal class AudiobookListResponseTest {
                                         .durationMs(1686230L)
                                         .explicit(true)
                                         .externalUrls(
-                                            ExternalUrlObject.builder().spotify("spotify").build()
+                                            ExternalUrlObject.builder()
+                                                .published(true)
+                                                .spotify("spotify")
+                                                .build()
                                         )
                                         .href(
                                             "https://api.spotify.com/v1/episodes/5Xt5DXGzch68nYYamXrNxZ"
@@ -87,6 +100,7 @@ internal class AudiobookListResponseTest {
                                                     "https://i.scdn.co/image/ab67616d00001e02ff9ca10b55ce82ae553c8228\n"
                                                 )
                                                 .width(300L)
+                                                .published(true)
                                                 .build()
                                         )
                                         .isPlayable(true)
@@ -101,23 +115,28 @@ internal class AudiobookListResponseTest {
                                         )
                                         .uri("spotify:episode:0zLhl3WsOCQHbe1BPTiHgr")
                                         .addAvailableMarket("string")
+                                        .published(true)
                                         .restrictions(
                                             ChapterRestrictionObject.builder()
+                                                .published(true)
                                                 .reason("reason")
                                                 .build()
                                         )
                                         .resumePoint(
                                             ResumePointObject.builder()
                                                 .fullyPlayed(true)
+                                                .published(true)
                                                 .resumePositionMs(0L)
                                                 .build()
                                         )
                                         .build()
                                 )
+                                .published(true)
                                 .build()
                         )
                         .build()
                 )
+                .published(true)
                 .build()
 
         assertThat(audiobookListResponse.addedAt())
@@ -126,12 +145,16 @@ internal class AudiobookListResponseTest {
             .isEqualTo(
                 AudiobookListResponse.Audiobook.builder()
                     .id("id")
-                    .addAuthor(AuthorObject.builder().name("name").build())
+                    .addAuthor(AuthorObject.builder().name("name").published(true).build())
                     .addAvailableMarket("string")
-                    .addCopyright(CopyrightObject.builder().text("text").type("type").build())
+                    .addCopyright(
+                        CopyrightObject.builder().published(true).text("text").type("type").build()
+                    )
                     .description("description")
                     .explicit(true)
-                    .externalUrls(ExternalUrlObject.builder().spotify("spotify").build())
+                    .externalUrls(
+                        ExternalUrlObject.builder().published(true).spotify("spotify").build()
+                    )
                     .href("href")
                     .htmlDescription("html_description")
                     .addImage(
@@ -141,16 +164,18 @@ internal class AudiobookListResponseTest {
                                 "https://i.scdn.co/image/ab67616d00001e02ff9ca10b55ce82ae553c8228\n"
                             )
                             .width(300L)
+                            .published(true)
                             .build()
                     )
                     .addLanguage("string")
                     .mediaType("media_type")
                     .name("name")
-                    .addNarrator(NarratorObject.builder().name("name").build())
+                    .addNarrator(NarratorObject.builder().name("name").published(true).build())
                     .publisher("publisher")
                     .totalChapters(0L)
                     .uri("uri")
                     .edition("Unabridged")
+                    .published(true)
                     .chapters(
                         AudiobookListResponse.Audiobook.Chapters.builder()
                             .href("https://api.spotify.com/v1/me/shows?offset=0&limit=20\n")
@@ -172,7 +197,10 @@ internal class AudiobookListResponseTest {
                                     .durationMs(1686230L)
                                     .explicit(true)
                                     .externalUrls(
-                                        ExternalUrlObject.builder().spotify("spotify").build()
+                                        ExternalUrlObject.builder()
+                                            .published(true)
+                                            .spotify("spotify")
+                                            .build()
                                     )
                                     .href(
                                         "https://api.spotify.com/v1/episodes/5Xt5DXGzch68nYYamXrNxZ"
@@ -187,6 +215,7 @@ internal class AudiobookListResponseTest {
                                                 "https://i.scdn.co/image/ab67616d00001e02ff9ca10b55ce82ae553c8228\n"
                                             )
                                             .width(300L)
+                                            .published(true)
                                             .build()
                                     )
                                     .isPlayable(true)
@@ -201,21 +230,28 @@ internal class AudiobookListResponseTest {
                                     )
                                     .uri("spotify:episode:0zLhl3WsOCQHbe1BPTiHgr")
                                     .addAvailableMarket("string")
+                                    .published(true)
                                     .restrictions(
-                                        ChapterRestrictionObject.builder().reason("reason").build()
+                                        ChapterRestrictionObject.builder()
+                                            .published(true)
+                                            .reason("reason")
+                                            .build()
                                     )
                                     .resumePoint(
                                         ResumePointObject.builder()
                                             .fullyPlayed(true)
+                                            .published(true)
                                             .resumePositionMs(0L)
                                             .build()
                                     )
                                     .build()
                             )
+                            .published(true)
                             .build()
                     )
                     .build()
             )
+        assertThat(audiobookListResponse.published()).isEqualTo(true)
     }
 
     @Test
@@ -227,12 +263,20 @@ internal class AudiobookListResponseTest {
                 .audiobook(
                     AudiobookListResponse.Audiobook.builder()
                         .id("id")
-                        .addAuthor(AuthorObject.builder().name("name").build())
+                        .addAuthor(AuthorObject.builder().name("name").published(true).build())
                         .addAvailableMarket("string")
-                        .addCopyright(CopyrightObject.builder().text("text").type("type").build())
+                        .addCopyright(
+                            CopyrightObject.builder()
+                                .published(true)
+                                .text("text")
+                                .type("type")
+                                .build()
+                        )
                         .description("description")
                         .explicit(true)
-                        .externalUrls(ExternalUrlObject.builder().spotify("spotify").build())
+                        .externalUrls(
+                            ExternalUrlObject.builder().published(true).spotify("spotify").build()
+                        )
                         .href("href")
                         .htmlDescription("html_description")
                         .addImage(
@@ -242,16 +286,18 @@ internal class AudiobookListResponseTest {
                                     "https://i.scdn.co/image/ab67616d00001e02ff9ca10b55ce82ae553c8228\n"
                                 )
                                 .width(300L)
+                                .published(true)
                                 .build()
                         )
                         .addLanguage("string")
                         .mediaType("media_type")
                         .name("name")
-                        .addNarrator(NarratorObject.builder().name("name").build())
+                        .addNarrator(NarratorObject.builder().name("name").published(true).build())
                         .publisher("publisher")
                         .totalChapters(0L)
                         .uri("uri")
                         .edition("Unabridged")
+                        .published(true)
                         .chapters(
                             AudiobookListResponse.Audiobook.Chapters.builder()
                                 .href("https://api.spotify.com/v1/me/shows?offset=0&limit=20\n")
@@ -273,7 +319,10 @@ internal class AudiobookListResponseTest {
                                         .durationMs(1686230L)
                                         .explicit(true)
                                         .externalUrls(
-                                            ExternalUrlObject.builder().spotify("spotify").build()
+                                            ExternalUrlObject.builder()
+                                                .published(true)
+                                                .spotify("spotify")
+                                                .build()
                                         )
                                         .href(
                                             "https://api.spotify.com/v1/episodes/5Xt5DXGzch68nYYamXrNxZ"
@@ -288,6 +337,7 @@ internal class AudiobookListResponseTest {
                                                     "https://i.scdn.co/image/ab67616d00001e02ff9ca10b55ce82ae553c8228\n"
                                                 )
                                                 .width(300L)
+                                                .published(true)
                                                 .build()
                                         )
                                         .isPlayable(true)
@@ -302,23 +352,28 @@ internal class AudiobookListResponseTest {
                                         )
                                         .uri("spotify:episode:0zLhl3WsOCQHbe1BPTiHgr")
                                         .addAvailableMarket("string")
+                                        .published(true)
                                         .restrictions(
                                             ChapterRestrictionObject.builder()
+                                                .published(true)
                                                 .reason("reason")
                                                 .build()
                                         )
                                         .resumePoint(
                                             ResumePointObject.builder()
                                                 .fullyPlayed(true)
+                                                .published(true)
                                                 .resumePositionMs(0L)
                                                 .build()
                                         )
                                         .build()
                                 )
+                                .published(true)
                                 .build()
                         )
                         .build()
                 )
+                .published(true)
                 .build()
 
         val roundtrippedAudiobookListResponse =

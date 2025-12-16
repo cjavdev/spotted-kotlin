@@ -29,6 +29,7 @@ private constructor(
     private val followers: JsonField<FollowersObject>,
     private val href: JsonField<String>,
     private val images: JsonField<List<ImageObject>>,
+    private val published: JsonField<Boolean>,
     private val type: JsonField<Type>,
     private val uri: JsonField<String>,
     private val additionalProperties: MutableMap<String, JsonValue>,
@@ -50,9 +51,21 @@ private constructor(
         @JsonProperty("images")
         @ExcludeMissing
         images: JsonField<List<ImageObject>> = JsonMissing.of(),
+        @JsonProperty("published") @ExcludeMissing published: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
         @JsonProperty("uri") @ExcludeMissing uri: JsonField<String> = JsonMissing.of(),
-    ) : this(id, displayName, externalUrls, followers, href, images, type, uri, mutableMapOf())
+    ) : this(
+        id,
+        displayName,
+        externalUrls,
+        followers,
+        href,
+        images,
+        published,
+        type,
+        uri,
+        mutableMapOf(),
+    )
 
     /**
      * The [Spotify user ID](/documentation/web-api/concepts/spotify-uris-ids) for this user.
@@ -101,6 +114,17 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun images(): List<ImageObject>? = images.getNullable("images")
+
+    /**
+     * The playlist's public/private status (if it should be added to the user's profile or not):
+     * `true` the playlist will be public, `false` the playlist will be private, `null` the playlist
+     * status is not relevant. For more about public/private status, see
+     * [Working with Playlists](/documentation/web-api/concepts/playlists)
+     *
+     * @throws SpottedInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun published(): Boolean? = published.getNullable("published")
 
     /**
      * The object type.
@@ -167,6 +191,13 @@ private constructor(
     @JsonProperty("images") @ExcludeMissing fun _images(): JsonField<List<ImageObject>> = images
 
     /**
+     * Returns the raw JSON value of [published].
+     *
+     * Unlike [published], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("published") @ExcludeMissing fun _published(): JsonField<Boolean> = published
+
+    /**
      * Returns the raw JSON value of [type].
      *
      * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
@@ -209,6 +240,7 @@ private constructor(
         private var followers: JsonField<FollowersObject> = JsonMissing.of()
         private var href: JsonField<String> = JsonMissing.of()
         private var images: JsonField<MutableList<ImageObject>>? = null
+        private var published: JsonField<Boolean> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
         private var uri: JsonField<String> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -220,6 +252,7 @@ private constructor(
             followers = userRetrieveProfileResponse.followers
             href = userRetrieveProfileResponse.href
             images = userRetrieveProfileResponse.images.map { it.toMutableList() }
+            published = userRetrieveProfileResponse.published
             type = userRetrieveProfileResponse.type
             uri = userRetrieveProfileResponse.uri
             additionalProperties = userRetrieveProfileResponse.additionalProperties.toMutableMap()
@@ -313,6 +346,23 @@ private constructor(
                 }
         }
 
+        /**
+         * The playlist's public/private status (if it should be added to the user's profile or
+         * not): `true` the playlist will be public, `false` the playlist will be private, `null`
+         * the playlist status is not relevant. For more about public/private status, see
+         * [Working with Playlists](/documentation/web-api/concepts/playlists)
+         */
+        fun published(published: Boolean) = published(JsonField.of(published))
+
+        /**
+         * Sets [Builder.published] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.published] with a well-typed [Boolean] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun published(published: JsonField<Boolean>) = apply { this.published = published }
+
         /** The object type. */
         fun type(type: Type) = type(JsonField.of(type))
 
@@ -367,6 +417,7 @@ private constructor(
                 followers,
                 href,
                 (images ?: JsonMissing.of()).map { it.toImmutable() },
+                published,
                 type,
                 uri,
                 additionalProperties.toMutableMap(),
@@ -386,6 +437,7 @@ private constructor(
         followers()?.validate()
         href()
         images()?.forEach { it.validate() }
+        published()
         type()?.validate()
         uri()
         validated = true
@@ -411,6 +463,7 @@ private constructor(
             (followers.asKnown()?.validity() ?: 0) +
             (if (href.asKnown() == null) 0 else 1) +
             (images.asKnown()?.sumOf { it.validity().toInt() } ?: 0) +
+            (if (published.asKnown() == null) 0 else 1) +
             (type.asKnown()?.validity() ?: 0) +
             (if (uri.asKnown() == null) 0 else 1)
 
@@ -546,6 +599,7 @@ private constructor(
             followers == other.followers &&
             href == other.href &&
             images == other.images &&
+            published == other.published &&
             type == other.type &&
             uri == other.uri &&
             additionalProperties == other.additionalProperties
@@ -559,6 +613,7 @@ private constructor(
             followers,
             href,
             images,
+            published,
             type,
             uri,
             additionalProperties,
@@ -568,5 +623,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "UserRetrieveProfileResponse{id=$id, displayName=$displayName, externalUrls=$externalUrls, followers=$followers, href=$href, images=$images, type=$type, uri=$uri, additionalProperties=$additionalProperties}"
+        "UserRetrieveProfileResponse{id=$id, displayName=$displayName, externalUrls=$externalUrls, followers=$followers, href=$href, images=$images, published=$published, type=$type, uri=$uri, additionalProperties=$additionalProperties}"
 }

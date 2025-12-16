@@ -11,15 +11,16 @@ internal class NarratorObjectTest {
 
     @Test
     fun create() {
-        val narratorObject = NarratorObject.builder().name("name").build()
+        val narratorObject = NarratorObject.builder().name("name").published(true).build()
 
         assertThat(narratorObject.name()).isEqualTo("name")
+        assertThat(narratorObject.published()).isEqualTo(true)
     }
 
     @Test
     fun roundtrip() {
         val jsonMapper = jsonMapper()
-        val narratorObject = NarratorObject.builder().name("name").build()
+        val narratorObject = NarratorObject.builder().name("name").published(true).build()
 
         val roundtrippedNarratorObject =
             jsonMapper.readValue(

@@ -35,7 +35,9 @@ internal class ShowListEpisodesPageResponseTest {
                         )
                         .durationMs(1686230L)
                         .explicit(true)
-                        .externalUrls(ExternalUrlObject.builder().spotify("spotify").build())
+                        .externalUrls(
+                            ExternalUrlObject.builder().published(true).spotify("spotify").build()
+                        )
                         .href("https://api.spotify.com/v1/episodes/5Xt5DXGzch68nYYamXrNxZ")
                         .htmlDescription(
                             "<p>A Spotify podcast sharing fresh insights on important topics of the moment—in a way only Spotify can. You’ll hear from experts in the music, podcast and tech industries as we discover and uncover stories about our work and the world around us.</p>\n"
@@ -47,6 +49,7 @@ internal class ShowListEpisodesPageResponseTest {
                                     "https://i.scdn.co/image/ab67616d00001e02ff9ca10b55ce82ae553c8228\n"
                                 )
                                 .width(300L)
+                                .published(true)
                                 .build()
                         )
                         .isExternallyHosted(true)
@@ -60,15 +63,23 @@ internal class ShowListEpisodesPageResponseTest {
                         .releaseDatePrecision(SimplifiedEpisodeObject.ReleaseDatePrecision.DAY)
                         .uri("spotify:episode:0zLhl3WsOCQHbe1BPTiHgr")
                         .language("en")
-                        .restrictions(EpisodeRestrictionObject.builder().reason("reason").build())
+                        .published(true)
+                        .restrictions(
+                            EpisodeRestrictionObject.builder()
+                                .published(true)
+                                .reason("reason")
+                                .build()
+                        )
                         .resumePoint(
                             ResumePointObject.builder()
                                 .fullyPlayed(true)
+                                .published(true)
                                 .resumePositionMs(0L)
                                 .build()
                         )
                         .build()
                 )
+                .published(true)
                 .build()
 
         assertThat(showListEpisodesPageResponse.href())
@@ -92,7 +103,9 @@ internal class ShowListEpisodesPageResponseTest {
                     )
                     .durationMs(1686230L)
                     .explicit(true)
-                    .externalUrls(ExternalUrlObject.builder().spotify("spotify").build())
+                    .externalUrls(
+                        ExternalUrlObject.builder().published(true).spotify("spotify").build()
+                    )
                     .href("https://api.spotify.com/v1/episodes/5Xt5DXGzch68nYYamXrNxZ")
                     .htmlDescription(
                         "<p>A Spotify podcast sharing fresh insights on important topics of the moment—in a way only Spotify can. You’ll hear from experts in the music, podcast and tech industries as we discover and uncover stories about our work and the world around us.</p>\n"
@@ -104,6 +117,7 @@ internal class ShowListEpisodesPageResponseTest {
                                 "https://i.scdn.co/image/ab67616d00001e02ff9ca10b55ce82ae553c8228\n"
                             )
                             .width(300L)
+                            .published(true)
                             .build()
                     )
                     .isExternallyHosted(true)
@@ -117,12 +131,20 @@ internal class ShowListEpisodesPageResponseTest {
                     .releaseDatePrecision(SimplifiedEpisodeObject.ReleaseDatePrecision.DAY)
                     .uri("spotify:episode:0zLhl3WsOCQHbe1BPTiHgr")
                     .language("en")
-                    .restrictions(EpisodeRestrictionObject.builder().reason("reason").build())
+                    .published(true)
+                    .restrictions(
+                        EpisodeRestrictionObject.builder().published(true).reason("reason").build()
+                    )
                     .resumePoint(
-                        ResumePointObject.builder().fullyPlayed(true).resumePositionMs(0L).build()
+                        ResumePointObject.builder()
+                            .fullyPlayed(true)
+                            .published(true)
+                            .resumePositionMs(0L)
+                            .build()
                     )
                     .build()
             )
+        assertThat(showListEpisodesPageResponse.published()).isEqualTo(true)
     }
 
     @Test
@@ -147,7 +169,9 @@ internal class ShowListEpisodesPageResponseTest {
                         )
                         .durationMs(1686230L)
                         .explicit(true)
-                        .externalUrls(ExternalUrlObject.builder().spotify("spotify").build())
+                        .externalUrls(
+                            ExternalUrlObject.builder().published(true).spotify("spotify").build()
+                        )
                         .href("https://api.spotify.com/v1/episodes/5Xt5DXGzch68nYYamXrNxZ")
                         .htmlDescription(
                             "<p>A Spotify podcast sharing fresh insights on important topics of the moment—in a way only Spotify can. You’ll hear from experts in the music, podcast and tech industries as we discover and uncover stories about our work and the world around us.</p>\n"
@@ -159,6 +183,7 @@ internal class ShowListEpisodesPageResponseTest {
                                     "https://i.scdn.co/image/ab67616d00001e02ff9ca10b55ce82ae553c8228\n"
                                 )
                                 .width(300L)
+                                .published(true)
                                 .build()
                         )
                         .isExternallyHosted(true)
@@ -172,15 +197,23 @@ internal class ShowListEpisodesPageResponseTest {
                         .releaseDatePrecision(SimplifiedEpisodeObject.ReleaseDatePrecision.DAY)
                         .uri("spotify:episode:0zLhl3WsOCQHbe1BPTiHgr")
                         .language("en")
-                        .restrictions(EpisodeRestrictionObject.builder().reason("reason").build())
+                        .published(true)
+                        .restrictions(
+                            EpisodeRestrictionObject.builder()
+                                .published(true)
+                                .reason("reason")
+                                .build()
+                        )
                         .resumePoint(
                             ResumePointObject.builder()
                                 .fullyPlayed(true)
+                                .published(true)
                                 .resumePositionMs(0L)
                                 .build()
                         )
                         .build()
                 )
+                .published(true)
                 .build()
 
         val roundtrippedShowListEpisodesPageResponse =

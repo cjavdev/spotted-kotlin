@@ -11,16 +11,19 @@ internal class FollowersObjectTest {
 
     @Test
     fun create() {
-        val followersObject = FollowersObject.builder().href("href").total(0L).build()
+        val followersObject =
+            FollowersObject.builder().href("href").published(true).total(0L).build()
 
         assertThat(followersObject.href()).isEqualTo("href")
+        assertThat(followersObject.published()).isEqualTo(true)
         assertThat(followersObject.total()).isEqualTo(0L)
     }
 
     @Test
     fun roundtrip() {
         val jsonMapper = jsonMapper()
-        val followersObject = FollowersObject.builder().href("href").total(0L).build()
+        val followersObject =
+            FollowersObject.builder().href("href").published(true).total(0L).build()
 
         val roundtrippedFollowersObject =
             jsonMapper.readValue(

@@ -12,8 +12,12 @@ internal class AlbumRestrictionObjectTest {
     @Test
     fun create() {
         val albumRestrictionObject =
-            AlbumRestrictionObject.builder().reason(AlbumRestrictionObject.Reason.MARKET).build()
+            AlbumRestrictionObject.builder()
+                .published(true)
+                .reason(AlbumRestrictionObject.Reason.MARKET)
+                .build()
 
+        assertThat(albumRestrictionObject.published()).isEqualTo(true)
         assertThat(albumRestrictionObject.reason()).isEqualTo(AlbumRestrictionObject.Reason.MARKET)
     }
 
@@ -21,7 +25,10 @@ internal class AlbumRestrictionObjectTest {
     fun roundtrip() {
         val jsonMapper = jsonMapper()
         val albumRestrictionObject =
-            AlbumRestrictionObject.builder().reason(AlbumRestrictionObject.Reason.MARKET).build()
+            AlbumRestrictionObject.builder()
+                .published(true)
+                .reason(AlbumRestrictionObject.Reason.MARKET)
+                .build()
 
         val roundtrippedAlbumRestrictionObject =
             jsonMapper.readValue(

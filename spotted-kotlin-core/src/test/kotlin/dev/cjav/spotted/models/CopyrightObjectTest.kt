@@ -11,8 +11,10 @@ internal class CopyrightObjectTest {
 
     @Test
     fun create() {
-        val copyrightObject = CopyrightObject.builder().text("text").type("type").build()
+        val copyrightObject =
+            CopyrightObject.builder().published(true).text("text").type("type").build()
 
+        assertThat(copyrightObject.published()).isEqualTo(true)
         assertThat(copyrightObject.text()).isEqualTo("text")
         assertThat(copyrightObject.type()).isEqualTo("type")
     }
@@ -20,7 +22,8 @@ internal class CopyrightObjectTest {
     @Test
     fun roundtrip() {
         val jsonMapper = jsonMapper()
-        val copyrightObject = CopyrightObject.builder().text("text").type("type").build()
+        val copyrightObject =
+            CopyrightObject.builder().published(true).text("text").type("type").build()
 
         val roundtrippedCopyrightObject =
             jsonMapper.readValue(

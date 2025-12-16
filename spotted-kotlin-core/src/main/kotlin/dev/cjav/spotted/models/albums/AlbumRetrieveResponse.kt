@@ -46,6 +46,7 @@ private constructor(
     private val genres: JsonField<List<String>>,
     private val label: JsonField<String>,
     private val popularity: JsonField<Long>,
+    private val published: JsonField<Boolean>,
     private val restrictions: JsonField<AlbumRestrictionObject>,
     private val tracks: JsonField<Tracks>,
     private val additionalProperties: MutableMap<String, JsonValue>,
@@ -91,6 +92,7 @@ private constructor(
         @JsonProperty("genres") @ExcludeMissing genres: JsonField<List<String>> = JsonMissing.of(),
         @JsonProperty("label") @ExcludeMissing label: JsonField<String> = JsonMissing.of(),
         @JsonProperty("popularity") @ExcludeMissing popularity: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("published") @ExcludeMissing published: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("restrictions")
         @ExcludeMissing
         restrictions: JsonField<AlbumRestrictionObject> = JsonMissing.of(),
@@ -114,6 +116,7 @@ private constructor(
         genres,
         label,
         popularity,
+        published,
         restrictions,
         tracks,
         mutableMapOf(),
@@ -275,6 +278,17 @@ private constructor(
     fun popularity(): Long? = popularity.getNullable("popularity")
 
     /**
+     * The playlist's public/private status (if it should be added to the user's profile or not):
+     * `true` the playlist will be public, `false` the playlist will be private, `null` the playlist
+     * status is not relevant. For more about public/private status, see
+     * [Working with Playlists](/documentation/web-api/concepts/playlists)
+     *
+     * @throws SpottedInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun published(): Boolean? = published.getNullable("published")
+
+    /**
      * Included in the response when a content restriction is applied.
      *
      * @throws SpottedInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -429,6 +443,13 @@ private constructor(
     @JsonProperty("popularity") @ExcludeMissing fun _popularity(): JsonField<Long> = popularity
 
     /**
+     * Returns the raw JSON value of [published].
+     *
+     * Unlike [published], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("published") @ExcludeMissing fun _published(): JsonField<Boolean> = published
+
+    /**
      * Returns the raw JSON value of [restrictions].
      *
      * Unlike [restrictions], this method doesn't throw if the JSON field has an unexpected type.
@@ -500,6 +521,7 @@ private constructor(
         private var genres: JsonField<MutableList<String>>? = null
         private var label: JsonField<String> = JsonMissing.of()
         private var popularity: JsonField<Long> = JsonMissing.of()
+        private var published: JsonField<Boolean> = JsonMissing.of()
         private var restrictions: JsonField<AlbumRestrictionObject> = JsonMissing.of()
         private var tracks: JsonField<Tracks> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -523,6 +545,7 @@ private constructor(
             genres = albumRetrieveResponse.genres.map { it.toMutableList() }
             label = albumRetrieveResponse.label
             popularity = albumRetrieveResponse.popularity
+            published = albumRetrieveResponse.published
             restrictions = albumRetrieveResponse.restrictions
             tracks = albumRetrieveResponse.tracks
             additionalProperties = albumRetrieveResponse.additionalProperties.toMutableMap()
@@ -833,6 +856,23 @@ private constructor(
          */
         fun popularity(popularity: JsonField<Long>) = apply { this.popularity = popularity }
 
+        /**
+         * The playlist's public/private status (if it should be added to the user's profile or
+         * not): `true` the playlist will be public, `false` the playlist will be private, `null`
+         * the playlist status is not relevant. For more about public/private status, see
+         * [Working with Playlists](/documentation/web-api/concepts/playlists)
+         */
+        fun published(published: Boolean) = published(JsonField.of(published))
+
+        /**
+         * Sets [Builder.published] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.published] with a well-typed [Boolean] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun published(published: JsonField<Boolean>) = apply { this.published = published }
+
         /** Included in the response when a content restriction is applied. */
         fun restrictions(restrictions: AlbumRestrictionObject) =
             restrictions(JsonField.of(restrictions))
@@ -920,6 +960,7 @@ private constructor(
                 (genres ?: JsonMissing.of()).map { it.toImmutable() },
                 label,
                 popularity,
+                published,
                 restrictions,
                 tracks,
                 additionalProperties.toMutableMap(),
@@ -955,6 +996,7 @@ private constructor(
         genres()
         label()
         popularity()
+        published()
         restrictions()?.validate()
         tracks()?.validate()
         validated = true
@@ -992,6 +1034,7 @@ private constructor(
             (genres.asKnown()?.size ?: 0) +
             (if (label.asKnown() == null) 0 else 1) +
             (if (popularity.asKnown() == null) 0 else 1) +
+            (if (published.asKnown() == null) 0 else 1) +
             (restrictions.asKnown()?.validity() ?: 0) +
             (tracks.asKnown()?.validity() ?: 0)
 
@@ -1278,6 +1321,7 @@ private constructor(
         private val previous: JsonField<String>,
         private val total: JsonField<Long>,
         private val items: JsonField<List<SimplifiedTrackObject>>,
+        private val published: JsonField<Boolean>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -1294,7 +1338,10 @@ private constructor(
             @JsonProperty("items")
             @ExcludeMissing
             items: JsonField<List<SimplifiedTrackObject>> = JsonMissing.of(),
-        ) : this(href, limit, next, offset, previous, total, items, mutableMapOf())
+            @JsonProperty("published")
+            @ExcludeMissing
+            published: JsonField<Boolean> = JsonMissing.of(),
+        ) : this(href, limit, next, offset, previous, total, items, published, mutableMapOf())
 
         /**
          * A link to the Web API endpoint returning the full result of the request
@@ -1351,6 +1398,17 @@ private constructor(
         fun items(): List<SimplifiedTrackObject>? = items.getNullable("items")
 
         /**
+         * The playlist's public/private status (if it should be added to the user's profile or
+         * not): `true` the playlist will be public, `false` the playlist will be private, `null`
+         * the playlist status is not relevant. For more about public/private status, see
+         * [Working with Playlists](/documentation/web-api/concepts/playlists)
+         *
+         * @throws SpottedInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun published(): Boolean? = published.getNullable("published")
+
+        /**
          * Returns the raw JSON value of [href].
          *
          * Unlike [href], this method doesn't throw if the JSON field has an unexpected type.
@@ -1401,6 +1459,13 @@ private constructor(
         @ExcludeMissing
         fun _items(): JsonField<List<SimplifiedTrackObject>> = items
 
+        /**
+         * Returns the raw JSON value of [published].
+         *
+         * Unlike [published], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("published") @ExcludeMissing fun _published(): JsonField<Boolean> = published
+
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
             additionalProperties.put(key, value)
@@ -1441,6 +1506,7 @@ private constructor(
             private var previous: JsonField<String>? = null
             private var total: JsonField<Long>? = null
             private var items: JsonField<MutableList<SimplifiedTrackObject>>? = null
+            private var published: JsonField<Boolean> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(tracks: Tracks) = apply {
@@ -1451,6 +1517,7 @@ private constructor(
                 previous = tracks.previous
                 total = tracks.total
                 items = tracks.items.map { it.toMutableList() }
+                published = tracks.published
                 additionalProperties = tracks.additionalProperties.toMutableMap()
             }
 
@@ -1551,6 +1618,23 @@ private constructor(
                     }
             }
 
+            /**
+             * The playlist's public/private status (if it should be added to the user's profile or
+             * not): `true` the playlist will be public, `false` the playlist will be private,
+             * `null` the playlist status is not relevant. For more about public/private status, see
+             * [Working with Playlists](/documentation/web-api/concepts/playlists)
+             */
+            fun published(published: Boolean) = published(JsonField.of(published))
+
+            /**
+             * Sets [Builder.published] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.published] with a well-typed [Boolean] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun published(published: JsonField<Boolean>) = apply { this.published = published }
+
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 putAllAdditionalProperties(additionalProperties)
@@ -1596,6 +1680,7 @@ private constructor(
                     checkRequired("previous", previous),
                     checkRequired("total", total),
                     (items ?: JsonMissing.of()).map { it.toImmutable() },
+                    published,
                     additionalProperties.toMutableMap(),
                 )
         }
@@ -1614,6 +1699,7 @@ private constructor(
             previous()
             total()
             items()?.forEach { it.validate() }
+            published()
             validated = true
         }
 
@@ -1638,7 +1724,8 @@ private constructor(
                 (if (offset.asKnown() == null) 0 else 1) +
                 (if (previous.asKnown() == null) 0 else 1) +
                 (if (total.asKnown() == null) 0 else 1) +
-                (items.asKnown()?.sumOf { it.validity().toInt() } ?: 0)
+                (items.asKnown()?.sumOf { it.validity().toInt() } ?: 0) +
+                (if (published.asKnown() == null) 0 else 1)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -1653,17 +1740,28 @@ private constructor(
                 previous == other.previous &&
                 total == other.total &&
                 items == other.items &&
+                published == other.published &&
                 additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy {
-            Objects.hash(href, limit, next, offset, previous, total, items, additionalProperties)
+            Objects.hash(
+                href,
+                limit,
+                next,
+                offset,
+                previous,
+                total,
+                items,
+                published,
+                additionalProperties,
+            )
         }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Tracks{href=$href, limit=$limit, next=$next, offset=$offset, previous=$previous, total=$total, items=$items, additionalProperties=$additionalProperties}"
+            "Tracks{href=$href, limit=$limit, next=$next, offset=$offset, previous=$previous, total=$total, items=$items, published=$published, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {
@@ -1690,6 +1788,7 @@ private constructor(
             genres == other.genres &&
             label == other.label &&
             popularity == other.popularity &&
+            published == other.published &&
             restrictions == other.restrictions &&
             tracks == other.tracks &&
             additionalProperties == other.additionalProperties
@@ -1715,6 +1814,7 @@ private constructor(
             genres,
             label,
             popularity,
+            published,
             restrictions,
             tracks,
             additionalProperties,
@@ -1724,5 +1824,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "AlbumRetrieveResponse{id=$id, albumType=$albumType, availableMarkets=$availableMarkets, externalUrls=$externalUrls, href=$href, images=$images, name=$name, releaseDate=$releaseDate, releaseDatePrecision=$releaseDatePrecision, totalTracks=$totalTracks, type=$type, uri=$uri, artists=$artists, copyrights=$copyrights, externalIds=$externalIds, genres=$genres, label=$label, popularity=$popularity, restrictions=$restrictions, tracks=$tracks, additionalProperties=$additionalProperties}"
+        "AlbumRetrieveResponse{id=$id, albumType=$albumType, availableMarkets=$availableMarkets, externalUrls=$externalUrls, href=$href, images=$images, name=$name, releaseDate=$releaseDate, releaseDatePrecision=$releaseDatePrecision, totalTracks=$totalTracks, type=$type, uri=$uri, artists=$artists, copyrights=$copyrights, externalIds=$externalIds, genres=$genres, label=$label, popularity=$popularity, published=$published, restrictions=$restrictions, tracks=$tracks, additionalProperties=$additionalProperties}"
 }

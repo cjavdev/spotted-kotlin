@@ -197,6 +197,7 @@ private constructor(
         private val type: JsonValue,
         private val uri: JsonField<String>,
         private val availableMarkets: JsonField<List<String>>,
+        private val published: JsonField<Boolean>,
         private val restrictions: JsonField<ChapterRestrictionObject>,
         private val resumePoint: JsonField<ResumePointObject>,
         private val additionalProperties: MutableMap<String, JsonValue>,
@@ -251,6 +252,9 @@ private constructor(
             @JsonProperty("available_markets")
             @ExcludeMissing
             availableMarkets: JsonField<List<String>> = JsonMissing.of(),
+            @JsonProperty("published")
+            @ExcludeMissing
+            published: JsonField<Boolean> = JsonMissing.of(),
             @JsonProperty("restrictions")
             @ExcludeMissing
             restrictions: JsonField<ChapterRestrictionObject> = JsonMissing.of(),
@@ -277,6 +281,7 @@ private constructor(
             type,
             uri,
             availableMarkets,
+            published,
             restrictions,
             resumePoint,
             mutableMapOf(),
@@ -445,6 +450,17 @@ private constructor(
          *   server responded with an unexpected value).
          */
         fun availableMarkets(): List<String>? = availableMarkets.getNullable("available_markets")
+
+        /**
+         * The playlist's public/private status (if it should be added to the user's profile or
+         * not): `true` the playlist will be public, `false` the playlist will be private, `null`
+         * the playlist status is not relevant. For more about public/private status, see
+         * [Working with Playlists](/documentation/web-api/concepts/playlists)
+         *
+         * @throws SpottedInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun published(): Boolean? = published.getNullable("published")
 
         /**
          * Included in the response when a content restriction is applied.
@@ -619,6 +635,13 @@ private constructor(
         fun _availableMarkets(): JsonField<List<String>> = availableMarkets
 
         /**
+         * Returns the raw JSON value of [published].
+         *
+         * Unlike [published], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("published") @ExcludeMissing fun _published(): JsonField<Boolean> = published
+
+        /**
          * Returns the raw JSON value of [restrictions].
          *
          * Unlike [restrictions], this method doesn't throw if the JSON field has an unexpected
@@ -700,6 +723,7 @@ private constructor(
             private var type: JsonValue = JsonValue.from("episode")
             private var uri: JsonField<String>? = null
             private var availableMarkets: JsonField<MutableList<String>>? = null
+            private var published: JsonField<Boolean> = JsonMissing.of()
             private var restrictions: JsonField<ChapterRestrictionObject> = JsonMissing.of()
             private var resumePoint: JsonField<ResumePointObject> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -724,6 +748,7 @@ private constructor(
                 type = chapter.type
                 uri = chapter.uri
                 availableMarkets = chapter.availableMarkets.map { it.toMutableList() }
+                published = chapter.published
                 restrictions = chapter.restrictions
                 resumePoint = chapter.resumePoint
                 additionalProperties = chapter.additionalProperties.toMutableMap()
@@ -1046,6 +1071,23 @@ private constructor(
                     }
             }
 
+            /**
+             * The playlist's public/private status (if it should be added to the user's profile or
+             * not): `true` the playlist will be public, `false` the playlist will be private,
+             * `null` the playlist status is not relevant. For more about public/private status, see
+             * [Working with Playlists](/documentation/web-api/concepts/playlists)
+             */
+            fun published(published: Boolean) = published(JsonField.of(published))
+
+            /**
+             * Sets [Builder.published] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.published] with a well-typed [Boolean] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun published(published: JsonField<Boolean>) = apply { this.published = published }
+
             /** Included in the response when a content restriction is applied. */
             fun restrictions(restrictions: ChapterRestrictionObject) =
                 restrictions(JsonField.of(restrictions))
@@ -1146,6 +1188,7 @@ private constructor(
                     type,
                     checkRequired("uri", uri),
                     (availableMarkets ?: JsonMissing.of()).map { it.toImmutable() },
+                    published,
                     restrictions,
                     resumePoint,
                     additionalProperties.toMutableMap(),
@@ -1182,6 +1225,7 @@ private constructor(
             }
             uri()
             availableMarkets()
+            published()
             restrictions()?.validate()
             resumePoint()?.validate()
             validated = true
@@ -1221,6 +1265,7 @@ private constructor(
                 type.let { if (it == JsonValue.from("episode")) 1 else 0 } +
                 (if (uri.asKnown() == null) 0 else 1) +
                 (availableMarkets.asKnown()?.size ?: 0) +
+                (if (published.asKnown() == null) 0 else 1) +
                 (restrictions.asKnown()?.validity() ?: 0) +
                 (resumePoint.asKnown()?.validity() ?: 0)
 
@@ -1389,6 +1434,7 @@ private constructor(
                 type == other.type &&
                 uri == other.uri &&
                 availableMarkets == other.availableMarkets &&
+                published == other.published &&
                 restrictions == other.restrictions &&
                 resumePoint == other.resumePoint &&
                 additionalProperties == other.additionalProperties
@@ -1415,6 +1461,7 @@ private constructor(
                 type,
                 uri,
                 availableMarkets,
+                published,
                 restrictions,
                 resumePoint,
                 additionalProperties,
@@ -1424,7 +1471,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Chapter{id=$id, audioPreviewUrl=$audioPreviewUrl, audiobook=$audiobook, chapterNumber=$chapterNumber, description=$description, durationMs=$durationMs, explicit=$explicit, externalUrls=$externalUrls, href=$href, htmlDescription=$htmlDescription, images=$images, isPlayable=$isPlayable, languages=$languages, name=$name, releaseDate=$releaseDate, releaseDatePrecision=$releaseDatePrecision, type=$type, uri=$uri, availableMarkets=$availableMarkets, restrictions=$restrictions, resumePoint=$resumePoint, additionalProperties=$additionalProperties}"
+            "Chapter{id=$id, audioPreviewUrl=$audioPreviewUrl, audiobook=$audiobook, chapterNumber=$chapterNumber, description=$description, durationMs=$durationMs, explicit=$explicit, externalUrls=$externalUrls, href=$href, htmlDescription=$htmlDescription, images=$images, isPlayable=$isPlayable, languages=$languages, name=$name, releaseDate=$releaseDate, releaseDatePrecision=$releaseDatePrecision, type=$type, uri=$uri, availableMarkets=$availableMarkets, published=$published, restrictions=$restrictions, resumePoint=$resumePoint, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {

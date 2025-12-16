@@ -20,8 +20,12 @@ internal class ArtistBulkRetrieveResponseTest {
                 .addArtist(
                     ArtistObject.builder()
                         .id("id")
-                        .externalUrls(ExternalUrlObject.builder().spotify("spotify").build())
-                        .followers(FollowersObject.builder().href("href").total(0L).build())
+                        .externalUrls(
+                            ExternalUrlObject.builder().published(true).spotify("spotify").build()
+                        )
+                        .followers(
+                            FollowersObject.builder().href("href").published(true).total(0L).build()
+                        )
                         .addGenre("Prog rock")
                         .addGenre("Grunge")
                         .href("href")
@@ -32,10 +36,12 @@ internal class ArtistBulkRetrieveResponseTest {
                                     "https://i.scdn.co/image/ab67616d00001e02ff9ca10b55ce82ae553c8228\n"
                                 )
                                 .width(300L)
+                                .published(true)
                                 .build()
                         )
                         .name("name")
                         .popularity(0L)
+                        .published(true)
                         .type(ArtistObject.Type.ARTIST)
                         .uri("uri")
                         .build()
@@ -46,8 +52,12 @@ internal class ArtistBulkRetrieveResponseTest {
             .containsExactly(
                 ArtistObject.builder()
                     .id("id")
-                    .externalUrls(ExternalUrlObject.builder().spotify("spotify").build())
-                    .followers(FollowersObject.builder().href("href").total(0L).build())
+                    .externalUrls(
+                        ExternalUrlObject.builder().published(true).spotify("spotify").build()
+                    )
+                    .followers(
+                        FollowersObject.builder().href("href").published(true).total(0L).build()
+                    )
                     .addGenre("Prog rock")
                     .addGenre("Grunge")
                     .href("href")
@@ -58,10 +68,12 @@ internal class ArtistBulkRetrieveResponseTest {
                                 "https://i.scdn.co/image/ab67616d00001e02ff9ca10b55ce82ae553c8228\n"
                             )
                             .width(300L)
+                            .published(true)
                             .build()
                     )
                     .name("name")
                     .popularity(0L)
+                    .published(true)
                     .type(ArtistObject.Type.ARTIST)
                     .uri("uri")
                     .build()
@@ -76,8 +88,12 @@ internal class ArtistBulkRetrieveResponseTest {
                 .addArtist(
                     ArtistObject.builder()
                         .id("id")
-                        .externalUrls(ExternalUrlObject.builder().spotify("spotify").build())
-                        .followers(FollowersObject.builder().href("href").total(0L).build())
+                        .externalUrls(
+                            ExternalUrlObject.builder().published(true).spotify("spotify").build()
+                        )
+                        .followers(
+                            FollowersObject.builder().href("href").published(true).total(0L).build()
+                        )
                         .addGenre("Prog rock")
                         .addGenre("Grunge")
                         .href("href")
@@ -88,10 +104,12 @@ internal class ArtistBulkRetrieveResponseTest {
                                     "https://i.scdn.co/image/ab67616d00001e02ff9ca10b55ce82ae553c8228\n"
                                 )
                                 .width(300L)
+                                .published(true)
                                 .build()
                         )
                         .name("name")
                         .popularity(0L)
+                        .published(true)
                         .type(ArtistObject.Type.ARTIST)
                         .uri("uri")
                         .build()
