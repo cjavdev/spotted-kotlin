@@ -15,6 +15,7 @@ internal class PlaylistCreateParamsTest {
             .collaborative(true)
             .description("New playlist description")
             .public_(false)
+            .published(true)
             .build()
     }
 
@@ -36,6 +37,7 @@ internal class PlaylistCreateParamsTest {
                 .collaborative(true)
                 .description("New playlist description")
                 .public_(false)
+                .published(true)
                 .build()
 
         val body = params._body()
@@ -44,6 +46,7 @@ internal class PlaylistCreateParamsTest {
         assertThat(body.collaborative()).isEqualTo(true)
         assertThat(body.description()).isEqualTo("New playlist description")
         assertThat(body.public_()).isEqualTo(false)
+        assertThat(body.published()).isEqualTo(true)
     }
 
     @Test

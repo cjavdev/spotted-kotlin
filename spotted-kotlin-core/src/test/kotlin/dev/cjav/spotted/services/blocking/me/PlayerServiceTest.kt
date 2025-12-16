@@ -231,6 +231,7 @@ internal class PlayerServiceTest {
                         .build()
                 )
                 .positionMs(0L)
+                .published(true)
                 .addUris("string")
                 .build()
         )
@@ -267,7 +268,11 @@ internal class PlayerServiceTest {
         val playerService = client.me().player()
 
         playerService.transfer(
-            PlayerTransferParams.builder().addDeviceId("74ASZWbe4lXaubB36ztrGX").play(true).build()
+            PlayerTransferParams.builder()
+                .addDeviceId("74ASZWbe4lXaubB36ztrGX")
+                .play(true)
+                .published(true)
+                .build()
         )
     }
 }

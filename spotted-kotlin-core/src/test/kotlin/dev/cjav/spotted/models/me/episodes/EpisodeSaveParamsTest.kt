@@ -9,11 +9,21 @@ internal class EpisodeSaveParamsTest {
 
     @Test
     fun create() {
-        EpisodeSaveParams.builder().addId("string").build()
+        EpisodeSaveParams.builder().addId("string").published(true).build()
     }
 
     @Test
     fun body() {
+        val params = EpisodeSaveParams.builder().addId("string").published(true).build()
+
+        val body = params._body()
+
+        assertThat(body.ids()).containsExactly("string")
+        assertThat(body.published()).isEqualTo(true)
+    }
+
+    @Test
+    fun bodyWithoutOptionalFields() {
         val params = EpisodeSaveParams.builder().addId("string").build()
 
         val body = params._body()

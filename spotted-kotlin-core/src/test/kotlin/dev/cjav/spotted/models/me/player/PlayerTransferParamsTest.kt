@@ -9,18 +9,27 @@ internal class PlayerTransferParamsTest {
 
     @Test
     fun create() {
-        PlayerTransferParams.builder().addDeviceId("74ASZWbe4lXaubB36ztrGX").play(true).build()
+        PlayerTransferParams.builder()
+            .addDeviceId("74ASZWbe4lXaubB36ztrGX")
+            .play(true)
+            .published(true)
+            .build()
     }
 
     @Test
     fun body() {
         val params =
-            PlayerTransferParams.builder().addDeviceId("74ASZWbe4lXaubB36ztrGX").play(true).build()
+            PlayerTransferParams.builder()
+                .addDeviceId("74ASZWbe4lXaubB36ztrGX")
+                .play(true)
+                .published(true)
+                .build()
 
         val body = params._body()
 
         assertThat(body.deviceIds()).containsExactly("74ASZWbe4lXaubB36ztrGX")
         assertThat(body.play()).isEqualTo(true)
+        assertThat(body.published()).isEqualTo(true)
     }
 
     @Test

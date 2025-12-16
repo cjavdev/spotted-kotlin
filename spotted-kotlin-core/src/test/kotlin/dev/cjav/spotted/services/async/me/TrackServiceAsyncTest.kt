@@ -60,7 +60,9 @@ internal class TrackServiceAsyncTest {
                 .build()
         val trackServiceAsync = client.me().tracks()
 
-        trackServiceAsync.remove(TrackRemoveParams.builder().addId("string").build())
+        trackServiceAsync.remove(
+            TrackRemoveParams.builder().addId("string").published(true).build()
+        )
     }
 
     @Disabled("Prism tests are disabled")
@@ -77,6 +79,7 @@ internal class TrackServiceAsyncTest {
         trackServiceAsync.save(
             TrackSaveParams.builder()
                 .addId("string")
+                .published(true)
                 .addTimestampedId(
                     TrackSaveParams.TimestampedId.builder()
                         .id("id")

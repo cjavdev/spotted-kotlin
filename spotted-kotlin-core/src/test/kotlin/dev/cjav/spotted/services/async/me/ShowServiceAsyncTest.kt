@@ -57,7 +57,7 @@ internal class ShowServiceAsyncTest {
                 .build()
         val showServiceAsync = client.me().shows()
 
-        showServiceAsync.remove(ShowRemoveParams.builder().addId("string").build())
+        showServiceAsync.remove(ShowRemoveParams.builder().addId("string").published(true).build())
     }
 
     @Disabled("Prism tests are disabled")
@@ -71,6 +71,6 @@ internal class ShowServiceAsyncTest {
                 .build()
         val showServiceAsync = client.me().shows()
 
-        showServiceAsync.save(ShowSaveParams.builder().addId("string").build())
+        showServiceAsync.save(ShowSaveParams.builder().addId("string").published(true).build())
     }
 }

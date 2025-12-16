@@ -12,6 +12,7 @@ internal class TrackUpdateParamsTest {
         TrackUpdateParams.builder()
             .playlistId("3cEYpjA9oz9GiPac4AsH4n")
             .insertBefore(3L)
+            .published(true)
             .rangeLength(2L)
             .rangeStart(1L)
             .snapshotId("snapshot_id")
@@ -34,6 +35,7 @@ internal class TrackUpdateParamsTest {
             TrackUpdateParams.builder()
                 .playlistId("3cEYpjA9oz9GiPac4AsH4n")
                 .insertBefore(3L)
+                .published(true)
                 .rangeLength(2L)
                 .rangeStart(1L)
                 .snapshotId("snapshot_id")
@@ -43,6 +45,7 @@ internal class TrackUpdateParamsTest {
         val body = params._body()
 
         assertThat(body.insertBefore()).isEqualTo(3L)
+        assertThat(body.published()).isEqualTo(true)
         assertThat(body.rangeLength()).isEqualTo(2L)
         assertThat(body.rangeStart()).isEqualTo(1L)
         assertThat(body.snapshotId()).isEqualTo("snapshot_id")

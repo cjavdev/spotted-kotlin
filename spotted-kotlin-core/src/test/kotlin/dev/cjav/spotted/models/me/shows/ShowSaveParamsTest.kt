@@ -9,16 +9,17 @@ internal class ShowSaveParamsTest {
 
     @Test
     fun create() {
-        ShowSaveParams.builder().addId("string").build()
+        ShowSaveParams.builder().addId("string").published(true).build()
     }
 
     @Test
     fun body() {
-        val params = ShowSaveParams.builder().addId("string").build()
+        val params = ShowSaveParams.builder().addId("string").published(true).build()
 
         val body = params._body()
 
         assertThat(body.ids()).containsExactly("string")
+        assertThat(body.published()).isEqualTo(true)
     }
 
     @Test

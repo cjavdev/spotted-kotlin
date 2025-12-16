@@ -9,11 +9,21 @@ internal class FollowingFollowParamsTest {
 
     @Test
     fun create() {
-        FollowingFollowParams.builder().addId("string").build()
+        FollowingFollowParams.builder().addId("string").published(true).build()
     }
 
     @Test
     fun body() {
+        val params = FollowingFollowParams.builder().addId("string").published(true).build()
+
+        val body = params._body()
+
+        assertThat(body.ids()).containsExactly("string")
+        assertThat(body.published()).isEqualTo(true)
+    }
+
+    @Test
+    fun bodyWithoutOptionalFields() {
         val params = FollowingFollowParams.builder().addId("string").build()
 
         val body = params._body()
