@@ -8,8 +8,8 @@ import dev.cjav.spotted.core.RequestOptions
 import dev.cjav.spotted.core.http.HttpResponseFor
 import dev.cjav.spotted.models.browse.categories.CategoryGetPlaylistsParams
 import dev.cjav.spotted.models.browse.categories.CategoryGetPlaylistsResponse
+import dev.cjav.spotted.models.browse.categories.CategoryListPageAsync
 import dev.cjav.spotted.models.browse.categories.CategoryListParams
-import dev.cjav.spotted.models.browse.categories.CategoryListResponse
 import dev.cjav.spotted.models.browse.categories.CategoryRetrieveParams
 import dev.cjav.spotted.models.browse.categories.CategoryRetrieveResponse
 
@@ -58,10 +58,10 @@ interface CategoryServiceAsync {
     suspend fun list(
         params: CategoryListParams = CategoryListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CategoryListResponse
+    ): CategoryListPageAsync
 
     /** @see list */
-    suspend fun list(requestOptions: RequestOptions): CategoryListResponse =
+    suspend fun list(requestOptions: RequestOptions): CategoryListPageAsync =
         list(CategoryListParams.none(), requestOptions)
 
     /** Get a list of Spotify playlists tagged with a particular category. */
@@ -137,11 +137,11 @@ interface CategoryServiceAsync {
         suspend fun list(
             params: CategoryListParams = CategoryListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CategoryListResponse>
+        ): HttpResponseFor<CategoryListPageAsync>
 
         /** @see list */
         @MustBeClosed
-        suspend fun list(requestOptions: RequestOptions): HttpResponseFor<CategoryListResponse> =
+        suspend fun list(requestOptions: RequestOptions): HttpResponseFor<CategoryListPageAsync> =
             list(CategoryListParams.none(), requestOptions)
 
         /**

@@ -8,8 +8,8 @@ import dev.cjav.spotted.core.RequestOptions
 import dev.cjav.spotted.core.http.HttpResponseFor
 import dev.cjav.spotted.models.browse.categories.CategoryGetPlaylistsParams
 import dev.cjav.spotted.models.browse.categories.CategoryGetPlaylistsResponse
+import dev.cjav.spotted.models.browse.categories.CategoryListPage
 import dev.cjav.spotted.models.browse.categories.CategoryListParams
-import dev.cjav.spotted.models.browse.categories.CategoryListResponse
 import dev.cjav.spotted.models.browse.categories.CategoryRetrieveParams
 import dev.cjav.spotted.models.browse.categories.CategoryRetrieveResponse
 
@@ -55,10 +55,10 @@ interface CategoryService {
     fun list(
         params: CategoryListParams = CategoryListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CategoryListResponse
+    ): CategoryListPage
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CategoryListResponse =
+    fun list(requestOptions: RequestOptions): CategoryListPage =
         list(CategoryListParams.none(), requestOptions)
 
     /** Get a list of Spotify playlists tagged with a particular category. */
@@ -130,11 +130,11 @@ interface CategoryService {
         fun list(
             params: CategoryListParams = CategoryListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CategoryListResponse>
+        ): HttpResponseFor<CategoryListPage>
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<CategoryListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<CategoryListPage> =
             list(CategoryListParams.none(), requestOptions)
 
         /**
