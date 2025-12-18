@@ -5,7 +5,6 @@ package dev.cjav.spotted.services.blocking.browse
 import dev.cjav.spotted.TestServerExtension
 import dev.cjav.spotted.client.okhttp.SpottedOkHttpClient
 import dev.cjav.spotted.models.browse.categories.CategoryGetPlaylistsParams
-import dev.cjav.spotted.models.browse.categories.CategoryListParams
 import dev.cjav.spotted.models.browse.categories.CategoryRetrieveParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -44,12 +43,9 @@ internal class CategoryServiceTest {
                 .build()
         val categoryService = client.browse().categories()
 
-        val categories =
-            categoryService.list(
-                CategoryListParams.builder().limit(10L).locale("sv_SE").offset(5L).build()
-            )
+        val page = categoryService.list()
 
-        categories.validate()
+        page.response().validate()
     }
 
     @Disabled("Prism tests are disabled")

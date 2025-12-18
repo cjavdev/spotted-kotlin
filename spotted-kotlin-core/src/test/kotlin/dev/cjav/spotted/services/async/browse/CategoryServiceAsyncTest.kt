@@ -5,7 +5,6 @@ package dev.cjav.spotted.services.async.browse
 import dev.cjav.spotted.TestServerExtension
 import dev.cjav.spotted.client.okhttp.SpottedOkHttpClientAsync
 import dev.cjav.spotted.models.browse.categories.CategoryGetPlaylistsParams
-import dev.cjav.spotted.models.browse.categories.CategoryListParams
 import dev.cjav.spotted.models.browse.categories.CategoryRetrieveParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -44,12 +43,9 @@ internal class CategoryServiceAsyncTest {
                 .build()
         val categoryServiceAsync = client.browse().categories()
 
-        val categories =
-            categoryServiceAsync.list(
-                CategoryListParams.builder().limit(10L).locale("sv_SE").offset(5L).build()
-            )
+        val page = categoryServiceAsync.list()
 
-        categories.validate()
+        page.response().validate()
     }
 
     @Disabled("Prism tests are disabled")
