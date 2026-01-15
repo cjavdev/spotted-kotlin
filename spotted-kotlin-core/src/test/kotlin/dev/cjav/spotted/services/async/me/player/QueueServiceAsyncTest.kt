@@ -18,8 +18,7 @@ internal class QueueServiceAsyncTest {
         val client =
             SpottedOkHttpClientAsync.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .clientId("My Client ID")
-                .clientSecret("My Client Secret")
+                .accessToken("My Access Token")
                 .build()
         val queueServiceAsync = client.me().player().queue()
 
@@ -37,8 +36,7 @@ internal class QueueServiceAsyncTest {
         val client =
             SpottedOkHttpClientAsync.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .clientId("My Client ID")
-                .clientSecret("My Client Secret")
+                .accessToken("My Access Token")
                 .build()
         val queueServiceAsync = client.me().player().queue()
 

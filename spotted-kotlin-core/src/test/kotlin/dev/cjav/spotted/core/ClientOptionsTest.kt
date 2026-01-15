@@ -19,11 +19,7 @@ internal class ClientOptionsTest {
     @Test
     fun toBuilder_whenOriginalClientOptionsGarbageCollected_doesNotCloseOriginalClient() {
         var clientOptions =
-            ClientOptions.builder()
-                .httpClient(httpClient)
-                .clientId("My Client ID")
-                .clientSecret("My Client Secret")
-                .build()
+            ClientOptions.builder().httpClient(httpClient).accessToken("My Access Token").build()
         verify(httpClient, never()).close()
 
         // Overwrite the `clientOptions` variable so that the original `ClientOptions` is GC'd.

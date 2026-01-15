@@ -19,8 +19,7 @@ internal class ShowServiceAsyncTest {
         val client =
             SpottedOkHttpClientAsync.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .clientId("My Client ID")
-                .clientSecret("My Client Secret")
+                .accessToken("My Access Token")
                 .build()
         val showServiceAsync = client.shows()
 
@@ -38,8 +37,7 @@ internal class ShowServiceAsyncTest {
         val client =
             SpottedOkHttpClientAsync.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .clientId("My Client ID")
-                .clientSecret("My Client Secret")
+                .accessToken("My Access Token")
                 .build()
         val showServiceAsync = client.shows()
 
@@ -60,8 +58,7 @@ internal class ShowServiceAsyncTest {
         val client =
             SpottedOkHttpClientAsync.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .clientId("My Client ID")
-                .clientSecret("My Client Secret")
+                .accessToken("My Access Token")
                 .build()
         val showServiceAsync = client.shows()
 

@@ -19,8 +19,7 @@ internal class PlaylistServiceTest {
         val client =
             SpottedOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .clientId("My Client ID")
-                .clientSecret("My Client Secret")
+                .accessToken("My Access Token")
                 .build()
         val playlistService = client.playlists()
 
@@ -43,8 +42,7 @@ internal class PlaylistServiceTest {
         val client =
             SpottedOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .clientId("My Client ID")
-                .clientSecret("My Client Secret")
+                .accessToken("My Access Token")
                 .build()
         val playlistService = client.playlists()
 

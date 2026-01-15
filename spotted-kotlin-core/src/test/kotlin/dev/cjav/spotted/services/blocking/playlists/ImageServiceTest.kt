@@ -26,8 +26,7 @@ internal class ImageServiceTest {
         val client =
             SpottedOkHttpClient.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
-                .clientId("My Client ID")
-                .clientSecret("My Client Secret")
+                .accessToken("My Access Token")
                 .build()
         val imageService = client.playlists().images()
         stubFor(put(anyUrl()).willReturn(ok().withBody("abc")))
@@ -43,8 +42,7 @@ internal class ImageServiceTest {
         val client =
             SpottedOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .clientId("My Client ID")
-                .clientSecret("My Client Secret")
+                .accessToken("My Access Token")
                 .build()
         val imageService = client.playlists().images()
 

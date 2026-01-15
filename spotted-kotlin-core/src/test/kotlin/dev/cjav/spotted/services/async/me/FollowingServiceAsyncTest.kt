@@ -21,8 +21,7 @@ internal class FollowingServiceAsyncTest {
         val client =
             SpottedOkHttpClientAsync.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .clientId("My Client ID")
-                .clientSecret("My Client Secret")
+                .accessToken("My Access Token")
                 .build()
         val followingServiceAsync = client.me().following()
 
@@ -44,8 +43,7 @@ internal class FollowingServiceAsyncTest {
         val client =
             SpottedOkHttpClientAsync.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .clientId("My Client ID")
-                .clientSecret("My Client Secret")
+                .accessToken("My Access Token")
                 .build()
         val followingServiceAsync = client.me().following()
 
@@ -63,8 +61,7 @@ internal class FollowingServiceAsyncTest {
         val client =
             SpottedOkHttpClientAsync.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .clientId("My Client ID")
-                .clientSecret("My Client Secret")
+                .accessToken("My Access Token")
                 .build()
         val followingServiceAsync = client.me().following()
 
@@ -79,8 +76,7 @@ internal class FollowingServiceAsyncTest {
         val client =
             SpottedOkHttpClientAsync.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .clientId("My Client ID")
-                .clientSecret("My Client Secret")
+                .accessToken("My Access Token")
                 .build()
         val followingServiceAsync = client.me().following()
 

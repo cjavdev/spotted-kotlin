@@ -17,8 +17,7 @@ internal class MeServiceTest {
         val client =
             SpottedOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .clientId("My Client ID")
-                .clientSecret("My Client Secret")
+                .accessToken("My Access Token")
                 .build()
         val meService = client.me()
 

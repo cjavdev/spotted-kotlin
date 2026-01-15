@@ -19,8 +19,7 @@ internal class ChapterServiceAsyncTest {
         val client =
             SpottedOkHttpClientAsync.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .clientId("My Client ID")
-                .clientSecret("My Client Secret")
+                .accessToken("My Access Token")
                 .build()
         val chapterServiceAsync = client.chapters()
 
@@ -38,8 +37,7 @@ internal class ChapterServiceAsyncTest {
         val client =
             SpottedOkHttpClientAsync.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .clientId("My Client ID")
-                .clientSecret("My Client Secret")
+                .accessToken("My Access Token")
                 .build()
         val chapterServiceAsync = client.chapters()
 

@@ -26,8 +26,7 @@ internal class ImageServiceAsyncTest {
         val client =
             SpottedOkHttpClientAsync.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
-                .clientId("My Client ID")
-                .clientSecret("My Client Secret")
+                .accessToken("My Access Token")
                 .build()
         val imageServiceAsync = client.playlists().images()
         stubFor(put(anyUrl()).willReturn(ok().withBody("abc")))
@@ -43,8 +42,7 @@ internal class ImageServiceAsyncTest {
         val client =
             SpottedOkHttpClientAsync.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .clientId("My Client ID")
-                .clientSecret("My Client Secret")
+                .accessToken("My Access Token")
                 .build()
         val imageServiceAsync = client.playlists().images()
 

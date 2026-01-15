@@ -19,8 +19,7 @@ internal class BrowseServiceTest {
         val client =
             SpottedOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .clientId("My Client ID")
-                .clientSecret("My Client Secret")
+                .accessToken("My Access Token")
                 .build()
         val browseService = client.browse()
 
@@ -42,8 +41,7 @@ internal class BrowseServiceTest {
         val client =
             SpottedOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .clientId("My Client ID")
-                .clientSecret("My Client Secret")
+                .accessToken("My Access Token")
                 .build()
         val browseService = client.browse()
 

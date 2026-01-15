@@ -30,8 +30,7 @@ internal class ServiceParamsTest {
         client =
             SpottedOkHttpClient.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
-                .clientId("My Client ID")
-                .clientSecret("My Client Secret")
+                .accessToken("My Access Token")
                 .build()
     }
 

@@ -53,11 +53,7 @@ internal class ProGuardCompatibilityTest {
 
     @Test
     fun client() {
-        val client =
-            SpottedOkHttpClient.builder()
-                .clientId("My Client ID")
-                .clientSecret("My Client Secret")
-                .build()
+        val client = SpottedOkHttpClient.builder().accessToken("My Access Token").build()
 
         assertThat(client).isNotNull()
         assertThat(client.albums()).isNotNull()
