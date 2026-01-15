@@ -1,4 +1,4 @@
-# Spotted Kotlin API Library
+# Unofficial Spotify API Library
 
 <!-- x-release-please-start-version -->
 
@@ -7,7 +7,7 @@
 
 <!-- x-release-please-end -->
 
-The Spotted Kotlin SDK provides convenient access to the [Spotify Web API](https://spotted.stldocs.com) from applications written in Kotlin.
+The Unofficial Spotify SDK provides convenient access to the [Spotify Web API](https://spotted.stldocs.com) from applications written in Kotlin.
 
 The Spotted Kotlin SDK is similar to the Spotted Java SDK but with minor differences that make it more ergonomic for use in Kotlin, such as nullable values instead of `Optional`, `Sequence` instead of `Stream`, and suspend functions instead of `CompletableFuture`.
 
