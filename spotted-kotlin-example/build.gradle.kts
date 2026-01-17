@@ -4,7 +4,8 @@ plugins {
 }
 
 dependencies {
-    implementation(project(":spotted-kotlin"))
+    implementation(project(":spotted-kotlin-core"))
+    implementation(project(":spotted-kotlin-client-okhttp"))
 }
 
 application {
