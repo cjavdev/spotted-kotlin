@@ -13,6 +13,7 @@ import java.util.Objects
  * Audiobooks are only available within the US, UK, Canada, Ireland, New Zealand and Australia
  * markets.
  */
+@Deprecated("deprecated")
 class AudiobookBulkRetrieveParams
 private constructor(
     private val ids: String,

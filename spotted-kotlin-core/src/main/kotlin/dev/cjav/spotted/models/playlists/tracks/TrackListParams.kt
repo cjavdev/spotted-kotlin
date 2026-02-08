@@ -7,7 +7,11 @@ import dev.cjav.spotted.core.http.Headers
 import dev.cjav.spotted.core.http.QueryParams
 import java.util.Objects
 
-/** Get full details of the items of a playlist owned by a Spotify user. */
+/**
+ * Get full details of the items of a playlist owned by a Spotify user.
+ *
+ * **Note**: This endpoint is only accessible for playlists owned by the current user.
+ */
 class TrackListParams
 private constructor(
     private val playlistId: String?,

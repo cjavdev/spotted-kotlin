@@ -9,6 +9,7 @@ import dev.cjav.spotted.core.http.QueryParams
 import java.util.Objects
 
 /** Get Spotify catalog information for several shows based on their Spotify IDs. */
+@Deprecated("deprecated")
 class ShowBulkRetrieveParams
 private constructor(
     private val ids: String,

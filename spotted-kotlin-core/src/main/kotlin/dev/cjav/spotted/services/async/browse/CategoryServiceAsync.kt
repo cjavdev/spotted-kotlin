@@ -31,6 +31,7 @@ interface CategoryServiceAsync {
      * Get a single category used to tag items in Spotify (on, for example, the Spotify player’s
      * “Browse” tab).
      */
+    @Deprecated("deprecated")
     suspend fun retrieve(
         categoryId: String,
         params: CategoryRetrieveParams = CategoryRetrieveParams.none(),
@@ -39,12 +40,14 @@ interface CategoryServiceAsync {
         retrieve(params.toBuilder().categoryId(categoryId).build(), requestOptions)
 
     /** @see retrieve */
+    @Deprecated("deprecated")
     suspend fun retrieve(
         params: CategoryRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CategoryRetrieveResponse
 
     /** @see retrieve */
+    @Deprecated("deprecated")
     suspend fun retrieve(
         categoryId: String,
         requestOptions: RequestOptions,
@@ -55,12 +58,14 @@ interface CategoryServiceAsync {
      * Get a list of categories used to tag items in Spotify (on, for example, the Spotify player’s
      * “Browse” tab).
      */
+    @Deprecated("deprecated")
     suspend fun list(
         params: CategoryListParams = CategoryListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CategoryListPageAsync
 
     /** @see list */
+    @Deprecated("deprecated")
     suspend fun list(requestOptions: RequestOptions): CategoryListPageAsync =
         list(CategoryListParams.none(), requestOptions)
 
@@ -106,6 +111,7 @@ interface CategoryServiceAsync {
          * Returns a raw HTTP response for `get /browse/categories/{category_id}`, but is otherwise
          * the same as [CategoryServiceAsync.retrieve].
          */
+        @Deprecated("deprecated")
         @MustBeClosed
         suspend fun retrieve(
             categoryId: String,
@@ -115,6 +121,7 @@ interface CategoryServiceAsync {
             retrieve(params.toBuilder().categoryId(categoryId).build(), requestOptions)
 
         /** @see retrieve */
+        @Deprecated("deprecated")
         @MustBeClosed
         suspend fun retrieve(
             params: CategoryRetrieveParams,
@@ -122,6 +129,7 @@ interface CategoryServiceAsync {
         ): HttpResponseFor<CategoryRetrieveResponse>
 
         /** @see retrieve */
+        @Deprecated("deprecated")
         @MustBeClosed
         suspend fun retrieve(
             categoryId: String,
@@ -133,6 +141,7 @@ interface CategoryServiceAsync {
          * Returns a raw HTTP response for `get /browse/categories`, but is otherwise the same as
          * [CategoryServiceAsync.list].
          */
+        @Deprecated("deprecated")
         @MustBeClosed
         suspend fun list(
             params: CategoryListParams = CategoryListParams.none(),
@@ -140,6 +149,7 @@ interface CategoryServiceAsync {
         ): HttpResponseFor<CategoryListPageAsync>
 
         /** @see list */
+        @Deprecated("deprecated")
         @MustBeClosed
         suspend fun list(requestOptions: RequestOptions): HttpResponseFor<CategoryListPageAsync> =
             list(CategoryListParams.none(), requestOptions)

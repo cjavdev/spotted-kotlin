@@ -870,6 +870,7 @@ private constructor(
              *   unexpectedly missing or null (e.g. if the server responded with an unexpected
              *   value).
              */
+            @Deprecated("deprecated")
             fun availableMarkets(): List<String> = availableMarkets.getRequired("available_markets")
 
             /**
@@ -1010,6 +1011,7 @@ private constructor(
              * Unlike [availableMarkets], this method doesn't throw if the JSON field has an
              * unexpected type.
              */
+            @Deprecated("deprecated")
             @JsonProperty("available_markets")
             @ExcludeMissing
             fun _availableMarkets(): JsonField<List<String>> = availableMarkets
@@ -1242,6 +1244,7 @@ private constructor(
                  * _**NOTE**: an album is considered available in a market when at least 1 of its
                  * tracks is available in that market._
                  */
+                @Deprecated("deprecated")
                 fun availableMarkets(availableMarkets: List<String>) =
                     availableMarkets(JsonField.of(availableMarkets))
 
@@ -1252,6 +1255,7 @@ private constructor(
                  * `List<String>` value instead. This method is primarily for setting the field to
                  * an undocumented or not yet supported value.
                  */
+                @Deprecated("deprecated")
                 fun availableMarkets(availableMarkets: JsonField<List<String>>) = apply {
                     this.availableMarkets = availableMarkets.map { it.toMutableList() }
                 }
@@ -1261,6 +1265,7 @@ private constructor(
                  *
                  * @throws IllegalStateException if the field was previously set to a non-list.
                  */
+                @Deprecated("deprecated")
                 fun addAvailableMarket(availableMarket: String) = apply {
                     availableMarkets =
                         (availableMarkets ?: JsonField.of(mutableListOf())).also {

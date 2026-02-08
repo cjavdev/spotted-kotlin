@@ -49,12 +49,14 @@ interface BrowseServiceAsync {
      * Get a list of new album releases featured in Spotify (shown, for example, on a Spotify
      * player’s “Browse” tab).
      */
+    @Deprecated("deprecated")
     suspend fun getNewReleases(
         params: BrowseGetNewReleasesParams = BrowseGetNewReleasesParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): BrowseGetNewReleasesResponse
 
     /** @see getNewReleases */
+    @Deprecated("deprecated")
     suspend fun getNewReleases(requestOptions: RequestOptions): BrowseGetNewReleasesResponse =
         getNewReleases(BrowseGetNewReleasesParams.none(), requestOptions)
 
@@ -97,6 +99,7 @@ interface BrowseServiceAsync {
          * Returns a raw HTTP response for `get /browse/new-releases`, but is otherwise the same as
          * [BrowseServiceAsync.getNewReleases].
          */
+        @Deprecated("deprecated")
         @MustBeClosed
         suspend fun getNewReleases(
             params: BrowseGetNewReleasesParams = BrowseGetNewReleasesParams.none(),
@@ -104,6 +107,7 @@ interface BrowseServiceAsync {
         ): HttpResponseFor<BrowseGetNewReleasesResponse>
 
         /** @see getNewReleases */
+        @Deprecated("deprecated")
         @MustBeClosed
         suspend fun getNewReleases(
             requestOptions: RequestOptions

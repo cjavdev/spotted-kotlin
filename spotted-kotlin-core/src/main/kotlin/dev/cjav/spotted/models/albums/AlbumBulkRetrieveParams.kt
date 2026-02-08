@@ -9,6 +9,7 @@ import dev.cjav.spotted.core.http.QueryParams
 import java.util.Objects
 
 /** Get Spotify catalog information for multiple albums identified by their Spotify IDs. */
+@Deprecated("deprecated")
 class AlbumBulkRetrieveParams
 private constructor(
     private val ids: String,

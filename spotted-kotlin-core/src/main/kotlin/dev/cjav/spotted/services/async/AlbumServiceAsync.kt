@@ -45,6 +45,7 @@ interface AlbumServiceAsync {
         retrieve(id, AlbumRetrieveParams.none(), requestOptions)
 
     /** Get Spotify catalog information for multiple albums identified by their Spotify IDs. */
+    @Deprecated("deprecated")
     suspend fun bulkRetrieve(
         params: AlbumBulkRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -113,6 +114,7 @@ interface AlbumServiceAsync {
          * Returns a raw HTTP response for `get /albums`, but is otherwise the same as
          * [AlbumServiceAsync.bulkRetrieve].
          */
+        @Deprecated("deprecated")
         @MustBeClosed
         suspend fun bulkRetrieve(
             params: AlbumBulkRetrieveParams,

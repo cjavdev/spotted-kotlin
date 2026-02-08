@@ -27,6 +27,7 @@ interface UserServiceAsync {
     fun playlists(): PlaylistServiceAsync
 
     /** Get public profile information about a Spotify user. */
+    @Deprecated("deprecated")
     suspend fun retrieveProfile(
         userId: String,
         params: UserRetrieveProfileParams = UserRetrieveProfileParams.none(),
@@ -35,12 +36,14 @@ interface UserServiceAsync {
         retrieveProfile(params.toBuilder().userId(userId).build(), requestOptions)
 
     /** @see retrieveProfile */
+    @Deprecated("deprecated")
     suspend fun retrieveProfile(
         params: UserRetrieveProfileParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): UserRetrieveProfileResponse
 
     /** @see retrieveProfile */
+    @Deprecated("deprecated")
     suspend fun retrieveProfile(
         userId: String,
         requestOptions: RequestOptions,
@@ -63,6 +66,7 @@ interface UserServiceAsync {
          * Returns a raw HTTP response for `get /users/{user_id}`, but is otherwise the same as
          * [UserServiceAsync.retrieveProfile].
          */
+        @Deprecated("deprecated")
         @MustBeClosed
         suspend fun retrieveProfile(
             userId: String,
@@ -72,6 +76,7 @@ interface UserServiceAsync {
             retrieveProfile(params.toBuilder().userId(userId).build(), requestOptions)
 
         /** @see retrieveProfile */
+        @Deprecated("deprecated")
         @MustBeClosed
         suspend fun retrieveProfile(
             params: UserRetrieveProfileParams,
@@ -79,6 +84,7 @@ interface UserServiceAsync {
         ): HttpResponseFor<UserRetrieveProfileResponse>
 
         /** @see retrieveProfile */
+        @Deprecated("deprecated")
         @MustBeClosed
         suspend fun retrieveProfile(
             userId: String,

@@ -361,6 +361,7 @@ private constructor(
          * @throws SpottedInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
+        @Deprecated("deprecated")
         fun availableMarkets(): List<String> = availableMarkets.getRequired("available_markets")
 
         /**
@@ -464,6 +465,7 @@ private constructor(
          * @throws SpottedInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
+        @Deprecated("deprecated")
         fun externalIds(): ExternalIdObject? = externalIds.getNullable("external_ids")
 
         /**
@@ -480,7 +482,7 @@ private constructor(
          * @throws SpottedInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
-        fun label(): String? = label.getNullable("label")
+        @Deprecated("deprecated") fun label(): String? = label.getNullable("label")
 
         /**
          * The popularity of the album. The value will be between 0 and 100, with 100 being the most
@@ -489,7 +491,7 @@ private constructor(
          * @throws SpottedInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
-        fun popularity(): Long? = popularity.getNullable("popularity")
+        @Deprecated("deprecated") fun popularity(): Long? = popularity.getNullable("popularity")
 
         /**
          * The playlist's public/private status (if it should be added to the user's profile or
@@ -540,6 +542,7 @@ private constructor(
          * Unlike [availableMarkets], this method doesn't throw if the JSON field has an unexpected
          * type.
          */
+        @Deprecated("deprecated")
         @JsonProperty("available_markets")
         @ExcludeMissing
         fun _availableMarkets(): JsonField<List<String>> = availableMarkets
@@ -633,6 +636,7 @@ private constructor(
          *
          * Unlike [externalIds], this method doesn't throw if the JSON field has an unexpected type.
          */
+        @Deprecated("deprecated")
         @JsonProperty("external_ids")
         @ExcludeMissing
         fun _externalIds(): JsonField<ExternalIdObject> = externalIds
@@ -652,14 +656,20 @@ private constructor(
          *
          * Unlike [label], this method doesn't throw if the JSON field has an unexpected type.
          */
-        @JsonProperty("label") @ExcludeMissing fun _label(): JsonField<String> = label
+        @Deprecated("deprecated")
+        @JsonProperty("label")
+        @ExcludeMissing
+        fun _label(): JsonField<String> = label
 
         /**
          * Returns the raw JSON value of [popularity].
          *
          * Unlike [popularity], this method doesn't throw if the JSON field has an unexpected type.
          */
-        @JsonProperty("popularity") @ExcludeMissing fun _popularity(): JsonField<Long> = popularity
+        @Deprecated("deprecated")
+        @JsonProperty("popularity")
+        @ExcludeMissing
+        fun _popularity(): JsonField<Long> = popularity
 
         /**
          * Returns the raw JSON value of [published].
@@ -801,6 +811,7 @@ private constructor(
              * _**NOTE**: an album is considered available in a market when at least 1 of its tracks
              * is available in that market._
              */
+            @Deprecated("deprecated")
             fun availableMarkets(availableMarkets: List<String>) =
                 availableMarkets(JsonField.of(availableMarkets))
 
@@ -811,6 +822,7 @@ private constructor(
              * value instead. This method is primarily for setting the field to an undocumented or
              * not yet supported value.
              */
+            @Deprecated("deprecated")
             fun availableMarkets(availableMarkets: JsonField<List<String>>) = apply {
                 this.availableMarkets = availableMarkets.map { it.toMutableList() }
             }
@@ -820,6 +832,7 @@ private constructor(
              *
              * @throws IllegalStateException if the field was previously set to a non-list.
              */
+            @Deprecated("deprecated")
             fun addAvailableMarket(availableMarket: String) = apply {
                 availableMarkets =
                     (availableMarkets ?: JsonField.of(mutableListOf())).also {
@@ -1021,6 +1034,7 @@ private constructor(
             }
 
             /** Known external IDs for the album. */
+            @Deprecated("deprecated")
             fun externalIds(externalIds: ExternalIdObject) = externalIds(JsonField.of(externalIds))
 
             /**
@@ -1030,6 +1044,7 @@ private constructor(
              * value instead. This method is primarily for setting the field to an undocumented or
              * not yet supported value.
              */
+            @Deprecated("deprecated")
             fun externalIds(externalIds: JsonField<ExternalIdObject>) = apply {
                 this.externalIds = externalIds
             }
@@ -1064,7 +1079,7 @@ private constructor(
             }
 
             /** The label associated with the album. */
-            fun label(label: String) = label(JsonField.of(label))
+            @Deprecated("deprecated") fun label(label: String) = label(JsonField.of(label))
 
             /**
              * Sets [Builder.label] to an arbitrary JSON value.
@@ -1073,12 +1088,14 @@ private constructor(
              * This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
+            @Deprecated("deprecated")
             fun label(label: JsonField<String>) = apply { this.label = label }
 
             /**
              * The popularity of the album. The value will be between 0 and 100, with 100 being the
              * most popular.
              */
+            @Deprecated("deprecated")
             fun popularity(popularity: Long) = popularity(JsonField.of(popularity))
 
             /**
@@ -1088,6 +1105,7 @@ private constructor(
              * This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
+            @Deprecated("deprecated")
             fun popularity(popularity: JsonField<Long>) = apply { this.popularity = popularity }
 
             /**

@@ -50,6 +50,7 @@ interface ChapterService {
      * IDs. Chapters are only available within the US, UK, Canada, Ireland, New Zealand and
      * Australia markets.
      */
+    @Deprecated("deprecated")
     fun bulkRetrieve(
         params: ChapterBulkRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -96,6 +97,7 @@ interface ChapterService {
          * Returns a raw HTTP response for `get /chapters`, but is otherwise the same as
          * [ChapterService.bulkRetrieve].
          */
+        @Deprecated("deprecated")
         @MustBeClosed
         fun bulkRetrieve(
             params: ChapterBulkRetrieveParams,

@@ -45,6 +45,7 @@ class BrowseServiceAsyncImpl internal constructor(private val clientOptions: Cli
         // get /browse/featured-playlists
         withRawResponse().getFeaturedPlaylists(params, requestOptions).parse()
 
+    @Deprecated("deprecated")
     override suspend fun getNewReleases(
         params: BrowseGetNewReleasesParams,
         requestOptions: RequestOptions,
@@ -102,6 +103,7 @@ class BrowseServiceAsyncImpl internal constructor(private val clientOptions: Cli
         private val getNewReleasesHandler: Handler<BrowseGetNewReleasesResponse> =
             jsonHandler<BrowseGetNewReleasesResponse>(clientOptions.jsonMapper)
 
+        @Deprecated("deprecated")
         override suspend fun getNewReleases(
             params: BrowseGetNewReleasesParams,
             requestOptions: RequestOptions,

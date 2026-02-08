@@ -291,6 +291,7 @@ private constructor(
      * @throws SpottedInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
+    @Deprecated("deprecated")
     fun availableMarkets(): List<String>? = availableMarkets.getNullable("available_markets")
 
     /**
@@ -462,6 +463,7 @@ private constructor(
      * Unlike [availableMarkets], this method doesn't throw if the JSON field has an unexpected
      * type.
      */
+    @Deprecated("deprecated")
     @JsonProperty("available_markets")
     @ExcludeMissing
     fun _availableMarkets(): JsonField<List<String>> = availableMarkets
@@ -857,6 +859,7 @@ private constructor(
          * A list of the countries in which the chapter can be played, identified by their
          * [ISO 3166-1 alpha-2](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) code.
          */
+        @Deprecated("deprecated")
         fun availableMarkets(availableMarkets: List<String>) =
             availableMarkets(JsonField.of(availableMarkets))
 
@@ -867,6 +870,7 @@ private constructor(
          * instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
+        @Deprecated("deprecated")
         fun availableMarkets(availableMarkets: JsonField<List<String>>) = apply {
             this.availableMarkets = availableMarkets.map { it.toMutableList() }
         }
@@ -876,6 +880,7 @@ private constructor(
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
+        @Deprecated("deprecated")
         fun addAvailableMarket(availableMarket: String) = apply {
             availableMarkets =
                 (availableMarkets ?: JsonField.of(mutableListOf())).also {

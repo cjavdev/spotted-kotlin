@@ -9,6 +9,7 @@ import dev.cjav.spotted.services.async.browse.CategoryServiceAsync
 import java.util.Objects
 
 /** @see CategoryServiceAsync.list */
+@Deprecated("deprecated")
 class CategoryListPageAsync
 private constructor(
     private val service: CategoryServiceAsync,

@@ -52,6 +52,7 @@ interface AudiobookServiceAsync {
      * Audiobooks are only available within the US, UK, Canada, Ireland, New Zealand and Australia
      * markets.
      */
+    @Deprecated("deprecated")
     suspend fun bulkRetrieve(
         params: AudiobookBulkRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -126,6 +127,7 @@ interface AudiobookServiceAsync {
          * Returns a raw HTTP response for `get /audiobooks`, but is otherwise the same as
          * [AudiobookServiceAsync.bulkRetrieve].
          */
+        @Deprecated("deprecated")
         @MustBeClosed
         suspend fun bulkRetrieve(
             params: AudiobookBulkRetrieveParams,

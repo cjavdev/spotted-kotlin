@@ -8,6 +8,7 @@ import dev.cjav.spotted.core.http.QueryParams
 import java.util.Objects
 
 /** Get public profile information about a Spotify user. */
+@Deprecated("deprecated")
 class UserRetrieveProfileParams
 private constructor(
     private val userId: String?,

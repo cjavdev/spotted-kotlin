@@ -51,12 +51,14 @@ interface ArtistService {
         retrieve(id, ArtistRetrieveParams.none(), requestOptions)
 
     /** Get Spotify catalog information for several artists based on their Spotify IDs. */
+    @Deprecated("deprecated")
     fun bulkRetrieve(
         params: ArtistBulkRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ArtistBulkRetrieveResponse
 
     /** Get Spotify catalog information about an artist's albums. */
+    @Deprecated("deprecated")
     fun listAlbums(
         id: String,
         params: ArtistListAlbumsParams = ArtistListAlbumsParams.none(),
@@ -64,12 +66,14 @@ interface ArtistService {
     ): ArtistListAlbumsPage = listAlbums(params.toBuilder().id(id).build(), requestOptions)
 
     /** @see listAlbums */
+    @Deprecated("deprecated")
     fun listAlbums(
         params: ArtistListAlbumsParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ArtistListAlbumsPage
 
     /** @see listAlbums */
+    @Deprecated("deprecated")
     fun listAlbums(id: String, requestOptions: RequestOptions): ArtistListAlbumsPage =
         listAlbums(id, ArtistListAlbumsParams.none(), requestOptions)
 
@@ -101,6 +105,7 @@ interface ArtistService {
         listRelatedArtists(id, ArtistListRelatedArtistsParams.none(), requestOptions)
 
     /** Get Spotify catalog information about an artist's top tracks by country. */
+    @Deprecated("deprecated")
     fun topTracks(
         id: String,
         params: ArtistTopTracksParams = ArtistTopTracksParams.none(),
@@ -108,12 +113,14 @@ interface ArtistService {
     ): ArtistTopTracksResponse = topTracks(params.toBuilder().id(id).build(), requestOptions)
 
     /** @see topTracks */
+    @Deprecated("deprecated")
     fun topTracks(
         params: ArtistTopTracksParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ArtistTopTracksResponse
 
     /** @see topTracks */
+    @Deprecated("deprecated")
     fun topTracks(id: String, requestOptions: RequestOptions): ArtistTopTracksResponse =
         topTracks(id, ArtistTopTracksParams.none(), requestOptions)
 
@@ -155,6 +162,7 @@ interface ArtistService {
          * Returns a raw HTTP response for `get /artists`, but is otherwise the same as
          * [ArtistService.bulkRetrieve].
          */
+        @Deprecated("deprecated")
         @MustBeClosed
         fun bulkRetrieve(
             params: ArtistBulkRetrieveParams,
@@ -165,6 +173,7 @@ interface ArtistService {
          * Returns a raw HTTP response for `get /artists/{id}/albums`, but is otherwise the same as
          * [ArtistService.listAlbums].
          */
+        @Deprecated("deprecated")
         @MustBeClosed
         fun listAlbums(
             id: String,
@@ -174,6 +183,7 @@ interface ArtistService {
             listAlbums(params.toBuilder().id(id).build(), requestOptions)
 
         /** @see listAlbums */
+        @Deprecated("deprecated")
         @MustBeClosed
         fun listAlbums(
             params: ArtistListAlbumsParams,
@@ -181,6 +191,7 @@ interface ArtistService {
         ): HttpResponseFor<ArtistListAlbumsPage>
 
         /** @see listAlbums */
+        @Deprecated("deprecated")
         @MustBeClosed
         fun listAlbums(
             id: String,
@@ -222,6 +233,7 @@ interface ArtistService {
          * Returns a raw HTTP response for `get /artists/{id}/top-tracks`, but is otherwise the same
          * as [ArtistService.topTracks].
          */
+        @Deprecated("deprecated")
         @MustBeClosed
         fun topTracks(
             id: String,
@@ -231,6 +243,7 @@ interface ArtistService {
             topTracks(params.toBuilder().id(id).build(), requestOptions)
 
         /** @see topTracks */
+        @Deprecated("deprecated")
         @MustBeClosed
         fun topTracks(
             params: ArtistTopTracksParams,
@@ -238,6 +251,7 @@ interface ArtistService {
         ): HttpResponseFor<ArtistTopTracksResponse>
 
         /** @see topTracks */
+        @Deprecated("deprecated")
         @MustBeClosed
         fun topTracks(
             id: String,

@@ -184,7 +184,8 @@ private constructor(
     fun snapshotId(): String? = snapshotId.getNullable("snapshot_id")
 
     /**
-     * The tracks of the playlist.
+     * The tracks of the playlist. _**Note**: This field is only available for playlists owned by
+     * the current user._
      *
      * @throws SpottedInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -529,7 +530,10 @@ private constructor(
          */
         fun snapshotId(snapshotId: JsonField<String>) = apply { this.snapshotId = snapshotId }
 
-        /** The tracks of the playlist. */
+        /**
+         * The tracks of the playlist. _**Note**: This field is only available for playlists owned
+         * by the current user._
+         */
         fun tracks(tracks: Tracks) = tracks(JsonField.of(tracks))
 
         /**
@@ -1067,7 +1071,10 @@ private constructor(
             "Owner{id=$id, externalUrls=$externalUrls, href=$href, published=$published, type=$type, uri=$uri, displayName=$displayName, additionalProperties=$additionalProperties}"
     }
 
-    /** The tracks of the playlist. */
+    /**
+     * The tracks of the playlist. _**Note**: This field is only available for playlists owned by
+     * the current user._
+     */
     class Tracks
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(

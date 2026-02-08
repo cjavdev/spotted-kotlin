@@ -36,6 +36,7 @@ class UserServiceAsyncImpl internal constructor(private val clientOptions: Clien
 
     override fun playlists(): PlaylistServiceAsync = playlists
 
+    @Deprecated("deprecated")
     override suspend fun retrieveProfile(
         params: UserRetrieveProfileParams,
         requestOptions: RequestOptions,
@@ -65,6 +66,7 @@ class UserServiceAsyncImpl internal constructor(private val clientOptions: Clien
         private val retrieveProfileHandler: Handler<UserRetrieveProfileResponse> =
             jsonHandler<UserRetrieveProfileResponse>(clientOptions.jsonMapper)
 
+        @Deprecated("deprecated")
         override suspend fun retrieveProfile(
             params: UserRetrieveProfileParams,
             requestOptions: RequestOptions,

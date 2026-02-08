@@ -43,6 +43,7 @@ interface TrackService {
         retrieve(id, TrackRetrieveParams.none(), requestOptions)
 
     /** Get Spotify catalog information for multiple tracks based on their Spotify IDs. */
+    @Deprecated("deprecated")
     fun bulkRetrieve(
         params: TrackBulkRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -86,6 +87,7 @@ interface TrackService {
          * Returns a raw HTTP response for `get /tracks`, but is otherwise the same as
          * [TrackService.bulkRetrieve].
          */
+        @Deprecated("deprecated")
         @MustBeClosed
         fun bulkRetrieve(
             params: TrackBulkRetrieveParams,

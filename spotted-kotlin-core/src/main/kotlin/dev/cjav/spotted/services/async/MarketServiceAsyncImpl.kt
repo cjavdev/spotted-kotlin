@@ -29,6 +29,7 @@ class MarketServiceAsyncImpl internal constructor(private val clientOptions: Cli
     override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): MarketServiceAsync =
         MarketServiceAsyncImpl(clientOptions.toBuilder().apply(modifier).build())
 
+    @Deprecated("deprecated")
     override suspend fun list(
         params: MarketListParams,
         requestOptions: RequestOptions,
@@ -52,6 +53,7 @@ class MarketServiceAsyncImpl internal constructor(private val clientOptions: Cli
         private val listHandler: Handler<MarketListResponse> =
             jsonHandler<MarketListResponse>(clientOptions.jsonMapper)
 
+        @Deprecated("deprecated")
         override suspend fun list(
             params: MarketListParams,
             requestOptions: RequestOptions,

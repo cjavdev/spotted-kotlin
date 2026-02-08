@@ -27,6 +27,7 @@ interface UserService {
     fun playlists(): PlaylistService
 
     /** Get public profile information about a Spotify user. */
+    @Deprecated("deprecated")
     fun retrieveProfile(
         userId: String,
         params: UserRetrieveProfileParams = UserRetrieveProfileParams.none(),
@@ -35,12 +36,14 @@ interface UserService {
         retrieveProfile(params.toBuilder().userId(userId).build(), requestOptions)
 
     /** @see retrieveProfile */
+    @Deprecated("deprecated")
     fun retrieveProfile(
         params: UserRetrieveProfileParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): UserRetrieveProfileResponse
 
     /** @see retrieveProfile */
+    @Deprecated("deprecated")
     fun retrieveProfile(
         userId: String,
         requestOptions: RequestOptions,
@@ -63,6 +66,7 @@ interface UserService {
          * Returns a raw HTTP response for `get /users/{user_id}`, but is otherwise the same as
          * [UserService.retrieveProfile].
          */
+        @Deprecated("deprecated")
         @MustBeClosed
         fun retrieveProfile(
             userId: String,
@@ -72,6 +76,7 @@ interface UserService {
             retrieveProfile(params.toBuilder().userId(userId).build(), requestOptions)
 
         /** @see retrieveProfile */
+        @Deprecated("deprecated")
         @MustBeClosed
         fun retrieveProfile(
             params: UserRetrieveProfileParams,
@@ -79,6 +84,7 @@ interface UserService {
         ): HttpResponseFor<UserRetrieveProfileResponse>
 
         /** @see retrieveProfile */
+        @Deprecated("deprecated")
         @MustBeClosed
         fun retrieveProfile(
             userId: String,

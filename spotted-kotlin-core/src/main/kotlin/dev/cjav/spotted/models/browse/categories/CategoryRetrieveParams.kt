@@ -11,6 +11,7 @@ import java.util.Objects
  * Get a single category used to tag items in Spotify (on, for example, the Spotify player’s
  * “Browse” tab).
  */
+@Deprecated("deprecated")
 class CategoryRetrieveParams
 private constructor(
     private val categoryId: String?,

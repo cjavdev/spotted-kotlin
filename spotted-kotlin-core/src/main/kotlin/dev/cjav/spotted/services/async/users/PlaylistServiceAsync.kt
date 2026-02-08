@@ -26,10 +26,14 @@ interface PlaylistServiceAsync {
     fun withOptions(modifier: (ClientOptions.Builder) -> Unit): PlaylistServiceAsync
 
     /**
+     * **Deprecated**: Use [Create Playlist](/documentation/web-api/reference/create-playlist)
+     * instead.
+     *
      * Create a playlist for a Spotify user. (The playlist will be empty until you
      * [add tracks](/documentation/web-api/reference/add-tracks-to-playlist).) Each user is
      * generally limited to a maximum of 11000 playlists.
      */
+    @Deprecated("deprecated")
     suspend fun create(
         userId: String,
         params: PlaylistCreateParams,
@@ -37,12 +41,14 @@ interface PlaylistServiceAsync {
     ): PlaylistCreateResponse = create(params.toBuilder().userId(userId).build(), requestOptions)
 
     /** @see create */
+    @Deprecated("deprecated")
     suspend fun create(
         params: PlaylistCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PlaylistCreateResponse
 
     /** Get a list of the playlists owned or followed by a Spotify user. */
+    @Deprecated("deprecated")
     suspend fun list(
         userId: String,
         params: PlaylistListParams = PlaylistListParams.none(),
@@ -50,12 +56,14 @@ interface PlaylistServiceAsync {
     ): PlaylistListPageAsync = list(params.toBuilder().userId(userId).build(), requestOptions)
 
     /** @see list */
+    @Deprecated("deprecated")
     suspend fun list(
         params: PlaylistListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PlaylistListPageAsync
 
     /** @see list */
+    @Deprecated("deprecated")
     suspend fun list(userId: String, requestOptions: RequestOptions): PlaylistListPageAsync =
         list(userId, PlaylistListParams.none(), requestOptions)
 
@@ -77,6 +85,7 @@ interface PlaylistServiceAsync {
          * Returns a raw HTTP response for `post /users/{user_id}/playlists`, but is otherwise the
          * same as [PlaylistServiceAsync.create].
          */
+        @Deprecated("deprecated")
         @MustBeClosed
         suspend fun create(
             userId: String,
@@ -86,6 +95,7 @@ interface PlaylistServiceAsync {
             create(params.toBuilder().userId(userId).build(), requestOptions)
 
         /** @see create */
+        @Deprecated("deprecated")
         @MustBeClosed
         suspend fun create(
             params: PlaylistCreateParams,
@@ -96,6 +106,7 @@ interface PlaylistServiceAsync {
          * Returns a raw HTTP response for `get /users/{user_id}/playlists`, but is otherwise the
          * same as [PlaylistServiceAsync.list].
          */
+        @Deprecated("deprecated")
         @MustBeClosed
         suspend fun list(
             userId: String,
@@ -105,6 +116,7 @@ interface PlaylistServiceAsync {
             list(params.toBuilder().userId(userId).build(), requestOptions)
 
         /** @see list */
+        @Deprecated("deprecated")
         @MustBeClosed
         suspend fun list(
             params: PlaylistListParams,
@@ -112,6 +124,7 @@ interface PlaylistServiceAsync {
         ): HttpResponseFor<PlaylistListPageAsync>
 
         /** @see list */
+        @Deprecated("deprecated")
         @MustBeClosed
         suspend fun list(
             userId: String,

@@ -45,6 +45,7 @@ interface ShowService {
         retrieve(id, ShowRetrieveParams.none(), requestOptions)
 
     /** Get Spotify catalog information for several shows based on their Spotify IDs. */
+    @Deprecated("deprecated")
     fun bulkRetrieve(
         params: ShowBulkRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -111,6 +112,7 @@ interface ShowService {
          * Returns a raw HTTP response for `get /shows`, but is otherwise the same as
          * [ShowService.bulkRetrieve].
          */
+        @Deprecated("deprecated")
         @MustBeClosed
         fun bulkRetrieve(
             params: ShowBulkRetrieveParams,

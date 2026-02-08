@@ -45,6 +45,7 @@ interface AlbumService {
         retrieve(id, AlbumRetrieveParams.none(), requestOptions)
 
     /** Get Spotify catalog information for multiple albums identified by their Spotify IDs. */
+    @Deprecated("deprecated")
     fun bulkRetrieve(
         params: AlbumBulkRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -111,6 +112,7 @@ interface AlbumService {
          * Returns a raw HTTP response for `get /albums`, but is otherwise the same as
          * [AlbumService.bulkRetrieve].
          */
+        @Deprecated("deprecated")
         @MustBeClosed
         fun bulkRetrieve(
             params: AlbumBulkRetrieveParams,

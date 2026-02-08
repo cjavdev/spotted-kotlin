@@ -97,7 +97,7 @@ private constructor(
      * @throws SpottedInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun followers(): FollowersObject? = followers.getNullable("followers")
+    @Deprecated("deprecated") fun followers(): FollowersObject? = followers.getNullable("followers")
 
     /**
      * A link to the Web API endpoint for this user.
@@ -172,6 +172,7 @@ private constructor(
      *
      * Unlike [followers], this method doesn't throw if the JSON field has an unexpected type.
      */
+    @Deprecated("deprecated")
     @JsonProperty("followers")
     @ExcludeMissing
     fun _followers(): JsonField<FollowersObject> = followers
@@ -298,6 +299,7 @@ private constructor(
         }
 
         /** Information about the followers of this user. */
+        @Deprecated("deprecated")
         fun followers(followers: FollowersObject) = followers(JsonField.of(followers))
 
         /**
@@ -307,6 +309,7 @@ private constructor(
          * instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
+        @Deprecated("deprecated")
         fun followers(followers: JsonField<FollowersObject>) = apply { this.followers = followers }
 
         /** A link to the Web API endpoint for this user. */

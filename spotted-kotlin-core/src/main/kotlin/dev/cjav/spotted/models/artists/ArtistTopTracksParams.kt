@@ -8,6 +8,7 @@ import dev.cjav.spotted.core.http.QueryParams
 import java.util.Objects
 
 /** Get Spotify catalog information about an artist's top tracks by country. */
+@Deprecated("deprecated")
 class ArtistTopTracksParams
 private constructor(
     private val id: String?,

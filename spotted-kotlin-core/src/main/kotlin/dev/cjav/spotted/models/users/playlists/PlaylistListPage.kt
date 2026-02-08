@@ -11,6 +11,7 @@ import dev.cjav.spotted.services.blocking.users.PlaylistService
 import java.util.Objects
 
 /** @see PlaylistService.list */
+@Deprecated("deprecated")
 class PlaylistListPage
 private constructor(
     private val service: PlaylistService,

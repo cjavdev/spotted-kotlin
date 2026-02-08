@@ -8,6 +8,7 @@ import dev.cjav.spotted.core.http.QueryParams
 import java.util.Objects
 
 /** Get the list of markets where Spotify is available. */
+@Deprecated("deprecated")
 class MarketListParams
 private constructor(
     private val additionalHeaders: Headers,

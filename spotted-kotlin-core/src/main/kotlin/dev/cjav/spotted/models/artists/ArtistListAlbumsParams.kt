@@ -8,6 +8,7 @@ import dev.cjav.spotted.core.http.QueryParams
 import java.util.Objects
 
 /** Get Spotify catalog information about an artist's albums. */
+@Deprecated("deprecated")
 class ArtistListAlbumsParams
 private constructor(
     private val id: String?,
@@ -29,7 +30,7 @@ private constructor(
      */
     fun includeGroups(): String? = includeGroups
 
-    /** The maximum number of items to return. Default: 20. Minimum: 1. Maximum: 50. */
+    /** The maximum number of items to return. Default: 5. Minimum: 1. Maximum: 10. */
     fun limit(): Long? = limit
 
     /**
@@ -97,7 +98,7 @@ private constructor(
          */
         fun includeGroups(includeGroups: String?) = apply { this.includeGroups = includeGroups }
 
-        /** The maximum number of items to return. Default: 20. Minimum: 1. Maximum: 50. */
+        /** The maximum number of items to return. Default: 5. Minimum: 1. Maximum: 10. */
         fun limit(limit: Long?) = apply { this.limit = limit }
 
         /**

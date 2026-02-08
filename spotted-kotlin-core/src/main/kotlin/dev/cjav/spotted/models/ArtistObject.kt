@@ -90,7 +90,7 @@ private constructor(
      * @throws SpottedInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun followers(): FollowersObject? = followers.getNullable("followers")
+    @Deprecated("deprecated") fun followers(): FollowersObject? = followers.getNullable("followers")
 
     /**
      * A list of the genres the artist is associated with. If not yet classified, the array is
@@ -99,7 +99,7 @@ private constructor(
      * @throws SpottedInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun genres(): List<String>? = genres.getNullable("genres")
+    @Deprecated("deprecated") fun genres(): List<String>? = genres.getNullable("genres")
 
     /**
      * A link to the Web API endpoint providing full details of the artist.
@@ -133,7 +133,7 @@ private constructor(
      * @throws SpottedInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun popularity(): Long? = popularity.getNullable("popularity")
+    @Deprecated("deprecated") fun popularity(): Long? = popularity.getNullable("popularity")
 
     /**
      * The playlist's public/private status (if it should be added to the user's profile or not):
@@ -183,6 +183,7 @@ private constructor(
      *
      * Unlike [followers], this method doesn't throw if the JSON field has an unexpected type.
      */
+    @Deprecated("deprecated")
     @JsonProperty("followers")
     @ExcludeMissing
     fun _followers(): JsonField<FollowersObject> = followers
@@ -192,7 +193,10 @@ private constructor(
      *
      * Unlike [genres], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("genres") @ExcludeMissing fun _genres(): JsonField<List<String>> = genres
+    @Deprecated("deprecated")
+    @JsonProperty("genres")
+    @ExcludeMissing
+    fun _genres(): JsonField<List<String>> = genres
 
     /**
      * Returns the raw JSON value of [href].
@@ -220,7 +224,10 @@ private constructor(
      *
      * Unlike [popularity], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("popularity") @ExcludeMissing fun _popularity(): JsonField<Long> = popularity
+    @Deprecated("deprecated")
+    @JsonProperty("popularity")
+    @ExcludeMissing
+    fun _popularity(): JsonField<Long> = popularity
 
     /**
      * Returns the raw JSON value of [published].
@@ -318,6 +325,7 @@ private constructor(
         }
 
         /** Information about the followers of the artist. */
+        @Deprecated("deprecated")
         fun followers(followers: FollowersObject) = followers(JsonField.of(followers))
 
         /**
@@ -327,13 +335,14 @@ private constructor(
          * instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
+        @Deprecated("deprecated")
         fun followers(followers: JsonField<FollowersObject>) = apply { this.followers = followers }
 
         /**
          * A list of the genres the artist is associated with. If not yet classified, the array is
          * empty.
          */
-        fun genres(genres: List<String>) = genres(JsonField.of(genres))
+        @Deprecated("deprecated") fun genres(genres: List<String>) = genres(JsonField.of(genres))
 
         /**
          * Sets [Builder.genres] to an arbitrary JSON value.
@@ -342,6 +351,7 @@ private constructor(
          * This method is primarily for setting the field to an undocumented or not yet supported
          * value.
          */
+        @Deprecated("deprecated")
         fun genres(genres: JsonField<List<String>>) = apply {
             this.genres = genres.map { it.toMutableList() }
         }
@@ -351,6 +361,7 @@ private constructor(
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
+        @Deprecated("deprecated")
         fun addGenre(genre: String) = apply {
             genres =
                 (genres ?: JsonField.of(mutableListOf())).also {
@@ -411,6 +422,7 @@ private constructor(
          * most popular. The artist's popularity is calculated from the popularity of all the
          * artist's tracks.
          */
+        @Deprecated("deprecated")
         fun popularity(popularity: Long) = popularity(JsonField.of(popularity))
 
         /**
@@ -419,6 +431,7 @@ private constructor(
          * You should usually call [Builder.popularity] with a well-typed [Long] value instead. This
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
+        @Deprecated("deprecated")
         fun popularity(popularity: JsonField<Long>) = apply { this.popularity = popularity }
 
         /**

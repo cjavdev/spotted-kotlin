@@ -42,6 +42,7 @@ class AlbumServiceAsyncImpl internal constructor(private val clientOptions: Clie
         // get /albums/{id}
         withRawResponse().retrieve(params, requestOptions).parse()
 
+    @Deprecated("deprecated")
     override suspend fun bulkRetrieve(
         params: AlbumBulkRetrieveParams,
         requestOptions: RequestOptions,
@@ -102,6 +103,7 @@ class AlbumServiceAsyncImpl internal constructor(private val clientOptions: Clie
         private val bulkRetrieveHandler: Handler<AlbumBulkRetrieveResponse> =
             jsonHandler<AlbumBulkRetrieveResponse>(clientOptions.jsonMapper)
 
+        @Deprecated("deprecated")
         override suspend fun bulkRetrieve(
             params: AlbumBulkRetrieveParams,
             requestOptions: RequestOptions,

@@ -11,6 +11,7 @@ import dev.cjav.spotted.services.async.users.PlaylistServiceAsync
 import java.util.Objects
 
 /** @see PlaylistServiceAsync.list */
+@Deprecated("deprecated")
 class PlaylistListPageAsync
 private constructor(
     private val service: PlaylistServiceAsync,

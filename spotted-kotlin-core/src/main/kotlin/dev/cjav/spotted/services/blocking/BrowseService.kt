@@ -47,12 +47,14 @@ interface BrowseService {
      * Get a list of new album releases featured in Spotify (shown, for example, on a Spotify
      * player’s “Browse” tab).
      */
+    @Deprecated("deprecated")
     fun getNewReleases(
         params: BrowseGetNewReleasesParams = BrowseGetNewReleasesParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): BrowseGetNewReleasesResponse
 
     /** @see getNewReleases */
+    @Deprecated("deprecated")
     fun getNewReleases(requestOptions: RequestOptions): BrowseGetNewReleasesResponse =
         getNewReleases(BrowseGetNewReleasesParams.none(), requestOptions)
 
@@ -91,6 +93,7 @@ interface BrowseService {
          * Returns a raw HTTP response for `get /browse/new-releases`, but is otherwise the same as
          * [BrowseService.getNewReleases].
          */
+        @Deprecated("deprecated")
         @MustBeClosed
         fun getNewReleases(
             params: BrowseGetNewReleasesParams = BrowseGetNewReleasesParams.none(),
@@ -98,6 +101,7 @@ interface BrowseService {
         ): HttpResponseFor<BrowseGetNewReleasesResponse>
 
         /** @see getNewReleases */
+        @Deprecated("deprecated")
         @MustBeClosed
         fun getNewReleases(
             requestOptions: RequestOptions

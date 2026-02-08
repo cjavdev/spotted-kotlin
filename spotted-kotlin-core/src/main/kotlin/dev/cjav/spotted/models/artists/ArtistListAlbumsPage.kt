@@ -9,6 +9,7 @@ import dev.cjav.spotted.services.blocking.ArtistService
 import java.util.Objects
 
 /** @see ArtistService.listAlbums */
+@Deprecated("deprecated")
 class ArtistListAlbumsPage
 private constructor(
     private val service: ArtistService,

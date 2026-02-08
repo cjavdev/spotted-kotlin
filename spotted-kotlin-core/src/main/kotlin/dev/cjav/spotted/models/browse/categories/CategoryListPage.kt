@@ -9,6 +9,7 @@ import dev.cjav.spotted.services.blocking.browse.CategoryService
 import java.util.Objects
 
 /** @see CategoryService.list */
+@Deprecated("deprecated")
 class CategoryListPage
 private constructor(
     private val service: CategoryService,

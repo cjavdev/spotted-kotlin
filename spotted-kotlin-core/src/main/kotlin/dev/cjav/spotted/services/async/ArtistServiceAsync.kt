@@ -51,12 +51,14 @@ interface ArtistServiceAsync {
         retrieve(id, ArtistRetrieveParams.none(), requestOptions)
 
     /** Get Spotify catalog information for several artists based on their Spotify IDs. */
+    @Deprecated("deprecated")
     suspend fun bulkRetrieve(
         params: ArtistBulkRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ArtistBulkRetrieveResponse
 
     /** Get Spotify catalog information about an artist's albums. */
+    @Deprecated("deprecated")
     suspend fun listAlbums(
         id: String,
         params: ArtistListAlbumsParams = ArtistListAlbumsParams.none(),
@@ -64,12 +66,14 @@ interface ArtistServiceAsync {
     ): ArtistListAlbumsPageAsync = listAlbums(params.toBuilder().id(id).build(), requestOptions)
 
     /** @see listAlbums */
+    @Deprecated("deprecated")
     suspend fun listAlbums(
         params: ArtistListAlbumsParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ArtistListAlbumsPageAsync
 
     /** @see listAlbums */
+    @Deprecated("deprecated")
     suspend fun listAlbums(id: String, requestOptions: RequestOptions): ArtistListAlbumsPageAsync =
         listAlbums(id, ArtistListAlbumsParams.none(), requestOptions)
 
@@ -101,6 +105,7 @@ interface ArtistServiceAsync {
         listRelatedArtists(id, ArtistListRelatedArtistsParams.none(), requestOptions)
 
     /** Get Spotify catalog information about an artist's top tracks by country. */
+    @Deprecated("deprecated")
     suspend fun topTracks(
         id: String,
         params: ArtistTopTracksParams = ArtistTopTracksParams.none(),
@@ -108,12 +113,14 @@ interface ArtistServiceAsync {
     ): ArtistTopTracksResponse = topTracks(params.toBuilder().id(id).build(), requestOptions)
 
     /** @see topTracks */
+    @Deprecated("deprecated")
     suspend fun topTracks(
         params: ArtistTopTracksParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ArtistTopTracksResponse
 
     /** @see topTracks */
+    @Deprecated("deprecated")
     suspend fun topTracks(id: String, requestOptions: RequestOptions): ArtistTopTracksResponse =
         topTracks(id, ArtistTopTracksParams.none(), requestOptions)
 
@@ -161,6 +168,7 @@ interface ArtistServiceAsync {
          * Returns a raw HTTP response for `get /artists`, but is otherwise the same as
          * [ArtistServiceAsync.bulkRetrieve].
          */
+        @Deprecated("deprecated")
         @MustBeClosed
         suspend fun bulkRetrieve(
             params: ArtistBulkRetrieveParams,
@@ -171,6 +179,7 @@ interface ArtistServiceAsync {
          * Returns a raw HTTP response for `get /artists/{id}/albums`, but is otherwise the same as
          * [ArtistServiceAsync.listAlbums].
          */
+        @Deprecated("deprecated")
         @MustBeClosed
         suspend fun listAlbums(
             id: String,
@@ -180,6 +189,7 @@ interface ArtistServiceAsync {
             listAlbums(params.toBuilder().id(id).build(), requestOptions)
 
         /** @see listAlbums */
+        @Deprecated("deprecated")
         @MustBeClosed
         suspend fun listAlbums(
             params: ArtistListAlbumsParams,
@@ -187,6 +197,7 @@ interface ArtistServiceAsync {
         ): HttpResponseFor<ArtistListAlbumsPageAsync>
 
         /** @see listAlbums */
+        @Deprecated("deprecated")
         @MustBeClosed
         suspend fun listAlbums(
             id: String,
@@ -228,6 +239,7 @@ interface ArtistServiceAsync {
          * Returns a raw HTTP response for `get /artists/{id}/top-tracks`, but is otherwise the same
          * as [ArtistServiceAsync.topTracks].
          */
+        @Deprecated("deprecated")
         @MustBeClosed
         suspend fun topTracks(
             id: String,
@@ -237,6 +249,7 @@ interface ArtistServiceAsync {
             topTracks(params.toBuilder().id(id).build(), requestOptions)
 
         /** @see topTracks */
+        @Deprecated("deprecated")
         @MustBeClosed
         suspend fun topTracks(
             params: ArtistTopTracksParams,
@@ -244,6 +257,7 @@ interface ArtistServiceAsync {
         ): HttpResponseFor<ArtistTopTracksResponse>
 
         /** @see topTracks */
+        @Deprecated("deprecated")
         @MustBeClosed
         suspend fun topTracks(
             id: String,

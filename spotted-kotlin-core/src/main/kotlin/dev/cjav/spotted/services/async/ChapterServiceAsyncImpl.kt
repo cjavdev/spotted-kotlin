@@ -39,6 +39,7 @@ class ChapterServiceAsyncImpl internal constructor(private val clientOptions: Cl
         // get /chapters/{id}
         withRawResponse().retrieve(params, requestOptions).parse()
 
+    @Deprecated("deprecated")
     override suspend fun bulkRetrieve(
         params: ChapterBulkRetrieveParams,
         requestOptions: RequestOptions,
@@ -92,6 +93,7 @@ class ChapterServiceAsyncImpl internal constructor(private val clientOptions: Cl
         private val bulkRetrieveHandler: Handler<ChapterBulkRetrieveResponse> =
             jsonHandler<ChapterBulkRetrieveResponse>(clientOptions.jsonMapper)
 
+        @Deprecated("deprecated")
         override suspend fun bulkRetrieve(
             params: ChapterBulkRetrieveParams,
             requestOptions: RequestOptions,
