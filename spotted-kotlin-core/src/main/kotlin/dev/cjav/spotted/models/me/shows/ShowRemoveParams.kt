@@ -20,6 +20,7 @@ import java.util.Collections
 import java.util.Objects
 
 /** Delete one or more shows from current Spotify user's library. */
+@Deprecated("deprecated")
 class ShowRemoveParams
 private constructor(
     private val body: Body,

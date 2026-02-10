@@ -20,6 +20,7 @@ import java.util.Collections
 import java.util.Objects
 
 /** Save one or more shows to current Spotify user's library. */
+@Deprecated("deprecated")
 class ShowSaveParams
 private constructor(
     private val body: Body,

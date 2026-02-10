@@ -47,16 +47,19 @@ interface TrackServiceAsync {
     ): List<Boolean>
 
     /** Remove one or more tracks from the current user's 'Your Music' library. */
+    @Deprecated("deprecated")
     suspend fun remove(
         params: TrackRemoveParams = TrackRemoveParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     )
 
     /** @see remove */
+    @Deprecated("deprecated")
     suspend fun remove(requestOptions: RequestOptions) =
         remove(TrackRemoveParams.none(), requestOptions)
 
     /** Save one or more tracks to the current user's 'Your Music' library. */
+    @Deprecated("deprecated")
     suspend fun save(
         params: TrackSaveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -103,6 +106,7 @@ interface TrackServiceAsync {
          * Returns a raw HTTP response for `delete /me/tracks`, but is otherwise the same as
          * [TrackServiceAsync.remove].
          */
+        @Deprecated("deprecated")
         @MustBeClosed
         suspend fun remove(
             params: TrackRemoveParams = TrackRemoveParams.none(),
@@ -110,6 +114,7 @@ interface TrackServiceAsync {
         ): HttpResponse
 
         /** @see remove */
+        @Deprecated("deprecated")
         @MustBeClosed
         suspend fun remove(requestOptions: RequestOptions): HttpResponse =
             remove(TrackRemoveParams.none(), requestOptions)
@@ -118,6 +123,7 @@ interface TrackServiceAsync {
          * Returns a raw HTTP response for `put /me/tracks`, but is otherwise the same as
          * [TrackServiceAsync.save].
          */
+        @Deprecated("deprecated")
         @MustBeClosed
         suspend fun save(
             params: TrackSaveParams,

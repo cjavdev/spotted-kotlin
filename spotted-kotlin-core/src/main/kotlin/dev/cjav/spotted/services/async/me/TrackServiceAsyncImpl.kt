@@ -49,11 +49,13 @@ class TrackServiceAsyncImpl internal constructor(private val clientOptions: Clie
         // get /me/tracks/contains
         withRawResponse().check(params, requestOptions).parse()
 
+    @Deprecated("deprecated")
     override suspend fun remove(params: TrackRemoveParams, requestOptions: RequestOptions) {
         // delete /me/tracks
         withRawResponse().remove(params, requestOptions)
     }
 
+    @Deprecated("deprecated")
     override suspend fun save(params: TrackSaveParams, requestOptions: RequestOptions) {
         // put /me/tracks
         withRawResponse().save(params, requestOptions)
@@ -129,6 +131,7 @@ class TrackServiceAsyncImpl internal constructor(private val clientOptions: Clie
 
         private val removeHandler: Handler<Void?> = emptyHandler()
 
+        @Deprecated("deprecated")
         override suspend fun remove(
             params: TrackRemoveParams,
             requestOptions: RequestOptions,
@@ -150,6 +153,7 @@ class TrackServiceAsyncImpl internal constructor(private val clientOptions: Clie
 
         private val saveHandler: Handler<Void?> = emptyHandler()
 
+        @Deprecated("deprecated")
         override suspend fun save(
             params: TrackSaveParams,
             requestOptions: RequestOptions,

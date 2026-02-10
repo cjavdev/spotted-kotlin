@@ -43,11 +43,13 @@ class AlbumServiceImpl internal constructor(private val clientOptions: ClientOpt
         // get /me/albums/contains
         withRawResponse().check(params, requestOptions).parse()
 
+    @Deprecated("deprecated")
     override fun remove(params: AlbumRemoveParams, requestOptions: RequestOptions) {
         // delete /me/albums
         withRawResponse().remove(params, requestOptions)
     }
 
+    @Deprecated("deprecated")
     override fun save(params: AlbumSaveParams, requestOptions: RequestOptions) {
         // put /me/albums
         withRawResponse().save(params, requestOptions)
@@ -121,6 +123,7 @@ class AlbumServiceImpl internal constructor(private val clientOptions: ClientOpt
 
         private val removeHandler: Handler<Void?> = emptyHandler()
 
+        @Deprecated("deprecated")
         override fun remove(
             params: AlbumRemoveParams,
             requestOptions: RequestOptions,
@@ -142,6 +145,7 @@ class AlbumServiceImpl internal constructor(private val clientOptions: ClientOpt
 
         private val saveHandler: Handler<Void?> = emptyHandler()
 
+        @Deprecated("deprecated")
         override fun save(params: AlbumSaveParams, requestOptions: RequestOptions): HttpResponse {
             val request =
                 HttpRequest.builder()

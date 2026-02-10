@@ -49,11 +49,13 @@ class ShowServiceAsyncImpl internal constructor(private val clientOptions: Clien
         // get /me/shows/contains
         withRawResponse().check(params, requestOptions).parse()
 
+    @Deprecated("deprecated")
     override suspend fun remove(params: ShowRemoveParams, requestOptions: RequestOptions) {
         // delete /me/shows
         withRawResponse().remove(params, requestOptions)
     }
 
+    @Deprecated("deprecated")
     override suspend fun save(params: ShowSaveParams, requestOptions: RequestOptions) {
         // put /me/shows
         withRawResponse().save(params, requestOptions)
@@ -129,6 +131,7 @@ class ShowServiceAsyncImpl internal constructor(private val clientOptions: Clien
 
         private val removeHandler: Handler<Void?> = emptyHandler()
 
+        @Deprecated("deprecated")
         override suspend fun remove(
             params: ShowRemoveParams,
             requestOptions: RequestOptions,
@@ -150,6 +153,7 @@ class ShowServiceAsyncImpl internal constructor(private val clientOptions: Clien
 
         private val saveHandler: Handler<Void?> = emptyHandler()
 
+        @Deprecated("deprecated")
         override suspend fun save(
             params: ShowSaveParams,
             requestOptions: RequestOptions,

@@ -59,12 +59,14 @@ interface EpisodeService {
      * that you discover, in our
      * [developer community forum](https://community.spotify.com/t5/Spotify-for-Developers/bd-p/Spotify_Developer).
      */
+    @Deprecated("deprecated")
     fun remove(
         params: EpisodeRemoveParams = EpisodeRemoveParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     )
 
     /** @see remove */
+    @Deprecated("deprecated")
     fun remove(requestOptions: RequestOptions) = remove(EpisodeRemoveParams.none(), requestOptions)
 
     /**
@@ -73,6 +75,7 @@ interface EpisodeService {
      * that you discover, in our
      * [developer community forum](https://community.spotify.com/t5/Spotify-for-Developers/bd-p/Spotify_Developer).
      */
+    @Deprecated("deprecated")
     fun save(params: EpisodeSaveParams, requestOptions: RequestOptions = RequestOptions.none())
 
     /** A view of [EpisodeService] that provides access to raw HTTP responses for each method. */
@@ -114,6 +117,7 @@ interface EpisodeService {
          * Returns a raw HTTP response for `delete /me/episodes`, but is otherwise the same as
          * [EpisodeService.remove].
          */
+        @Deprecated("deprecated")
         @MustBeClosed
         fun remove(
             params: EpisodeRemoveParams = EpisodeRemoveParams.none(),
@@ -121,6 +125,7 @@ interface EpisodeService {
         ): HttpResponse
 
         /** @see remove */
+        @Deprecated("deprecated")
         @MustBeClosed
         fun remove(requestOptions: RequestOptions): HttpResponse =
             remove(EpisodeRemoveParams.none(), requestOptions)
@@ -129,6 +134,7 @@ interface EpisodeService {
          * Returns a raw HTTP response for `put /me/episodes`, but is otherwise the same as
          * [EpisodeService.save].
          */
+        @Deprecated("deprecated")
         @MustBeClosed
         fun save(
             params: EpisodeSaveParams,

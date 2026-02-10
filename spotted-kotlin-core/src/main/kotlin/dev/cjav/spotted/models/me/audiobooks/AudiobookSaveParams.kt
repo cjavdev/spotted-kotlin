@@ -11,6 +11,7 @@ import dev.cjav.spotted.core.toImmutable
 import java.util.Objects
 
 /** Save one or more audiobooks to the current Spotify user's library. */
+@Deprecated("deprecated")
 class AudiobookSaveParams
 private constructor(
     private val ids: String,

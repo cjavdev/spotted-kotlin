@@ -58,7 +58,6 @@ interface ArtistServiceAsync {
     ): ArtistBulkRetrieveResponse
 
     /** Get Spotify catalog information about an artist's albums. */
-    @Deprecated("deprecated")
     suspend fun listAlbums(
         id: String,
         params: ArtistListAlbumsParams = ArtistListAlbumsParams.none(),
@@ -66,14 +65,12 @@ interface ArtistServiceAsync {
     ): ArtistListAlbumsPageAsync = listAlbums(params.toBuilder().id(id).build(), requestOptions)
 
     /** @see listAlbums */
-    @Deprecated("deprecated")
     suspend fun listAlbums(
         params: ArtistListAlbumsParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ArtistListAlbumsPageAsync
 
     /** @see listAlbums */
-    @Deprecated("deprecated")
     suspend fun listAlbums(id: String, requestOptions: RequestOptions): ArtistListAlbumsPageAsync =
         listAlbums(id, ArtistListAlbumsParams.none(), requestOptions)
 
@@ -179,7 +176,6 @@ interface ArtistServiceAsync {
          * Returns a raw HTTP response for `get /artists/{id}/albums`, but is otherwise the same as
          * [ArtistServiceAsync.listAlbums].
          */
-        @Deprecated("deprecated")
         @MustBeClosed
         suspend fun listAlbums(
             id: String,
@@ -189,7 +185,6 @@ interface ArtistServiceAsync {
             listAlbums(params.toBuilder().id(id).build(), requestOptions)
 
         /** @see listAlbums */
-        @Deprecated("deprecated")
         @MustBeClosed
         suspend fun listAlbums(
             params: ArtistListAlbumsParams,
@@ -197,7 +192,6 @@ interface ArtistServiceAsync {
         ): HttpResponseFor<ArtistListAlbumsPageAsync>
 
         /** @see listAlbums */
-        @Deprecated("deprecated")
         @MustBeClosed
         suspend fun listAlbums(
             id: String,

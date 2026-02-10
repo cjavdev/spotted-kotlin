@@ -26,6 +26,7 @@ import java.util.Objects
  * discover, in our
  * [developer community forum](https://community.spotify.com/t5/Spotify-for-Developers/bd-p/Spotify_Developer).
  */
+@Deprecated("deprecated")
 class EpisodeSaveParams
 private constructor(
     private val body: Body,

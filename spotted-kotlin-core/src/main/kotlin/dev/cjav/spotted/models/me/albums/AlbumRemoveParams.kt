@@ -20,6 +20,7 @@ import java.util.Collections
 import java.util.Objects
 
 /** Remove one or more albums from the current user's 'Your Music' library. */
+@Deprecated("deprecated")
 class AlbumRemoveParams
 private constructor(
     private val body: Body,

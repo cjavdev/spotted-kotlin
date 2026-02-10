@@ -20,6 +20,7 @@ import java.util.Collections
 import java.util.Objects
 
 /** Remove one or more tracks from the current user's 'Your Music' library. */
+@Deprecated("deprecated")
 class TrackRemoveParams
 private constructor(
     private val body: Body,

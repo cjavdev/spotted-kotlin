@@ -20,6 +20,7 @@ import java.util.Collections
 import java.util.Objects
 
 /** Save one or more albums to the current user's 'Your Music' library. */
+@Deprecated("deprecated")
 class AlbumSaveParams
 private constructor(
     private val body: Body,

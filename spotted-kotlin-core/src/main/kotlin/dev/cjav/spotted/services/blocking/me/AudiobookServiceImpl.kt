@@ -49,11 +49,13 @@ class AudiobookServiceImpl internal constructor(private val clientOptions: Clien
         // get /me/audiobooks/contains
         withRawResponse().check(params, requestOptions).parse()
 
+    @Deprecated("deprecated")
     override fun remove(params: AudiobookRemoveParams, requestOptions: RequestOptions) {
         // delete /me/audiobooks
         withRawResponse().remove(params, requestOptions)
     }
 
+    @Deprecated("deprecated")
     override fun save(params: AudiobookSaveParams, requestOptions: RequestOptions) {
         // put /me/audiobooks
         withRawResponse().save(params, requestOptions)
@@ -129,6 +131,7 @@ class AudiobookServiceImpl internal constructor(private val clientOptions: Clien
 
         private val removeHandler: Handler<Void?> = emptyHandler()
 
+        @Deprecated("deprecated")
         override fun remove(
             params: AudiobookRemoveParams,
             requestOptions: RequestOptions,
@@ -150,6 +153,7 @@ class AudiobookServiceImpl internal constructor(private val clientOptions: Clien
 
         private val saveHandler: Handler<Void?> = emptyHandler()
 
+        @Deprecated("deprecated")
         override fun save(
             params: AudiobookSaveParams,
             requestOptions: RequestOptions,

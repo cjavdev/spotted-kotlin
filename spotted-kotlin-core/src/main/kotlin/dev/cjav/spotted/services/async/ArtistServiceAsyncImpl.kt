@@ -54,7 +54,6 @@ class ArtistServiceAsyncImpl internal constructor(private val clientOptions: Cli
         // get /artists
         withRawResponse().bulkRetrieve(params, requestOptions).parse()
 
-    @Deprecated("deprecated")
     override suspend fun listAlbums(
         params: ArtistListAlbumsParams,
         requestOptions: RequestOptions,
@@ -152,7 +151,6 @@ class ArtistServiceAsyncImpl internal constructor(private val clientOptions: Cli
         private val listAlbumsHandler: Handler<ArtistListAlbumsPageResponse> =
             jsonHandler<ArtistListAlbumsPageResponse>(clientOptions.jsonMapper)
 
-        @Deprecated("deprecated")
         override suspend fun listAlbums(
             params: ArtistListAlbumsParams,
             requestOptions: RequestOptions,

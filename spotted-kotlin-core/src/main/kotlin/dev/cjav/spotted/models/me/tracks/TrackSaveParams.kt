@@ -22,6 +22,7 @@ import java.util.Collections
 import java.util.Objects
 
 /** Save one or more tracks to the current user's 'Your Music' library. */
+@Deprecated("deprecated")
 class TrackSaveParams
 private constructor(
     private val body: Body,

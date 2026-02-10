@@ -11,6 +11,7 @@ import dev.cjav.spotted.core.toImmutable
 import java.util.Objects
 
 /** Remove one or more audiobooks from the Spotify user's library. */
+@Deprecated("deprecated")
 class AudiobookRemoveParams
 private constructor(
     private val ids: String,

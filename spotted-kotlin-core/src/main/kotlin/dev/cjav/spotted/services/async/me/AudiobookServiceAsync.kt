@@ -44,12 +44,14 @@ interface AudiobookServiceAsync {
     ): List<Boolean>
 
     /** Remove one or more audiobooks from the Spotify user's library. */
+    @Deprecated("deprecated")
     suspend fun remove(
         params: AudiobookRemoveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     )
 
     /** Save one or more audiobooks to the current Spotify user's library. */
+    @Deprecated("deprecated")
     suspend fun save(
         params: AudiobookSaveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -98,6 +100,7 @@ interface AudiobookServiceAsync {
          * Returns a raw HTTP response for `delete /me/audiobooks`, but is otherwise the same as
          * [AudiobookServiceAsync.remove].
          */
+        @Deprecated("deprecated")
         @MustBeClosed
         suspend fun remove(
             params: AudiobookRemoveParams,
@@ -108,6 +111,7 @@ interface AudiobookServiceAsync {
          * Returns a raw HTTP response for `put /me/audiobooks`, but is otherwise the same as
          * [AudiobookServiceAsync.save].
          */
+        @Deprecated("deprecated")
         @MustBeClosed
         suspend fun save(
             params: AudiobookSaveParams,

@@ -58,7 +58,6 @@ interface ArtistService {
     ): ArtistBulkRetrieveResponse
 
     /** Get Spotify catalog information about an artist's albums. */
-    @Deprecated("deprecated")
     fun listAlbums(
         id: String,
         params: ArtistListAlbumsParams = ArtistListAlbumsParams.none(),
@@ -66,14 +65,12 @@ interface ArtistService {
     ): ArtistListAlbumsPage = listAlbums(params.toBuilder().id(id).build(), requestOptions)
 
     /** @see listAlbums */
-    @Deprecated("deprecated")
     fun listAlbums(
         params: ArtistListAlbumsParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ArtistListAlbumsPage
 
     /** @see listAlbums */
-    @Deprecated("deprecated")
     fun listAlbums(id: String, requestOptions: RequestOptions): ArtistListAlbumsPage =
         listAlbums(id, ArtistListAlbumsParams.none(), requestOptions)
 
@@ -173,7 +170,6 @@ interface ArtistService {
          * Returns a raw HTTP response for `get /artists/{id}/albums`, but is otherwise the same as
          * [ArtistService.listAlbums].
          */
-        @Deprecated("deprecated")
         @MustBeClosed
         fun listAlbums(
             id: String,
@@ -183,7 +179,6 @@ interface ArtistService {
             listAlbums(params.toBuilder().id(id).build(), requestOptions)
 
         /** @see listAlbums */
-        @Deprecated("deprecated")
         @MustBeClosed
         fun listAlbums(
             params: ArtistListAlbumsParams,
@@ -191,7 +186,6 @@ interface ArtistService {
         ): HttpResponseFor<ArtistListAlbumsPage>
 
         /** @see listAlbums */
-        @Deprecated("deprecated")
         @MustBeClosed
         fun listAlbums(
             id: String,

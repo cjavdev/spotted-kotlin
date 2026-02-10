@@ -43,11 +43,13 @@ class TrackServiceImpl internal constructor(private val clientOptions: ClientOpt
         // get /me/tracks/contains
         withRawResponse().check(params, requestOptions).parse()
 
+    @Deprecated("deprecated")
     override fun remove(params: TrackRemoveParams, requestOptions: RequestOptions) {
         // delete /me/tracks
         withRawResponse().remove(params, requestOptions)
     }
 
+    @Deprecated("deprecated")
     override fun save(params: TrackSaveParams, requestOptions: RequestOptions) {
         // put /me/tracks
         withRawResponse().save(params, requestOptions)
@@ -121,6 +123,7 @@ class TrackServiceImpl internal constructor(private val clientOptions: ClientOpt
 
         private val removeHandler: Handler<Void?> = emptyHandler()
 
+        @Deprecated("deprecated")
         override fun remove(
             params: TrackRemoveParams,
             requestOptions: RequestOptions,
@@ -142,6 +145,7 @@ class TrackServiceImpl internal constructor(private val clientOptions: ClientOpt
 
         private val saveHandler: Handler<Void?> = emptyHandler()
 
+        @Deprecated("deprecated")
         override fun save(params: TrackSaveParams, requestOptions: RequestOptions): HttpResponse {
             val request =
                 HttpRequest.builder()

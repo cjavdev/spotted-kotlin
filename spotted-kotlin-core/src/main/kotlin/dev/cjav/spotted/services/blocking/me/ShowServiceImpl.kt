@@ -42,11 +42,13 @@ class ShowServiceImpl internal constructor(private val clientOptions: ClientOpti
         // get /me/shows/contains
         withRawResponse().check(params, requestOptions).parse()
 
+    @Deprecated("deprecated")
     override fun remove(params: ShowRemoveParams, requestOptions: RequestOptions) {
         // delete /me/shows
         withRawResponse().remove(params, requestOptions)
     }
 
+    @Deprecated("deprecated")
     override fun save(params: ShowSaveParams, requestOptions: RequestOptions) {
         // put /me/shows
         withRawResponse().save(params, requestOptions)
@@ -120,6 +122,7 @@ class ShowServiceImpl internal constructor(private val clientOptions: ClientOpti
 
         private val removeHandler: Handler<Void?> = emptyHandler()
 
+        @Deprecated("deprecated")
         override fun remove(
             params: ShowRemoveParams,
             requestOptions: RequestOptions,
@@ -141,6 +144,7 @@ class ShowServiceImpl internal constructor(private val clientOptions: ClientOpti
 
         private val saveHandler: Handler<Void?> = emptyHandler()
 
+        @Deprecated("deprecated")
         override fun save(params: ShowSaveParams, requestOptions: RequestOptions): HttpResponse {
             val request =
                 HttpRequest.builder()

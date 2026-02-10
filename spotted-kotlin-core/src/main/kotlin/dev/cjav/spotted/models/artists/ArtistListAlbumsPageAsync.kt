@@ -9,7 +9,6 @@ import dev.cjav.spotted.services.async.ArtistServiceAsync
 import java.util.Objects
 
 /** @see ArtistServiceAsync.listAlbums */
-@Deprecated("deprecated")
 class ArtistListAlbumsPageAsync
 private constructor(
     private val service: ArtistServiceAsync,

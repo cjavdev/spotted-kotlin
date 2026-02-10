@@ -47,21 +47,25 @@ interface ShowService {
     ): List<Boolean>
 
     /** Delete one or more shows from current Spotify user's library. */
+    @Deprecated("deprecated")
     fun remove(
         params: ShowRemoveParams = ShowRemoveParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     )
 
     /** @see remove */
+    @Deprecated("deprecated")
     fun remove(requestOptions: RequestOptions) = remove(ShowRemoveParams.none(), requestOptions)
 
     /** Save one or more shows to current Spotify user's library. */
+    @Deprecated("deprecated")
     fun save(
         params: ShowSaveParams = ShowSaveParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     )
 
     /** @see save */
+    @Deprecated("deprecated")
     fun save(requestOptions: RequestOptions) = save(ShowSaveParams.none(), requestOptions)
 
     /** A view of [ShowService] that provides access to raw HTTP responses for each method. */
@@ -103,6 +107,7 @@ interface ShowService {
          * Returns a raw HTTP response for `delete /me/shows`, but is otherwise the same as
          * [ShowService.remove].
          */
+        @Deprecated("deprecated")
         @MustBeClosed
         fun remove(
             params: ShowRemoveParams = ShowRemoveParams.none(),
@@ -110,6 +115,7 @@ interface ShowService {
         ): HttpResponse
 
         /** @see remove */
+        @Deprecated("deprecated")
         @MustBeClosed
         fun remove(requestOptions: RequestOptions): HttpResponse =
             remove(ShowRemoveParams.none(), requestOptions)
@@ -118,6 +124,7 @@ interface ShowService {
          * Returns a raw HTTP response for `put /me/shows`, but is otherwise the same as
          * [ShowService.save].
          */
+        @Deprecated("deprecated")
         @MustBeClosed
         fun save(
             params: ShowSaveParams = ShowSaveParams.none(),
@@ -125,6 +132,7 @@ interface ShowService {
         ): HttpResponse
 
         /** @see save */
+        @Deprecated("deprecated")
         @MustBeClosed
         fun save(requestOptions: RequestOptions): HttpResponse =
             save(ShowSaveParams.none(), requestOptions)

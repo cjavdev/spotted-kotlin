@@ -47,22 +47,26 @@ interface AlbumServiceAsync {
     ): List<Boolean>
 
     /** Remove one or more albums from the current user's 'Your Music' library. */
+    @Deprecated("deprecated")
     suspend fun remove(
         params: AlbumRemoveParams = AlbumRemoveParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     )
 
     /** @see remove */
+    @Deprecated("deprecated")
     suspend fun remove(requestOptions: RequestOptions) =
         remove(AlbumRemoveParams.none(), requestOptions)
 
     /** Save one or more albums to the current user's 'Your Music' library. */
+    @Deprecated("deprecated")
     suspend fun save(
         params: AlbumSaveParams = AlbumSaveParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     )
 
     /** @see save */
+    @Deprecated("deprecated")
     suspend fun save(requestOptions: RequestOptions) = save(AlbumSaveParams.none(), requestOptions)
 
     /** A view of [AlbumServiceAsync] that provides access to raw HTTP responses for each method. */
@@ -106,6 +110,7 @@ interface AlbumServiceAsync {
          * Returns a raw HTTP response for `delete /me/albums`, but is otherwise the same as
          * [AlbumServiceAsync.remove].
          */
+        @Deprecated("deprecated")
         @MustBeClosed
         suspend fun remove(
             params: AlbumRemoveParams = AlbumRemoveParams.none(),
@@ -113,6 +118,7 @@ interface AlbumServiceAsync {
         ): HttpResponse
 
         /** @see remove */
+        @Deprecated("deprecated")
         @MustBeClosed
         suspend fun remove(requestOptions: RequestOptions): HttpResponse =
             remove(AlbumRemoveParams.none(), requestOptions)
@@ -121,6 +127,7 @@ interface AlbumServiceAsync {
          * Returns a raw HTTP response for `put /me/albums`, but is otherwise the same as
          * [AlbumServiceAsync.save].
          */
+        @Deprecated("deprecated")
         @MustBeClosed
         suspend fun save(
             params: AlbumSaveParams = AlbumSaveParams.none(),
@@ -128,6 +135,7 @@ interface AlbumServiceAsync {
         ): HttpResponse
 
         /** @see save */
+        @Deprecated("deprecated")
         @MustBeClosed
         suspend fun save(requestOptions: RequestOptions): HttpResponse =
             save(AlbumSaveParams.none(), requestOptions)
