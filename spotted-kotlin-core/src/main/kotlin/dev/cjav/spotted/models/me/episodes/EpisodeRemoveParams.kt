@@ -20,10 +20,10 @@ import java.util.Collections
 import java.util.Objects
 
 /**
- * Remove one or more episodes from the current user's library.<br/> This API endpoint is in
- * __beta__ and could change without warning. Please share any feedback that you have, or issues
- * that you discover, in our
- * [developer community forum](https://community.spotify.com/t5/Spotify-for-Developers/bd-p/Spotify_Developer).
+ * Remove one or more episodes from the current user's library.
+ *
+ * **Note:** This endpoint is deprecated. Use
+ * [Remove Items from Library](/documentation/web-api/reference/remove-library-items) instead.
  */
 @Deprecated("deprecated")
 class EpisodeRemoveParams

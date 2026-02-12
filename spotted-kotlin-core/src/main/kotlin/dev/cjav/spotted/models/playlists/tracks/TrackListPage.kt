@@ -10,6 +10,7 @@ import dev.cjav.spotted.services.blocking.playlists.TrackService
 import java.util.Objects
 
 /** @see TrackService.list */
+@Deprecated("deprecated")
 class TrackListPage
 private constructor(
     private val service: TrackService,

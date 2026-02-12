@@ -10,10 +10,12 @@ import java.util.Objects
 
 /**
  * Check if one or more episodes is already saved in the current Spotify user's 'Your Episodes'
- * library.<br/> This API endpoint is in __beta__ and could change without warning. Please share any
- * feedback that you have, or issues that you discover, in our
- * [developer community forum](https://community.spotify.com/t5/Spotify-for-Developers/bd-p/Spotify_Developer)..
+ * library.
+ *
+ * **Note:** This endpoint is deprecated. Use
+ * [Check User's Saved Items](/documentation/web-api/reference/check-library-contains) instead.
  */
+@Deprecated("deprecated")
 class EpisodeCheckParams
 private constructor(
     private val ids: String,

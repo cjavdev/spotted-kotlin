@@ -40,13 +40,24 @@ interface ShowServiceAsync {
     suspend fun list(requestOptions: RequestOptions): ShowListPageAsync =
         list(ShowListParams.none(), requestOptions)
 
-    /** Check if one or more shows is already saved in the current Spotify user's library. */
+    /**
+     * Check if one or more shows is already saved in the current Spotify user's library.
+     *
+     * **Note:** This endpoint is deprecated. Use
+     * [Check User's Saved Items](/documentation/web-api/reference/check-library-contains) instead.
+     */
+    @Deprecated("deprecated")
     suspend fun check(
         params: ShowCheckParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): List<Boolean>
 
-    /** Delete one or more shows from current Spotify user's library. */
+    /**
+     * Delete one or more shows from current Spotify user's library.
+     *
+     * **Note:** This endpoint is deprecated. Use
+     * [Remove Items from Library](/documentation/web-api/reference/remove-library-items) instead.
+     */
     @Deprecated("deprecated")
     suspend fun remove(
         params: ShowRemoveParams = ShowRemoveParams.none(),
@@ -58,7 +69,12 @@ interface ShowServiceAsync {
     suspend fun remove(requestOptions: RequestOptions) =
         remove(ShowRemoveParams.none(), requestOptions)
 
-    /** Save one or more shows to current Spotify user's library. */
+    /**
+     * Save one or more shows to current Spotify user's library.
+     *
+     * **Note:** This endpoint is deprecated. Use
+     * [Save Items to Library](/documentation/web-api/reference/save-library-items) instead.
+     */
     @Deprecated("deprecated")
     suspend fun save(
         params: ShowSaveParams = ShowSaveParams.none(),
@@ -98,6 +114,7 @@ interface ShowServiceAsync {
          * Returns a raw HTTP response for `get /me/shows/contains`, but is otherwise the same as
          * [ShowServiceAsync.check].
          */
+        @Deprecated("deprecated")
         @MustBeClosed
         suspend fun check(
             params: ShowCheckParams,

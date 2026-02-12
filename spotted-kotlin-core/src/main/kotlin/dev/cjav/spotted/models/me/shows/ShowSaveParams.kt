@@ -19,7 +19,12 @@ import dev.cjav.spotted.errors.SpottedInvalidDataException
 import java.util.Collections
 import java.util.Objects
 
-/** Save one or more shows to current Spotify user's library. */
+/**
+ * Save one or more shows to current Spotify user's library.
+ *
+ * **Note:** This endpoint is deprecated. Use
+ * [Save Items to Library](/documentation/web-api/reference/save-library-items) instead.
+ */
 @Deprecated("deprecated")
 class ShowSaveParams
 private constructor(

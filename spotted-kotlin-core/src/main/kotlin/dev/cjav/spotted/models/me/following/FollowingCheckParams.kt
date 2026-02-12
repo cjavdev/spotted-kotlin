@@ -12,7 +12,13 @@ import dev.cjav.spotted.core.http.QueryParams
 import dev.cjav.spotted.errors.SpottedInvalidDataException
 import java.util.Objects
 
-/** Check to see if the current user is following one or more artists or other Spotify users. */
+/**
+ * Check to see if the current user is following one or more artists or other Spotify users.
+ *
+ * **Note:** This endpoint is deprecated. Use
+ * [Check User's Saved Items](/documentation/web-api/reference/check-library-contains) instead.
+ */
+@Deprecated("deprecated")
 class FollowingCheckParams
 private constructor(
     private val ids: String,

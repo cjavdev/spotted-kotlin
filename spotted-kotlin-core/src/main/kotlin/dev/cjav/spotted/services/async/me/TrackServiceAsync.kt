@@ -40,13 +40,22 @@ interface TrackServiceAsync {
     /**
      * Check if one or more tracks is already saved in the current Spotify user's 'Your Music'
      * library.
+     *
+     * **Note:** This endpoint is deprecated. Use
+     * [Check User's Saved Items](/documentation/web-api/reference/check-library-contains) instead.
      */
+    @Deprecated("deprecated")
     suspend fun check(
         params: TrackCheckParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): List<Boolean>
 
-    /** Remove one or more tracks from the current user's 'Your Music' library. */
+    /**
+     * Remove one or more tracks from the current user's 'Your Music' library.
+     *
+     * **Note:** This endpoint is deprecated. Use
+     * [Remove Items from Library](/documentation/web-api/reference/remove-library-items) instead.
+     */
     @Deprecated("deprecated")
     suspend fun remove(
         params: TrackRemoveParams = TrackRemoveParams.none(),
@@ -58,7 +67,12 @@ interface TrackServiceAsync {
     suspend fun remove(requestOptions: RequestOptions) =
         remove(TrackRemoveParams.none(), requestOptions)
 
-    /** Save one or more tracks to the current user's 'Your Music' library. */
+    /**
+     * Save one or more tracks to the current user's 'Your Music' library.
+     *
+     * **Note:** This endpoint is deprecated. Use
+     * [Save Items to Library](/documentation/web-api/reference/save-library-items) instead.
+     */
     @Deprecated("deprecated")
     suspend fun save(
         params: TrackSaveParams,
@@ -96,6 +110,7 @@ interface TrackServiceAsync {
          * Returns a raw HTTP response for `get /me/tracks/contains`, but is otherwise the same as
          * [TrackServiceAsync.check].
          */
+        @Deprecated("deprecated")
         @MustBeClosed
         suspend fun check(
             params: TrackCheckParams,

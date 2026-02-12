@@ -10,7 +10,11 @@ import java.util.Objects
 
 /**
  * Check if one or more tracks is already saved in the current Spotify user's 'Your Music' library.
+ *
+ * **Note:** This endpoint is deprecated. Use
+ * [Check User's Saved Items](/documentation/web-api/reference/check-library-contains) instead.
  */
+@Deprecated("deprecated")
 class TrackCheckParams
 private constructor(
     private val ids: String,

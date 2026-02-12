@@ -7,12 +7,7 @@ import dev.cjav.spotted.core.http.Headers
 import dev.cjav.spotted.core.http.QueryParams
 import java.util.Objects
 
-/**
- * Get a list of the episodes saved in the current Spotify user's library.<br/> This API endpoint is
- * in __beta__ and could change without warning. Please share any feedback that you have, or issues
- * that you discover, in our
- * [developer community forum](https://community.spotify.com/t5/Spotify-for-Developers/bd-p/Spotify_Developer).
- */
+/** Get a list of the episodes saved in the current Spotify user's library. */
 class EpisodeListParams
 private constructor(
     private val limit: Long?,

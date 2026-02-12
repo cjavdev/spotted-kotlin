@@ -7,7 +7,13 @@ import dev.cjav.spotted.core.http.Headers
 import dev.cjav.spotted.core.http.QueryParams
 import java.util.Objects
 
-/** Check to see if the current user is following a specified playlist. */
+/**
+ * Check to see if the current user is following a specified playlist.
+ *
+ * **Note:** This endpoint is deprecated. Use
+ * [Check User's Saved Items](/documentation/web-api/reference/check-library-contains) instead.
+ */
+@Deprecated("deprecated")
 class FollowerCheckParams
 private constructor(
     private val playlistId: String?,

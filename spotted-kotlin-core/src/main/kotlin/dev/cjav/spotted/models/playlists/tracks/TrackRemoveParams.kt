@@ -20,7 +20,13 @@ import dev.cjav.spotted.errors.SpottedInvalidDataException
 import java.util.Collections
 import java.util.Objects
 
-/** Remove one or more items from a user's playlist. */
+/**
+ * **Deprecated:** Use
+ * [Remove Playlist Items](/documentation/web-api/reference/remove-items-playlist) instead.
+ *
+ * Remove one or more items from a user's playlist.
+ */
+@Deprecated("deprecated")
 class TrackRemoveParams
 private constructor(
     private val playlistId: String?,

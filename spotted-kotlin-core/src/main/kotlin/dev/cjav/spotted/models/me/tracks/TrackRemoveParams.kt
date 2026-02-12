@@ -19,7 +19,12 @@ import dev.cjav.spotted.errors.SpottedInvalidDataException
 import java.util.Collections
 import java.util.Objects
 
-/** Remove one or more tracks from the current user's 'Your Music' library. */
+/**
+ * Remove one or more tracks from the current user's 'Your Music' library.
+ *
+ * **Note:** This endpoint is deprecated. Use
+ * [Remove Items from Library](/documentation/web-api/reference/remove-library-items) instead.
+ */
 @Deprecated("deprecated")
 class TrackRemoveParams
 private constructor(

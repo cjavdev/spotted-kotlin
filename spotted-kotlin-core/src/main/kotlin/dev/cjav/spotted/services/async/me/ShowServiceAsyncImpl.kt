@@ -42,6 +42,7 @@ class ShowServiceAsyncImpl internal constructor(private val clientOptions: Clien
         // get /me/shows
         withRawResponse().list(params, requestOptions).parse()
 
+    @Deprecated("deprecated")
     override suspend fun check(
         params: ShowCheckParams,
         requestOptions: RequestOptions,
@@ -111,6 +112,7 @@ class ShowServiceAsyncImpl internal constructor(private val clientOptions: Clien
         private val checkHandler: Handler<List<Boolean>> =
             jsonHandler<List<Boolean>>(clientOptions.jsonMapper)
 
+        @Deprecated("deprecated")
         override suspend fun check(
             params: ShowCheckParams,
             requestOptions: RequestOptions,

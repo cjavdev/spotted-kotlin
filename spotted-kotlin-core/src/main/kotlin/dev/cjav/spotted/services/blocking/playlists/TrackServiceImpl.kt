@@ -38,6 +38,7 @@ class TrackServiceImpl internal constructor(private val clientOptions: ClientOpt
     override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): TrackService =
         TrackServiceImpl(clientOptions.toBuilder().apply(modifier).build())
 
+    @Deprecated("deprecated")
     override fun update(
         params: TrackUpdateParams,
         requestOptions: RequestOptions,
@@ -45,14 +46,17 @@ class TrackServiceImpl internal constructor(private val clientOptions: ClientOpt
         // put /playlists/{playlist_id}/tracks
         withRawResponse().update(params, requestOptions).parse()
 
+    @Deprecated("deprecated")
     override fun list(params: TrackListParams, requestOptions: RequestOptions): TrackListPage =
         // get /playlists/{playlist_id}/tracks
         withRawResponse().list(params, requestOptions).parse()
 
+    @Deprecated("deprecated")
     override fun add(params: TrackAddParams, requestOptions: RequestOptions): TrackAddResponse =
         // post /playlists/{playlist_id}/tracks
         withRawResponse().add(params, requestOptions).parse()
 
+    @Deprecated("deprecated")
     override fun remove(
         params: TrackRemoveParams,
         requestOptions: RequestOptions,
@@ -74,6 +78,7 @@ class TrackServiceImpl internal constructor(private val clientOptions: ClientOpt
         private val updateHandler: Handler<TrackUpdateResponse> =
             jsonHandler<TrackUpdateResponse>(clientOptions.jsonMapper)
 
+        @Deprecated("deprecated")
         override fun update(
             params: TrackUpdateParams,
             requestOptions: RequestOptions,
@@ -105,6 +110,7 @@ class TrackServiceImpl internal constructor(private val clientOptions: ClientOpt
         private val listHandler: Handler<TrackListPageResponse> =
             jsonHandler<TrackListPageResponse>(clientOptions.jsonMapper)
 
+        @Deprecated("deprecated")
         override fun list(
             params: TrackListParams,
             requestOptions: RequestOptions,
@@ -142,6 +148,7 @@ class TrackServiceImpl internal constructor(private val clientOptions: ClientOpt
         private val addHandler: Handler<TrackAddResponse> =
             jsonHandler<TrackAddResponse>(clientOptions.jsonMapper)
 
+        @Deprecated("deprecated")
         override fun add(
             params: TrackAddParams,
             requestOptions: RequestOptions,
@@ -173,6 +180,7 @@ class TrackServiceImpl internal constructor(private val clientOptions: ClientOpt
         private val removeHandler: Handler<TrackRemoveResponse> =
             jsonHandler<TrackRemoveResponse>(clientOptions.jsonMapper)
 
+        @Deprecated("deprecated")
         override fun remove(
             params: TrackRemoveParams,
             requestOptions: RequestOptions,

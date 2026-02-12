@@ -33,25 +33,44 @@ interface FollowingService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): FollowingBulkRetrieveResponse
 
-    /** Check to see if the current user is following one or more artists or other Spotify users. */
+    /**
+     * Check to see if the current user is following one or more artists or other Spotify users.
+     *
+     * **Note:** This endpoint is deprecated. Use
+     * [Check User's Saved Items](/documentation/web-api/reference/check-library-contains) instead.
+     */
+    @Deprecated("deprecated")
     fun check(
         params: FollowingCheckParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): List<Boolean>
 
-    /** Add the current user as a follower of one or more artists or other Spotify users. */
+    /**
+     * Add the current user as a follower of one or more artists or other Spotify users.
+     *
+     * **Note:** This endpoint is deprecated. Use
+     * [Save Items to Library](/documentation/web-api/reference/save-library-items) instead.
+     */
+    @Deprecated("deprecated")
     fun follow(
         params: FollowingFollowParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     )
 
-    /** Remove the current user as a follower of one or more artists or other Spotify users. */
+    /**
+     * Remove the current user as a follower of one or more artists or other Spotify users.
+     *
+     * **Note:** This endpoint is deprecated. Use
+     * [Remove Items from Library](/documentation/web-api/reference/remove-library-items) instead.
+     */
+    @Deprecated("deprecated")
     fun unfollow(
         params: FollowingUnfollowParams = FollowingUnfollowParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     )
 
     /** @see unfollow */
+    @Deprecated("deprecated")
     fun unfollow(requestOptions: RequestOptions) =
         unfollow(FollowingUnfollowParams.none(), requestOptions)
 
@@ -79,6 +98,7 @@ interface FollowingService {
          * Returns a raw HTTP response for `get /me/following/contains`, but is otherwise the same
          * as [FollowingService.check].
          */
+        @Deprecated("deprecated")
         @MustBeClosed
         fun check(
             params: FollowingCheckParams,
@@ -89,6 +109,7 @@ interface FollowingService {
          * Returns a raw HTTP response for `put /me/following`, but is otherwise the same as
          * [FollowingService.follow].
          */
+        @Deprecated("deprecated")
         @MustBeClosed
         fun follow(
             params: FollowingFollowParams,
@@ -99,6 +120,7 @@ interface FollowingService {
          * Returns a raw HTTP response for `delete /me/following`, but is otherwise the same as
          * [FollowingService.unfollow].
          */
+        @Deprecated("deprecated")
         @MustBeClosed
         fun unfollow(
             params: FollowingUnfollowParams = FollowingUnfollowParams.none(),
@@ -106,6 +128,7 @@ interface FollowingService {
         ): HttpResponse
 
         /** @see unfollow */
+        @Deprecated("deprecated")
         @MustBeClosed
         fun unfollow(requestOptions: RequestOptions): HttpResponse =
             unfollow(FollowingUnfollowParams.none(), requestOptions)

@@ -40,13 +40,22 @@ interface AlbumService {
     /**
      * Check if one or more albums is already saved in the current Spotify user's 'Your Music'
      * library.
+     *
+     * **Note:** This endpoint is deprecated. Use
+     * [Check User's Saved Items](/documentation/web-api/reference/check-library-contains) instead.
      */
+    @Deprecated("deprecated")
     fun check(
         params: AlbumCheckParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): List<Boolean>
 
-    /** Remove one or more albums from the current user's 'Your Music' library. */
+    /**
+     * Remove one or more albums from the current user's 'Your Music' library.
+     *
+     * **Note:** This endpoint is deprecated. Use
+     * [Remove Items from Library](/documentation/web-api/reference/remove-library-items) instead.
+     */
     @Deprecated("deprecated")
     fun remove(
         params: AlbumRemoveParams = AlbumRemoveParams.none(),
@@ -57,7 +66,12 @@ interface AlbumService {
     @Deprecated("deprecated")
     fun remove(requestOptions: RequestOptions) = remove(AlbumRemoveParams.none(), requestOptions)
 
-    /** Save one or more albums to the current user's 'Your Music' library. */
+    /**
+     * Save one or more albums to the current user's 'Your Music' library.
+     *
+     * **Note:** This endpoint is deprecated. Use
+     * [Save Items to Library](/documentation/web-api/reference/save-library-items) instead.
+     */
     @Deprecated("deprecated")
     fun save(
         params: AlbumSaveParams = AlbumSaveParams.none(),
@@ -97,6 +111,7 @@ interface AlbumService {
          * Returns a raw HTTP response for `get /me/albums/contains`, but is otherwise the same as
          * [AlbumService.check].
          */
+        @Deprecated("deprecated")
         @MustBeClosed
         fun check(
             params: AlbumCheckParams,

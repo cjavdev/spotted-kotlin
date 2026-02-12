@@ -19,7 +19,13 @@ import dev.cjav.spotted.errors.SpottedInvalidDataException
 import java.util.Collections
 import java.util.Objects
 
-/** Remove the current user as a follower of one or more artists or other Spotify users. */
+/**
+ * Remove the current user as a follower of one or more artists or other Spotify users.
+ *
+ * **Note:** This endpoint is deprecated. Use
+ * [Remove Items from Library](/documentation/web-api/reference/remove-library-items) instead.
+ */
+@Deprecated("deprecated")
 class FollowingUnfollowParams
 private constructor(
     private val body: Body,

@@ -33,15 +33,18 @@ class FollowerServiceImpl internal constructor(private val clientOptions: Client
     override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): FollowerService =
         FollowerServiceImpl(clientOptions.toBuilder().apply(modifier).build())
 
+    @Deprecated("deprecated")
     override fun check(params: FollowerCheckParams, requestOptions: RequestOptions): List<Boolean> =
         // get /playlists/{playlist_id}/followers/contains
         withRawResponse().check(params, requestOptions).parse()
 
+    @Deprecated("deprecated")
     override fun follow(params: FollowerFollowParams, requestOptions: RequestOptions) {
         // put /playlists/{playlist_id}/followers
         withRawResponse().follow(params, requestOptions)
     }
 
+    @Deprecated("deprecated")
     override fun unfollow(params: FollowerUnfollowParams, requestOptions: RequestOptions) {
         // delete /playlists/{playlist_id}/followers
         withRawResponse().unfollow(params, requestOptions)
@@ -63,6 +66,7 @@ class FollowerServiceImpl internal constructor(private val clientOptions: Client
         private val checkHandler: Handler<List<Boolean>> =
             jsonHandler<List<Boolean>>(clientOptions.jsonMapper)
 
+        @Deprecated("deprecated")
         override fun check(
             params: FollowerCheckParams,
             requestOptions: RequestOptions,
@@ -86,6 +90,7 @@ class FollowerServiceImpl internal constructor(private val clientOptions: Client
 
         private val followHandler: Handler<Void?> = emptyHandler()
 
+        @Deprecated("deprecated")
         override fun follow(
             params: FollowerFollowParams,
             requestOptions: RequestOptions,
@@ -110,6 +115,7 @@ class FollowerServiceImpl internal constructor(private val clientOptions: Client
 
         private val unfollowHandler: Handler<Void?> = emptyHandler()
 
+        @Deprecated("deprecated")
         override fun unfollow(
             params: FollowerUnfollowParams,
             requestOptions: RequestOptions,

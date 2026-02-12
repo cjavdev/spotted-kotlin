@@ -10,6 +10,7 @@ import dev.cjav.spotted.services.async.playlists.TrackServiceAsync
 import java.util.Objects
 
 /** @see TrackServiceAsync.list */
+@Deprecated("deprecated")
 class TrackListPageAsync
 private constructor(
     private val service: TrackServiceAsync,

@@ -8,10 +8,12 @@ import dev.cjav.spotted.core.http.QueryParams
 import java.util.Objects
 
 /**
- * Get full details of the items of a playlist owned by a Spotify user.
+ * **Deprecated:** Use [Get Playlist Items](/documentation/web-api/reference/get-playlists-items)
+ * instead.
  *
- * **Note**: This endpoint is only accessible for playlists owned by the current user.
+ * Get full details of the items of a playlist owned by a Spotify user.
  */
+@Deprecated("deprecated")
 class TrackListParams
 private constructor(
     private val playlistId: String?,

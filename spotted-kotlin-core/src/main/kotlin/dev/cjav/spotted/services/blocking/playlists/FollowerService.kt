@@ -25,7 +25,13 @@ interface FollowerService {
      */
     fun withOptions(modifier: (ClientOptions.Builder) -> Unit): FollowerService
 
-    /** Check to see if the current user is following a specified playlist. */
+    /**
+     * Check to see if the current user is following a specified playlist.
+     *
+     * **Note:** This endpoint is deprecated. Use
+     * [Check User's Saved Items](/documentation/web-api/reference/check-library-contains) instead.
+     */
+    @Deprecated("deprecated")
     fun check(
         playlistId: String,
         params: FollowerCheckParams = FollowerCheckParams.none(),
@@ -33,16 +39,24 @@ interface FollowerService {
     ): List<Boolean> = check(params.toBuilder().playlistId(playlistId).build(), requestOptions)
 
     /** @see check */
+    @Deprecated("deprecated")
     fun check(
         params: FollowerCheckParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): List<Boolean>
 
     /** @see check */
+    @Deprecated("deprecated")
     fun check(playlistId: String, requestOptions: RequestOptions): List<Boolean> =
         check(playlistId, FollowerCheckParams.none(), requestOptions)
 
-    /** Add the current user as a follower of a playlist. */
+    /**
+     * Add the current user as a follower of a playlist.
+     *
+     * **Note:** This endpoint is deprecated. Use
+     * [Save Items to Library](/documentation/web-api/reference/save-library-items) instead.
+     */
+    @Deprecated("deprecated")
     fun follow(
         playlistId: String,
         params: FollowerFollowParams = FollowerFollowParams.none(),
@@ -50,13 +64,21 @@ interface FollowerService {
     ) = follow(params.toBuilder().playlistId(playlistId).build(), requestOptions)
 
     /** @see follow */
+    @Deprecated("deprecated")
     fun follow(params: FollowerFollowParams, requestOptions: RequestOptions = RequestOptions.none())
 
     /** @see follow */
+    @Deprecated("deprecated")
     fun follow(playlistId: String, requestOptions: RequestOptions) =
         follow(playlistId, FollowerFollowParams.none(), requestOptions)
 
-    /** Remove the current user as a follower of a playlist. */
+    /**
+     * Remove the current user as a follower of a playlist.
+     *
+     * **Note:** This endpoint is deprecated. Use
+     * [Remove Items from Library](/documentation/web-api/reference/remove-library-items) instead.
+     */
+    @Deprecated("deprecated")
     fun unfollow(
         playlistId: String,
         params: FollowerUnfollowParams = FollowerUnfollowParams.none(),
@@ -64,12 +86,14 @@ interface FollowerService {
     ) = unfollow(params.toBuilder().playlistId(playlistId).build(), requestOptions)
 
     /** @see unfollow */
+    @Deprecated("deprecated")
     fun unfollow(
         params: FollowerUnfollowParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     )
 
     /** @see unfollow */
+    @Deprecated("deprecated")
     fun unfollow(playlistId: String, requestOptions: RequestOptions) =
         unfollow(playlistId, FollowerUnfollowParams.none(), requestOptions)
 
@@ -87,6 +111,7 @@ interface FollowerService {
          * Returns a raw HTTP response for `get /playlists/{playlist_id}/followers/contains`, but is
          * otherwise the same as [FollowerService.check].
          */
+        @Deprecated("deprecated")
         @MustBeClosed
         fun check(
             playlistId: String,
@@ -96,6 +121,7 @@ interface FollowerService {
             check(params.toBuilder().playlistId(playlistId).build(), requestOptions)
 
         /** @see check */
+        @Deprecated("deprecated")
         @MustBeClosed
         fun check(
             params: FollowerCheckParams,
@@ -103,6 +129,7 @@ interface FollowerService {
         ): HttpResponseFor<List<Boolean>>
 
         /** @see check */
+        @Deprecated("deprecated")
         @MustBeClosed
         fun check(
             playlistId: String,
@@ -114,6 +141,7 @@ interface FollowerService {
          * Returns a raw HTTP response for `put /playlists/{playlist_id}/followers`, but is
          * otherwise the same as [FollowerService.follow].
          */
+        @Deprecated("deprecated")
         @MustBeClosed
         fun follow(
             playlistId: String,
@@ -122,6 +150,7 @@ interface FollowerService {
         ): HttpResponse = follow(params.toBuilder().playlistId(playlistId).build(), requestOptions)
 
         /** @see follow */
+        @Deprecated("deprecated")
         @MustBeClosed
         fun follow(
             params: FollowerFollowParams,
@@ -129,6 +158,7 @@ interface FollowerService {
         ): HttpResponse
 
         /** @see follow */
+        @Deprecated("deprecated")
         @MustBeClosed
         fun follow(playlistId: String, requestOptions: RequestOptions): HttpResponse =
             follow(playlistId, FollowerFollowParams.none(), requestOptions)
@@ -137,6 +167,7 @@ interface FollowerService {
          * Returns a raw HTTP response for `delete /playlists/{playlist_id}/followers`, but is
          * otherwise the same as [FollowerService.unfollow].
          */
+        @Deprecated("deprecated")
         @MustBeClosed
         fun unfollow(
             playlistId: String,
@@ -146,6 +177,7 @@ interface FollowerService {
             unfollow(params.toBuilder().playlistId(playlistId).build(), requestOptions)
 
         /** @see unfollow */
+        @Deprecated("deprecated")
         @MustBeClosed
         fun unfollow(
             params: FollowerUnfollowParams,
@@ -153,6 +185,7 @@ interface FollowerService {
         ): HttpResponse
 
         /** @see unfollow */
+        @Deprecated("deprecated")
         @MustBeClosed
         fun unfollow(playlistId: String, requestOptions: RequestOptions): HttpResponse =
             unfollow(playlistId, FollowerUnfollowParams.none(), requestOptions)

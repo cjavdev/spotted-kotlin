@@ -20,7 +20,13 @@ import dev.cjav.spotted.errors.SpottedInvalidDataException
 import java.util.Collections
 import java.util.Objects
 
-/** Add the current user as a follower of one or more artists or other Spotify users. */
+/**
+ * Add the current user as a follower of one or more artists or other Spotify users.
+ *
+ * **Note:** This endpoint is deprecated. Use
+ * [Save Items to Library](/documentation/web-api/reference/save-library-items) instead.
+ */
+@Deprecated("deprecated")
 class FollowingFollowParams
 private constructor(
     private val body: Body,

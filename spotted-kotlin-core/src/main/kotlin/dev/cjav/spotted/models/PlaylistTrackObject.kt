@@ -31,6 +31,7 @@ private constructor(
     private val addedAt: JsonField<OffsetDateTime>,
     private val addedBy: JsonField<PlaylistUserObject>,
     private val isLocal: JsonField<Boolean>,
+    private val item: JsonField<Item>,
     private val published: JsonField<Boolean>,
     private val track: JsonField<Track>,
     private val additionalProperties: MutableMap<String, JsonValue>,
@@ -45,9 +46,10 @@ private constructor(
         @ExcludeMissing
         addedBy: JsonField<PlaylistUserObject> = JsonMissing.of(),
         @JsonProperty("is_local") @ExcludeMissing isLocal: JsonField<Boolean> = JsonMissing.of(),
+        @JsonProperty("item") @ExcludeMissing item: JsonField<Item> = JsonMissing.of(),
         @JsonProperty("published") @ExcludeMissing published: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("track") @ExcludeMissing track: JsonField<Track> = JsonMissing.of(),
-    ) : this(addedAt, addedBy, isLocal, published, track, mutableMapOf())
+    ) : this(addedAt, addedBy, isLocal, item, published, track, mutableMapOf())
 
     /**
      * The date and time the track or episode was added. _**Note**: some very old playlists may
@@ -77,6 +79,14 @@ private constructor(
     fun isLocal(): Boolean? = isLocal.getNullable("is_local")
 
     /**
+     * Information about the track or episode.
+     *
+     * @throws SpottedInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun item(): Item? = item.getNullable("item")
+
+    /**
      * The playlist's public/private status (if it should be added to the user's profile or not):
      * `true` the playlist will be public, `false` the playlist will be private, `null` the playlist
      * status is not relevant. For more about public/private status, see
@@ -88,12 +98,12 @@ private constructor(
     fun published(): Boolean? = published.getNullable("published")
 
     /**
-     * Information about the track or episode.
+     * **Deprecated:** Use `item` instead. Information about the track or episode.
      *
      * @throws SpottedInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun track(): Track? = track.getNullable("track")
+    @Deprecated("deprecated") fun track(): Track? = track.getNullable("track")
 
     /**
      * Returns the raw JSON value of [addedAt].
@@ -119,6 +129,13 @@ private constructor(
     @JsonProperty("is_local") @ExcludeMissing fun _isLocal(): JsonField<Boolean> = isLocal
 
     /**
+     * Returns the raw JSON value of [item].
+     *
+     * Unlike [item], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("item") @ExcludeMissing fun _item(): JsonField<Item> = item
+
+    /**
      * Returns the raw JSON value of [published].
      *
      * Unlike [published], this method doesn't throw if the JSON field has an unexpected type.
@@ -130,7 +147,10 @@ private constructor(
      *
      * Unlike [track], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("track") @ExcludeMissing fun _track(): JsonField<Track> = track
+    @Deprecated("deprecated")
+    @JsonProperty("track")
+    @ExcludeMissing
+    fun _track(): JsonField<Track> = track
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -156,6 +176,7 @@ private constructor(
         private var addedAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var addedBy: JsonField<PlaylistUserObject> = JsonMissing.of()
         private var isLocal: JsonField<Boolean> = JsonMissing.of()
+        private var item: JsonField<Item> = JsonMissing.of()
         private var published: JsonField<Boolean> = JsonMissing.of()
         private var track: JsonField<Track> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -164,6 +185,7 @@ private constructor(
             addedAt = playlistTrackObject.addedAt
             addedBy = playlistTrackObject.addedBy
             isLocal = playlistTrackObject.isLocal
+            item = playlistTrackObject.item
             published = playlistTrackObject.published
             track = playlistTrackObject.track
             additionalProperties = playlistTrackObject.additionalProperties.toMutableMap()
@@ -213,6 +235,23 @@ private constructor(
          */
         fun isLocal(isLocal: JsonField<Boolean>) = apply { this.isLocal = isLocal }
 
+        /** Information about the track or episode. */
+        fun item(item: Item) = item(JsonField.of(item))
+
+        /**
+         * Sets [Builder.item] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.item] with a well-typed [Item] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun item(item: JsonField<Item>) = apply { this.item = item }
+
+        /** Alias for calling [item] with `Item.ofTrack(track)`. */
+        fun item(track: TrackObject) = item(Item.ofTrack(track))
+
+        /** Alias for calling [item] with `Item.ofEpisode(episode)`. */
+        fun item(episode: EpisodeObject) = item(Item.ofEpisode(episode))
+
         /**
          * The playlist's public/private status (if it should be added to the user's profile or
          * not): `true` the playlist will be public, `false` the playlist will be private, `null`
@@ -230,8 +269,8 @@ private constructor(
          */
         fun published(published: JsonField<Boolean>) = apply { this.published = published }
 
-        /** Information about the track or episode. */
-        fun track(track: Track) = track(JsonField.of(track))
+        /** **Deprecated:** Use `item` instead. Information about the track or episode. */
+        @Deprecated("deprecated") fun track(track: Track) = track(JsonField.of(track))
 
         /**
          * Sets [Builder.track] to an arbitrary JSON value.
@@ -239,12 +278,13 @@ private constructor(
          * You should usually call [Builder.track] with a well-typed [Track] value instead. This
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
-        fun track(track: JsonField<Track>) = apply { this.track = track }
+        @Deprecated("deprecated") fun track(track: JsonField<Track>) = apply { this.track = track }
 
         /** Alias for calling [Builder.track] with `Track.ofTrack(track)`. */
-        fun track(track: TrackObject) = track(Track.ofTrack(track))
+        @Deprecated("deprecated") fun track(track: TrackObject) = track(Track.ofTrack(track))
 
         /** Alias for calling [track] with `Track.ofEpisode(episode)`. */
+        @Deprecated("deprecated")
         fun track(episode: EpisodeObject) = track(Track.ofEpisode(episode))
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -276,6 +316,7 @@ private constructor(
                 addedAt,
                 addedBy,
                 isLocal,
+                item,
                 published,
                 track,
                 additionalProperties.toMutableMap(),
@@ -292,6 +333,7 @@ private constructor(
         addedAt()
         addedBy()?.validate()
         isLocal()
+        item()?.validate()
         published()
         track()?.validate()
         validated = true
@@ -314,10 +356,175 @@ private constructor(
         (if (addedAt.asKnown() == null) 0 else 1) +
             (addedBy.asKnown()?.validity() ?: 0) +
             (if (isLocal.asKnown() == null) 0 else 1) +
+            (item.asKnown()?.validity() ?: 0) +
             (if (published.asKnown() == null) 0 else 1) +
             (track.asKnown()?.validity() ?: 0)
 
     /** Information about the track or episode. */
+    @JsonDeserialize(using = Item.Deserializer::class)
+    @JsonSerialize(using = Item.Serializer::class)
+    class Item
+    private constructor(
+        private val track: TrackObject? = null,
+        private val episode: EpisodeObject? = null,
+        private val _json: JsonValue? = null,
+    ) {
+
+        fun track(): TrackObject? = track
+
+        fun episode(): EpisodeObject? = episode
+
+        fun isTrack(): Boolean = track != null
+
+        fun isEpisode(): Boolean = episode != null
+
+        fun asTrack(): TrackObject = track.getOrThrow("track")
+
+        fun asEpisode(): EpisodeObject = episode.getOrThrow("episode")
+
+        fun _json(): JsonValue? = _json
+
+        fun <T> accept(visitor: Visitor<T>): T =
+            when {
+                track != null -> visitor.visitTrack(track)
+                episode != null -> visitor.visitEpisode(episode)
+                else -> visitor.unknown(_json)
+            }
+
+        private var validated: Boolean = false
+
+        fun validate(): Item = apply {
+            if (validated) {
+                return@apply
+            }
+
+            accept(
+                object : Visitor<Unit> {
+                    override fun visitTrack(track: TrackObject) {
+                        track.validate()
+                    }
+
+                    override fun visitEpisode(episode: EpisodeObject) {
+                        episode.validate()
+                    }
+                }
+            )
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: SpottedInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        internal fun validity(): Int =
+            accept(
+                object : Visitor<Int> {
+                    override fun visitTrack(track: TrackObject) = track.validity()
+
+                    override fun visitEpisode(episode: EpisodeObject) = episode.validity()
+
+                    override fun unknown(json: JsonValue?) = 0
+                }
+            )
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Item && track == other.track && episode == other.episode
+        }
+
+        override fun hashCode(): Int = Objects.hash(track, episode)
+
+        override fun toString(): String =
+            when {
+                track != null -> "Item{track=$track}"
+                episode != null -> "Item{episode=$episode}"
+                _json != null -> "Item{_unknown=$_json}"
+                else -> throw IllegalStateException("Invalid Item")
+            }
+
+        companion object {
+
+            fun ofTrack(track: TrackObject) = Item(track = track)
+
+            fun ofEpisode(episode: EpisodeObject) = Item(episode = episode)
+        }
+
+        /** An interface that defines how to map each variant of [Item] to a value of type [T]. */
+        interface Visitor<out T> {
+
+            fun visitTrack(track: TrackObject): T
+
+            fun visitEpisode(episode: EpisodeObject): T
+
+            /**
+             * Maps an unknown variant of [Item] to a value of type [T].
+             *
+             * An instance of [Item] can contain an unknown variant if it was deserialized from data
+             * that doesn't match any known variant. For example, if the SDK is on an older version
+             * than the API, then the API may respond with new variants that the SDK is unaware of.
+             *
+             * @throws SpottedInvalidDataException in the default implementation.
+             */
+            fun unknown(json: JsonValue?): T {
+                throw SpottedInvalidDataException("Unknown Item: $json")
+            }
+        }
+
+        internal class Deserializer : BaseDeserializer<Item>(Item::class) {
+
+            override fun ObjectCodec.deserialize(node: JsonNode): Item {
+                val json = JsonValue.fromJsonNode(node)
+                val type = json.asObject()?.get("type")?.asString()
+
+                when (type) {
+                    "track" -> {
+                        return tryDeserialize(node, jacksonTypeRef<TrackObject>())?.let {
+                            Item(track = it, _json = json)
+                        } ?: Item(_json = json)
+                    }
+                    "episode" -> {
+                        return tryDeserialize(node, jacksonTypeRef<EpisodeObject>())?.let {
+                            Item(episode = it, _json = json)
+                        } ?: Item(_json = json)
+                    }
+                }
+
+                return Item(_json = json)
+            }
+        }
+
+        internal class Serializer : BaseSerializer<Item>(Item::class) {
+
+            override fun serialize(
+                value: Item,
+                generator: JsonGenerator,
+                provider: SerializerProvider,
+            ) {
+                when {
+                    value.track != null -> generator.writeObject(value.track)
+                    value.episode != null -> generator.writeObject(value.episode)
+                    value._json != null -> generator.writeObject(value._json)
+                    else -> throw IllegalStateException("Invalid Item")
+                }
+            }
+        }
+    }
+
+    /** **Deprecated:** Use `item` instead. Information about the track or episode. */
+    @Deprecated("deprecated")
     @JsonDeserialize(using = Track.Deserializer::class)
     @JsonSerialize(using = Track.Serializer::class)
     class Track
@@ -490,17 +697,18 @@ private constructor(
             addedAt == other.addedAt &&
             addedBy == other.addedBy &&
             isLocal == other.isLocal &&
+            item == other.item &&
             published == other.published &&
             track == other.track &&
             additionalProperties == other.additionalProperties
     }
 
     private val hashCode: Int by lazy {
-        Objects.hash(addedAt, addedBy, isLocal, published, track, additionalProperties)
+        Objects.hash(addedAt, addedBy, isLocal, item, published, track, additionalProperties)
     }
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "PlaylistTrackObject{addedAt=$addedAt, addedBy=$addedBy, isLocal=$isLocal, published=$published, track=$track, additionalProperties=$additionalProperties}"
+        "PlaylistTrackObject{addedAt=$addedAt, addedBy=$addedBy, isLocal=$isLocal, item=$item, published=$published, track=$track, additionalProperties=$additionalProperties}"
 }

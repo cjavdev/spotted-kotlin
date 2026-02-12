@@ -42,6 +42,7 @@ class AlbumServiceAsyncImpl internal constructor(private val clientOptions: Clie
         // get /me/albums
         withRawResponse().list(params, requestOptions).parse()
 
+    @Deprecated("deprecated")
     override suspend fun check(
         params: AlbumCheckParams,
         requestOptions: RequestOptions,
@@ -111,6 +112,7 @@ class AlbumServiceAsyncImpl internal constructor(private val clientOptions: Clie
         private val checkHandler: Handler<List<Boolean>> =
             jsonHandler<List<Boolean>>(clientOptions.jsonMapper)
 
+        @Deprecated("deprecated")
         override suspend fun check(
             params: AlbumCheckParams,
             requestOptions: RequestOptions,
