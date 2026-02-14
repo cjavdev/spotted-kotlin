@@ -116,7 +116,7 @@ private constructor(
      * @throws SpottedInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun albumGroup(): AlbumGroup = albumGroup.getRequired("album_group")
+    @Deprecated("deprecated") fun albumGroup(): AlbumGroup = albumGroup.getRequired("album_group")
 
     /**
      * The type of the album.
@@ -256,6 +256,7 @@ private constructor(
      *
      * Unlike [albumGroup], this method doesn't throw if the JSON field has an unexpected type.
      */
+    @Deprecated("deprecated")
     @JsonProperty("album_group")
     @ExcludeMissing
     fun _albumGroup(): JsonField<AlbumGroup> = albumGroup
@@ -456,6 +457,7 @@ private constructor(
         fun id(id: JsonField<String>) = apply { this.id = id }
 
         /** This field describes the relationship between the artist and the album. */
+        @Deprecated("deprecated")
         fun albumGroup(albumGroup: AlbumGroup) = albumGroup(JsonField.of(albumGroup))
 
         /**
@@ -465,6 +467,7 @@ private constructor(
          * instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
+        @Deprecated("deprecated")
         fun albumGroup(albumGroup: JsonField<AlbumGroup>) = apply { this.albumGroup = albumGroup }
 
         /** The type of the album. */
@@ -830,6 +833,7 @@ private constructor(
             (restrictions.asKnown()?.validity() ?: 0)
 
     /** This field describes the relationship between the artist and the album. */
+    @Deprecated("deprecated")
     class AlbumGroup @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
