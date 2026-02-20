@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 
 internal class UserServiceTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun retrieveProfile() {
         val client = SpottedOkHttpClient.builder().accessToken("My Access Token").build()

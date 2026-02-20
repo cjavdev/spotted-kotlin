@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test
 
 internal class FollowerServiceTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun check() {
         val client = SpottedOkHttpClient.builder().accessToken("My Access Token").build()
@@ -24,7 +24,7 @@ internal class FollowerServiceTest {
         )
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun follow() {
         val client = SpottedOkHttpClient.builder().accessToken("My Access Token").build()
@@ -38,7 +38,7 @@ internal class FollowerServiceTest {
         )
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun unfollow() {
         val client = SpottedOkHttpClient.builder().accessToken("My Access Token").build()

@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test
 
 internal class TrackServiceTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun retrieve() {
         val client = SpottedOkHttpClient.builder().accessToken("My Access Token").build()
@@ -24,7 +24,7 @@ internal class TrackServiceTest {
         trackObject.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun bulkRetrieve() {
         val client = SpottedOkHttpClient.builder().accessToken("My Access Token").build()

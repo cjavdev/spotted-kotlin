@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 
 internal class AudioFeatureServiceAsyncTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     suspend fun retrieve() {
         val client = SpottedOkHttpClientAsync.builder().accessToken("My Access Token").build()
@@ -20,7 +20,7 @@ internal class AudioFeatureServiceAsyncTest {
         audioFeature.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     suspend fun bulkRetrieve() {
         val client = SpottedOkHttpClientAsync.builder().accessToken("My Access Token").build()

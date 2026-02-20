@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 
 internal class TopServiceTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun listTopArtists() {
         val client = SpottedOkHttpClient.builder().accessToken("My Access Token").build()
@@ -19,7 +19,7 @@ internal class TopServiceTest {
         page.response().validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun listTopTracks() {
         val client = SpottedOkHttpClient.builder().accessToken("My Access Token").build()

@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 
 internal class RecommendationServiceTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun get() {
         val client = SpottedOkHttpClient.builder().accessToken("My Access Token").build()
@@ -71,7 +71,7 @@ internal class RecommendationServiceTest {
         recommendation.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun listAvailableGenreSeeds() {
         val client = SpottedOkHttpClient.builder().accessToken("My Access Token").build()

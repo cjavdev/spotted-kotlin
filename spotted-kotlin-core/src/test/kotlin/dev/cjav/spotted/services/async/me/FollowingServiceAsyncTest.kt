@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test
 
 internal class FollowingServiceAsyncTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     suspend fun bulkRetrieve() {
         val client = SpottedOkHttpClientAsync.builder().accessToken("My Access Token").build()
@@ -30,7 +30,7 @@ internal class FollowingServiceAsyncTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     suspend fun check() {
         val client = SpottedOkHttpClientAsync.builder().accessToken("My Access Token").build()
@@ -44,7 +44,7 @@ internal class FollowingServiceAsyncTest {
         )
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     suspend fun follow() {
         val client = SpottedOkHttpClientAsync.builder().accessToken("My Access Token").build()
@@ -55,7 +55,7 @@ internal class FollowingServiceAsyncTest {
         )
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     suspend fun unfollow() {
         val client = SpottedOkHttpClientAsync.builder().accessToken("My Access Token").build()

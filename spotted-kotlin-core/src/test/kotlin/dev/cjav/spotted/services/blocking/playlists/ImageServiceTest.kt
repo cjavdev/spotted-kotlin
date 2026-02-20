@@ -33,7 +33,7 @@ internal class ImageServiceTest {
         assertThat(image.body()).hasContent("abc")
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
         val client = SpottedOkHttpClient.builder().accessToken("My Access Token").build()

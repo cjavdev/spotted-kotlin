@@ -20,7 +20,7 @@ import org.junit.jupiter.api.Test
 
 internal class PlayerServiceAsyncTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     suspend fun getCurrentlyPlaying() {
         val client = SpottedOkHttpClientAsync.builder().accessToken("My Access Token").build()
@@ -37,7 +37,7 @@ internal class PlayerServiceAsyncTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     suspend fun getDevices() {
         val client = SpottedOkHttpClientAsync.builder().accessToken("My Access Token").build()
@@ -48,7 +48,7 @@ internal class PlayerServiceAsyncTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     suspend fun getState() {
         val client = SpottedOkHttpClientAsync.builder().accessToken("My Access Token").build()
@@ -65,7 +65,7 @@ internal class PlayerServiceAsyncTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     suspend fun listRecentlyPlayed() {
         val client = SpottedOkHttpClientAsync.builder().accessToken("My Access Token").build()
@@ -76,7 +76,7 @@ internal class PlayerServiceAsyncTest {
         page.response().validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     suspend fun pausePlayback() {
         val client = SpottedOkHttpClientAsync.builder().accessToken("My Access Token").build()
@@ -89,7 +89,7 @@ internal class PlayerServiceAsyncTest {
         )
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     suspend fun seekToPosition() {
         val client = SpottedOkHttpClientAsync.builder().accessToken("My Access Token").build()
@@ -103,7 +103,7 @@ internal class PlayerServiceAsyncTest {
         )
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     suspend fun setRepeatMode() {
         val client = SpottedOkHttpClientAsync.builder().accessToken("My Access Token").build()
@@ -117,7 +117,7 @@ internal class PlayerServiceAsyncTest {
         )
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     suspend fun setVolume() {
         val client = SpottedOkHttpClientAsync.builder().accessToken("My Access Token").build()
@@ -131,7 +131,7 @@ internal class PlayerServiceAsyncTest {
         )
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     suspend fun skipNext() {
         val client = SpottedOkHttpClientAsync.builder().accessToken("My Access Token").build()
@@ -144,7 +144,7 @@ internal class PlayerServiceAsyncTest {
         )
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     suspend fun skipPrevious() {
         val client = SpottedOkHttpClientAsync.builder().accessToken("My Access Token").build()
@@ -157,7 +157,7 @@ internal class PlayerServiceAsyncTest {
         )
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     suspend fun startPlayback() {
         val client = SpottedOkHttpClientAsync.builder().accessToken("My Access Token").build()
@@ -179,7 +179,7 @@ internal class PlayerServiceAsyncTest {
         )
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     suspend fun toggleShuffle() {
         val client = SpottedOkHttpClientAsync.builder().accessToken("My Access Token").build()
@@ -193,7 +193,7 @@ internal class PlayerServiceAsyncTest {
         )
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     suspend fun transfer() {
         val client = SpottedOkHttpClientAsync.builder().accessToken("My Access Token").build()

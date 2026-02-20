@@ -20,7 +20,7 @@ import org.junit.jupiter.api.Test
 
 internal class PlayerServiceTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun getCurrentlyPlaying() {
         val client = SpottedOkHttpClient.builder().accessToken("My Access Token").build()
@@ -37,7 +37,7 @@ internal class PlayerServiceTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun getDevices() {
         val client = SpottedOkHttpClient.builder().accessToken("My Access Token").build()
@@ -48,7 +48,7 @@ internal class PlayerServiceTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun getState() {
         val client = SpottedOkHttpClient.builder().accessToken("My Access Token").build()
@@ -65,7 +65,7 @@ internal class PlayerServiceTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun listRecentlyPlayed() {
         val client = SpottedOkHttpClient.builder().accessToken("My Access Token").build()
@@ -76,7 +76,7 @@ internal class PlayerServiceTest {
         page.response().validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun pausePlayback() {
         val client = SpottedOkHttpClient.builder().accessToken("My Access Token").build()
@@ -89,7 +89,7 @@ internal class PlayerServiceTest {
         )
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun seekToPosition() {
         val client = SpottedOkHttpClient.builder().accessToken("My Access Token").build()
@@ -103,7 +103,7 @@ internal class PlayerServiceTest {
         )
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun setRepeatMode() {
         val client = SpottedOkHttpClient.builder().accessToken("My Access Token").build()
@@ -117,7 +117,7 @@ internal class PlayerServiceTest {
         )
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun setVolume() {
         val client = SpottedOkHttpClient.builder().accessToken("My Access Token").build()
@@ -131,7 +131,7 @@ internal class PlayerServiceTest {
         )
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun skipNext() {
         val client = SpottedOkHttpClient.builder().accessToken("My Access Token").build()
@@ -144,7 +144,7 @@ internal class PlayerServiceTest {
         )
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun skipPrevious() {
         val client = SpottedOkHttpClient.builder().accessToken("My Access Token").build()
@@ -157,7 +157,7 @@ internal class PlayerServiceTest {
         )
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun startPlayback() {
         val client = SpottedOkHttpClient.builder().accessToken("My Access Token").build()
@@ -179,7 +179,7 @@ internal class PlayerServiceTest {
         )
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun toggleShuffle() {
         val client = SpottedOkHttpClient.builder().accessToken("My Access Token").build()
@@ -193,7 +193,7 @@ internal class PlayerServiceTest {
         )
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun transfer() {
         val client = SpottedOkHttpClient.builder().accessToken("My Access Token").build()

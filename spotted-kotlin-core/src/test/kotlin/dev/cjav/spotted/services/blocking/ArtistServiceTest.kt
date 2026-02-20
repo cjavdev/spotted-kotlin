@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test
 
 internal class ArtistServiceTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun retrieve() {
         val client = SpottedOkHttpClient.builder().accessToken("My Access Token").build()
@@ -21,7 +21,7 @@ internal class ArtistServiceTest {
         artistObject.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun bulkRetrieve() {
         val client = SpottedOkHttpClient.builder().accessToken("My Access Token").build()
@@ -37,7 +37,7 @@ internal class ArtistServiceTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun listAlbums() {
         val client = SpottedOkHttpClient.builder().accessToken("My Access Token").build()
@@ -48,7 +48,7 @@ internal class ArtistServiceTest {
         page.response().validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun listRelatedArtists() {
         val client = SpottedOkHttpClient.builder().accessToken("My Access Token").build()
@@ -59,7 +59,7 @@ internal class ArtistServiceTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun topTracks() {
         val client = SpottedOkHttpClient.builder().accessToken("My Access Token").build()
