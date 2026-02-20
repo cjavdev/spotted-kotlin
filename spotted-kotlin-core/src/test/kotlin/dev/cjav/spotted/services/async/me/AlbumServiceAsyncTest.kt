@@ -2,26 +2,19 @@
 
 package dev.cjav.spotted.services.async.me
 
-import dev.cjav.spotted.TestServerExtension
 import dev.cjav.spotted.client.okhttp.SpottedOkHttpClientAsync
 import dev.cjav.spotted.models.me.albums.AlbumCheckParams
 import dev.cjav.spotted.models.me.albums.AlbumRemoveParams
 import dev.cjav.spotted.models.me.albums.AlbumSaveParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class AlbumServiceAsyncTest {
 
     @Disabled("Prism tests are disabled")
     @Test
     suspend fun list() {
-        val client =
-            SpottedOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("My Access Token")
-                .build()
+        val client = SpottedOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val albumServiceAsync = client.me().albums()
 
         val page = albumServiceAsync.list()
@@ -32,11 +25,7 @@ internal class AlbumServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     suspend fun check() {
-        val client =
-            SpottedOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("My Access Token")
-                .build()
+        val client = SpottedOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val albumServiceAsync = client.me().albums()
 
         albumServiceAsync.check(
@@ -49,11 +38,7 @@ internal class AlbumServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     suspend fun remove() {
-        val client =
-            SpottedOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("My Access Token")
-                .build()
+        val client = SpottedOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val albumServiceAsync = client.me().albums()
 
         albumServiceAsync.remove(
@@ -64,11 +49,7 @@ internal class AlbumServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     suspend fun save() {
-        val client =
-            SpottedOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("My Access Token")
-                .build()
+        val client = SpottedOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val albumServiceAsync = client.me().albums()
 
         albumServiceAsync.save(AlbumSaveParams.builder().addId("string").published(true).build())

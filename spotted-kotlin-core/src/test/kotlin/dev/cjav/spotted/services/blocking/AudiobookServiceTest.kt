@@ -2,25 +2,18 @@
 
 package dev.cjav.spotted.services.blocking
 
-import dev.cjav.spotted.TestServerExtension
 import dev.cjav.spotted.client.okhttp.SpottedOkHttpClient
 import dev.cjav.spotted.models.audiobooks.AudiobookBulkRetrieveParams
 import dev.cjav.spotted.models.audiobooks.AudiobookRetrieveParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class AudiobookServiceTest {
 
     @Disabled("Prism tests are disabled")
     @Test
     fun retrieve() {
-        val client =
-            SpottedOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("My Access Token")
-                .build()
+        val client = SpottedOkHttpClient.builder().accessToken("My Access Token").build()
         val audiobookService = client.audiobooks()
 
         val audiobook =
@@ -34,11 +27,7 @@ internal class AudiobookServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun bulkRetrieve() {
-        val client =
-            SpottedOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("My Access Token")
-                .build()
+        val client = SpottedOkHttpClient.builder().accessToken("My Access Token").build()
         val audiobookService = client.audiobooks()
 
         val response =
@@ -55,11 +44,7 @@ internal class AudiobookServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun listChapters() {
-        val client =
-            SpottedOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("My Access Token")
-                .build()
+        val client = SpottedOkHttpClient.builder().accessToken("My Access Token").build()
         val audiobookService = client.audiobooks()
 
         val page = audiobookService.listChapters("7iHfbu1YPACw6oZPAFJtqe")

@@ -2,23 +2,16 @@
 
 package dev.cjav.spotted.services.blocking.me
 
-import dev.cjav.spotted.TestServerExtension
 import dev.cjav.spotted.client.okhttp.SpottedOkHttpClient
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class PlaylistServiceTest {
 
     @Disabled("Prism tests are disabled")
     @Test
     fun list() {
-        val client =
-            SpottedOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("My Access Token")
-                .build()
+        val client = SpottedOkHttpClient.builder().accessToken("My Access Token").build()
         val playlistService = client.me().playlists()
 
         val page = playlistService.list()

@@ -2,25 +2,18 @@
 
 package dev.cjav.spotted.services.async
 
-import dev.cjav.spotted.TestServerExtension
 import dev.cjav.spotted.client.okhttp.SpottedOkHttpClientAsync
 import dev.cjav.spotted.models.audiobooks.AudiobookBulkRetrieveParams
 import dev.cjav.spotted.models.audiobooks.AudiobookRetrieveParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class AudiobookServiceAsyncTest {
 
     @Disabled("Prism tests are disabled")
     @Test
     suspend fun retrieve() {
-        val client =
-            SpottedOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("My Access Token")
-                .build()
+        val client = SpottedOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val audiobookServiceAsync = client.audiobooks()
 
         val audiobook =
@@ -34,11 +27,7 @@ internal class AudiobookServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     suspend fun bulkRetrieve() {
-        val client =
-            SpottedOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("My Access Token")
-                .build()
+        val client = SpottedOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val audiobookServiceAsync = client.audiobooks()
 
         val response =
@@ -55,11 +44,7 @@ internal class AudiobookServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     suspend fun listChapters() {
-        val client =
-            SpottedOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("My Access Token")
-                .build()
+        val client = SpottedOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val audiobookServiceAsync = client.audiobooks()
 
         val page = audiobookServiceAsync.listChapters("7iHfbu1YPACw6oZPAFJtqe")

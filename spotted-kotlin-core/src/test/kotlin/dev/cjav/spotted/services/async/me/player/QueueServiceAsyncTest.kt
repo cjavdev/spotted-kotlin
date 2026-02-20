@@ -2,24 +2,17 @@
 
 package dev.cjav.spotted.services.async.me.player
 
-import dev.cjav.spotted.TestServerExtension
 import dev.cjav.spotted.client.okhttp.SpottedOkHttpClientAsync
 import dev.cjav.spotted.models.me.player.queue.QueueAddParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class QueueServiceAsyncTest {
 
     @Disabled("Prism tests are disabled")
     @Test
     suspend fun add() {
-        val client =
-            SpottedOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("My Access Token")
-                .build()
+        val client = SpottedOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val queueServiceAsync = client.me().player().queue()
 
         queueServiceAsync.add(
@@ -33,11 +26,7 @@ internal class QueueServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     suspend fun get() {
-        val client =
-            SpottedOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("My Access Token")
-                .build()
+        val client = SpottedOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val queueServiceAsync = client.me().player().queue()
 
         val queue = queueServiceAsync.get()

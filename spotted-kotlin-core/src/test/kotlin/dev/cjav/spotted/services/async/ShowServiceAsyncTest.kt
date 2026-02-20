@@ -2,25 +2,18 @@
 
 package dev.cjav.spotted.services.async
 
-import dev.cjav.spotted.TestServerExtension
 import dev.cjav.spotted.client.okhttp.SpottedOkHttpClientAsync
 import dev.cjav.spotted.models.shows.ShowBulkRetrieveParams
 import dev.cjav.spotted.models.shows.ShowRetrieveParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class ShowServiceAsyncTest {
 
     @Disabled("Prism tests are disabled")
     @Test
     suspend fun retrieve() {
-        val client =
-            SpottedOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("My Access Token")
-                .build()
+        val client = SpottedOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val showServiceAsync = client.shows()
 
         val show =
@@ -34,11 +27,7 @@ internal class ShowServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     suspend fun bulkRetrieve() {
-        val client =
-            SpottedOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("My Access Token")
-                .build()
+        val client = SpottedOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val showServiceAsync = client.shows()
 
         val response =
@@ -55,11 +44,7 @@ internal class ShowServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     suspend fun listEpisodes() {
-        val client =
-            SpottedOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("My Access Token")
-                .build()
+        val client = SpottedOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val showServiceAsync = client.shows()
 
         val page = showServiceAsync.listEpisodes("38bS44xjbVVZ3No3ByF1dJ")

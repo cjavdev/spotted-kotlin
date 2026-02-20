@@ -2,25 +2,18 @@
 
 package dev.cjav.spotted.services.blocking.browse
 
-import dev.cjav.spotted.TestServerExtension
 import dev.cjav.spotted.client.okhttp.SpottedOkHttpClient
 import dev.cjav.spotted.models.browse.categories.CategoryGetPlaylistsParams
 import dev.cjav.spotted.models.browse.categories.CategoryRetrieveParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class CategoryServiceTest {
 
     @Disabled("Prism tests are disabled")
     @Test
     fun retrieve() {
-        val client =
-            SpottedOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("My Access Token")
-                .build()
+        val client = SpottedOkHttpClient.builder().accessToken("My Access Token").build()
         val categoryService = client.browse().categories()
 
         val category =
@@ -34,11 +27,7 @@ internal class CategoryServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun list() {
-        val client =
-            SpottedOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("My Access Token")
-                .build()
+        val client = SpottedOkHttpClient.builder().accessToken("My Access Token").build()
         val categoryService = client.browse().categories()
 
         val page = categoryService.list()
@@ -49,11 +38,7 @@ internal class CategoryServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun getPlaylists() {
-        val client =
-            SpottedOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("My Access Token")
-                .build()
+        val client = SpottedOkHttpClient.builder().accessToken("My Access Token").build()
         val categoryService = client.browse().categories()
 
         val response =

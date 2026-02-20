@@ -2,24 +2,17 @@
 
 package dev.cjav.spotted.services.blocking.me.player
 
-import dev.cjav.spotted.TestServerExtension
 import dev.cjav.spotted.client.okhttp.SpottedOkHttpClient
 import dev.cjav.spotted.models.me.player.queue.QueueAddParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class QueueServiceTest {
 
     @Disabled("Prism tests are disabled")
     @Test
     fun add() {
-        val client =
-            SpottedOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("My Access Token")
-                .build()
+        val client = SpottedOkHttpClient.builder().accessToken("My Access Token").build()
         val queueService = client.me().player().queue()
 
         queueService.add(
@@ -33,11 +26,7 @@ internal class QueueServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun get() {
-        val client =
-            SpottedOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("My Access Token")
-                .build()
+        val client = SpottedOkHttpClient.builder().accessToken("My Access Token").build()
         val queueService = client.me().player().queue()
 
         val queue = queueService.get()

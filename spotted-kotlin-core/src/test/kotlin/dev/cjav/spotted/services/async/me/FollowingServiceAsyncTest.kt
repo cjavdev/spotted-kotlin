@@ -2,7 +2,6 @@
 
 package dev.cjav.spotted.services.async.me
 
-import dev.cjav.spotted.TestServerExtension
 import dev.cjav.spotted.client.okhttp.SpottedOkHttpClientAsync
 import dev.cjav.spotted.models.me.following.FollowingBulkRetrieveParams
 import dev.cjav.spotted.models.me.following.FollowingCheckParams
@@ -10,19 +9,13 @@ import dev.cjav.spotted.models.me.following.FollowingFollowParams
 import dev.cjav.spotted.models.me.following.FollowingUnfollowParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class FollowingServiceAsyncTest {
 
     @Disabled("Prism tests are disabled")
     @Test
     suspend fun bulkRetrieve() {
-        val client =
-            SpottedOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("My Access Token")
-                .build()
+        val client = SpottedOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val followingServiceAsync = client.me().following()
 
         val response =
@@ -40,11 +33,7 @@ internal class FollowingServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     suspend fun check() {
-        val client =
-            SpottedOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("My Access Token")
-                .build()
+        val client = SpottedOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val followingServiceAsync = client.me().following()
 
         followingServiceAsync.check(
@@ -58,11 +47,7 @@ internal class FollowingServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     suspend fun follow() {
-        val client =
-            SpottedOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("My Access Token")
-                .build()
+        val client = SpottedOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val followingServiceAsync = client.me().following()
 
         followingServiceAsync.follow(
@@ -73,11 +58,7 @@ internal class FollowingServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     suspend fun unfollow() {
-        val client =
-            SpottedOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("My Access Token")
-                .build()
+        val client = SpottedOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val followingServiceAsync = client.me().following()
 
         followingServiceAsync.unfollow(

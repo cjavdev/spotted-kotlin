@@ -2,25 +2,18 @@
 
 package dev.cjav.spotted.services.blocking
 
-import dev.cjav.spotted.TestServerExtension
 import dev.cjav.spotted.client.okhttp.SpottedOkHttpClient
 import dev.cjav.spotted.models.artists.ArtistBulkRetrieveParams
 import dev.cjav.spotted.models.artists.ArtistTopTracksParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class ArtistServiceTest {
 
     @Disabled("Prism tests are disabled")
     @Test
     fun retrieve() {
-        val client =
-            SpottedOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("My Access Token")
-                .build()
+        val client = SpottedOkHttpClient.builder().accessToken("My Access Token").build()
         val artistService = client.artists()
 
         val artistObject = artistService.retrieve("0TnOYISbd1XYRBk9myaseg")
@@ -31,11 +24,7 @@ internal class ArtistServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun bulkRetrieve() {
-        val client =
-            SpottedOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("My Access Token")
-                .build()
+        val client = SpottedOkHttpClient.builder().accessToken("My Access Token").build()
         val artistService = client.artists()
 
         val response =
@@ -51,11 +40,7 @@ internal class ArtistServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun listAlbums() {
-        val client =
-            SpottedOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("My Access Token")
-                .build()
+        val client = SpottedOkHttpClient.builder().accessToken("My Access Token").build()
         val artistService = client.artists()
 
         val page = artistService.listAlbums("0TnOYISbd1XYRBk9myaseg")
@@ -66,11 +51,7 @@ internal class ArtistServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun listRelatedArtists() {
-        val client =
-            SpottedOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("My Access Token")
-                .build()
+        val client = SpottedOkHttpClient.builder().accessToken("My Access Token").build()
         val artistService = client.artists()
 
         val response = artistService.listRelatedArtists("0TnOYISbd1XYRBk9myaseg")
@@ -81,11 +62,7 @@ internal class ArtistServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun topTracks() {
-        val client =
-            SpottedOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("My Access Token")
-                .build()
+        val client = SpottedOkHttpClient.builder().accessToken("My Access Token").build()
         val artistService = client.artists()
 
         val response =

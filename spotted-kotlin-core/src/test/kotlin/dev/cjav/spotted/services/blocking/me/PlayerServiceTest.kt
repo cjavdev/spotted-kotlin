@@ -2,7 +2,6 @@
 
 package dev.cjav.spotted.services.blocking.me
 
-import dev.cjav.spotted.TestServerExtension
 import dev.cjav.spotted.client.okhttp.SpottedOkHttpClient
 import dev.cjav.spotted.core.JsonValue
 import dev.cjav.spotted.models.me.player.PlayerGetCurrentlyPlayingParams
@@ -18,19 +17,13 @@ import dev.cjav.spotted.models.me.player.PlayerToggleShuffleParams
 import dev.cjav.spotted.models.me.player.PlayerTransferParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class PlayerServiceTest {
 
     @Disabled("Prism tests are disabled")
     @Test
     fun getCurrentlyPlaying() {
-        val client =
-            SpottedOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("My Access Token")
-                .build()
+        val client = SpottedOkHttpClient.builder().accessToken("My Access Token").build()
         val playerService = client.me().player()
 
         val response =
@@ -47,11 +40,7 @@ internal class PlayerServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun getDevices() {
-        val client =
-            SpottedOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("My Access Token")
-                .build()
+        val client = SpottedOkHttpClient.builder().accessToken("My Access Token").build()
         val playerService = client.me().player()
 
         val response = playerService.getDevices()
@@ -62,11 +51,7 @@ internal class PlayerServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun getState() {
-        val client =
-            SpottedOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("My Access Token")
-                .build()
+        val client = SpottedOkHttpClient.builder().accessToken("My Access Token").build()
         val playerService = client.me().player()
 
         val response =
@@ -83,11 +68,7 @@ internal class PlayerServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun listRecentlyPlayed() {
-        val client =
-            SpottedOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("My Access Token")
-                .build()
+        val client = SpottedOkHttpClient.builder().accessToken("My Access Token").build()
         val playerService = client.me().player()
 
         val page = playerService.listRecentlyPlayed()
@@ -98,11 +79,7 @@ internal class PlayerServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun pausePlayback() {
-        val client =
-            SpottedOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("My Access Token")
-                .build()
+        val client = SpottedOkHttpClient.builder().accessToken("My Access Token").build()
         val playerService = client.me().player()
 
         playerService.pausePlayback(
@@ -115,11 +92,7 @@ internal class PlayerServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun seekToPosition() {
-        val client =
-            SpottedOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("My Access Token")
-                .build()
+        val client = SpottedOkHttpClient.builder().accessToken("My Access Token").build()
         val playerService = client.me().player()
 
         playerService.seekToPosition(
@@ -133,11 +106,7 @@ internal class PlayerServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun setRepeatMode() {
-        val client =
-            SpottedOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("My Access Token")
-                .build()
+        val client = SpottedOkHttpClient.builder().accessToken("My Access Token").build()
         val playerService = client.me().player()
 
         playerService.setRepeatMode(
@@ -151,11 +120,7 @@ internal class PlayerServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun setVolume() {
-        val client =
-            SpottedOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("My Access Token")
-                .build()
+        val client = SpottedOkHttpClient.builder().accessToken("My Access Token").build()
         val playerService = client.me().player()
 
         playerService.setVolume(
@@ -169,11 +134,7 @@ internal class PlayerServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun skipNext() {
-        val client =
-            SpottedOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("My Access Token")
-                .build()
+        val client = SpottedOkHttpClient.builder().accessToken("My Access Token").build()
         val playerService = client.me().player()
 
         playerService.skipNext(
@@ -186,11 +147,7 @@ internal class PlayerServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun skipPrevious() {
-        val client =
-            SpottedOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("My Access Token")
-                .build()
+        val client = SpottedOkHttpClient.builder().accessToken("My Access Token").build()
         val playerService = client.me().player()
 
         playerService.skipPrevious(
@@ -203,11 +160,7 @@ internal class PlayerServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun startPlayback() {
-        val client =
-            SpottedOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("My Access Token")
-                .build()
+        val client = SpottedOkHttpClient.builder().accessToken("My Access Token").build()
         val playerService = client.me().player()
 
         playerService.startPlayback(
@@ -229,11 +182,7 @@ internal class PlayerServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun toggleShuffle() {
-        val client =
-            SpottedOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("My Access Token")
-                .build()
+        val client = SpottedOkHttpClient.builder().accessToken("My Access Token").build()
         val playerService = client.me().player()
 
         playerService.toggleShuffle(
@@ -247,11 +196,7 @@ internal class PlayerServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun transfer() {
-        val client =
-            SpottedOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("My Access Token")
-                .build()
+        val client = SpottedOkHttpClient.builder().accessToken("My Access Token").build()
         val playerService = client.me().player()
 
         playerService.transfer(
