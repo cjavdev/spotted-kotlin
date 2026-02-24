@@ -72,6 +72,7 @@ class ImageServiceAsyncImpl internal constructor(private val clientOptions: Clie
                     .method(HttpMethod.PUT)
                     .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("playlists", params._pathParam(0), "images")
+                    .putHeader("Accept", "application/binary")
                     .apply { params._body()?.let { body(json(clientOptions.jsonMapper, it)) } }
                     .build()
                     .prepareAsync(clientOptions, params)
