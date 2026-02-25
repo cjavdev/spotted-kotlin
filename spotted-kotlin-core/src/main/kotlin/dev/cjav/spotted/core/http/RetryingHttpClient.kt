@@ -1,3 +1,5 @@
+// File generated from our OpenAPI spec by Stainless.
+
 package dev.cjav.spotted.core.http
 
 import dev.cjav.spotted.core.DefaultSleeper
