@@ -28,7 +28,7 @@ internal class ImageServiceTest {
         val imageService = client.playlists().images()
         stubFor(put(anyUrl()).willReturn(ok().withBody("abc")))
 
-        val image = imageService.update("3cEYpjA9oz9GiPac4AsH4n", "some content")
+        val image = imageService.update("3cEYpjA9oz9GiPac4AsH4n", "Example data")
 
         assertThat(image.body()).hasContent("abc")
     }

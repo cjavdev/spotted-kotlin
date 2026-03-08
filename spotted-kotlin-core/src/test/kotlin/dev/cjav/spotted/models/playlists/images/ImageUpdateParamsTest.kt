@@ -11,7 +11,7 @@ internal class ImageUpdateParamsTest {
     fun create() {
         ImageUpdateParams.builder()
             .playlistId("3cEYpjA9oz9GiPac4AsH4n")
-            .body("some content")
+            .body("Example data")
             .build()
     }
 
@@ -20,7 +20,7 @@ internal class ImageUpdateParamsTest {
         val params =
             ImageUpdateParams.builder()
                 .playlistId("3cEYpjA9oz9GiPac4AsH4n")
-                .body("some content")
+                .body("Example data")
                 .build()
 
         assertThat(params._pathParam(0)).isEqualTo("3cEYpjA9oz9GiPac4AsH4n")
@@ -33,11 +33,11 @@ internal class ImageUpdateParamsTest {
         val params =
             ImageUpdateParams.builder()
                 .playlistId("3cEYpjA9oz9GiPac4AsH4n")
-                .body("some content")
+                .body("Example data")
                 .build()
 
         val body = params._body()
 
-        assertThat(body).isEqualTo("some content")
+        assertThat(body).isEqualTo("Example data")
     }
 }

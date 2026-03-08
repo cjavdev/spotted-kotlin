@@ -194,7 +194,7 @@ import dev.cjav.spotted.core.http.HttpResponse
 import dev.cjav.spotted.models.playlists.images.ImageUpdateParams
 
 val image: HttpResponse = client.playlists().images().update(
-  "3cEYpjA9oz9GiPac4AsH4n", "some content"
+  "3cEYpjA9oz9GiPac4AsH4n", "Example data"
 )
 ```
 
