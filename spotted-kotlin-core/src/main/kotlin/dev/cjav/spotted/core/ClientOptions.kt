@@ -367,6 +367,14 @@ private constructor(
             (System.getProperty("spotted.spotifyAccessToken")
                     ?: System.getenv("SPOTIFY_ACCESS_TOKEN"))
                 ?.let { accessToken(it) }
+            System.getenv("SPOTTED_CUSTOM_HEADERS")?.let { customHeadersEnv ->
+                for (line in customHeadersEnv.split("\n")) {
+                    val colon = line.indexOf(':')
+                    if (colon >= 0) {
+                        putHeader(line.substring(0, colon).trim(), line.substring(colon + 1).trim())
+                    }
+                }
+            }
         }
 
         /**
