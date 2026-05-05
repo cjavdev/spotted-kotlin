@@ -5,10 +5,14 @@ package dev.cjav.spotted.errors
 import dev.cjav.spotted.core.JsonValue
 import dev.cjav.spotted.core.checkRequired
 import dev.cjav.spotted.core.http.Headers
+import dev.cjav.spotted.core.jsonMapper
 
 class NotFoundException
 private constructor(private val headers: Headers, private val body: JsonValue, cause: Throwable?) :
-    SpottedServiceException("404: $body", cause) {
+    SpottedServiceException(
+        "404: ${if (body.isMissing()) "Unknown" else jsonMapper().writeValueAsString(body)}",
+        cause,
+    ) {
 
     override fun statusCode(): Int = 404
 

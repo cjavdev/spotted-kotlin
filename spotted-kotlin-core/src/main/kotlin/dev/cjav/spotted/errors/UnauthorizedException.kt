@@ -5,10 +5,14 @@ package dev.cjav.spotted.errors
 import dev.cjav.spotted.core.JsonValue
 import dev.cjav.spotted.core.checkRequired
 import dev.cjav.spotted.core.http.Headers
+import dev.cjav.spotted.core.jsonMapper
 
 class UnauthorizedException
 private constructor(private val headers: Headers, private val body: JsonValue, cause: Throwable?) :
-    SpottedServiceException("401: $body", cause) {
+    SpottedServiceException(
+        "401: ${if (body.isMissing()) "Unknown" else jsonMapper().writeValueAsString(body)}",
+        cause,
+    ) {
 
     override fun statusCode(): Int = 401
 

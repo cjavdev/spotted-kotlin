@@ -5,6 +5,7 @@ package dev.cjav.spotted.errors
 import dev.cjav.spotted.core.JsonValue
 import dev.cjav.spotted.core.checkRequired
 import dev.cjav.spotted.core.http.Headers
+import dev.cjav.spotted.core.jsonMapper
 
 class InternalServerException
 private constructor(
@@ -12,7 +13,11 @@ private constructor(
     private val headers: Headers,
     private val body: JsonValue,
     cause: Throwable?,
-) : SpottedServiceException("$statusCode: $body", cause) {
+) :
+    SpottedServiceException(
+        "$statusCode: ${if (body.isMissing()) "Unknown" else jsonMapper().writeValueAsString(body)}",
+        cause,
+    ) {
 
     override fun statusCode(): Int = statusCode
 
