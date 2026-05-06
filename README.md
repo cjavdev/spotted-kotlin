@@ -437,6 +437,21 @@ val client: SpottedClient = SpottedOkHttpClient.builder()
     .build()
 ```
 
+If the proxy responds with `407 Proxy Authentication Required`, supply credentials by also configuring `proxyAuthenticator`:
+
+```kotlin
+import dev.cjav.spotted.client.SpottedClient
+import dev.cjav.spotted.client.okhttp.SpottedOkHttpClient
+import dev.cjav.spotted.core.http.ProxyAuthenticator
+
+val client: SpottedClient = SpottedOkHttpClient.builder()
+    .fromEnv()
+    .proxy(...)
+    // Or a custom implementation of `ProxyAuthenticator`.
+    .proxyAuthenticator(ProxyAuthenticator.basic("username", "password"))
+    .build()
+```
+
 ### Connection pooling
 
 To customize the underlying OkHttp connection pool, configure the client using the `maxIdleConnections` and `keepAliveDuration` methods:
