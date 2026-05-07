@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.json.JsonMapper
 import dev.cjav.spotted.client.SpottedClientAsync
 import dev.cjav.spotted.client.SpottedClientAsyncImpl
 import dev.cjav.spotted.core.ClientOptions
+import dev.cjav.spotted.core.LogLevel
 import dev.cjav.spotted.core.Sleeper
 import dev.cjav.spotted.core.Timeout
 import dev.cjav.spotted.core.http.Headers
@@ -233,6 +234,15 @@ class SpottedOkHttpClientAsync private constructor() {
          * Defaults to 2.
          */
         fun maxRetries(maxRetries: Int) = apply { clientOptions.maxRetries(maxRetries) }
+
+        /**
+         * The level at which to log request and response information.
+         *
+         * [fromEnv] will set the level from environment variables. See [LogLevel.fromEnv].
+         *
+         * Defaults to [LogLevel.fromEnv].
+         */
+        fun logLevel(logLevel: LogLevel) = apply { clientOptions.logLevel(logLevel) }
 
         fun accessToken(accessToken: String) = apply { clientOptions.accessToken(accessToken) }
 
