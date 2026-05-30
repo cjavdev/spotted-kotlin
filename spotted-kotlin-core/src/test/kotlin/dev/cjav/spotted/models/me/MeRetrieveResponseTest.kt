@@ -17,6 +17,7 @@ internal class MeRetrieveResponseTest {
         val meRetrieveResponse =
             MeRetrieveResponse.builder()
                 .id("id")
+                .accountId("aB3dE5fG7h")
                 .country("country")
                 .displayName("display_name")
                 .email("email")
@@ -47,6 +48,7 @@ internal class MeRetrieveResponseTest {
                 .build()
 
         assertThat(meRetrieveResponse.id()).isEqualTo("id")
+        assertThat(meRetrieveResponse.accountId()).isEqualTo("aB3dE5fG7h")
         assertThat(meRetrieveResponse.country()).isEqualTo("country")
         assertThat(meRetrieveResponse.displayName()).isEqualTo("display_name")
         assertThat(meRetrieveResponse.email()).isEqualTo("email")
@@ -84,6 +86,7 @@ internal class MeRetrieveResponseTest {
         val meRetrieveResponse =
             MeRetrieveResponse.builder()
                 .id("id")
+                .accountId("aB3dE5fG7h")
                 .country("country")
                 .displayName("display_name")
                 .email("email")
