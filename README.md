@@ -3,7 +3,7 @@
 <!-- x-release-please-start-version -->
 
 [![Maven Central](https://img.shields.io/maven-central/v/dev.cjav.spotted/spotted-kotlin)](https://central.sonatype.com/artifact/dev.cjav.spotted/spotted-kotlin/0.2.0)
-[![javadoc](https://javadoc.io/badge2/dev.cjav.spotted/spotted-kotlin/0.2.0/javadoc.svg)](https://javadoc.io/doc/dev.cjav.spotted/spotted-kotlin/0.2.0)
+[![javadoc](https://javadoc.io/badge2/dev.cjav.spotted/spotted-kotlin/javadoc.svg)](https://javadoc.io/doc/dev.cjav.spotted/spotted-kotlin/0.2.0)
 
 <!-- x-release-please-end -->
 
